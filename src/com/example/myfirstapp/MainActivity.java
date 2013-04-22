@@ -33,7 +33,7 @@ public class MainActivity extends ListActivity {
  	public void onClick(View view) {
  	  @SuppressWarnings("unchecked")
  	  ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
- 	  if(adapter.getCount()<0){
+ 	  if(adapter.getCount()<1){
  		  Character character = datasource.createCharacter("Danny McSizzle");
  		  adapter.add(character);
  		  adapter.notifyDataSetChanged();
