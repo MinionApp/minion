@@ -2,8 +2,9 @@ package com.example.myfirstapp;
 
 import java.util.List;
 
-import android.os.Bundle;
 import android.app.ListActivity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -65,4 +66,13 @@ public class MainActivity extends ListActivity {
         return true;
     }
     
+    public void goHome(View view) {
+    	Intent intent = new Intent(this, HomeActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void gotoSQLiteTest(View view) {
+    	Intent intent = new Intent(this, SQLiteTestActivity.class);
+    	startActivity(intent);
+    }
 }
