@@ -55,15 +55,17 @@ public class HomeActivity extends Activity {
 	}
 	
 	public void gotoCharacters(View view) {
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, SQLiteTestActivity.class);
 		startActivity(intent);
 	}
 	
+	// Activity not yet created, will direct to main activity instead
 	public void gotoGroups(View view) {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 
+	// Activity not yet created, will direct to main activity instead
 	public void gotoSettings(View view) {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);

@@ -66,13 +66,8 @@ public class MainActivity extends ListActivity {
         return true;
     }
     
-    public void goHome(View view) {
+    public void gotoHome(View view) {
     	Intent intent = new Intent(this, HomeActivity.class);
-    	startActivity(intent);
-    }
-    
-    public void gotoSQLiteTest(View view) {
-    	Intent intent = new Intent(this, SQLiteTestActivity.class);
     	startActivity(intent);
     }
 }

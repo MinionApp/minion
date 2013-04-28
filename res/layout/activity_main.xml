@@ -10,22 +10,13 @@
     tools:context=".MainActivity" >
     
     <Button
-        android:id="@+id/buttontestsqlite"
+        android:id="@+id/buttonhome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/welcome_message"
         android:layout_centerHorizontal="true"
-        android:text="@string/title_activity_sqlite_test"
-        android:onClick="gotoSQLiteTest" />
-    
-    <Button
-        android:id="@+id/buttonhome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttontestsqlite"
-        android:layout_centerHorizontal="true"
         android:text="@string/title_activity_home"
-        android:onClick="goHome" />
+        android:onClick="gotoHome" />
 
     <Button
         android:id="@+id/button1"
