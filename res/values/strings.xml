@@ -17,5 +17,25 @@
     <string name="button_remove_character">Remove Character</string>
     <string name="character_list">Characters:</string>
     <string name="testing">I am just testing this right now!</string>
-
+	<string name="login_button">Login</string>
+	<string name="login_title">Login</string>
+	<string name="username_text">Username</string>
+	<string name="password_text">Password</string>
+	<string name="signup_clickable_text">Sign Up</string>
+    <string name="signup_text">Don\'t have an account?</string>
+    <string name="forgot_password_clickable_text">Forgot password?</string>
+    <string name="signup_title">Signup</string>
+    <string name="first_name_signup_input">First Name</string>
+    <string name="last_name_signup_input">Last Name</string>
+    <string name="email_signup_input">Email</string>
+    <string name="username_signup_input">Username</string>
+    <string name="password_signup_input">Password</string>
+    <string name="finish_signup_button">Sign me up</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_signup">Signup</string>
+    <string name="title_activity_password_recovery">Password Recovery</string>
+    <string name="recover_password_button">Recover Password</string>
+	<string name="cancel_button">Cancel</string>
+    <string name="password_recovery_sent_message">An password recovery email has been sent. You should receive it shortly.</string>
+	<string name="return_to_login_clickable_text">(Return to Login)</string>
 </resources>

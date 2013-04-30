@@ -70,4 +70,9 @@ public class MainActivity extends ListActivity {
     	Intent intent = new Intent(this, HomeActivity.class);
     	startActivity(intent);
     }
+    
+    public void gotoLogin(View view) {
+    	Intent intent2 = new Intent(this, LoginActivity.class);
+    	startActivity(intent2);
+    }
 }
