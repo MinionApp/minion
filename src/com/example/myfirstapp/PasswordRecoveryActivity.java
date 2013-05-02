@@ -55,7 +55,7 @@ public class PasswordRecoveryActivity extends Activity {
 	}
 	
 	public void gotoEmailHasBeenSent(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, PasswordRecoveryCompletedActivity.class);
 		startActivity(intent);
 	}
 	

@@ -9,48 +9,49 @@
     tools:context=".LoginActivity" >
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_marginTop="30dp"
+        android:layout_alignLeft="@+id/usernameInput"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
         android:text="@string/username_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_below="@+id/editText2"
-        android:layout_marginTop="16dp"
-        android:text="@string/password_text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/usernameInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/username"
         android:layout_centerHorizontal="true"
         android:ems="10" 
         android:inputType="text" />
-
-    <EditText
-        android:id="@+id/editText1"
+    
+    <TextView
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/usernameInput"
+        android:layout_below="@+id/usernameInput"
+        android:layout_marginTop="16dp"
+        android:text="@string/password_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textPassword" />
 
     <CheckedTextView
-        android:id="@+id/checkedTextView1"
+        android:id="@+id/signupClickableText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button1"
-        android:layout_below="@+id/button1"
+        android:layout_alignRight="@+id/loginButton"
+        android:layout_below="@+id/loginButton"
         android:layout_marginTop="48dp"
         android:text="@string/signup_clickable_text"
         android:onClick="gotoSignup"
@@ -62,29 +63,29 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkedTextView1"
-        android:layout_alignBottom="@+id/checkedTextView1"
-        android:layout_alignLeft="@+id/checkedTextView2"
+        android:layout_alignBaseline="@+id/signupClickableText"
+        android:layout_alignBottom="@+id/signupClickableText"
+        android:layout_alignLeft="@+id/forgotPasswordClickableText"
         android:text="@string/signup_text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <CheckedTextView
-        android:id="@+id/checkedTextView2"
+        android:id="@+id/forgotPasswordClickableText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignBottom="@+id/loginButton"
+        android:layout_alignLeft="@+id/username"
         android:text="@string/forgot_password_clickable_text"
         android:onClick="gotoPasswordRecovery"
         android:clickable="true"
         android:textColor="#0000FF" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignRight="@+id/passwordInput"
+        android:layout_below="@+id/passwordInput"
         android:text="@string/login_button" 
         android:onClick="gotoHomepage"/>
     
