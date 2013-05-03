@@ -9,13 +9,23 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 public class LoginActivity extends Activity {
+	private boolean keepLoggedIn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+        Intent intent;
+        if(SaveSharedPreference.getUserName(LoginActivity.this).length() == 0) {
+    		setContentView(R.layout.activity_login);
+        } else {
+        	intent = new Intent(this, HomeActivity.class);
+    	    startActivity(intent);
+    	    finish();
+        }
 		// Show the Up button in the action bar.
 		//setupActionBar();
 	}
@@ -56,6 +66,11 @@ public class LoginActivity extends Activity {
 	
 	public void gotoHomepage(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
+		if(keepLoggedIn) {
+			EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
+			String username = usernameEditText.getText().toString().trim();
+			SaveSharedPreference.setUserName(LoginActivity.this, username);
+		}
 		startActivity(intent);
 	}
 	
@@ -67,5 +82,10 @@ public class LoginActivity extends Activity {
 	public void gotoPasswordRecovery(View view) {
 		Intent intent = new Intent(this, PasswordRecoveryActivity.class);
 		startActivity(intent);
+	}
+	
+	public void keepLoggedIn(View view) {
+	    // Is the view now checked?
+		keepLoggedIn = ((CheckBox) view).isChecked();
 	}
 }

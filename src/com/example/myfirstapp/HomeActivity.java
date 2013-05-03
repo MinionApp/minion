@@ -59,6 +59,12 @@ public class HomeActivity extends Activity {
 		startActivity(intent);
 	}
 	
+	public void logout(View view) {
+		Intent intent = new Intent(this, LoginActivity.class);
+		SaveSharedPreference.setUserName(HomeActivity.this, "");
+		startActivity(intent);
+	}
+	
 	// Activity not yet created, will direct to main activity instead
 	public void gotoGroups(View view) {
 		Intent intent = new Intent(this, MainActivity.class);

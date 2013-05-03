@@ -41,4 +41,6 @@
 	    one lowercase character, one uppercase character, one special character (@#$%^&#038;+=) and contain no spaces.</string>
 	<string name="password_confirmation">Confirm Password</string>
 	<string name="non_matching_passwords_message">The provided passwords do not match.</string>
+	<string name="keep_logged_in">Remember me</string>
+	<string name="button_logout">Logout</string>
 </resources>
