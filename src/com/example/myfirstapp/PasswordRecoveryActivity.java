@@ -70,12 +70,11 @@ public class PasswordRecoveryActivity extends Activity {
 	}
 	
 	/**
-	 * Responds to the recover password button click and goes to the password recovery
-	 * completed page.
+	 * Responds to the recover password button click and goes to the security question page.
 	 * @param view The current view
 	 */
-	public void gotoEmailHasBeenSent(View view) {
-        Intent intent = new Intent(this, PasswordRecoveryCompletedActivity.class);
+	public void gotoSecurityQuestion(View view) {
+        Intent intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
 		startActivity(intent);
 	}
 	

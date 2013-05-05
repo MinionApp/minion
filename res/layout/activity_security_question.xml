@@ -6,48 +6,53 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".PasswordRecoveryActivity" >
-    
+    tools:context=".SecurityQuestionActivity" >
+
     <TextView
-        android:id="@+id/password"
+        android:id="@+id/securityQuestionPrompt"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_password_input"
+        android:layout_alignParentTop="true"
+        android:text="@string/security_question_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
-    <EditText
-        android:id="@+id/passwordInput"
+    <Spinner
+        android:id="@+id/securityQuestionSpinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:inputType="textPassword" />
+        android:layout_below="@+id/securityQuestionPrompt"
+        android:layout_centerHorizontal="true"
+        android:drawSelectorOnTop="true"
+        android:textSize="12sp"
+        android:entries="@array/security_question_array"
+        android:prompt="@string/security_question_prompt" />
     
     <TextView
-        android:id="@+id/confirmPassword"
+        android:id="@+id/securityAnswerPrompt"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordInput"
-        android:text="@string/password_confirmation"
+        android:layout_below="@+id/securityQuestionSpinner"
+        android:text="@string/security_answer_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
-        android:id="@+id/confirmPasswordInput"
+        android:id="@+id/securityAnswerInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/confirmPassword"
-        android:inputType="textPassword" />
+        android:layout_below="@+id/securityAnswerPrompt"
+        android:layout_centerHorizontal="true"
+        android:inputType="text" />
     
     <Button
         android:id="@+id/finishButton"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/confirmPasswordInput"
+        android:layout_below="@+id/securityAnswerInput"
         android:layout_centerHorizontal="true"
-        android:text="@string/change_password_button"
+        android:text="@string/finish_signup_button"
         android:onClick="gotoLogin" />
 
-    
 </RelativeLayout>

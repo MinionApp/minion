@@ -44,8 +44,6 @@ public class LoginActivity extends Activity {
     	    startActivity(intent);
     	    finish();
         }
-		// Show the Up button in the action bar.
-		//setupActionBar();
 	}
 
 	/**

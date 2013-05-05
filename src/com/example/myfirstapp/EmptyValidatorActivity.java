@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 
+
+
 /**
  * EmptyValidatorActivity is an activity with no content, but serves as an intermediary step
  * to validate the correctness of the email and password as well as if the password and
@@ -14,7 +16,18 @@ import android.util.Patterns;
  * @author Elijah Elefson (elefse)
  *
  */
-public class EmptyValidatorActivity extends Activity {
+public class EmptyValidatorActivity extends Activity 
+{
+	private static final String FIRST_NAME = "firstName";
+	private static final String LAST_NAME = "lastName";
+	private static final String USERNAME = "username";
+	private static final String EMAIL = "email";
+	private static final String PASSWORD = "password";
+	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
+	private static final String IS_FIRST_VIEW = "isFirstView";
+	private static final String IS_VALID_EMAIL = "isValidEmail";
+	private static final String IS_VALID_PASSWORD = "isValidPassword";
+	private static final String PASSWORDS_MATCH = "passwordsMatch";
 	
 	/**
 	 *  The regex that will only allow string with the following qualities:
@@ -37,35 +50,35 @@ public class EmptyValidatorActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    Intent receivedIntent = getIntent();
 	    // Receives the data the user input into the signup form
-	    String firstName = receivedIntent.getStringExtra("firstName");
-	    String lastName = receivedIntent.getStringExtra("lastName");
-	    String username = receivedIntent.getStringExtra("username");
-	    String email = receivedIntent.getStringExtra("email");
-	    String password = receivedIntent.getStringExtra("password");
-	    String passwordConfirmation = receivedIntent.getStringExtra("passwordConfirmation");
+	    String firstName = receivedIntent.getStringExtra(FIRST_NAME);
+	    String lastName = receivedIntent.getStringExtra(LAST_NAME);
+	    String username = receivedIntent.getStringExtra(USERNAME);
+	    String email = receivedIntent.getStringExtra(EMAIL);
+	    String password = receivedIntent.getStringExtra(PASSWORD);
+	    String passwordConfirmation = receivedIntent.getStringExtra(PASSWORD_CONFIRMATION);
 	    Intent intent;
 	    // If email is valid, password is valid, and the password and confirmation password match
 	    if (validEmail(email) && validPassword(password) && 
 	    		matchingPasswords(password, passwordConfirmation)) {
-	    	intent = new Intent(this, LoginActivity.class);
+	    	intent = new Intent(this, SecurityQuestionActivity.class);
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, SignupActivity.class);
 	    	// Determines if the user should see a blank signup form 
-	    	intent.putExtra("isFirstView", false);
+	    	intent.putExtra(IS_FIRST_VIEW, false);
 	    	// Stores if the given email is valid
-	    	intent.putExtra("isValidEmail", validEmail(email));
+	    	intent.putExtra(IS_VALID_EMAIL, validEmail(email));
 	    	// Stores if the given password is valid
-	    	intent.putExtra("isValidPassword", validPassword(password));
+	    	intent.putExtra(IS_VALID_PASSWORD, validPassword(password));
 	    	// Stores if the given password and confirmation password match
-	    	intent.putExtra("passwordsMatch", matchingPasswords(password, passwordConfirmation));
+	    	intent.putExtra(PASSWORDS_MATCH, matchingPasswords(password, passwordConfirmation));
 	    	// Sends the input information back to the signup form so user doesn't have to reenter
-			intent.putExtra("email", email);
-			intent.putExtra("password", password);
-			intent.putExtra("firstName", firstName);
-			intent.putExtra("lastName", lastName);
-			intent.putExtra("username", username);
-			intent.putExtra("passwordConfirmation", passwordConfirmation);
+			intent.putExtra(EMAIL, email);
+			intent.putExtra(PASSWORD, password);
+			intent.putExtra(FIRST_NAME, firstName);
+			intent.putExtra(LAST_NAME, lastName);
+			intent.putExtra(USERNAME, username);
+			intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
 		}
 	    startActivity(intent);
 	    finish();

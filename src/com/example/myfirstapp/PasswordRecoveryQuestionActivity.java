@@ -1,32 +1,30 @@
 package com.example.myfirstapp;
 
+import android.os.Build;
+import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 /**
- * HomeActivity is the activity that provides the user with the home page for the application.
- * This page is displayed after all login activities have been completed or bypassed. This page
- * also provides the means to get the the character management page, group management page, settings
- * page and the logout option.
- * @author Kevin Dong (kevinxd3)
+ * PasswordRecoveryQuestionActivity is an activity that gives the user their security question
+ * and then allows them to answer it in order to determine if they can reset their password.
+ * @author Elijah Elefson (elefse)
  *
  */
-public class HomeActivity extends Activity {
+public class PasswordRecoveryQuestionActivity extends Activity {
 
 	/**
-	 * Displays the home page.
+	 * Displays the password recovery security question page.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
+		setContentView(R.layout.activity_password_recovery_question);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -50,7 +48,7 @@ public class HomeActivity extends Activity {
 		getMenuInflater().inflate(R.menu.sqlite_test, menu);
 		return true;
 	}
-
+	
 	/**
 	 * Sets up the Up button
 	 */
@@ -71,26 +69,12 @@ public class HomeActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void goToCharacters(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
-		startActivity(intent);
-	}
-	
-	public void logout(View view) {
-		Intent intent = new Intent(this, LoginActivity.class);
-		SaveSharedPreference.setUserName(HomeActivity.this, "");
-		startActivity(intent);
-	}
-	
-	// Activity not yet created, will direct to main activity instead
-	public void goToGroups(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
-		startActivity(intent);
-	}
-
-	// Activity not yet created, will direct to main activity instead
-	public void goToSettings(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
+	/**
+	 * Responds to the answer question button click and sends user to password reset page.
+	 * @param view The current view
+	 */
+	public void gotoLogin(View view) {
+		Intent intent = new Intent(this, PasswordResetActivity.class);
 		startActivity(intent);
 	}
 

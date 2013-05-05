@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/confirmPasswordInput"
         android:layout_centerHorizontal="true"
-        android:text="@string/finish_signup_button"
+        android:text="@string/next_button"
         android:onClick="gotoValidator" />
 
 </RelativeLayout>

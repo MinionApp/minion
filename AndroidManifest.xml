@@ -62,12 +62,24 @@
                 android:value="com.example.myfirstapp.LoginActivity" />
         </activity>
         <activity
-            android:name="com.example.myfirstapp.PasswordRecoveryCompletedActivity"
+            android:name="com.example.myfirstapp.PasswordResetActivity"
             android:label="@string/title_activity_password_recovery"
             android:parentActivityName="com.example.myfirstapp.PasswordRecoveryActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myfirstapp.PasswordRecoveryActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SecurityQuestionActivity"
+            android:label="@string/title_activity_security_question" >
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.PasswordRecoveryQuestionActivity"
+            android:label="@string/title_activity_password_recovery_question" >
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.NewPasswordValidatorActivity"
+            android:label="@string/title_activity_new_password_validator" >
         </activity>
     </application>
 
