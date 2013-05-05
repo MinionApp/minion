@@ -56,6 +56,9 @@ public class EmptyValidatorActivity extends Activity {
 	    if (validEmail(email) && validPassword(password) && 
 	    		matchingPasswords(password, passwordConfirmation)) {
 	    	intent = new Intent(this, SecurityQuestionActivity.class);
+	    	// Updates login credentials on remote database
+	    	RemoteDbAccess.updateLoginCredentials(username, passwordConfirmation);
+	    	intent.putExtra(USERNAME, username);
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, SignupActivity.class);

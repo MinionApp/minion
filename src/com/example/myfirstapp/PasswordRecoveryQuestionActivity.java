@@ -9,6 +9,8 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * PasswordRecoveryQuestionActivity is an activity that gives the user their security question
@@ -17,14 +19,31 @@ import android.view.View;
  *
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
-
+	private static final String USERNAME = "username";
+	
+	/**
+	 * Stores the username the user gave in their signup form.
+	 */
+	private String username;
+	
+	/**
+	 * Stores the relevant security question for the user.
+	 */
+	private String question;
+	
 	/**
 	 * Displays the password recovery security question page.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Intent receivedIntent = getIntent();
+		username = receivedIntent.getStringExtra(USERNAME);
 		setContentView(R.layout.activity_password_recovery_question);
+		// Gets security question for user from remote database
+		question = RemoteDbAccess.getSecurityQuestion(username);
+		TextView securityQuestionTextView = (TextView)findViewById(R.id.securityQuestion);
+		securityQuestionTextView.setText(question);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -74,7 +93,16 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoLogin(View view) {
-		Intent intent = new Intent(this, PasswordResetActivity.class);
+		Intent intent;
+		EditText answerEditText = (EditText) findViewById(R.id.questionInput);
+		String answer = answerEditText.getText().toString().trim();
+		// Tests security question for user on remote database
+		if(RemoteDbAccess.securityQuestionTest(username, question, answer)) {
+			intent = new Intent(this, PasswordResetActivity.class);
+		} else {
+			intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
+		}
+		intent.putExtra(USERNAME, username);
 		startActivity(intent);
 	}
 

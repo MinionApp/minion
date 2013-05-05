@@ -18,11 +18,17 @@ import android.widget.EditText;
  *
  */
 public class PasswordResetActivity extends Activity {
+	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
 	private static final String IS_FIRST_VIEW = "isFirstView";
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
+	
+	/**
+	 * Stores the username the user gave in their signup form.
+	 */
+	private String username;
 	
 	/**
 	 * Displays the password reset page.
@@ -35,6 +41,7 @@ public class PasswordResetActivity extends Activity {
 		boolean isFirstView = receivedIntent.getBooleanExtra(IS_FIRST_VIEW, true);
 	    boolean isValidPassword = receivedIntent.getBooleanExtra(IS_VALID_PASSWORD, false);
 	    boolean passwordsMatch = receivedIntent.getBooleanExtra(PASSWORDS_MATCH, false);
+	    username = receivedIntent.getStringExtra(USERNAME);
 	    // Displays blank signup page if it is the user's first viewing of the page
 	    if (isFirstView) {
 	    	setContentView(R.layout.activity_password_recovery_completed);
@@ -99,6 +106,7 @@ public class PasswordResetActivity extends Activity {
 	 */
 	public void gotoLogin(View view) {
 		Intent intent = new Intent(this, NewPasswordValidatorActivity.class);
+		intent.putExtra(USERNAME, username);
 		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
 		String password = passwordEditText.getText().toString().trim();
 		intent.putExtra(PASSWORD, password);

@@ -98,7 +98,7 @@ public class LoginActivity extends Activity {
 		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
 		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
 		String username = usernameEditText.getText().toString().trim();
-		String password = usernameEditText.getText().toString().trim();
+		String password = passwordEditText.getText().toString().trim();
 		
 		// Login succeeds, go to homepage.
 		if (RemoteDbAccess.loginAttempt(username, password)) {

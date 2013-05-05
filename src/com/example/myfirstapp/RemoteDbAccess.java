@@ -1,7 +1,15 @@
 package com.example.myfirstapp;
 
-import com.amazonaws.services.simpledb;
-import com.amazonaws.AmazonWebServiceRequest;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.simpledb.AmazonSimpleDBClient;
+import com.amazonaws.services.simpledb.model.Attribute;
+import com.amazonaws.services.simpledb.model.GetAttributesRequest;
+import com.amazonaws.services.simpledb.model.PutAttributesRequest;
+import com.amazonaws.services.simpledb.model.ReplaceableAttribute;
 
 /**
  * RemoteAccess contains the methods needed to access our remote database in Amazon's simpledb.
@@ -83,6 +91,31 @@ public final class RemoteDbAccess {
 	}
 	
 	/**
+	 * Returns a user's security question.
+	 * 
+	 * @param username, the submitted username
+	 * @return the security question string
+	 */
+	public static String getSecurityQuestion(String username) {
+		// Prevent generic checks.
+		if (username.equals(publicCharactersUserName)) {
+			return null;
+		}
+		
+		// Get attributes from the database; GetAttributesResult intermediate
+		GetAttributesRequest userRequest = new GetAttributesRequest("User", username);
+		List<Attribute> attributes = db.getAttributes(userRequest).getAttributes();
+
+		// Iterate through attributes, see if question and answer match.
+		for (Attribute attr : attributes) {
+			if (attr.getName().equals("question")) {
+				return attr.getValue();
+			}
+		}
+		return null; // error
+	}
+	
+	/**
 	 * Determines if a user has successfully answered their security question.
 	 * 
 	 * @param username, the submitted username
@@ -145,7 +178,7 @@ public final class RemoteDbAccess {
 	}
 	
 	// Unimplemented way to delete user credentials, cleanup data, but unimportant at present.
-	private static boolean eraseUser(String username);
+	private static boolean eraseUser(String username) { return false; }
 	
 	
 	

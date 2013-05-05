@@ -9,6 +9,7 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 /**
@@ -18,13 +19,21 @@ import android.widget.Spinner;
  *
  */
 public class SecurityQuestionActivity extends Activity {
-
+	private static final String USERNAME = "username";
+	
+	/**
+	 * Stores the username the user gave in their signup form.
+	 */
+	private String username;
+	
 	/**
 	 * Displays the security question selection page.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Intent receivedIntent = getIntent();
+		username = receivedIntent.getStringExtra(USERNAME);
 		setContentView(R.layout.activity_security_question);
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -79,6 +88,11 @@ public class SecurityQuestionActivity extends Activity {
 		Spinner securityQuestions = (Spinner) findViewById(R.id.securityQuestionSpinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String selectedSecurityQuestion = securityQuestions.getSelectedItem().toString();
+		
+		EditText answerEditText = (EditText) findViewById(R.id.securityAnswerInput);
+		String answer = answerEditText.getText().toString().trim();
+		// Updates security question on remote database
+		RemoteDbAccess.updateSecurityQuestion(username, selectedSecurityQuestion, answer);
 		startActivity(intent);
 	}
 

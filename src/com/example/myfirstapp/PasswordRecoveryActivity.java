@@ -9,6 +9,7 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 /**
  * PasswordRecoveryActivity is an activity that provides a form that the user can use
@@ -17,6 +18,7 @@ import android.view.View;
  *
  */
 public class PasswordRecoveryActivity extends Activity {
+	private static final String USERNAME = "username";
 	
 	/**
 	 * Displays the password recovery page.
@@ -75,6 +77,9 @@ public class PasswordRecoveryActivity extends Activity {
 	 */
 	public void gotoSecurityQuestion(View view) {
         Intent intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
+		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
+		String username = usernameEditText.getText().toString().trim();
+		intent.putExtra(USERNAME, username);
 		startActivity(intent);
 	}
 	

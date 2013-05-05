@@ -14,6 +14,7 @@ import android.content.Intent;
  *
  */
 public class NewPasswordValidatorActivity extends Activity {
+	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
 	private static final String IS_FIRST_VIEW = "isFirstView";
@@ -41,12 +42,14 @@ public class NewPasswordValidatorActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    Intent receivedIntent = getIntent();
 	    // Receives the data the user input into the password recovery form
+	    String username = receivedIntent.getStringExtra(USERNAME);
 	    String password = receivedIntent.getStringExtra(PASSWORD);
 	    String passwordConfirmation = receivedIntent.getStringExtra(PASSWORD_CONFIRMATION);
 	    Intent intent;
 	    // If password is valid and the password and confirmation password match
 	    if (validPassword(password) && matchingPasswords(password, passwordConfirmation)) {
 	    	intent = new Intent(this, LoginActivity.class);
+	    	RemoteDbAccess.updateLoginCredentials(username, passwordConfirmation);
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, PasswordResetActivity.class);
