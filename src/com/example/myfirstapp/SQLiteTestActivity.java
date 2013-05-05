@@ -94,6 +94,8 @@ public class SQLiteTestActivity extends ListActivity {
 	    	Character character = datasource.createCharacter(cName);
 			adapter.add(character);
 			adapter.notifyDataSetChanged();
+			Intent intent = new Intent(this, CharCreateMainActivity.class);
+			startActivity(intent);
     	}
     }
 	

@@ -17,5 +17,17 @@
     <string name="button_remove_character">Remove Character</string>
     <string name="character_list">Characters:</string>
     <string name="testing">I am just testing this right now!</string>
+    <string name="title_activity_basic_info">BasicInfoActivity</string>
+    <string name="character_name">Character Name</string>
+    <string name="title_activity_char_create_main">CharCreateMainActivity</string>
+    <string name="button_basic_info">Basic Info</string>
+    <string name="button_ability_scores">Ability Scores</string>
+    <string name="button_skills">Skills</string>
+    <string name="button_combat">Combat</string>
+    <string name="button_saving_throws">Saving Throws</string>
+    <string name="title_activity_ability_scores">AbilityScoresActivity</string>
+    <string name="title_activity_skills">SkillsActivity</string>
+    <string name="title_activity_combat">CombatActivity</string>
+    <string name="title_activity_saving_throws">SavingThrowsActivity</string>
 
 </resources>
