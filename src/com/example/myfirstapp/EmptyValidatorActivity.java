@@ -3,7 +3,12 @@ package com.example.myfirstapp;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Patterns;
 
@@ -56,8 +61,23 @@ public class EmptyValidatorActivity extends Activity {
 	    if (validEmail(email) && validPassword(password) && 
 	    		matchingPasswords(password, passwordConfirmation)) {
 	    	intent = new Intent(this, SecurityQuestionActivity.class);
+	    	/*ConnectivityManager cm = 
+	    			(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+	    	NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+	    	boolean isConnected = (activeNetwork != null) && (activeNetwork.isConnectedOrConnecting());
+
+
+	    	if (!isConnected) {
+	    		DialogFragment network = new NetworkDialogFragment();
+	    		network.show(getFragmentManager(), NETWORK_DIALOG_TAG);
+	    	} else {
+	    		Editor e = pref.edit();
+	    		e.putBoolean(DATA_ON, true);
+	    		e.commit();
+	    	}*/
 	    	// Updates login credentials on remote database
-	    	RemoteDbAccess.updateLoginCredentials(username, passwordConfirmation);
+	    	RemoteDbAccess.updateLoginCredentials(username, password);
 	    	intent.putExtra(USERNAME, username);
 	    // If any of the above conditions are not true
 	    } else {

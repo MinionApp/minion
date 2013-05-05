@@ -49,7 +49,7 @@ public class NewPasswordValidatorActivity extends Activity {
 	    // If password is valid and the password and confirmation password match
 	    if (validPassword(password) && matchingPasswords(password, passwordConfirmation)) {
 	    	intent = new Intent(this, LoginActivity.class);
-	    	RemoteDbAccess.updateLoginCredentials(username, passwordConfirmation);
+	    	RemoteDbAccess.updateLoginCredentials(username, password);
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, PasswordResetActivity.class);
