@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * PasswordRecoveryQuestionActivity is an activity that gives the user their security question
@@ -96,13 +97,20 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 		Intent intent;
 		EditText answerEditText = (EditText) findViewById(R.id.questionInput);
 		String answer = answerEditText.getText().toString().trim();
-		// Tests security question for user on remote database
-		if(RemoteDbAccess.securityQuestionTest(username, question, answer)) {
-			intent = new Intent(this, PasswordResetActivity.class);
-		} else {
-			intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
-		}
-		intent.putExtra(USERNAME, username);
+		
+    	// Checks for internet connectivity
+    	if (ConnectionChecker.hasConnection(this)) {
+    		// Tests security question for user on remote database
+    		if(RemoteDbAccess.securityQuestionTest(username, question, answer)) {
+    			intent = new Intent(this, PasswordResetActivity.class);
+    		} else {
+    			intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
+    		}
+    		intent.putExtra(USERNAME, username);
+    	} else {
+    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+    	   intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
+    	}
 		startActivity(intent);
 	}
 

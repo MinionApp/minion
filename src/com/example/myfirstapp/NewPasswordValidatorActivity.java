@@ -3,6 +3,7 @@ package com.example.myfirstapp;
 import java.util.regex.Pattern;
 
 import android.os.Bundle;
+import android.widget.Toast;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -48,8 +49,15 @@ public class NewPasswordValidatorActivity extends Activity {
 	    Intent intent;
 	    // If password is valid and the password and confirmation password match
 	    if (validPassword(password) && matchingPasswords(password, passwordConfirmation)) {
-	    	intent = new Intent(this, LoginActivity.class);
-	    	RemoteDbAccess.updateLoginCredentials(username, password);
+	    	// Checks for internet connectivity
+	    	if (ConnectionChecker.hasConnection(this)) {
+		    	// Updates login credentials on remote database
+		    	RemoteDbAccess.updateLoginCredentials(username, password);
+		    	intent = new Intent(this, LoginActivity.class);
+	    	} else {
+	    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+	    	   intent = new Intent(this, PasswordResetActivity.class);
+	    	}
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, PasswordResetActivity.class);

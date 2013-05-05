@@ -3,14 +3,10 @@ package com.example.myfirstapp;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.widget.Toast;
 
 
 
@@ -60,25 +56,16 @@ public class EmptyValidatorActivity extends Activity {
 	    // If email is valid, password is valid, and the password and confirmation password match
 	    if (validEmail(email) && validPassword(password) && 
 	    		matchingPasswords(password, passwordConfirmation)) {
-	    	intent = new Intent(this, SecurityQuestionActivity.class);
-	    	/*ConnectivityManager cm = 
-	    			(ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-	    	NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-
-	    	boolean isConnected = (activeNetwork != null) && (activeNetwork.isConnectedOrConnecting());
-
-
-	    	if (!isConnected) {
-	    		DialogFragment network = new NetworkDialogFragment();
-	    		network.show(getFragmentManager(), NETWORK_DIALOG_TAG);
+	    	// Checks for internet connectivity
+	    	if (ConnectionChecker.hasConnection(this)) {
+		    	// Updates login credentials on remote database
+		    	RemoteDbAccess.updateLoginCredentials(username, password);
+		    	intent = new Intent(this, SecurityQuestionActivity.class);
+		    	intent.putExtra(USERNAME, username);
 	    	} else {
-	    		Editor e = pref.edit();
-	    		e.putBoolean(DATA_ON, true);
-	    		e.commit();
-	    	}*/
-	    	// Updates login credentials on remote database
-	    	RemoteDbAccess.updateLoginCredentials(username, password);
-	    	intent.putExtra(USERNAME, username);
+	    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+	    	   intent = new Intent(this, SignupActivity.class);
+	    	}
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, SignupActivity.class);

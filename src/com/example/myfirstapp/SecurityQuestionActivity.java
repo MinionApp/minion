@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * SecurityQuestionActivity is an activity that provides a security question and answer
@@ -84,15 +85,23 @@ public class SecurityQuestionActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoLogin(View view) {
-		Intent intent = new Intent(this, LoginActivity.class);
+		Intent intent;
 		Spinner securityQuestions = (Spinner) findViewById(R.id.securityQuestionSpinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String selectedSecurityQuestion = securityQuestions.getSelectedItem().toString();
 		
 		EditText answerEditText = (EditText) findViewById(R.id.securityAnswerInput);
 		String answer = answerEditText.getText().toString().trim();
-		// Updates security question on remote database
-		RemoteDbAccess.updateSecurityQuestion(username, selectedSecurityQuestion, answer);
+		
+    	// Checks for internet connectivity
+    	if (ConnectionChecker.hasConnection(this)) {
+    		// Updates security question on remote database
+    		RemoteDbAccess.updateSecurityQuestion(username, selectedSecurityQuestion, answer);
+    		intent = new Intent(this, LoginActivity.class);
+    	} else {
+    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+    	   intent = new Intent(this, SecurityQuestionActivity.class);
+    	}
 		startActivity(intent);
 	}
 
