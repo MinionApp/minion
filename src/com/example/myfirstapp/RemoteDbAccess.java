@@ -24,6 +24,31 @@ public final class RemoteDbAccess {
 	private static final AmazonSimpleDBClient db = new AmazonSimpleDBClient(credentials);
 	private static final String publicCharactersUserName = "__generic__";
 	
+	// Forks off Get tasks to be done independent of UI.
+	private class GetAttributesTask extends AsyncTask<String, Void, List<Attribute>> {
+		@Override
+		protected List<Attribute> doInBackground(String username) {
+			GetAttributesRequest userRequest = new GetAttributesRequest("User", username);
+			return db.getAttributes(userRequest).getAttributes();
+		}
+	}
+	
+	// Forks off Put tasks to be done independent of UI.
+	private class PutAttributesTask extends AsyncTask<String, Void, Void> {
+		@Override
+		
+		private List<ReplaceableAttribute> attrs;
+		
+		public PutAttributesTask(List<ReplaceableAttribute> attributes) {
+			this.attrs = attributes;
+		}
+		
+		protected void doInBackground(String username) {
+			PutAttributesRequest putUser = new PutAttributesRequest("User", username, attrs);		
+			db.putAttributes(putUser);
+		}
+	}
+	
 	/**
 	 * Determines if a user's login credentials are valid.
 	 * 
@@ -37,9 +62,9 @@ public final class RemoteDbAccess {
 			return false;
 		}
 		
-		// Get attributes from the database; GetAttributesResult intermediate
-		GetAttributesRequest userRequest = new GetAttributesRequest("User", username);
-		List<Attribute> attributes = db.getAttributes(userRequest).getAttributes();
+		// Get attributes from the database.
+		GetAttributesTask task = new GetAttributesTask();
+		List<Attribute> attributes = task.execute(username);
 		
 		// Iterate through attributes, see if password matches.
 		for (Attribute attr : attributes) {
@@ -85,8 +110,8 @@ public final class RemoteDbAccess {
 		attrs.add(passwordAttr);
 		
 		// Continue with add. username is itemName().
-		PutAttributesRequest putUser = new PutAttributesRequest("User", username, attrs);		
-		db.putAttributes(putUser);
+		PutAttributesTask task = new PutAttributesTask(attrs);
+		task.execute(username);
 		return true;
 	}
 	
@@ -102,9 +127,9 @@ public final class RemoteDbAccess {
 			return null;
 		}
 		
-		// Get attributes from the database; GetAttributesResult intermediate
-		GetAttributesRequest userRequest = new GetAttributesRequest("User", username);
-		List<Attribute> attributes = db.getAttributes(userRequest).getAttributes();
+		// Get attributes from the database.
+		GetAttributesTask task = new GetAttributesTask();
+		List<Attribute> attributes = task.execute(username);
 
 		// Iterate through attributes, see if question and answer match.
 		for (Attribute attr : attributes) {
@@ -129,22 +154,17 @@ public final class RemoteDbAccess {
 			return false;
 		}
 		
-		// Get attributes from the database; GetAttributesResult intermediate
-		GetAttributesRequest userRequest = new GetAttributesRequest("User", username);
-		List<Attribute> attributes = db.getAttributes(userRequest).getAttributes();
+		// Get attributes from the database.
+		GetAttributesTask task = new GetAttributesTask();
+		List<Attribute> attributes = task.execute(username);
 		
-		boolean questionMatch = false;
-		boolean answerMatch = false;
 		// Iterate through attributes, see if question and answer match.
 		for (Attribute attr : attributes) {
-			if (attr.getName().equals("question") && question.equals(attr.getValue())) {
-				questionMatch = true;
-			}
 			if (attr.getName().equals("answer") && answer.equals(attr.getValue())) {
-				answerMatch = true;
+				return true;
 			}
 		}
-		return questionMatch && answerMatch;
+		return false;
 	}
 	
 	/**
@@ -172,8 +192,8 @@ public final class RemoteDbAccess {
 		attrs.add(answerAttr);
 		
 		// Continue with add. username is itemName().
-		PutAttributesRequest putUser = new PutAttributesRequest("User", username, attrs);		
-		db.putAttributes(putUser);
+		PutAttributesTask task = new PutAttributesTask(attrs);
+		task.execute(username);
 		return true;
 	}
 	
