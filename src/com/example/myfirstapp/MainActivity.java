@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 
 public class MainActivity extends ListActivity {
 	private CharacterDataSource datasource;
+	private RefDataSource dsRef;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,14 +20,24 @@ public class MainActivity extends ListActivity {
         
         datasource = new CharacterDataSource(this);
 	    datasource.open();
+	    
+	    //testing
+	    dsRef = new RefDataSource(this);
+	    dsRef.open();
+	    System.out.println("dsRef created, calling get all characters");
+	    //dsRef.getAllCharacters();
 
-	    List<Character> values = datasource.getAllCharacters();
+	    //List<Character> values = datasource.getAllCharacters();
+	    List<Character> values = dsRef.getAllCharacters();
 
 	    // Use the SimpleCursorAdapter to show the
 	    // elements in a ListView
+	    System.out.println("MAKING ADAPTER");
 	    ArrayAdapter<Character> adapter = new ArrayAdapter<Character>(this,
 	        android.R.layout.simple_list_item_1, values);
+	    System.out.println("SETTING ADAPTER");
 	    setListAdapter(adapter);
+	    System.out.println("DONE SETTING ADAPTER");
     }
 
  // Will be called via the onClick attribute
@@ -45,17 +56,21 @@ public class MainActivity extends ListActivity {
  			  adapter.remove(character);
  		  }
  	  }
+ 	  
+ 	  	//dsRef.getAllCharacters();
  	}
 
  	@Override
  	protected void onResume() {
  	  datasource.open();
+ 	  dsRef.open();
  	  super.onResume();
  	}
 
  	@Override
  	protected void onPause() {
  	  datasource.close();
+ 	  dsRef.close();
  	  super.onPause();
  	}
 

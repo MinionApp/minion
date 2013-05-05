@@ -1,21 +1,19 @@
 package com.example.myfirstapp;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
+import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.support.v4.app.NavUtils;
+import android.annotation.TargetApi;
+import android.os.Build;
 
-public class HomeActivity extends Activity {
+public class GroupsActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
+		setContentView(R.layout.activity_groups);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -33,7 +31,7 @@ public class HomeActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.sqlite_test, menu);
+		getMenuInflater().inflate(R.menu.groups, menu);
 		return true;
 	}
 
@@ -52,27 +50,6 @@ public class HomeActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	public void gotoTesting(View view) {
-		Intent intent = new Intent(this, SQLiteTestActivity.class);
-		startActivity(intent);
-	}
-	
-	public void gotoCharacters(View view) {
-		Intent intent = new Intent(this, CharactersActivity.class);
-		startActivity(intent);
-	}
-	
-	public void gotoGroups(View view) {
-		Intent intent = new Intent(this, GroupsActivity.class);
-		startActivity(intent);
-	}
-
-	// Activity not yet created, will direct to main activity instead
-	public void gotoSettings(View view) {
-		//Intent intent = new Intent(this, SettingsActivity.class);
-		//startActivity(intent);
 	}
 
 }

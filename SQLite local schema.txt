@@ -1,0 +1,14 @@
+SQLite local schema
+
+ability scores ref (_id, abbreviation, full name)
+skills ref (_id, name, ability score mod)
+saving throws ref (_id, name, ability_scores_ref_id)
+
+characters (_id, name, alignment, level, diety, homeland, race, size, gender, age, height, weight, hair, eyes)
+ability scores (char_id, ability_scores_ref_id, score)
+ability scores temp mod (char_id, a_s_ref_id, name, mod)
+skills (char_id, skills_ref_id, ranks, misc_mod)
+combat (char_id, hp_total, hp_dr, speed_base, speed_armor, init_misc_mod, base_attack_bonus)
+armor (char_id, armor_bonus, shield_bonus, size_mod, nat_armor, deflection_mod, misc_mod)
+weapon (char_id, name, attack_bonus, crit, type, range, ammo, damage)
+saving throws (char_id, saving_throws_ref_id, base_save, magic_mod, misc_mod, temp_mod)

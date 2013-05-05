@@ -83,6 +83,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myfirstapp.CharCreateMainActivity" />
         </activity>
-    </application>
 
+        <activity
+            android:name="com.example.myfirstapp.CharactersActivity"
+            android:label="@string/title_activity_characters"
+            android:parentActivityName="com.example.myfirstapp.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.GroupsActivity"
+            android:label="@string/title_activity_groups"
+            android:parentActivityName="com.example.myfirstapp.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.HomeActivity" />
+        </activity>
+    </application>
 </manifest>
