@@ -135,6 +135,11 @@ public class Ability {
 	/**
 	 * Gets the total ability score including the base stat value and all
 	 * temporary modifiers currently stored.
+	 * <p>
+	 * The current ability score is the base score with additional temporary 
+	 * modifiers. Modifiers are added or suptracted depending on their sign and
+	 * they affect the score directly. Thus a base score of 10 with a +2 modifier 
+	 * from an amulet will return a score of 12.
 	 * 
 	 * @return an int score representing the total ability score
 	 */
@@ -152,6 +157,16 @@ public class Ability {
 	/**
 	 * Gets the modifier of the ability score with all base and temporary values
 	 * considered.
+	 * <p>
+	 * The ability modifier is the information most used from a character's stats,
+	 * and is calculated from their ability score. This score includes the base
+	 * and all temporary modifiers. The modifier is always smaller in magnitude then
+	 * the raw score as it is added to a dice roll and is generally calculated and 
+	 * recorded. Every two ability scores has a single modifier associated with it.
+	 * The ability score 10 and 11 have a modifier of 0, every even number thereafter
+	 * adds one modifier, so 12 and 13 are 1, 14 and 15 are 2 and so on. Once a score
+	 * is below 10, the modifiers are negative. A score of 8 and 9 have a -1 modifier,
+	 * every two bellow that get another -1, so 7 and 6 have a -2 and so on.
 	 * 
 	 * @return an int representing the ability modifier 
 	 * 
