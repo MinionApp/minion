@@ -73,7 +73,7 @@ public class HomeActivity extends Activity {
 	
 	/**
 	 * Responds to the manage characters button click and goes to the manage
-	 * characters page. (Mangage characters currently unimplemented so directs to
+	 * characters page. (Manage characters currently unimplemented so directs to
 	 * HomeActivity instead)
 	 * @param view The current view
 	 */
@@ -94,7 +94,7 @@ public class HomeActivity extends Activity {
 	
 	/**
 	 * Responds to the manage groups button click and goes to the manage
-	 * groups page. (Mangage groups currently unimplemented so directs to
+	 * groups page. (Manage groups currently unimplemented so directs to
 	 * HomeActivity instead)
 	 * @param view The current view
 	 */
