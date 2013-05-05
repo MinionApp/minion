@@ -70,7 +70,6 @@ public class CombatActivity extends Activity {
 		setSpeed();
 		setInitiative();		
 		setArmor();
-	
 	}
 	
 	private void setHp() {

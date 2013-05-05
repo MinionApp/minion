@@ -79,6 +79,7 @@ public class Combat {
 		armorModifiers.put(type, value);
 	}
 
+	
 	public Map<String, Integer> getHpModifiers() {
 		return hpModifiers;
 	}

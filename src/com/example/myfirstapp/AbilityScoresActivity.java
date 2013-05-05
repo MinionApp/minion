@@ -93,6 +93,7 @@ public class AbilityScoresActivity extends Activity {
 		return str;
 	}
 	
+	
 	private Ability getDex() {
 		EditText dexAbScoreEnter = (EditText) findViewById(R.id.dex_ab_score);
 		String dexAbScoreRaw = dexAbScoreEnter.getText().toString().trim();
