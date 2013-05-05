@@ -2,6 +2,9 @@ package com.example.myfirstapp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import android.os.AsyncTask;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -25,17 +28,18 @@ public final class RemoteDbAccess {
 	private static final String publicCharactersUserName = "__generic__";
 	
 	// Forks off Get tasks to be done independent of UI.
-	private class GetAttributesTask extends AsyncTask<String, Void, List<Attribute>> {
+	private static class GetAttributesTask extends AsyncTask<String, Void, List<Attribute>> {
 		@Override
-		protected List<Attribute> doInBackground(String username) {
-			GetAttributesRequest userRequest = new GetAttributesRequest("User", username);
+		protected List<Attribute> doInBackground(String... username) {
+			String user = username[0];
+			GetAttributesRequest userRequest = new GetAttributesRequest("User", user);
 			return db.getAttributes(userRequest).getAttributes();
 		}
 	}
 	
 	// Forks off Put tasks to be done independent of UI.
-	private class PutAttributesTask extends AsyncTask<String, Void, Void> {
-		@Override
+	private static class PutAttributesTask extends AsyncTask<String, Void, Void> {
+		
 		
 		private List<ReplaceableAttribute> attrs;
 		
@@ -43,9 +47,12 @@ public final class RemoteDbAccess {
 			this.attrs = attributes;
 		}
 		
-		protected void doInBackground(String username) {
-			PutAttributesRequest putUser = new PutAttributesRequest("User", username, attrs);		
+		@Override
+		protected Void doInBackground(String... username) {
+			String user = username[0];
+			PutAttributesRequest putUser = new PutAttributesRequest("User", user, attrs);		
 			db.putAttributes(putUser);
+			return null;
 		}
 	}
 	
@@ -63,15 +70,26 @@ public final class RemoteDbAccess {
 		}
 		
 		// Get attributes from the database.
-		GetAttributesTask task = new GetAttributesTask();
-		List<Attribute> attributes = task.execute(username);
+		
+		try {
+			GetAttributesTask task = new GetAttributesTask();
+			List<Attribute> attributes;
+			attributes = task.execute(new String[] {username}).get();
+			for (Attribute attr : attributes) {
+				if (attr.getName().equals("password") && password.equals(attr.getValue())) {
+					return true;
+				}
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Iterate through attributes, see if password matches.
-		for (Attribute attr : attributes) {
-			if (attr.getName().equals("password") && password.equals(attr.getValue())) {
-				return true;
-			}
-		}
+		
 		return false;
 	}
 	
@@ -106,7 +124,7 @@ public final class RemoteDbAccess {
 		
 		// Create attribute list.
 		ReplaceableAttribute passwordAttr = new ReplaceableAttribute("password", password, Boolean.TRUE);
-		List<ReplaceableAttribute> attrs = new ArrayList(1);
+		List<ReplaceableAttribute> attrs = new ArrayList<ReplaceableAttribute>();
 		attrs.add(passwordAttr);
 		
 		// Continue with add. username is itemName().
@@ -128,15 +146,26 @@ public final class RemoteDbAccess {
 		}
 		
 		// Get attributes from the database.
-		GetAttributesTask task = new GetAttributesTask();
-		List<Attribute> attributes = task.execute(username);
-
-		// Iterate through attributes, see if question and answer match.
-		for (Attribute attr : attributes) {
-			if (attr.getName().equals("question")) {
-				return attr.getValue();
+		
+		try {
+			GetAttributesTask task = new GetAttributesTask();
+			List<Attribute> attributes;
+			attributes = task.execute(username).get();
+			// Iterate through attributes, see if question and answer match.
+			for (Attribute attr : attributes) {
+				if (attr.getName().equals("question")) {
+					return attr.getValue();
+				}
 			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+		
 		return null; // error
 	}
 	
@@ -155,15 +184,26 @@ public final class RemoteDbAccess {
 		}
 		
 		// Get attributes from the database.
-		GetAttributesTask task = new GetAttributesTask();
-		List<Attribute> attributes = task.execute(username);
 		
-		// Iterate through attributes, see if question and answer match.
-		for (Attribute attr : attributes) {
-			if (attr.getName().equals("answer") && answer.equals(attr.getValue())) {
-				return true;
+		try {
+			GetAttributesTask task = new GetAttributesTask();
+			List<Attribute> attributes;
+			attributes = task.execute(username).get();
+			// Iterate through attributes, see if question and answer match.
+			for (Attribute attr : attributes) {
+				if (attr.getName().equals("answer") && answer.equals(attr.getValue())) {
+					return true;
+				}
 			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
 		return false;
 	}
 	
@@ -187,7 +227,7 @@ public final class RemoteDbAccess {
 		// Create attribute list.
 		ReplaceableAttribute questionAttr = new ReplaceableAttribute("question", question, Boolean.TRUE);
 		ReplaceableAttribute answerAttr = new ReplaceableAttribute("answer", answer, Boolean.TRUE);
-		List<ReplaceableAttribute> attrs = new ArrayList(2);
+		List<ReplaceableAttribute> attrs = new ArrayList<ReplaceableAttribute>();
 		attrs.add(questionAttr);
 		attrs.add(answerAttr);
 		
