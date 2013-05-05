@@ -2,6 +2,9 @@ package com.example.myfirstapp;
 
 import java.util.*; 
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * A representation of a single skill in Pathfinder, such as 
  * stealth, perception or Knowledge(Dance).
@@ -150,6 +153,23 @@ public class Skill {
 		}
 		
 		return bonus;
+	}
+	
+	/** 
+	 * Writes Skill to database. SHOULD ONLY BE CALLED BY CHARACTER
+	 * @param id id of character
+	 * @param db database to write into
+	 */
+	public void writeToDB(long id, SQLiteDatabase db) {
+		// TODO implement
+		int skillID = 0; // get skill ID from ref db
+		
+		ContentValues values = new ContentValues();
+		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, id);
+		values.put(SQLiteHelperSkills.COLUMN_REF_S_ID, skillID);
+		values.put(SQLiteHelperSkills.COLUMN_RANKS, ranks);
+		values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, ranks);
+		db.insert(SQLiteHelperSkills.TABLE_NAME, null, values);
 	}
 	
 }

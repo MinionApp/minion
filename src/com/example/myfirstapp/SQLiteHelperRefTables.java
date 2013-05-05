@@ -3,11 +3,16 @@ package com.example.myfirstapp;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
+/**
+ * 
+ * @author Kevin Dong (kevinxd3)
+ *
+ */
 public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
@@ -17,6 +22,8 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	public static final String COLUMN_AS_ID 	= "_id";
 	public static final String COLUMN_AS_ABBREV = "abbrev";
 	public static final String COLUMN_AS_NAME 	= "name";
+	public static final String[] ALL_COLUMNS_AS = 
+		{ COLUMN_AS_ID, COLUMN_AS_ABBREV, COLUMN_AS_NAME };
 
 	// REF ABILITY SCORES table creation SQL statement
 	private static final String CREATE_TABLE_REF_ABILITY_SCORES = "CREATE TABLE "
@@ -31,6 +38,8 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	public static final String COLUMN_S_ID 			= "_id";
 	public static final String COLUMN_S_NAME 		= "name";
 	public static final String COLUMN_S_REF_AS_ID 	= "ref_as_id";
+	public static final String[] ALL_COLUMNS_S = 
+		{ COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID };
 
 	// REF SKILLS table creation SQL statement
 	private static final String CREATE_TABLE_REF_SKILLS = "CREATE TABLE "
@@ -47,6 +56,8 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	public static final String COLUMN_ST_ID 		= "_id";
 	public static final String COLUMN_ST_NAME 		= "name";
 	public static final String COLUMN_ST_REF_AS_ID 	= "ref_as_id";
+	public static final String[] ALL_COLUMNS_ST = 
+		{ COLUMN_ST_ID, COLUMN_ST_NAME, COLUMN_ST_REF_AS_ID };
 
 	// REF SAVING THROWS table creation SQL statement
 	private static final String CREATE_TABLE_REF_SAVING_THROWS = "CREATE TABLE "
@@ -60,15 +71,11 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	/*****************************************/
 	public SQLiteHelperRefTables(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		// TODO Auto-generated constructor stub
-		Log.w(SQLiteDatabase.class.getName(),
-				"constructor");
-		System.out.println("constructor");
+		System.out.println("SQLiteHelperRefTables constructor");
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// TODO Auto-generated method stub
 		System.out.println(CREATE_TABLE_REF_ABILITY_SCORES);
 		System.out.println(CREATE_TABLE_REF_SKILLS);
 		System.out.println(CREATE_TABLE_REF_SAVING_THROWS);
@@ -195,7 +202,6 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
 		Log.w(SQLiteDatabase.class.getName(),
 				"Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
@@ -203,6 +209,47 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_REF_SKILLS);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_REF_ABILITY_SCORES);
 		onCreate(db);
+	}
+
+	public void printContents(SQLiteDatabase db) {
+		System.out.println("CONTENTS OF ref_ability_scores");
+		Cursor cursor = db.query(TABLE_REF_ABILITY_SCORES,
+			ALL_COLUMNS_AS, null, null, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			int id = cursor.getInt(0);
+			String abbrev = cursor.getString(1);
+			String name = cursor.getString(2);
+			System.out.println(id + "/t" + abbrev + "/t" + name);
+			cursor.moveToNext();
+	 	}
+		cursor.close();
+
+		System.out.println("CONTENTS OF ref_skills");
+		cursor = db.query(TABLE_REF_SKILLS,
+			ALL_COLUMNS_S, null, null, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			int id = cursor.getInt(0);
+			String name = cursor.getString(1);
+			int as_id = cursor.getInt(2);
+			System.out.println(id + "/t" + name + "/t" + as_id);
+			cursor.moveToNext();
+	 	}
+		cursor.close();
+
+		System.out.println("CONTENTS OF ref_saving_throws");
+		cursor = db.query(TABLE_REF_SAVING_THROWS,
+			ALL_COLUMNS_AS, null, null, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			int id = cursor.getInt(0);
+			String name = cursor.getString(1);
+			int as_id = cursor.getInt(2);
+			System.out.println(id + "/t" + name + "/t" + as_id);
+			cursor.moveToNext();
+	 	}
+		cursor.close();
 	}
 
 }

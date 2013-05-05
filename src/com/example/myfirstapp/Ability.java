@@ -2,6 +2,9 @@ package com.example.myfirstapp;
 
 import java.util.*;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * Ability is a class to represent a single ability on a character sheet 
  * which has a base value and temporary modifiers. This class handles both
@@ -159,6 +162,33 @@ public class Ability {
 		}
 		
 		return mod;
+	}
+	/** 
+	 * Writes Ability to database. SHOULD ONLY BE CALLED BY CHARACTER
+	 * @param id id of character
+	 * @param db database to write into (except temporary mods)
+	 * @param dbTempMods database to write temporary mods into
+	 */
+	public void writeToDB(long id, SQLiteDatabase db, SQLiteDatabase dbTempMods) {
+		// TODO implement
+		int abilityID = 0; // get ability ID from ref db
+		
+		ContentValues values = new ContentValues();
+		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, id);
+		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
+		values.put(SQLiteHelperAbilityScores.COLUMN_SCORE, base);
+		db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
+		
+		for (String s : tempModifiers.keySet()) {
+			int i = tempModifiers.get(s);
+			// write to dbTempMods
+			values = new ContentValues();
+			values.put(SQLiteHelperASTempMods.COLUMN_CHAR_ID, id);
+			values.put(SQLiteHelperASTempMods.COLUMN_REF_AS_ID, abilityID);
+			values.put(SQLiteHelperASTempMods.COLUMN_NAME, s);
+			values.put(SQLiteHelperASTempMods.COLUMN_MOD, i);		
+			dbTempMods.insert(SQLiteHelperASTempMods.TABLE_NAME, null, values);
+		}
 	}
 	
 }

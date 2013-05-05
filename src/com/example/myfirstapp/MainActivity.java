@@ -46,9 +46,9 @@ public class MainActivity extends ListActivity {
  	  @SuppressWarnings("unchecked")
  	  ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
  	  if(adapter.getCount()<1){
- 		  Character character = datasource.createCharacter("Danny McSizzle");
- 		  adapter.add(character);
- 		  adapter.notifyDataSetChanged();
+// 		  Character character = datasource.createCharacter("Danny McSizzle");
+// 		  adapter.add(character);
+// 		  adapter.notifyDataSetChanged();
  	  }else{
  		  while(adapter.getCount() > 1){
  			  Character character = (Character)getListAdapter().getItem(0);

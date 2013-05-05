@@ -35,8 +35,8 @@ public class CharacterDatabaseActivity extends ListActivity{
 	public void onClick(View view) {
 	  @SuppressWarnings("unchecked")
 	  ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
-	  Character character = datasource.createCharacter("Danny McSizzle");
-	  adapter.add(character);
+//	  Character character = datasource.createCharacter("Danny McSizzle");
+//	  adapter.add(character);
 	  /*switch (view.getId()) {
 	  case R.id.add:
 	    String[] comments = new String[] { "Cool", "Very nice", "Hate it" };

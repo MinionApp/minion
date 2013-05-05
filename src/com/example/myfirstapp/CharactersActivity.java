@@ -1,14 +1,18 @@
 package com.example.myfirstapp;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
 public class CharactersActivity extends Activity {
+	private CharacterDataSource datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +20,13 @@ public class CharactersActivity extends Activity {
 		setContentView(R.layout.activity_characters);
 		// Show the Up button in the action bar.
 		setupActionBar();
+        
+        datasource = new CharacterDataSource(this);
+	    datasource.open();
+
+
+	    //List<Character> values = datasource.getAllCharacters();
+	    datasource.printTables();
 	}
 
 	/**
