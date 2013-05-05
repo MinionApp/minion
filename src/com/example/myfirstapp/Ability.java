@@ -10,7 +10,7 @@ import java.util.*;
  * @author Loki White (lokiw)
  */
 public class Ability {
-	private String name;
+	private AbilityName name;
 	private int base;
 	private Map<String,Integer> tempModifiers;
 	
@@ -18,10 +18,10 @@ public class Ability {
 	 * Initializes an ability with the given name and defaults the base stat to
 	 * 10. No temporary modifiers are initialized.
 	 * 
-	 * @param name	the name of the ability being stores, such as Strength (str),
-	 * 				Dexterity (dex), ect...
+	 * @param name	the name of the ability being stored as the AbilityName enum,
+	 * 				such as STRENGTH, DEXTERITY, ect...
 	 */
-	public Ability(String name){
+	public Ability(AbilityName name){
 		this.name = name;
 		base = 10;
 		tempModifiers = new HashMap<String,Integer>();
@@ -30,12 +30,12 @@ public class Ability {
 	/**
 	 * Initializes an ability with the given name and given default score.
 	 * 
-	 * @param name	the name of the ability being stores, such as Strength (str),
-	 * 				Dexterity (dex), ect...
+	 * @param name	the name of the ability being stored as the AbilityName enum,
+	 * 				such as STRENGTH, DEXTERITY, ect...
 	 * @param score	the value to initialize the base stat
 	 * 
 	 */
-	public Ability(String name, int score){
+	public Ability(AbilityName name, int score){
 		//TODO: Consider ability values < 0
 		this.name = name;
 		this.base = score;
@@ -44,9 +44,9 @@ public class Ability {
 	/**
 	 * Get the name of this ability
 	 * 
-	 * @return a String name of the ability
+	 * @return a AbilityName enum representing the name of the ability
 	 */
-	public String getName(){
+	public AbilityName getName(){
 		return name;
 	}
 	
