@@ -10,8 +10,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+/**
+ * PasswordRecoveryCompletedActivity is an activity that provides text that informs the user that
+ * a password recovery email has been successfully sent to the user. (NOT YET IMPLEMENTED)
+ * @author Elijah Elefson (elefse)
+ *
+ */
 public class PasswordRecoveryCompletedActivity extends Activity {
 	
+	/**
+	 * Displays the password recovery completion page.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +39,9 @@ public class PasswordRecoveryCompletedActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -37,6 +49,9 @@ public class PasswordRecoveryCompletedActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -54,6 +69,10 @@ public class PasswordRecoveryCompletedActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Responds to the return to login button click and returns to the login page.
+	 * @param view The current view
+	 */
 	public void gotoLogin(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);

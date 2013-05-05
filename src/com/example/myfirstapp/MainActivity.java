@@ -9,6 +9,11 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+/**
+ * UNUSED CODE
+ * @author Thomas Eberlein (uwte)
+ *
+ */
 public class MainActivity extends ListActivity {
 	private CharacterDataSource datasource;
 	

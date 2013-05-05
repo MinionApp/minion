@@ -10,8 +10,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+/**
+ * PasswordRecoveryActivity is an activity that provides a form that the user can use
+ * in order to recover their password. (NOT YET IMPLEMENTED)
+ * @author Elijah Elefson (elefse)
+ *
+ */
 public class PasswordRecoveryActivity extends Activity {
 	
+	/**
+	 * Displays the password recovery page.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +39,9 @@ public class PasswordRecoveryActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -37,6 +49,9 @@ public class PasswordRecoveryActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -54,11 +69,20 @@ public class PasswordRecoveryActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Responds to the recover password button click and goes to the password recovery
+	 * completed page.
+	 * @param view The current view
+	 */
 	public void gotoEmailHasBeenSent(View view) {
         Intent intent = new Intent(this, PasswordRecoveryCompletedActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Responds to the cancel button click and returns to the login page.
+	 * @param view The current view
+	 */
 	public void gotoLogin(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
