@@ -11,7 +11,8 @@ import java.util.*;
  *
  */
 public class Character {
-	private long id;
+	private static long counter = 0;
+	public long id;
 	private CharacterDescription desc;
 	private Ability abilityScores[];
 	private Map<String,Skill> skills;
@@ -31,6 +32,8 @@ public class Character {
 		will = new SavingThrow(AbilityName.WISDOME);
 		fort = new SavingThrow(AbilityName.CONSTITUTION);
 		ref = new SavingThrow(AbilityName.DEXTERITY);
+		combat = new Combat();
+		id = ++counter;
 	}
 	
 	/**
@@ -166,7 +169,7 @@ public class Character {
 	public int getTotalHitPoints(){
 		
 		//TODO: include hpModifiers
-		return combat.baseHP + abilityScores[2].getMod()*level;
+		return combat.getBaseHP() + abilityScores[2].getMod()*level;
 	}
 	
 	/**
@@ -176,7 +179,7 @@ public class Character {
 	 * @return	current hit points of character.
 	 */
 	public int getCurrentHitPoints(){
-		return getTotalHitPoints() - (combat.lethalDamage + combat.bludeningDamage);
+		return getTotalHitPoints() - (combat.getLethalDamage() + combat.getBludgeningDamage());
 	}
 
 	@Override
