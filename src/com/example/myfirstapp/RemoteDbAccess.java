@@ -39,7 +39,7 @@ public final class RemoteDbAccess {
 		
 		private List<ReplaceableAttribute> attrs;
 		
-		public PutAttributesTask(List<ReplaceableAttribute> attributes) {
+		private PutAttributesTask(List<ReplaceableAttribute> attributes) {
 			this.attrs = attributes;
 		}
 		
