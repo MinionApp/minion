@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
         Intent intent;
         // If the user has not chosen to remain logged in, sends to login page
-        if(SaveSharedPreference.getUserName(LoginActivity.this).length() == 0) {
+        if (SaveSharedPreference.getUserName(LoginActivity.this).length() == 0) {
     		setContentView(R.layout.activity_login);
     	// If the user has chosen to remain logged in, sends to home page
         } else {
@@ -74,16 +74,16 @@ public class LoginActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+			case android.R.id.home:
+				// This ID represents the Home or Up button. In the case of this
+				// activity, the Up button is shown. Use NavUtils to allow users
+				// to navigate up one level in the application structure. For
+				// more details, see the Navigation pattern on Android Design:
+				//
+				// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+				//
+				NavUtils.navigateUpFromSameTask(this);
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -94,14 +94,30 @@ public class LoginActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoHomepage(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
-		// If the user has checked the option to remain logged in, stores the username 
-		// into SharedPreference
-		if(keepLoggedIn) {
-			EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
-			String username = usernameEditText.getText().toString().trim();
-			SaveSharedPreference.setUserName(LoginActivity.this, username);
+		Intent intent; // next activity to be set.
+		
+		// Get user login info.
+		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
+		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
+		String username = usernameEditText.getText().toString().trim();
+		String password = usernameEditText.getText().toString().trim();
+		
+		// Login succeeds, go to homepage.
+		if (RemoteDbAccess.loginAttempt(username, password)) {
+			intent = new Intent(this, HomeActivity.class);
+			
+			// Stores the username into preferences.
+			if (keepLoggedIn) {
+				SaveSharedPreference.setUserName(LoginActivity.this, username);
+			}
+		
+		// Login fails, go to login failure.
+		} else {
+			// TODO: needs to specify login failure somehow,
+			// either separate Activity or something within this Activity.
+			intent = new Intent(this, LoginActivity.class); 
 		}
+		
 		startActivity(intent);
 	}
 	
