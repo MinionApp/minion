@@ -7,10 +7,290 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AbilityScoresActivity" >
-
-    <TextView
+    
+    <LinearLayout
+		android:id="@+id/ability_titles"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:orientation="horizontal">
+    
+	    <TextView
+	        android:id="@+id/ab_name_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/ab_name" />
+	    
+	    <TextView
+	        android:id="@+id/ab_score_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/ab_score" />
+	    
+	    <TextView
+	        android:id="@+id/ab_mod_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/ab_score" />
+	    
+	    <TextView
+	        android:id="@+id/temp_adjust_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/temp_adjust" />
+	    
+	    <TextView
+	        android:id="@+id/temp_mod_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/temp_mod" />
+	</LinearLayout>
+	    
+    <LinearLayout
+        android:id="@+id/str"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ability_titles"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/str_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/str" />
+		
+	    <EditText android:id="@+id/str_ab_score"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/str_ab_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/str_temp_adjust"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/str_temp_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/dex"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/str"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/dex_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/dex" />
+		
+	    <EditText android:id="@+id/dex_ab_score"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/dex_ab_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/dex_temp_adjust"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/dex_temp_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/con"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dex"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/con_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/con" />
+		
+	    <EditText android:id="@+id/con_ab_score"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/con_ab_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/con_temp_adjust"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/con_temp_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/intel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/con"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/int_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/intel" />
+		
+	    <EditText android:id="@+id/int_ab_score"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/int_ab_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/int_temp_adjust"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/int_temp_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/wis"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intel"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/wis_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/wis" />
+		
+	    <EditText android:id="@+id/wis_ab_score"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/wis_ab_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/wis_temp_adjust"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/wis_temp_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/cha"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/wis"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/cha_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/cha" />
+		
+	    <EditText android:id="@+id/cha_ab_score"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/cha_ab_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/cha_temp_adjust"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText android:id="@+id/cha_temp_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <Button android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/cha"
+        android:text="@string/done"
+     	android:onClick="abilityScores" />
 
 </RelativeLayout>
