@@ -98,5 +98,7 @@
     <string name="temp_modifier">Temp</string>
     
     <string name="total">Total</string>
+    <string name="title_activity_characters">Manage Characters</string>
+    <string name="title_activity_groups">Manage Groups</string>
 
 </resources>
