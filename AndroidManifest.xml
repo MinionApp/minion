@@ -14,13 +14,60 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.myfirstapp.MainActivity"
+            android:name="com.example.myfirstapp.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:parentActivityName="com.example.myfirstapp.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SQLiteTestActivity"
+            android:label="@string/title_activity_sqlite_test"
+            android:parentActivityName="com.example.myfirstapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SignupActivity"
+            android:label="@string/title_activity_signup"
+            android:parentActivityName="com.example.myfirstapp.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.EmptyValidatorActivity"
+            android:parentActivityName="com.example.myfirstapp.SignupActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.SignupActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.PasswordRecoveryActivity"
+            android:label="@string/title_activity_password_recovery"
+            android:parentActivityName="com.example.myfirstapp.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.PasswordRecoveryCompletedActivity"
+            android:label="@string/title_activity_password_recovery"
+            android:parentActivityName="com.example.myfirstapp.PasswordRecoveryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.PasswordRecoveryActivity" />
         </activity>
     </application>
 

@@ -8,12 +8,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
+    
+    <Button
+        android:id="@+id/buttonhome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/welcome_message"
+        android:layout_centerHorizontal="true"
+        android:text="@string/title_activity_home"
+        android:onClick="gotoHome" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/welcome_message"
+        android:layout_below="@+id/buttonhome"
         android:layout_centerHorizontal="true"
         android:text="@string/button_send"
         android:onClick="onClick" />
@@ -51,5 +60,15 @@
         android:maxWidth="100dp"
         android:scaleType="centerInside"
         android:src="@drawable/husky_soft" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/buttonhome"
+        android:layout_marginTop="22dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="@string/login_title" 
+        android:onClick="gotoLogin"/>
 
 </RelativeLayout>

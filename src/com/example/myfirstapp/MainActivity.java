@@ -2,12 +2,18 @@ package com.example.myfirstapp;
 
 import java.util.List;
 
-import android.os.Bundle;
 import android.app.ListActivity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+/**
+ * UNUSED CODE
+ * @author Thomas Eberlein (uwte)
+ *
+ */
 public class MainActivity extends ListActivity {
 	private CharacterDataSource datasource;
 	
@@ -65,4 +71,13 @@ public class MainActivity extends ListActivity {
         return true;
     }
     
+    public void gotoHome(View view) {
+    	Intent intent = new Intent(this, HomeActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void gotoLogin(View view) {
+    	Intent intent2 = new Intent(this, LoginActivity.class);
+    	startActivity(intent2);
+    }
 }
