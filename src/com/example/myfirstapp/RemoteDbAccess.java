@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -39,19 +43,43 @@ public final class RemoteDbAccess {
 	
 	// Forks off Put tasks to be done independent of UI.
 	private static class PutAttributesTask extends AsyncTask<String, Void, Void> {
+		private ProgressDialog dialog;
+		Context context;
+		private List<ReplaceableAttribute> attrs = new ArrayList<ReplaceableAttribute>();
 		
+		private String user;
 		
-		private List<ReplaceableAttribute> attrs;
-		
-		private PutAttributesTask(List<ReplaceableAttribute> attributes) {
+		private PutAttributesTask(List<ReplaceableAttribute> attributes, Context con) {
 			this.attrs = attributes;
+			this.context = con; 
+		}
+		
+		//@Override
+		//protected void onPreExecute() {
+          //  dialog = new ProgressDialog(context);
+          //  dialog.setCancelable(true);
+         //   dialog.setMessage("uploading...");
+        //    dialog.show();
+		//}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			Log.i("START OF POST EXECUTE", "BLAHAHAHAHAHAHAHAHA?");
+			super.onPostExecute(result);
+			Intent intent = new Intent(context, SecurityQuestionActivity.class);
+	    	intent.putExtra("username", user);
+	    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			//dialog.dismiss();
+			context.getApplicationContext().startActivity(intent);
 		}
 		
 		@Override
 		protected Void doInBackground(String... username) {
-			String user = username[0];
+			Log.i("start of background", "STARTED OF BACKGROUND THINGY");
+			user = username[0];
 			PutAttributesRequest putUser = new PutAttributesRequest("User", user, attrs);		
 			db.putAttributes(putUser);
+			Log.i("stuck in doInBackground", "did it make it here?");
 			return null;
 		}
 	}
@@ -102,7 +130,7 @@ public final class RemoteDbAccess {
 	 */
 	// Potential hazard: only key/values are unique, not keys. *sigh*
 	// Potential hazard: individual submits lots of new login requests
-	public static boolean updateLoginCredentials(String username, String password) {
+	public static boolean updateLoginCredentials(String username, String password, Context context) {
 		// Prevent generic logins.
 		if (username.equals(publicCharactersUserName)) {
 			return false;
@@ -128,7 +156,7 @@ public final class RemoteDbAccess {
 		attrs.add(passwordAttr);
 		
 		// Continue with add. username is itemName().
-		PutAttributesTask task = new PutAttributesTask(attrs);
+		PutAttributesTask task = new PutAttributesTask(attrs, context);
 		task.execute(username);
 		return true;
 	}
@@ -216,7 +244,7 @@ public final class RemoteDbAccess {
 	 * @param answer, the submitted answer
 	 * @return if the credentials were successfully updated
 	 */
-	public static boolean updateSecurityQuestion(String username, String question, String answer) {
+	public static boolean updateSecurityQuestion(String username, String question, String answer, Context context) {
 		// Prevent generic logins.
 		if (username.equals(publicCharactersUserName)) {
 			return false;
@@ -232,7 +260,7 @@ public final class RemoteDbAccess {
 		attrs.add(answerAttr);
 		
 		// Continue with add. username is itemName().
-		PutAttributesTask task = new PutAttributesTask(attrs);
+		PutAttributesTask task = new PutAttributesTask(attrs, context);
 		task.execute(username);
 		return true;
 	}

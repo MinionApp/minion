@@ -52,7 +52,7 @@ public class NewPasswordValidatorActivity extends Activity {
 	    	// Checks for internet connectivity
 	    	if (ConnectionChecker.hasConnection(this)) {
 		    	// Updates login credentials on remote database
-		    	RemoteDbAccess.updateLoginCredentials(username, password);
+		    	RemoteDbAccess.updateLoginCredentials(username, password, this);
 		    	intent = new Intent(this, LoginActivity.class);
 	    	} else {
 	    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();

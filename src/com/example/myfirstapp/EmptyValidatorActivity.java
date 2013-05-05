@@ -3,8 +3,10 @@ package com.example.myfirstapp;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Toast;
 
@@ -39,6 +41,8 @@ public class EmptyValidatorActivity extends Activity {
 	private static final String PASSWORD_PATTERN = 
             "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 	
+	//private ProgressDialog pd;
+	
 	/**
 	 * Directs the intent to the correct activity based on the validity of what
 	 * has been input in the signup form.
@@ -59,12 +63,16 @@ public class EmptyValidatorActivity extends Activity {
 	    	// Checks for internet connectivity
 	    	if (ConnectionChecker.hasConnection(this)) {
 		    	// Updates login credentials on remote database
-		    	RemoteDbAccess.updateLoginCredentials(username, password);
-		    	intent = new Intent(this, SecurityQuestionActivity.class);
-		    	intent.putExtra(USERNAME, username);
+	    		//RemoteDbAccess o = new RemoteDbAccess();
+	    		//RemoteDbAccess.PutAttributesTask i = new PutAttributesTask(this);
+	    		//i.execute("");
+	    		RemoteDbAccess.updateLoginCredentials(username, password, this);
+		    	Log.i("after update", "did it make it here?");
 	    	} else {
 	    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
 	    	   intent = new Intent(this, SignupActivity.class);
+	    	   startActivity(intent);
+	    	   finish();
 	    	}
 	    // If any of the above conditions are not true
 	    } else {
@@ -82,11 +90,19 @@ public class EmptyValidatorActivity extends Activity {
 			intent.putExtra(PASSWORD, password);
 			intent.putExtra(USERNAME, username);
 			intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
+			startActivity(intent);
 		}
-	    startActivity(intent);
-	    finish();
+	    Log.i("yo", "did it make it here?");
+	    //finish();
 	    // note we never called setContentView()
 	}
+	
+  //  @Override
+    //public void onPause() {
+    //    super.onPause();
+    //    if (pd != null)
+     //       pd.dismiss();
+   // }
 	
 	/**
 	 * Checks that the given email is a valid email address.
