@@ -45,5 +45,17 @@
     <string name="hair">Hair</string>
     <string name="eyes">Eyes</string>
     <string name="done">Done</string>
+    
+    <string name="ab_name">Ability Name</string>
+    <string name="ab_score">Ability Score</string>
+    <string name="ab_mod">Ability Modifier</string>
+    <string name="temp_adjust">Temp Adjust</string>
+    <string name="temp_mod">Temp Mod</string>
+    <string name="str">STR\nStrength</string>
+    <string name="dex">DEX\nDexterity</string>
+    <string name="con">CON\nConstitution</string>
+    <string name="intel">INT\nIntelligence</string>
+    <string name="wis">WIS\nWisdom</string>
+    <string name="cha">CHA\nCharisma</string>
 
 </resources>
