@@ -19,7 +19,12 @@ public class Ability {
 	
 	/**
 	 * Initializes an ability with the given name and defaults the base stat to
-	 * 10. No temporary modifiers are initialized.
+	 * 10. The average stat for most pathfinder rolling systems is 10 because it 
+	 * has no possitive or negative ability modifiers. This average changes
+	 * with the fantasy level of a campaign but since the standard is no bonuses or
+	 * detriments, this value was chosen.
+	 * <p>
+	 * No temporary modifiers are initialized.
 	 * 
 	 * @param name	the name of the ability being stored as the AbilityName enum,
 	 * 				such as STRENGTH, DEXTERITY, ect...
