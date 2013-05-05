@@ -34,6 +34,26 @@ public class Character {
 	}
 	
 	/**
+	 * Sets the basic information of the character with the given information
+	 * 
+	 * @param basicInfo	initialize character with basicInfo
+	 * @modifies this
+	 */
+	public void setDescriptions(CharacterDescription basicInfo){
+		desc = basicInfo;
+	}
+	
+	/**
+	 * set the character level to the given level
+	 * 
+	 * @param level	int representation of a character level
+	 * @modifies this
+	 */
+	public void setLevel(int level){
+		this.level = level;
+	}
+	
+	/**
 	 * Get unique character id
 	 * 
 	 * @return	an unique long id of the character

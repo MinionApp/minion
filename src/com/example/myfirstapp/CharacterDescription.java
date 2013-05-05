@@ -9,12 +9,15 @@ package com.example.myfirstapp;
  */
 public class CharacterDescription {
 	public String name;
+	public String player;
 	public String alignment;
 	public Size size;
 	public Alignment firstAlign;
 	public Alignment secondAlign;
+	public String diety;
 	public String homeLand;
 	public String gender;
+	public String race;
 	public int age;
 	//consider storing in inches and displaying in feet inches
 	public int height;
