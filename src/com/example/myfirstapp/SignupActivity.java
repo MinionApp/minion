@@ -19,8 +19,6 @@ import android.widget.EditText;
  *
  */
 public class SignupActivity extends Activity{
-	private static final String FIRST_NAME = "firstName";
-	private static final String LAST_NAME = "lastName";
 	private static final String USERNAME = "username";
 	private static final String EMAIL = "email";
 	private static final String PASSWORD = "password";

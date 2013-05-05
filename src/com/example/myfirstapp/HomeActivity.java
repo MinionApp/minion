@@ -10,8 +10,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+/**
+ * HomeActivity is the activity that provides the user with the home page for the application.
+ * This page is displayed after all login activities have been completed or bypassed. This page
+ * also provides the means to get the the character management page, group management page, settings
+ * page and the logout option.
+ * @author Kevin Dong (kevinxd3)
+ *
+ */
 public class HomeActivity extends Activity {
 
+	/**
+	 * Displays the home page.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +41,9 @@ public class HomeActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -37,6 +51,9 @@ public class HomeActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -54,8 +71,8 @@ public class HomeActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void gotoCharacters(View view) {
-		Intent intent = new Intent(this, SQLiteTestActivity.class);
+	public void goToCharacters(View view) {
+		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 	}
 	
@@ -66,13 +83,13 @@ public class HomeActivity extends Activity {
 	}
 	
 	// Activity not yet created, will direct to main activity instead
-	public void gotoGroups(View view) {
+	public void goToGroups(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 	}
 
 	// Activity not yet created, will direct to main activity instead
-	public void gotoSettings(View view) {
+	public void goToSettings(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 	}
