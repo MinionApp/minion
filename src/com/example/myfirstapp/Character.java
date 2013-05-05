@@ -17,6 +17,10 @@ public class Character {
 	private static long counter = 0;
 	public long id;
 	private CharacterDescription desc;
+	
+	//Array of ability scores. 
+	// 0	 1	 2 	 3	 4	 5
+	//STR	DEX	CON	INT	WIS	CHA
 	private Ability abilityScores[];
 	private Map<String,Skill> skills;
 	private Combat combat;
