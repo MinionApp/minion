@@ -8,12 +8,12 @@ import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
-public class BasicInfoActivity extends Activity {
+public class CombatActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_basic_info);
+		setContentView(R.layout.activity_combat);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -31,7 +31,7 @@ public class BasicInfoActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.basic_info, menu);
+		getMenuInflater().inflate(R.menu.combat, menu);
 		return true;
 	}
 

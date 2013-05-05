@@ -4,16 +4,18 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
-public class BasicInfoActivity extends Activity {
+public class CharCreateMainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_basic_info);
+		setContentView(R.layout.activity_char_create_main);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -31,7 +33,7 @@ public class BasicInfoActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.basic_info, menu);
+		getMenuInflater().inflate(R.menu.char_create_main, menu);
 		return true;
 	}
 
@@ -50,6 +52,31 @@ public class BasicInfoActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void gotoBasicInfo(View view) {
+		Intent intent = new Intent(this, BasicInfoActivity.class);
+		startActivity(intent);
+	}
+	
+	public void gotoAbilityScores(View view) {
+		Intent intent = new Intent(this, AbilityScoresActivity.class);
+		startActivity(intent);
+	}
+	
+	public void gotoSkills(View view) {
+		Intent intent = new Intent(this, SkillsActivity.class);
+		startActivity(intent);
+	}
+	
+	public void gotoCombat(View view) {
+		Intent intent = new Intent(this, CombatActivity.class);
+		startActivity(intent);
+	}
+	
+	public void gotoSavingThrows(View view) {
+		Intent intent = new Intent(this, SavingThrowsActivity.class);
+		startActivity(intent);
 	}
 
 }
