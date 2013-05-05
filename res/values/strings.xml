@@ -44,5 +44,6 @@
     <string name="weight">Weight</string>
     <string name="hair">Hair</string>
     <string name="eyes">Eyes</string>
+    <string name="done">Done</string>
 
 </resources>
