@@ -18,6 +18,11 @@ import android.widget.EditText;
  *
  */
 public class PasswordResetActivity extends Activity {
+	private static final String PASSWORD = "password";
+	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
+	private static final String IS_FIRST_VIEW = "isFirstView";
+	private static final String IS_VALID_PASSWORD = "isValidPassword";
+	private static final String PASSWORDS_MATCH = "passwordsMatch";
 	
 	/**
 	 * Displays the password reset page.
@@ -27,9 +32,9 @@ public class PasswordResetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Intent receivedIntent = getIntent();
 		// If the page is being viewed for the first time isFirstView will be true, otherwise false
-		boolean isFirstView = receivedIntent.getBooleanExtra("isFirstView", true);
-	    boolean isValidPassword = receivedIntent.getBooleanExtra("isValidPassword", false);
-	    boolean passwordsMatch = receivedIntent.getBooleanExtra("passwordsMatch", false);
+		boolean isFirstView = receivedIntent.getBooleanExtra(IS_FIRST_VIEW, true);
+	    boolean isValidPassword = receivedIntent.getBooleanExtra(IS_VALID_PASSWORD, false);
+	    boolean passwordsMatch = receivedIntent.getBooleanExtra(PASSWORDS_MATCH, false);
 	    // Displays blank signup page if it is the user's first viewing of the page
 	    if (isFirstView) {
 	    	setContentView(R.layout.activity_password_recovery_completed);
@@ -96,11 +101,11 @@ public class PasswordResetActivity extends Activity {
 		Intent intent = new Intent(this, NewPasswordValidatorActivity.class);
 		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
 		String password = passwordEditText.getText().toString().trim();
-		intent.putExtra("password", password);
+		intent.putExtra(PASSWORD, password);
 		
 		EditText passwordConfirmationEditText = (EditText) findViewById(R.id.confirmPasswordInput);
 		String passwordConfirmation = passwordConfirmationEditText.getText().toString().trim();
-		intent.putExtra("passwordConfirmation", passwordConfirmation);
+		intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
 		startActivity(intent);
 	}
 }

@@ -14,6 +14,12 @@ import android.content.Intent;
  *
  */
 public class NewPasswordValidatorActivity extends Activity {
+	private static final String PASSWORD = "password";
+	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
+	private static final String IS_FIRST_VIEW = "isFirstView";
+	private static final String IS_VALID_PASSWORD = "isValidPassword";
+	private static final String PASSWORDS_MATCH = "passwordsMatch";
+	
 	/**
 	 *  The regex that will only allow string with the following qualities:
 	 *  	1.) Must be at least 8 characters long
@@ -35,8 +41,8 @@ public class NewPasswordValidatorActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    Intent receivedIntent = getIntent();
 	    // Receives the data the user input into the password recovery form
-	    String password = receivedIntent.getStringExtra("password");
-	    String passwordConfirmation = receivedIntent.getStringExtra("passwordConfirmation");
+	    String password = receivedIntent.getStringExtra(PASSWORD);
+	    String passwordConfirmation = receivedIntent.getStringExtra(PASSWORD_CONFIRMATION);
 	    Intent intent;
 	    // If password is valid and the password and confirmation password match
 	    if (validPassword(password) && matchingPasswords(password, passwordConfirmation)) {
@@ -45,11 +51,11 @@ public class NewPasswordValidatorActivity extends Activity {
 	    } else {
 	    	intent = new Intent(this, PasswordResetActivity.class);
 	    	// Determines if the user should see a blank signup form 
-	    	intent.putExtra("isFirstView", false);
+	    	intent.putExtra(IS_FIRST_VIEW, false);
 	    	// Stores if the given password is valid
-	    	intent.putExtra("isValidPassword", validPassword(password));
+	    	intent.putExtra(IS_VALID_PASSWORD, validPassword(password));
 	    	// Stores if the given password and confirmation password match
-	    	intent.putExtra("passwordsMatch", matchingPasswords(password, passwordConfirmation));
+	    	intent.putExtra(PASSWORDS_MATCH, matchingPasswords(password, passwordConfirmation));
 		}
 	    startActivity(intent);
 	    finish();

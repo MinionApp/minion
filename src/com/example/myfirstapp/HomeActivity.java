@@ -71,24 +71,44 @@ public class HomeActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Responds to the manage characters button click and goes to the manage
+	 * characters page. (Mangage characters currently unimplemented so directs to
+	 * HomeActivity instead)
+	 * @param view The current view
+	 */
 	public void goToCharacters(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Responds to the logout button click, logs the user out, and goes to the login page.
+	 * @param view The current view
+	 */
 	public void logout(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
 		SaveSharedPreference.setUserName(HomeActivity.this, "");
 		startActivity(intent);
 	}
 	
-	// Activity not yet created, will direct to main activity instead
+	/**
+	 * Responds to the manage groups button click and goes to the manage
+	 * groups page. (Mangage groups currently unimplemented so directs to
+	 * HomeActivity instead)
+	 * @param view The current view
+	 */
 	public void goToGroups(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
 	}
 
-	// Activity not yet created, will direct to main activity instead
+	/**
+	 * Responds to the settings button click and goes to the manage
+	 * groups page. (Settings currently unimplemented so directs to
+	 * HomeActivity instead)
+	 * @param view The current view
+	 */
 	public void goToSettings(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);

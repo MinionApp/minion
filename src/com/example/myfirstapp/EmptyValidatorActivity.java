@@ -16,10 +16,7 @@ import android.util.Patterns;
  * @author Elijah Elefson (elefse)
  *
  */
-public class EmptyValidatorActivity extends Activity 
-{
-	private static final String FIRST_NAME = "firstName";
-	private static final String LAST_NAME = "lastName";
+public class EmptyValidatorActivity extends Activity {
 	private static final String USERNAME = "username";
 	private static final String EMAIL = "email";
 	private static final String PASSWORD = "password";
@@ -50,8 +47,6 @@ public class EmptyValidatorActivity extends Activity
 	    super.onCreate(savedInstanceState);
 	    Intent receivedIntent = getIntent();
 	    // Receives the data the user input into the signup form
-	    String firstName = receivedIntent.getStringExtra(FIRST_NAME);
-	    String lastName = receivedIntent.getStringExtra(LAST_NAME);
 	    String username = receivedIntent.getStringExtra(USERNAME);
 	    String email = receivedIntent.getStringExtra(EMAIL);
 	    String password = receivedIntent.getStringExtra(PASSWORD);
@@ -75,8 +70,6 @@ public class EmptyValidatorActivity extends Activity
 	    	// Sends the input information back to the signup form so user doesn't have to reenter
 			intent.putExtra(EMAIL, email);
 			intent.putExtra(PASSWORD, password);
-			intent.putExtra(FIRST_NAME, firstName);
-			intent.putExtra(LAST_NAME, lastName);
 			intent.putExtra(USERNAME, username);
 			intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
 		}
