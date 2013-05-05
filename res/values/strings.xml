@@ -57,5 +57,12 @@
     <string name="intel">INT\nIntelligence</string>
     <string name="wis">WIS\nWisdom</string>
     <string name="cha">CHA\nCharisma</string>
+    
+    <string name="skill_names">Skill Names</string>
+    <string name="ranks">Ranks</string>
+    <string name="misc_mod">Misc. Mod.</string>
+    <string name="acrobatics">Acrobatics</string>
+    <string name="linguistics">Linguistics</string>
+    <string name="stealth">Stealth</string>
 
 </resources>
