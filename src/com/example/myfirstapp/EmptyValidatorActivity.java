@@ -60,7 +60,7 @@ public class EmptyValidatorActivity extends Activity
 	    // If email is valid, password is valid, and the password and confirmation password match
 	    if (validEmail(email) && validPassword(password) && 
 	    		matchingPasswords(password, passwordConfirmation)) {
-	    	intent = new Intent(this, LoginActivity.class);
+	    	intent = new Intent(this, SecurityQuestionActivity.class);
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, SignupActivity.class);

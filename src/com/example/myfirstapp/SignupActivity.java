@@ -133,7 +133,7 @@ public class SignupActivity extends Activity{
 	}
 	
 	/**
-	 * Responds to the signup button click and sends the information that has been input
+	 * Responds to the next button click and sends the information that has been input
 	 * to be validated.
 	 * @param view The current view
 	 */

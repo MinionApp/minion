@@ -1,30 +1,31 @@
 package com.example.myfirstapp;
 
+import android.os.Build;
+import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Spinner;
 
 /**
- * PasswordRecoveryCompletedActivity is an activity that provides text that informs the user that
- * a password recovery email has been successfully sent to the user. (NOT YET IMPLEMENTED)
+ * SecurityQuestionActivity is an activity that provides a security question and answer
+ * form for the user.
  * @author Elijah Elefson (elefse)
  *
  */
-public class PasswordRecoveryCompletedActivity extends Activity {
-	
+public class SecurityQuestionActivity extends Activity {
+
 	/**
-	 * Displays the password recovery completion page.
+	 * Displays the security question selection page.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_password_recovery_completed);
+		setContentView(R.layout.activity_security_question);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -48,7 +49,7 @@ public class PasswordRecoveryCompletedActivity extends Activity {
 		getMenuInflater().inflate(R.menu.sqlite_test, menu);
 		return true;
 	}
-
+	
 	/**
 	 * Sets up the Up button
 	 */
@@ -70,11 +71,15 @@ public class PasswordRecoveryCompletedActivity extends Activity {
 	}
 	
 	/**
-	 * Responds to the return to login button click and returns to the login page.
+	 * Responds to the signup button click and returns user to login page.
 	 * @param view The current view
 	 */
 	public void gotoLogin(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
+		Spinner securityQuestions = (Spinner) findViewById(R.id.securityQuestionSpinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String selectedSecurityQuestion = securityQuestions.getSelectedItem().toString();
 		startActivity(intent);
 	}
+
 }

@@ -1,30 +1,30 @@
 package com.example.myfirstapp;
 
+import android.os.Build;
+import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 /**
- * PasswordRecoveryActivity is an activity that provides a form that the user can use
- * in order to recover their password. (NOT YET IMPLEMENTED)
+ * PasswordRecoveryQuestionActivity is an activity that gives the user their security question
+ * and then allows them to answer it in order to determine if they can reset their password.
  * @author Elijah Elefson (elefse)
  *
  */
-public class PasswordRecoveryActivity extends Activity {
-	
+public class PasswordRecoveryQuestionActivity extends Activity {
+
 	/**
-	 * Displays the password recovery page.
+	 * Displays the password recovery security question page.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_password_recovery);
+		setContentView(R.layout.activity_password_recovery_question);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -48,7 +48,7 @@ public class PasswordRecoveryActivity extends Activity {
 		getMenuInflater().inflate(R.menu.sqlite_test, menu);
 		return true;
 	}
-
+	
 	/**
 	 * Sets up the Up button
 	 */
@@ -70,20 +70,12 @@ public class PasswordRecoveryActivity extends Activity {
 	}
 	
 	/**
-	 * Responds to the recover password button click and goes to the security question page.
-	 * @param view The current view
-	 */
-	public void gotoSecurityQuestion(View view) {
-        Intent intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
-		startActivity(intent);
-	}
-	
-	/**
-	 * Responds to the cancel button click and returns to the login page.
+	 * Responds to the answer question button click and sends user to password reset page.
 	 * @param view The current view
 	 */
 	public void gotoLogin(View view) {
-		Intent intent = new Intent(this, LoginActivity.class);
+		Intent intent = new Intent(this, PasswordResetActivity.class);
 		startActivity(intent);
 	}
+
 }
