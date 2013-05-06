@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class AbilityScoresActivity extends Activity {
@@ -69,6 +70,9 @@ public class AbilityScoresActivity extends Activity {
 		abilities[3] = intel;
 		abilities[4] = wis;
 		abilities[5] = cha;
+		Intent recievedIntent = getIntent();
+		Character newChar = (Character) recievedIntent.getSerializableExtra("new character");
+		newChar.setAbilityScores(abilities);
 	}
 	
 	private Ability getStr() {

@@ -15,7 +15,7 @@ public class CharacterDescription {
 	public String name;
 	public String player;
 	public String alignment;
-	public Size size;
+	public String size;
 	public Alignment firstAlign;
 	public Alignment secondAlign;
 	public String diety;

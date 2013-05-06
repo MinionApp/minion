@@ -8,14 +8,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class BasicInfoActivity extends Activity {
-
+	private Character newChar;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basic_info);
+		Intent recievedIntent = getIntent();
+		newChar = (Character) recievedIntent.getSerializableExtra("new character");
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -56,7 +60,6 @@ public class BasicInfoActivity extends Activity {
 	
 	public void basicInfo(View view){
 		System.out.println("BASIC INFO");
-		Character createdChar = new Character();
 		CharacterDescription baseInfo = new CharacterDescription();
 		//TODO: Handle empty cases
 		
@@ -65,8 +68,8 @@ public class BasicInfoActivity extends Activity {
 		
 		//TODO: Make alignment a dropdown menu
 		//Alignment
-		//EditText align_enter = (EditText) findViewById(R.id.alignment_enter);
-		//String align = align_enter.getText().toString().trim();
+		EditText align_enter = (EditText) findViewById(R.id.alignment_enter);
+		String align = align_enter.getText().toString().trim();
 		
 		//Player
 		EditText player_enter = (EditText) findViewById(R.id.player_enter);
@@ -94,8 +97,8 @@ public class BasicInfoActivity extends Activity {
 		
 		//TODO: Make size dropdown
 		//Size
-		//EditText size_enter = (EditText) findViewById(R.id.size_enter);
-		//String size = align_enter.getText().toString().trim();
+		EditText size_enter = (EditText) findViewById(R.id.size_enter);
+		String size = size_enter.getText().toString().trim();
 		
 		//Gender
 		EditText gender_enter = (EditText) findViewById(R.id.gender_enter);
@@ -137,18 +140,20 @@ public class BasicInfoActivity extends Activity {
 		
 		baseInfo.name = cName;
 		baseInfo.player = player;
-		createdChar.setLevel(lvl);
+		baseInfo.alignment = align;
+		newChar.setLevel(lvl);
 		baseInfo.diety = deity;
 		baseInfo.homeLand = homeland;
 		baseInfo.race = race;
 		baseInfo.gender = gender;
 		baseInfo.age = ageNum;
+		baseInfo.size = size;
 		baseInfo.height = heightNum;
 		baseInfo.weight = weightNum;
 		baseInfo.hair = hair;
 		baseInfo.eyes = eyes;
 		
-		createdChar.setDescriptions(baseInfo);
+		newChar.setDescriptions(baseInfo);
 		
 	}
 

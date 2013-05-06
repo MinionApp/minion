@@ -1,5 +1,6 @@
 package com.example.myfirstapp;
 
+import java.io.Serializable;
 import java.util.*;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -13,7 +14,11 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Kevin Dong (kevinxd3)
  *
  */
-public class Character {
+public class Character implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 211881898610224557L;
 	private static long counter = 0;
 	public long id;
 	private CharacterDescription desc;
@@ -61,6 +66,10 @@ public class Character {
 	 */
 	public void setLevel(int level){
 		this.level = level;
+	}
+	
+	public void setAbilityScores(Ability[] scores){
+		this.abilityScores = scores;
 	}
 	
 	/**
