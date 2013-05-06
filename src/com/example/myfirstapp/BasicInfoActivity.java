@@ -55,6 +55,7 @@ public class BasicInfoActivity extends Activity {
 	}
 	
 	public void basicInfo(View view){
+		System.out.println("BASIC INFO");
 		Character createdChar = new Character();
 		CharacterDescription baseInfo = new CharacterDescription();
 		//TODO: Handle empty cases
@@ -101,7 +102,6 @@ public class BasicInfoActivity extends Activity {
 		String gender = gender_enter.getText().toString().trim();
 		
 		//TODO: Figure out how to get out numbers
-
 		//Age
 		EditText age_enter = (EditText) findViewById(R.id.age_enter);
 		String age = age_enter.getText().toString().trim();
@@ -133,6 +133,7 @@ public class BasicInfoActivity extends Activity {
 		//Eyes
 		EditText eyes_enter = (EditText) findViewById(R.id.eyes_enter);
 		String eyes = eyes_enter.getText().toString().trim();
+		
 		
 		baseInfo.name = cName;
 		baseInfo.player = player;

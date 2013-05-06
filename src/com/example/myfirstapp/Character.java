@@ -35,7 +35,7 @@ public class Character {
 	public Character(){
 		abilityScores = new Ability[6];
 		skills = new HashMap<String,Skill>();
-		level = 1;
+		level = 1; 
 		will = new SavingThrow(AbilityName.WISDOME);
 		fort = new SavingThrow(AbilityName.CONSTITUTION);
 		ref = new SavingThrow(AbilityName.DEXTERITY);

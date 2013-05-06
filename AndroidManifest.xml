@@ -38,10 +38,10 @@
         <activity
             android:name="com.example.myfirstapp.BasicInfoActivity"
             android:label="@string/title_activity_basic_info"
-            android:parentActivityName="com.example.myfirstapp.HomeActivity" >
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.HomeActivity" />
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
         </activity>
         <activity
             android:name="com.example.myfirstapp.CharCreateMainActivity"

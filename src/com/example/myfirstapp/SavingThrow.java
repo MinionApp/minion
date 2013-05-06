@@ -22,8 +22,8 @@ public class SavingThrow {
 	 * 					CONSTITUTION
 	 */
 	public SavingThrow(AbilityName attribute){
-		if (attribute != AbilityName.WISDOME || attribute != AbilityName.DEXTERITY
-				|| attribute != AbilityName.CONSTITUTION) {
+		if (attribute != AbilityName.WISDOME && attribute != AbilityName.DEXTERITY
+				&& attribute != AbilityName.CONSTITUTION) {
 			throw new IllegalArgumentException();
 		}
 		assocAbility = attribute;
