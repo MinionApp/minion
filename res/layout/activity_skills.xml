@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".SkillsActivity" >
+
+    <LinearLayout
+		android:id="@+id/skill_titles"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:orientation="horizontal">
+    
+	    <TextView
+	        android:id="@+id/ab_name_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/skill_names" />
+	    
+	    <TextView
+	        android:id="@+id/ab_score_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/ranks" />
+	    
+	    <TextView
+	        android:id="@+id/ab_mod_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/misc_mod" />
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/acrobatics"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/skill_titles"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/acrobatics_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/acrobatics" />
+		
+	    <EditText 
+	        android:id="@+id/acrobatics_ranks"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText 
+	        android:id="@+id/acrobatics_misc_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/linguistics"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/acrobatics"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/linguistics_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/linguistics" />
+		
+	    <EditText 
+	        android:id="@+id/linguistics_ranks"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText 
+	        android:id="@+id/linguistics_misc_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/stealth"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linguistics"
+        android:orientation="horizontal" >
+	    
+        <TextView
+	        android:id="@+id/stealth_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:text="@string/stealth" />
+		
+	    <EditText 
+	        android:id="@+id/stealth_ranks"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <EditText 
+	        android:id="@+id/stealth_misc_mod"
+	        android:inputType="numberSigned"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	</LinearLayout>
+	
+    <Button 
+        android:id="@+id/button_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/stealth"
+        android:text="@string/done"
+     	android:onClick="skills" />
+
+</RelativeLayout>

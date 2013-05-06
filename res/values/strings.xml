@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Minion</string>
+      <string name="app_name">Minion</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="edit_message">Enter a message</string>
@@ -60,5 +60,91 @@
     <string name="new_password_input">Input new password</string>
     <string name="answer_button">Answer</string>
     <string name="title_activity_new_password_validator">NewPasswordValidatorActivity</string>
+    
+    <string name="title_activity_basic_info">BasicInfoActivity</string>
+    <string name="character_name">Character Name</string>
+    <string name="title_activity_char_create_main">CharCreateMainActivity</string>
+    <string name="button_basic_info">Basic Info</string>
+    <string name="button_ability_scores">Ability Scores</string>
+    <string name="button_skills">Skills</string>
+    <string name="button_combat">Combat</string>
+    <string name="button_saving_throws">Saving Throws</string>
+    <string name="title_activity_ability_scores">AbilityScoresActivity</string>
+    <string name="title_activity_skills">SkillsActivity</string>
+    <string name="title_activity_combat">CombatActivity</string>
+    <string name="title_activity_saving_throws">SavingThrowsActivity</string>
+    
+    <string name="hit_points">HP (Health Points)</string>
+    <string name="hit_points_total">Total</string>
+    <string name="hit_points_dr">DR</string>
+    <string name="speed">Speed (Land)</string>
+    <string name="speed_base">Base Speed</string>
+    <string name="speed_armor">With Armor</string>
+    <string name="initiative">Initiative (Modifier)</string>
+    <string name="initiative_total">Total</string>
+    <string name="initiative_dex">Dex Modifier</string>
+    <string name="initiative_misc">Misc Modifier</string>
+    <string name="armor_class">AC (Armor Class)</string>
+    <string name="armor_total">Total</string>
+    <string name="armor_constant">10 +</string>
+    <string name="armor_bonus">Armor</string>
+    <string name="armor_shield">Shield</string>
+    <string name="armor_dex">Dex</string>
+    <string name="armor_size">Size</string>
+    <string name="armor_natural">Natural</string>
+    <string name="armor_deflection">Deflection</string>
+    <string name="armor_misc">Misc</string>
+    <string name="attack_bonus">Base Attack Bonus</string>
+    
+    <string name="alignment">Alignment</string>
+    <string name="enter_text">Enter text...</string>
+    <string name="player">Player</string>
+    <string name="char_level">Character Level</string>
+    <string name="deity">Deity</string>
+    <string name="homeland">Homeland</string>
+    <string name="race">Race</string>
+    <string name="size">Size</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="hair">Hair</string>
+    <string name="eyes">Eyes</string>
+    <string name="done">Done</string>
+    
+    <string name="ab_name">Ability Name</string>
+    <string name="ab_score">Ability Score</string>
+    <string name="ab_mod">Ability Modifier</string>
+    <string name="temp_adjust">Temp Adjust</string>
+    <string name="temp_mod">Temp Mod</string>
+    <string name="str">STR\nStrength</string>
+    <string name="dex">DEX\nDexterity</string>
+    <string name="con">CON\nConstitution</string>
+    <string name="intel">INT\nIntelligence</string>
+    <string name="wis">WIS\nWisdom</string>
+    <string name="cha">CHA\nCharisma</string>
+    
+    <string name="skill_names">Skill Names</string>
+    <string name="ranks">Ranks</string>
+    <string name="misc_mod">Misc. Mod.</string>
+    <string name="acrobatics">Acrobatics</string>
+    <string name="linguistics">Linguistics</string>
+    <string name="stealth">Stealth</string>
+    
+    <string name="fortitude_title">Fortitude (Constitution)</string>
+    <string name="reflex_title">Reflex (Dexterity)</string>
+    <string name="will_title">Will (Wisdom)</string>
+    <string name="base_save">Base</string>
+    <string name="ability_modifier">Ability</string>
+    <string name="magic_modifier">Magic</string>
+    <string name="misc_modifier">Misc</string>
+    <string name="temp_modifier">Temp</string>
+    
+    <string name="total">Total</string>
+    <string name="title_activity_characters">Manage Characters</string>
+    <string name="title_activity_groups">Manage Groups</string>
+    
+    <string name="welcome">Welcome to Minion Character Creation!</string>
+    <string name="char_creation_success">Character successfully saved!</string>
 
 </resources>

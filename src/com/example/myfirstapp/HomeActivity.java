@@ -28,7 +28,7 @@ public class HomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		// Show the Up button in the action bar.
-		setupActionBar();
+		//setupActionBar();
 	}
 
 	/**
@@ -71,14 +71,14 @@ public class HomeActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+
 	/**
 	 * Responds to the manage characters button click and goes to the manage
-	 * characters page. (Manage characters currently unimplemented so directs to
-	 * HomeActivity instead)
+	 * characters page.
 	 * @param view The current view
 	 */
-	public void goToCharacters(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
+	public void gotoCharacters(View view) {
+		Intent intent = new Intent(this, CharactersActivity.class);
 		startActivity(intent);
 	}
 	
@@ -94,12 +94,11 @@ public class HomeActivity extends Activity {
 	
 	/**
 	 * Responds to the manage groups button click and goes to the manage
-	 * groups page. (Manage groups currently unimplemented so directs to
-	 * HomeActivity instead)
+	 * groups page. 
 	 * @param view The current view
 	 */
-	public void goToGroups(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
+	public void gotoGroups(View view) {
+		Intent intent = new Intent(this, GroupsActivity.class);
 		startActivity(intent);
 	}
 
@@ -112,6 +111,9 @@ public class HomeActivity extends Activity {
 	public void goToSettings(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
-	}
+
+	public void gotoTesting(View view) {
+		Intent intent = new Intent(this, SQLiteTestActivity.class);
+
 
 }
