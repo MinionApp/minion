@@ -16,12 +16,89 @@
         <activity
             android:name="com.example.myfirstapp.MainActivity"
             android:label="@string/app_name" >
+            
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.HomeActivity"
+            android:label="@string/title_activity_home" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity
+            android:name="com.example.myfirstapp.SQLiteTestActivity"
+            android:label="@string/title_activity_sqlite_test"
+            android:parentActivityName="com.example.myfirstapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.BasicInfoActivity"
+            android:label="@string/title_activity_basic_info"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.CharCreateMainActivity"
+            android:label="@string/title_activity_char_create_main"
+            android:parentActivityName="com.example.myfirstapp.SQLiteTestActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.SQLiteTestActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.AbilityScoresActivity"
+            android:label="@string/title_activity_ability_scores"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SkillsActivity"
+            android:label="@string/title_activity_skills"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.CombatActivity"
+            android:label="@string/title_activity_combat"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SavingThrowsActivity"
+            android:label="@string/title_activity_saving_throws"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
 
+        <activity
+            android:name="com.example.myfirstapp.CharactersActivity"
+            android:label="@string/title_activity_characters"
+            android:parentActivityName="com.example.myfirstapp.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.GroupsActivity"
+            android:label="@string/title_activity_groups"
+            android:parentActivityName="com.example.myfirstapp.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.HomeActivity" />
+        </activity>
+    </application>
 </manifest>
