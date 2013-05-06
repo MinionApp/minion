@@ -32,7 +32,7 @@ public class CharacterDataSource {
 	private SQLiteHelperArmor helperArmor;
 	private SQLiteHelperSavingThrows helperSavingThrows;
 	private SQLiteHelperWeapons helperWeapons;
-	private SQLiteHelperMinion[] helpers = {helperBasicInfo, helperAbilityScores, 
+	private SQLiteHelperInterface[] helpers = {helperBasicInfo, helperAbilityScores, 
 		helperASTempMods, helperSkills, helperCombat, helperArmor, 
 		helperSavingThrows, helperWeapons};
 	
@@ -45,6 +45,9 @@ public class CharacterDataSource {
 	private SQLiteDatabase dbArmor;
 	private SQLiteDatabase dbSavingThrows;
 	private SQLiteDatabase dbWeapons;
+	
+	//SQLiteDatabase[] data = {dbBasicInfo, dbAbilityScores, dbASTempMods, 
+	//		dbSkills, dbCombat, dbArmor, dbSavingThrows, dbWeapons};
 	
 
 	public CharacterDataSource(Context context) {
@@ -67,42 +70,35 @@ public class CharacterDataSource {
 		
 		dbRef = helperRef.getReadableDatabase();
 		
-		SQLiteHelperMinion[] helpers = {helperBasicInfo, helperAbilityScores, 
-				helperASTempMods, helperSkills, helperCombat, helperArmor, 
-				helperSavingThrows, helperWeapons};
-		SQLiteDatabase[] data = {dbBasicInfo, dbAbilityScores, dbASTempMods, 
-				dbSkills, dbCombat, dbArmor, dbSavingThrows, dbWeapons};
-		
 		// test ref databases; create them if they don't exist
 		try {
 			String[] columns = { SQLiteHelperRefTables.COLUMN_AS_ID };
 			dbRef.query(SQLiteHelperRefTables.TABLE_REF_SKILLS,
 			       columns, null, null, null, null, null);
-		} catch (Exception e) { // table doesn't exist yet, create
+		} catch (Exception e) { // ref tables doesn't exist yet, create
 			helperRef.onCreate(dbRef);
 		}
 		
-		for (int i = 0; i < helpers.length; i++) {
-			if (helpers[i] == null) System.out.println("asdf");
-			data[i] = ((SQLiteOpenHelper) helpers[i]).getWritableDatabase();
-			
+		for (int i = 0; i < helpers.length; i++) {			
 			// test database; create if it doesn't exist
+			SQLiteHelperInterface h = helpers[i];
 			try {
+				
 				System.out.println("testing table");
-				System.out.println(helpers[i].getTableName());
-				String[] columns = helpers[i].getColumns();
+				System.out.println(h.getTableName());
+				String[] columns = h.getColumns();
 				//String[] columns = { helpers[i].getColumns()[0] };
 				for (int j = 0; j < columns.length; j ++) {
 					System.out.println(columns[j]);
 				}
-				data[i].query(helpers[i].getTableName(),
+				h.db.query(h.getTableName(),
 				       columns, null, null, null, null, null);
 			} catch (Exception e) { // table doesn't exist yet, create
 				System.out.println(e.getCause());
 				e.printStackTrace();
 				
 				System.out.println("no table found, creating...");
-;				((SQLiteOpenHelper) helpers[i]).onCreate(data[i]);
+;				((SQLiteOpenHelper) h).onCreate(h.getDB());
 			}
 		}
 		
@@ -143,6 +139,8 @@ public class CharacterDataSource {
 	public void addCharacter(Character character) {
 		character.writeToDB(dbBasicInfo, dbAbilityScores, dbASTempMods, dbSkills, 
 			dbCombat, dbArmor, dbSavingThrows, dbWeapons);
+		character.writeToDB(helperBasicInfo.getDB(), helperAbilityScores.getDB(), helperASTempMods.getDB(), helperSkills.getDB(), 
+			helperCombat.getDB(), helperArmor.getDB(), helperSavingThrows.getDB(), helperWeapons.getDB());
 	}
 	
 	/**

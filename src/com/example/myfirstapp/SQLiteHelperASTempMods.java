@@ -10,9 +10,10 @@ import android.util.Log;
  *
  */
 public class SQLiteHelperASTempMods extends SQLiteOpenHelper 
-		implements SQLiteHelperMinion {
+		implements SQLiteHelperInterface {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
+	private static SQLiteDatabase db;
 	
 	// columns (AS = Ability Scores)
 	public static final String TABLE_NAME 	= "ability_scores_temp_mods";
@@ -41,6 +42,7 @@ public class SQLiteHelperASTempMods extends SQLiteOpenHelper
 
 	public SQLiteHelperASTempMods(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.db = this.getWritableDatabase();
 	}
 
 	@Override
@@ -66,13 +68,18 @@ public class SQLiteHelperASTempMods extends SQLiteOpenHelper
 
 	@Override
 	public String[] getColumns() {
-		// TODO Auto-generated method stub
 		return ALL_COLUMNS;
 	}
 
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return TABLE_NAME;
 	}
+
+	@Override
+	public SQLiteDatabase getDB() {
+		return db;
+	}
+
+
 }

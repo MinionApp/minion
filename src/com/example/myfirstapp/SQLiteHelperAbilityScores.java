@@ -10,15 +10,16 @@ import android.util.Log;
  *
  */
 public class SQLiteHelperAbilityScores extends SQLiteOpenHelper 
-		implements SQLiteHelperMinion{
+		implements SQLiteHelperInterface{
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
+	private static SQLiteDatabase db;
 	
 	// columns
 	public static final String TABLE_NAME = "ability_scores";
-	public static final String COLUMN_CHAR_ID 		= "char_id";
-	public static final String COLUMN_REF_AS_ID 	= "ref_as_id";
-	public static final String COLUMN_SCORE 		= "score";
+	public static final String COLUMN_CHAR_ID 	= "char_id";
+	public static final String COLUMN_REF_AS_ID = "ref_as_id";
+	public static final String COLUMN_SCORE 	= "score";
 	public static final String[] ALL_COLUMNS = 
 		{ COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_SCORE };
 
@@ -39,6 +40,7 @@ public class SQLiteHelperAbilityScores extends SQLiteOpenHelper
 
 	public SQLiteHelperAbilityScores(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.db = this.getWritableDatabase();
 	}
 
 	@Override
@@ -64,13 +66,17 @@ public class SQLiteHelperAbilityScores extends SQLiteOpenHelper
 
 	@Override
 	public String[] getColumns() {
-		// TODO Auto-generated method stub
 		return ALL_COLUMNS;
 	}
 
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return TABLE_NAME;
 	}
+
+	@Override
+	public SQLiteDatabase getDB() {
+		return db;
+	}
+
 }
