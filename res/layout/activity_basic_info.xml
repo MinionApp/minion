@@ -175,24 +175,28 @@
 	        android:id="@+id/race_enter"
 	        android:inputType="textCapWords"
 	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" />
 	    
 	    <EditText 
 	        android:id="@+id/size_enter"
 	        android:inputType="textCapWords"
 	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" />
 	    
 	    <EditText 
 	        android:id="@+id/gender_enter"
 	        android:inputType="textCapWords"
 	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" />
 	    
 	    <EditText 
 	        android:id="@+id/age_enter"
 	        android:inputType="number"
 	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" />
 	</LinearLayout>
 	
@@ -244,24 +248,28 @@
 	        android:id="@+id/height_enter"
 	        android:inputType="number"
 	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" />
 	    
 	    <EditText 
 	        android:id="@+id/weight_enter"
 	        android:inputType="numberDecimal"
 	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" />
 	    
 	    <EditText 
 	        android:id="@+id/hair_enter"
 	        android:inputType="text"
 	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" />
 	    
 	    <EditText 
 	        android:id="@+id/eyes_enter"
 	        android:inputType="text"
 	        android:layout_weight="1"
+	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" />
 	</LinearLayout>
 	

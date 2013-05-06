@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:visibility="1"
+        android:visibility="invisible"
         android:textSize="20sp"
         android:text="@string/char_creation_success" />
 

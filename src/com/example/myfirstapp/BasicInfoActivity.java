@@ -79,7 +79,7 @@ public class BasicInfoActivity extends Activity {
 			//TODO:ERROR HANDLING
 		}
 		
-		//Diety
+		//Deity
 		EditText deity_enter = (EditText) findViewById(R.id.deity_enter);
 		String deity = deity_enter.getText().toString().trim();
 		
