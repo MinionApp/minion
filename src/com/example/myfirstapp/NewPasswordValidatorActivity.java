@@ -52,11 +52,12 @@ public class NewPasswordValidatorActivity extends Activity {
 	    	// Checks for internet connectivity
 	    	if (ConnectionChecker.hasConnection(this)) {
 		    	// Updates login credentials on remote database
-		    	RemoteDbAccess.updateLoginCredentials(username, password, this);
-		    	intent = new Intent(this, LoginActivity.class);
+		    	RemoteDbAccess.updateLoginCredentials(username, password, "password reset", this);
 	    	} else {
 	    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
 	    	   intent = new Intent(this, PasswordResetActivity.class);
+	    	   startActivity(intent);
+	    	   finish();
 	    	}
 	    // If any of the above conditions are not true
 	    } else {
@@ -67,9 +68,9 @@ public class NewPasswordValidatorActivity extends Activity {
 	    	intent.putExtra(IS_VALID_PASSWORD, validPassword(password));
 	    	// Stores if the given password and confirmation password match
 	    	intent.putExtra(PASSWORDS_MATCH, matchingPasswords(password, passwordConfirmation));
+	    	startActivity(intent);
+	    	finish();
 		}
-	    startActivity(intent);
-	    finish();
 	    // note we never called setContentView()
 	}
 	

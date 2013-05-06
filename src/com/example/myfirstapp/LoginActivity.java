@@ -92,31 +92,15 @@ public class LoginActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoHomepage(View view) {
-		Intent intent; // next activity to be set.
+		//Intent intent; // next activity to be set.
 		
 		// Get user login info.
 		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
 		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
 		String username = usernameEditText.getText().toString().trim();
 		String password = passwordEditText.getText().toString().trim();
-		
 		// Login succeeds, go to homepage.
-		if (RemoteDbAccess.loginAttempt(username, password)) {
-			intent = new Intent(this, HomeActivity.class);
-			
-			// Stores the username into preferences.
-			if (keepLoggedIn) {
-				SaveSharedPreference.setUserName(LoginActivity.this, username);
-			}
-		
-		// Login fails, go to login failure.
-		} else {
-			// TODO: needs to specify login failure somehow,
-			// either separate Activity or something within this Activity.
-			intent = new Intent(this, LoginActivity.class); 
-		}
-		
-		startActivity(intent);
+		RemoteDbAccess.loginAttempt(username, password, keepLoggedIn, "login", this);
 	}
 	
 	/**

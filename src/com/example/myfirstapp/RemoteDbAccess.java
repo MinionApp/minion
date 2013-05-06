@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import android.app.ProgressDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.simpledb.AmazonSimpleDBClient;
 import com.amazonaws.services.simpledb.model.Attribute;
 import com.amazonaws.services.simpledb.model.GetAttributesRequest;
+import com.amazonaws.services.simpledb.model.GetAttributesResult;
 import com.amazonaws.services.simpledb.model.PutAttributesRequest;
 import com.amazonaws.services.simpledb.model.ReplaceableAttribute;
 
@@ -31,55 +30,126 @@ public final class RemoteDbAccess {
 	private static final AmazonSimpleDBClient db = new AmazonSimpleDBClient(credentials);
 	private static final String publicCharactersUserName = "__generic__";
 	
+
+	
+	//public void createDomain(String domainName) {
+	//	sdb.createDomain(new CreateDomainRequest(domainName));
+	//}
+	
 	// Forks off Get tasks to be done independent of UI.
 	private static class GetAttributesTask extends AsyncTask<String, Void, List<Attribute>> {
-		@Override
-		protected List<Attribute> doInBackground(String... username) {
-			String user = username[0];
-			GetAttributesRequest userRequest = new GetAttributesRequest("User", user);
-			return db.getAttributes(userRequest).getAttributes();
-		}
-	}
-	
-	// Forks off Put tasks to be done independent of UI.
-	private static class PutAttributesTask extends AsyncTask<String, Void, Void> {
-		private ProgressDialog dialog;
-		Context context;
-		private List<ReplaceableAttribute> attrs = new ArrayList<ReplaceableAttribute>();
+		//private ProgressDialog dialog;
+		private Context context;
+		private String username;
+		private String password;
+		private boolean keepLoggedIn;
 		
-		private String user;
+		private List<Attribute> attrs = new ArrayList<Attribute>();
+
 		
-		private PutAttributesTask(List<ReplaceableAttribute> attributes, Context con) {
-			this.attrs = attributes;
-			this.context = con; 
+		private GetAttributesTask(String username, String password, boolean keepLoggedIn, Context con) {
+			this.username = username;
+			this.password = password;
+			this.keepLoggedIn = keepLoggedIn;
+			this.context = con;
 		}
 		
 		//@Override
 		//protected void onPreExecute() {
-          //  dialog = new ProgressDialog(context);
-          //  dialog.setCancelable(true);
-         //   dialog.setMessage("uploading...");
+        //    dialog = new ProgressDialog(context);
+        //    dialog.setCancelable(true);
+        //    dialog.setMessage("uploading...");
         //    dialog.show();
 		//}
 		
 		@Override
-		protected void onPostExecute(Void result) {
-			Log.i("START OF POST EXECUTE", "BLAHAHAHAHAHAHAHAHA?");
+		protected void onPostExecute(List<Attribute> result) {
 			super.onPostExecute(result);
-			Intent intent = new Intent(context, SecurityQuestionActivity.class);
-	    	intent.putExtra("username", user);
+			Intent intent;
+			boolean correctLoginCredentials = false;
+			for (Attribute attr : attrs) {
+				if (attr.getName().equals("password") && password.equals(attr.getValue())) {
+					correctLoginCredentials = true;
+				}
+			}
+			// Login succeeds, go to homepage.
+			if (correctLoginCredentials) {
+				intent = new Intent(context, HomeActivity.class);
+					
+				// Stores the username into preferences.
+				if (keepLoggedIn) {
+					SaveSharedPreference.setUserName(context, username);
+				}
+				
+			// Login fails, go to login failure.
+			} else {
+				// TODO: needs to specify login failure somehow,
+				// either separate Activity or something within this Activity.
+				intent = new Intent(context, HomeActivity.class); 
+			}
 	    	intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			//dialog.dismiss();
 			context.getApplicationContext().startActivity(intent);
 		}
 		
 		@Override
+		protected List<Attribute> doInBackground(String... username) {	
+			String user = username[0];
+			GetAttributesRequest userRequest = new GetAttributesRequest("User", user);
+			GetAttributesResult response = db.getAttributes(userRequest);
+			attrs = response.getAttributes();
+			return attrs;
+		}
+	}
+	
+	// Forks off Put tasks to be done independent of UI.
+	private static class PutAttributesTask extends AsyncTask<String, Void, Void> {
+		//private ProgressDialog dialog;
+		private Context context;
+		private String activity;
+		private List<ReplaceableAttribute> attrs = new ArrayList<ReplaceableAttribute>();
+		
+		private String user;
+		
+		private PutAttributesTask(List<ReplaceableAttribute> attributes, String activity, Context con) {
+			this.attrs = attributes;
+			this.activity = activity;
+			this.context = con; 
+		}
+		
+		//@Override
+		//protected void onPreExecute() {
+        //    dialog = new ProgressDialog(context);
+        //    dialog.setCancelable(true);
+        //    dialog.setMessage("uploading...");
+        //    dialog.show();
+		//}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			Intent intent;
+			if(activity.equals("signup")) {
+				intent = new Intent(context, SecurityQuestionActivity.class);
+		    	intent.putExtra("username", user);
+			} else { // activity.equals("password reset") AND activity.equals("security question")
+				intent = new Intent(context, LoginActivity.class);
+			}
+			//dialog.dismiss();
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.getApplicationContext().startActivity(intent);
+		}
+		
+		@Override
 		protected Void doInBackground(String... username) {
-			Log.i("start of background", "STARTED OF BACKGROUND THINGY");
+			//if(activity.equals("security question")) {
+			//	user = username[0];
+			//	PutAttributesRequest putUser = new PutAttributesRequest("User", user, attrs);		
+			//	db.putAttributes(putUser);
+			//}
 			user = username[0];
 			PutAttributesRequest putUser = new PutAttributesRequest("User", user, attrs);		
 			db.putAttributes(putUser);
-			Log.i("stuck in doInBackground", "did it make it here?");
 			return null;
 		}
 	}
@@ -91,33 +161,15 @@ public final class RemoteDbAccess {
 	 * @param password, the submitted password
 	 * @return if the login succeeded
 	 */
-	public static boolean loginAttempt(String username, String password) {
+	public static boolean loginAttempt(String username, String password, boolean keepLoggedIn, String activity,  Context context) {
 		// Prevent generic logins.
 		if (username.equals(publicCharactersUserName)) {
 			return false;
 		}
 		
 		// Get attributes from the database.
-		
-		try {
-			GetAttributesTask task = new GetAttributesTask();
-			List<Attribute> attributes;
-			attributes = task.execute(new String[] {username}).get();
-			for (Attribute attr : attributes) {
-				if (attr.getName().equals("password") && password.equals(attr.getValue())) {
-					return true;
-				}
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// Iterate through attributes, see if password matches.
-		
+		GetAttributesTask task = new GetAttributesTask(username, password, keepLoggedIn, context);
+		task.execute(username);
 		return false;
 	}
 	
@@ -130,7 +182,7 @@ public final class RemoteDbAccess {
 	 */
 	// Potential hazard: only key/values are unique, not keys. *sigh*
 	// Potential hazard: individual submits lots of new login requests
-	public static boolean updateLoginCredentials(String username, String password, Context context) {
+	public static boolean updateLoginCredentials(String username, String password, String activity, Context context) {
 		// Prevent generic logins.
 		if (username.equals(publicCharactersUserName)) {
 			return false;
@@ -156,7 +208,7 @@ public final class RemoteDbAccess {
 		attrs.add(passwordAttr);
 		
 		// Continue with add. username is itemName().
-		PutAttributesTask task = new PutAttributesTask(attrs, context);
+		PutAttributesTask task = new PutAttributesTask(attrs, activity, context);
 		task.execute(username);
 		return true;
 	}
@@ -167,33 +219,15 @@ public final class RemoteDbAccess {
 	 * @param username, the submitted username
 	 * @return the security question string
 	 */
-	public static String getSecurityQuestion(String username) {
+	public static String getSecurityQuestion(String username, String activity, Context context, Activity a) {
 		// Prevent generic checks.
 		if (username.equals(publicCharactersUserName)) {
 			return null;
 		}
 		
 		// Get attributes from the database.
-		
-		try {
-			GetAttributesTask task = new GetAttributesTask();
-			List<Attribute> attributes;
-			attributes = task.execute(username).get();
-			// Iterate through attributes, see if question and answer match.
-			for (Attribute attr : attributes) {
-				if (attr.getName().equals("question")) {
-					return attr.getValue();
-				}
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
+		GetAttributesTask task = new GetAttributesTask(username, "", false, context);
+		task.execute(username);
 		return null; // error
 	}
 	
@@ -214,7 +248,7 @@ public final class RemoteDbAccess {
 		// Get attributes from the database.
 		
 		try {
-			GetAttributesTask task = new GetAttributesTask();
+			GetAttributesTask task = new GetAttributesTask(answer, answer, false, null);
 			List<Attribute> attributes;
 			attributes = task.execute(username).get();
 			// Iterate through attributes, see if question and answer match.
@@ -244,7 +278,7 @@ public final class RemoteDbAccess {
 	 * @param answer, the submitted answer
 	 * @return if the credentials were successfully updated
 	 */
-	public static boolean updateSecurityQuestion(String username, String question, String answer, Context context) {
+	public static boolean updateSecurityQuestion(String username, String question, String answer, String activity, Context context) {
 		// Prevent generic logins.
 		if (username.equals(publicCharactersUserName)) {
 			return false;
@@ -260,7 +294,7 @@ public final class RemoteDbAccess {
 		attrs.add(answerAttr);
 		
 		// Continue with add. username is itemName().
-		PutAttributesTask task = new PutAttributesTask(attrs, context);
+		PutAttributesTask task = new PutAttributesTask(attrs, activity, context);
 		task.execute(username);
 		return true;
 	}
