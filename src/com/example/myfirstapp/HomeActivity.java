@@ -111,9 +111,9 @@ public class HomeActivity extends Activity {
 	public void goToSettings(View view) {
 		Intent intent = new Intent(this, HomeActivity.class);
 		startActivity(intent);
-
+	}
 	public void gotoTesting(View view) {
 		Intent intent = new Intent(this, SQLiteTestActivity.class);
-
+	}
 
 }
