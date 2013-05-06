@@ -8,11 +8,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CharactersActivity" >
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/welcome_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"
-        android:textAlignment="center" />
+        android:textSize="16sp"
+        android:text="@string/welcome" />
+    
+    <Button 
+        android:id="@+id/button_add_char"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/welcome_title"
+        android:text="@string/button_add_character"
+     	android:onClick="addCharacter" />
+    
+    <TextView
+        android:id="@+id/success_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="1"
+        android:textSize="20sp"
+        android:text="@string/char_creation_success" />
 
 </RelativeLayout>

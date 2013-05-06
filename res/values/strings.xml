@@ -100,5 +100,8 @@
     <string name="total">Total</string>
     <string name="title_activity_characters">Manage Characters</string>
     <string name="title_activity_groups">Manage Groups</string>
+    
+    <string name="welcome">Welcome to Minion Character Creation!</string>
+    <string name="char_creation_success">Character successfully saved!</string>
 
 </resources>

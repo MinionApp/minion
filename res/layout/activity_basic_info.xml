@@ -270,7 +270,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/h_w_hair_eyes_enter"
+        android:layout_below="@+id/h_w_hair_eyes_enter"
         android:text="@string/done"
      	android:onClick="basicInfo" />
 
