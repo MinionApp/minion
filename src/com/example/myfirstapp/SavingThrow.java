@@ -2,6 +2,8 @@ package com.example.myfirstapp;
 
 import java.util.*;
 
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * 
  * @author lokiw
@@ -104,5 +106,15 @@ public class SavingThrow {
 		}
 		
 		return total;
+	}
+	
+	
+	/** 
+	 * Writes Saving Throw to database. SHOULD ONLY BE CALLED BY CHARACTER
+	 * @param id id of character
+	 * @param db database to write into
+	 */
+	public void writeToDB(long id, SQLiteDatabase db) {
+		// TODO implement
 	}
 }

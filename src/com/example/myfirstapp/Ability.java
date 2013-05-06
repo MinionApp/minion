@@ -2,6 +2,9 @@ package com.example.myfirstapp;
 
 import java.util.*;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * Ability is a class to represent a single ability on a character sheet 
  * which has a base value and temporary modifiers. This class handles both
@@ -16,7 +19,12 @@ public class Ability {
 	
 	/**
 	 * Initializes an ability with the given name and defaults the base stat to
-	 * 10. No temporary modifiers are initialized.
+	 * 10. The average stat for most pathfinder rolling systems is 10 because it 
+	 * has no possitive or negative ability modifiers. This average changes
+	 * with the fantasy level of a campaign but since the standard is no bonuses or
+	 * detriments, this value was chosen.
+	 * <p>
+	 * No temporary modifiers are initialized.
 	 * 
 	 * @param name	the name of the ability being stored as the AbilityName enum,
 	 * 				such as STRENGTH, DEXTERITY, ect...
@@ -127,6 +135,11 @@ public class Ability {
 	/**
 	 * Gets the total ability score including the base stat value and all
 	 * temporary modifiers currently stored.
+	 * <p>
+	 * The current ability score is the base score with additional temporary 
+	 * modifiers. Modifiers are added or suptracted depending on their sign and
+	 * they affect the score directly. Thus a base score of 10 with a +2 modifier 
+	 * from an amulet will return a score of 12.
 	 * 
 	 * @return an int score representing the total ability score
 	 */
@@ -144,6 +157,16 @@ public class Ability {
 	/**
 	 * Gets the modifier of the ability score with all base and temporary values
 	 * considered.
+	 * <p>
+	 * The ability modifier is the information most used from a character's stats,
+	 * and is calculated from their ability score. This score includes the base
+	 * and all temporary modifiers. The modifier is always smaller in magnitude then
+	 * the raw score as it is added to a dice roll and is generally calculated and 
+	 * recorded. Every two ability scores has a single modifier associated with it.
+	 * The ability score 10 and 11 have a modifier of 0, every even number thereafter
+	 * adds one modifier, so 12 and 13 are 1, 14 and 15 are 2 and so on. Once a score
+	 * is below 10, the modifiers are negative. A score of 8 and 9 have a -1 modifier,
+	 * every two bellow that get another -1, so 7 and 6 have a -2 and so on.
 	 * 
 	 * @return an int representing the ability modifier 
 	 * 
@@ -159,6 +182,33 @@ public class Ability {
 		}
 		
 		return mod;
+	}
+	/** 
+	 * Writes Ability to database. SHOULD ONLY BE CALLED BY CHARACTER
+	 * @param id id of character
+	 * @param db database to write into (except temporary mods)
+	 * @param dbTempMods database to write temporary mods into
+	 */
+	public void writeToDB(long id, SQLiteDatabase db, SQLiteDatabase dbTempMods) {
+		// TODO implement
+		int abilityID = 0; // get ability ID from ref db
+		
+		ContentValues values = new ContentValues();
+		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, id);
+		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
+		values.put(SQLiteHelperAbilityScores.COLUMN_SCORE, base);
+		db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
+		
+		for (String s : tempModifiers.keySet()) {
+			int i = tempModifiers.get(s);
+			// write to dbTempMods
+			values = new ContentValues();
+			values.put(SQLiteHelperASTempMods.COLUMN_CHAR_ID, id);
+			values.put(SQLiteHelperASTempMods.COLUMN_REF_AS_ID, abilityID);
+			values.put(SQLiteHelperASTempMods.COLUMN_NAME, s);
+			values.put(SQLiteHelperASTempMods.COLUMN_MOD, i);		
+			dbTempMods.insert(SQLiteHelperASTempMods.TABLE_NAME, null, values);
+		}
 	}
 	
 }

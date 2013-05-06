@@ -2,17 +2,25 @@ package com.example.myfirstapp;
 
 import java.util.*;
 
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * A representation of a Pathfinder character with all of the information
  * stored on a standard character sheet.
  * 
  * @author Loki White (lokiw)
  * @author Thomas Eberlein (uwte)
+ * @author Kevin Dong (kevinxd3)
  *
  */
 public class Character {
-	private long id;
+	private static long counter = 0;
+	public long id;
 	private CharacterDescription desc;
+	
+	//Array of ability scores. 
+	// 0	 1	 2 	 3	 4	 5
+	//STR	DEX	CON	INT	WIS	CHA
 	private Ability abilityScores[];
 	private Map<String,Skill> skills;
 	private Combat combat;
@@ -31,6 +39,8 @@ public class Character {
 		will = new SavingThrow(AbilityName.WISDOME);
 		fort = new SavingThrow(AbilityName.CONSTITUTION);
 		ref = new SavingThrow(AbilityName.DEXTERITY);
+		combat = new Combat();
+		id = ++counter;
 	}
 	
 	/**
@@ -166,7 +176,7 @@ public class Character {
 	public int getTotalHitPoints(){
 		
 		//TODO: include hpModifiers
-		return combat.baseHP + abilityScores[2].getMod()*level;
+		return combat.getBaseHP() + abilityScores[2].getMod()*level;
 	}
 	
 	/**
@@ -176,7 +186,41 @@ public class Character {
 	 * @return	current hit points of character.
 	 */
 	public int getCurrentHitPoints(){
-		return getTotalHitPoints() - (combat.lethalDamage + combat.bludeningDamage);
+		return getTotalHitPoints() - (combat.getLethalDamage() + combat.getBludgeningDamage());
+	}
+	
+	/**
+	 * Writes Character to database. SHOULD ONLY BE CALLED BY CHARACTERDATASOURCE
+	 * @param dbBasicInfo
+	 * @param dbAbilityScores
+	 * @param dbASTempMods
+	 * @param dbSkills
+	 * @param dbCombat
+	 * @param dbArmor
+	 * @param dbSavingThrows
+	 * @param dbWeapons
+	 */
+	public void writeToDB(SQLiteDatabase dbBasicInfo, SQLiteDatabase dbAbilityScores, 
+			SQLiteDatabase dbASTempMods, SQLiteDatabase dbSkills, 
+			SQLiteDatabase dbCombat, SQLiteDatabase dbArmor, 
+			SQLiteDatabase dbSavingThrows, SQLiteDatabase dbWeapons) {
+		// write basic info / character description
+		this.desc.writeToDB(id, dbBasicInfo);
+		// write ability scores
+		for (int i = 0; i < abilityScores.length; i++) {
+			Ability a = abilityScores[i];
+			a.writeToDB(id, dbAbilityScores, dbASTempMods);
+		}
+		// write skills
+		for (String s : skills.keySet()) {
+			Skill skill = skills.get(s);
+			skill.writeToDB(id, dbSkills);
+		}
+		// write combat
+		this.combat.writeToDB(id, dbCombat);
+		this.will.writeToDB(id, dbSavingThrows);
+		this.fort.writeToDB(id, dbSavingThrows);
+		this.ref.writeToDB(id, dbSavingThrows);
 	}
 
 	@Override

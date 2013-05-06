@@ -80,8 +80,8 @@ public class BasicInfoActivity extends Activity {
 		}
 		
 		//Diety
-		EditText diety_enter = (EditText) findViewById(R.id.deity_enter);
-		String diety = diety_enter.getText().toString().trim();
+		EditText deity_enter = (EditText) findViewById(R.id.deity_enter);
+		String deity = deity_enter.getText().toString().trim();
 		
 		//Homeland
 		EditText homeland_enter = (EditText) findViewById(R.id.homeland_enter);
@@ -137,7 +137,7 @@ public class BasicInfoActivity extends Activity {
 		baseInfo.name = cName;
 		baseInfo.player = player;
 		createdChar.setLevel(lvl);
-		baseInfo.diety = diety;
+		baseInfo.diety = deity;
 		baseInfo.homeLand = homeland;
 		baseInfo.race = race;
 		baseInfo.gender = gender;

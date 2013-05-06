@@ -30,6 +30,7 @@
     <string name="title_activity_skills">SkillsActivity</string>
     <string name="title_activity_combat">CombatActivity</string>
     <string name="title_activity_saving_throws">SavingThrowsActivity</string>
+    
     <string name="hit_points">HP (Health Points)</string>
     <string name="hit_points_total">Total</string>
     <string name="hit_points_dr">DR</string>
@@ -51,6 +52,7 @@
     <string name="armor_deflection">Deflection</string>
     <string name="armor_misc">Misc</string>
     <string name="attack_bonus">Base Attack Bonus</string>
+    
     <string name="alignment">Alignment</string>
     <string name="enter_text">Enter text...</string>
     <string name="player">Player</string>
@@ -85,6 +87,18 @@
     <string name="acrobatics">Acrobatics</string>
     <string name="linguistics">Linguistics</string>
     <string name="stealth">Stealth</string>
-
+    
+    <string name="fortitude_title">Fortitude (Constitution)</string>
+    <string name="reflex_title">Reflex (Dexterity)</string>
+    <string name="will_title">Will (Wisdom)</string>
+    <string name="base_save">Base</string>
+    <string name="ability_modifier">Ability</string>
+    <string name="magic_modifier">Magic</string>
+    <string name="misc_modifier">Misc</string>
+    <string name="temp_modifier">Temp</string>
+    
+    <string name="total">Total</string>
+    <string name="title_activity_characters">Manage Characters</string>
+    <string name="title_activity_groups">Manage Groups</string>
 
 </resources>

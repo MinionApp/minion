@@ -26,7 +26,9 @@ public class SQLiteTestActivity extends ListActivity {
 		setupActionBar();
 		
 		datasource = new CharacterDataSource(this);
+		System.out.println("datasource opening");
 	    datasource.open();
+	    System.out.println("datasource opened");
 
 	    List<Character> values = datasource.getAllCharacters();
 
@@ -91,8 +93,8 @@ public class SQLiteTestActivity extends ListActivity {
     	if (!cName.equals("")) { // string is not empty
 	    	@SuppressWarnings("unchecked")
 	    	ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
-	    	Character character = datasource.createCharacter(cName);
-			adapter.add(character);
+//	    	Character character = datasource.createCharacter(cName);
+//			adapter.add(character);
 			adapter.notifyDataSetChanged();
 			Intent intent = new Intent(this, CharCreateMainActivity.class);
 			startActivity(intent);
