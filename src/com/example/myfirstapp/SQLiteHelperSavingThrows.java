@@ -10,9 +10,10 @@ import android.util.Log;
  *
  */
 public class SQLiteHelperSavingThrows extends SQLiteOpenHelper 
-		implements SQLiteHelperMinion {
+		implements SQLiteHelperInterface {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
+	private static SQLiteDatabase db;
 	
 	// columns (AS = Ability Scores)
 	public static final String TABLE_NAME 	= "saving_throws";
@@ -46,6 +47,7 @@ public class SQLiteHelperSavingThrows extends SQLiteOpenHelper
 
 	public SQLiteHelperSavingThrows(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.db = this.getWritableDatabase();
 	}
 
 	@Override
@@ -71,14 +73,18 @@ public class SQLiteHelperSavingThrows extends SQLiteOpenHelper
 
 	@Override
 	public String[] getColumns() {
-		// TODO Auto-generated method stub
 		return ALL_COLUMNS;
 	}
 
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return TABLE_NAME;
 	}
+
+	@Override
+	public SQLiteDatabase getDB() {
+		return db;
+	}
+
 }
 

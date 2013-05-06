@@ -10,9 +10,10 @@ import android.util.Log;
  * @author Kevin Dong (kevinxd3)
  *
  */
-public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHelperMinion {
+public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHelperInterface {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
+	private static SQLiteDatabase db;
 	
 	// columns
 	public static final String TABLE_NAME		= "basic_info";
@@ -55,6 +56,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 
 	public SQLiteHelperBasicInfo(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.db = this.getWritableDatabase();
 	}
 
 	@Override
@@ -94,20 +96,21 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 			String hair = cursor.getString(12);
 			String eyes = cursor.getString(13);
 
-			System.out.println(id + "    "
-				+ name + "    "
-				+ alignment + "    "
-				+ level + "    "
-				+ diety + "    "
-				+ homeland + "    "
-				+ race + "    "
-				+ size + "    "
-				+ gender + "    "
-				+ age + "    "
-				+ height + "    "
-				+ weight + "    "
-				+ hair + "    "
-				+ eyes + "    ");
+			System.out.println(id 
+				+ "    " + name
+				+ "    " + alignment
+				+ "    " + level
+				+ "    " + diety
+				+ "    " + homeland
+				+ "    " + race
+				+ "    " + size
+				+ "    " + gender
+				+ "    " + age
+				+ "    " + height
+				+ "    " + weight
+				+ "    " + hair
+				+ "    " + eyes
+				+ "    "); 
 			cursor.moveToNext();
 	 	}
 		cursor.close();
@@ -115,14 +118,21 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 
 	@Override
 	public String[] getColumns() {
-		// TODO Auto-generated method stub
 		return ALL_COLUMNS;
 	}
 
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return TABLE_NAME;
+	}
+
+	public void insert() {
+		//asdf
+	}
+
+	@Override
+	public SQLiteDatabase getDB() {
+		return db;
 	}
 
 
