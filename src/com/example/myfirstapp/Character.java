@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.*;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * A representation of a Pathfinder character with all of the information
@@ -14,11 +16,12 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Kevin Dong (kevinxd3)
  *
  */
-public class Character implements Serializable{
+public class Character implements Parcelable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 211881898610224557L;
+	//private static final long serialVersionUID = 211881898610224557L;
+	private static final long serialVersionUID = 42L;
 	private static long counter = 0;
 	public long id;
 	private CharacterDescription desc;
@@ -215,25 +218,37 @@ public class Character implements Serializable{
 			SQLiteDatabase dbSavingThrows, SQLiteDatabase dbWeapons) {
 		// write basic info / character description
 		this.desc.writeToDB(id, dbBasicInfo);
-		// write ability scores
-		for (int i = 0; i < abilityScores.length; i++) {
-			Ability a = abilityScores[i];
-			a.writeToDB(id, dbAbilityScores, dbASTempMods);
-		}
-		// write skills
-		for (String s : skills.keySet()) {
-			Skill skill = skills.get(s);
-			skill.writeToDB(id, dbSkills);
-		}
-		// write combat
-		this.combat.writeToDB(id, dbCombat);
-		this.will.writeToDB(id, dbSavingThrows);
-		this.fort.writeToDB(id, dbSavingThrows);
-		this.ref.writeToDB(id, dbSavingThrows);
+//		// write ability scores
+//		for (int i = 0; i < abilityScores.length; i++) {
+//			Ability a = abilityScores[i];
+//			a.writeToDB(id, dbAbilityScores, dbASTempMods);
+//		}
+//		// write skills
+//		for (String s : skills.keySet()) {
+//			Skill skill = skills.get(s);
+//			skill.writeToDB(id, dbSkills);
+//		}
+//		// write combat
+//		this.combat.writeToDB(id, dbCombat);
+//		this.will.writeToDB(id, dbSavingThrows);
+//		this.fort.writeToDB(id, dbSavingThrows);
+//		this.ref.writeToDB(id, dbSavingThrows);
 	}
 
 	@Override
 	public String toString(){
 		return desc.name;
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		
 	}
 }

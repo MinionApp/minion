@@ -13,7 +13,7 @@ import android.util.Log;
 public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHelperInterface {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
-	private static SQLiteDatabase db;
+	 static SQLiteDatabase db;
 	
 	// columns
 	public static final String TABLE_NAME		= "basic_info";
@@ -40,7 +40,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 	private static final String CREATE_TABLE_STATEMENT = "CREATE TABLE "
 	    + TABLE_NAME 	+ "(" 
 		+ COLUMN_ID 		+ " integer primary key autoincrement, " 
-		+ COLUMN_NAME 		+ " text not null, "
+		+ COLUMN_NAME 		+ " text unique not null, "
 		+ COLUMN_ALIGNMENT 	+ " text, "
 		+ COLUMN_LEVEL 		+ " text, "
 		+ COLUMN_DIETY 		+ " text, "
@@ -130,7 +130,6 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 		//asdf
 	}
 
-	@Override
 	public SQLiteDatabase getDB() {
 		return db;
 	}

@@ -13,7 +13,7 @@ public class SQLiteHelperArmor extends SQLiteOpenHelper
 		implements SQLiteHelperInterface {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
-	private static SQLiteDatabase db;
+	 static SQLiteDatabase db;
 	
 	// columns (AS = Ability Scores)
 	public static final String TABLE_NAME 			= "armor";
@@ -75,7 +75,6 @@ public class SQLiteHelperArmor extends SQLiteOpenHelper
 		return TABLE_NAME;
 	}
 
-	@Override
 	public SQLiteDatabase getDB() {
 		return db;
 	}

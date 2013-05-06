@@ -22,8 +22,9 @@ public class CharactersActivity extends Activity {
 		setContentView(R.layout.activity_characters);
 		// Show the Up button in the action bar.
 		setupActionBar();
-        
+        System.out.println("CREATING DATASOURCE");
         datasource = new CharacterDataSource(this);
+        System.out.println("OPENING DATASOURCE");
 	    datasource.open();
 
 

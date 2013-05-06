@@ -38,12 +38,12 @@ public class CharacterDescription {
 		// TODO implement
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name);
-		values.put(SQLiteHelperBasicInfo.COLUMN_ID, player);
+		values.put(SQLiteHelperBasicInfo.COLUMN_ID, id);
 		values.put(SQLiteHelperBasicInfo.COLUMN_ALIGNMENT, alignment);
 		values.put(SQLiteHelperBasicInfo.COLUMN_SIZE, size.toString());
 		// TODO figure out what to do with alignments
-		values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name); // alignment1
-		values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name); // alignment2
+		//values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name); // alignment1
+		//values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name); // alignment2
 		values.put(SQLiteHelperBasicInfo.COLUMN_DIETY, diety);
 		values.put(SQLiteHelperBasicInfo.COLUMN_HOMELAND, homeLand);
 		values.put(SQLiteHelperBasicInfo.COLUMN_GENDER, gender);
@@ -55,5 +55,9 @@ public class CharacterDescription {
 		values.put(SQLiteHelperBasicInfo.COLUMN_EYES, eyes);
 		
 		long insertId = db.insert(SQLiteHelperBasicInfo.TABLE_NAME, null, values);
+		//String[] columns = {SQLiteHelperBasicInfo.COLUMN_ID};
+		//Cursor c = db.query(SQLiteHelperBasicInfo.TABLE_NAME, columns, columns[0] + " = " + name, null, null, null, null);
+		//return c.getInt(0);
+		
 	}
 }

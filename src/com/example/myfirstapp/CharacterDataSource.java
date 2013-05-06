@@ -32,19 +32,17 @@ public class CharacterDataSource {
 	private SQLiteHelperArmor helperArmor;
 	private SQLiteHelperSavingThrows helperSavingThrows;
 	private SQLiteHelperWeapons helperWeapons;
-	private SQLiteHelperInterface[] helpers = {helperBasicInfo, helperAbilityScores, 
-		helperASTempMods, helperSkills, helperCombat, helperArmor, 
-		helperSavingThrows, helperWeapons};
+	private SQLiteHelperInterface[] helpers;
 	
 	private SQLiteDatabase dbRef;
-	private SQLiteDatabase dbBasicInfo;
-	private SQLiteDatabase dbAbilityScores;
-	private SQLiteDatabase dbASTempMods;
-	private SQLiteDatabase dbSkills;
-	private SQLiteDatabase dbCombat;
-	private SQLiteDatabase dbArmor;
-	private SQLiteDatabase dbSavingThrows;
-	private SQLiteDatabase dbWeapons;
+//	private SQLiteDatabase dbBasicInfo;
+//	private SQLiteDatabase dbAbilityScores;
+//	private SQLiteDatabase dbASTempMods;
+//	private SQLiteDatabase dbSkills;
+//	private SQLiteDatabase dbCombat;
+//	private SQLiteDatabase dbArmor;
+//	private SQLiteDatabase dbSavingThrows;
+//	private SQLiteDatabase dbWeapons;
 	
 	//SQLiteDatabase[] data = {dbBasicInfo, dbAbilityScores, dbASTempMods, 
 	//		dbSkills, dbCombat, dbArmor, dbSavingThrows, dbWeapons};
@@ -62,6 +60,17 @@ public class CharacterDataSource {
 		helperArmor 		= new SQLiteHelperArmor(context);
 		helperSavingThrows 	= new SQLiteHelperSavingThrows(context);
 		helperWeapons 		= new SQLiteHelperWeapons(context);
+		
+		helpers = new SQLiteHelperInterface[8];
+
+		helpers[0] = helperBasicInfo;
+		helpers[1] = helperAbilityScores;
+		helpers[2] = helperASTempMods;
+		helpers[3] = helperSkills;
+		helpers[4] = helperCombat;
+		helpers[5] = helperArmor;
+		helpers[6] = helperSavingThrows;
+		helpers[7] = helperWeapons;
 
 	}
 
@@ -78,7 +87,7 @@ public class CharacterDataSource {
 		} catch (Exception e) { // ref tables doesn't exist yet, create
 			helperRef.onCreate(dbRef);
 		}
-		
+		System.out.println("TESTING TABLES");
 		for (int i = 0; i < helpers.length; i++) {			
 			// test database; create if it doesn't exist
 			SQLiteHelperInterface h = helpers[i];
@@ -91,7 +100,7 @@ public class CharacterDataSource {
 				for (int j = 0; j < columns.length; j ++) {
 					System.out.println(columns[j]);
 				}
-				h.db.query(h.getTableName(),
+				h.getDB().query(h.getTableName(),
 				       columns, null, null, null, null, null);
 			} catch (Exception e) { // table doesn't exist yet, create
 				System.out.println(e.getCause());
@@ -137,8 +146,6 @@ public class CharacterDataSource {
 	 * @param character character to add to database
 	 */
 	public void addCharacter(Character character) {
-		character.writeToDB(dbBasicInfo, dbAbilityScores, dbASTempMods, dbSkills, 
-			dbCombat, dbArmor, dbSavingThrows, dbWeapons);
 		character.writeToDB(helperBasicInfo.getDB(), helperAbilityScores.getDB(), helperASTempMods.getDB(), helperSkills.getDB(), 
 			helperCombat.getDB(), helperArmor.getDB(), helperSavingThrows.getDB(), helperWeapons.getDB());
 	}
@@ -197,5 +204,6 @@ public class CharacterDataSource {
 	
 	public void printTables() {
 		helperRef.printContents(dbRef);
+		helperBasicInfo.printContents(helperBasicInfo.db);
 	}
 }

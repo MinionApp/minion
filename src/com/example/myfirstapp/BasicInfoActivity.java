@@ -13,13 +13,18 @@ import android.os.Build;
 
 public class BasicInfoActivity extends Activity {
 	private Character newChar;
+	private int id;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		System.out.println("BASIC INFO ONCREATE");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basic_info);
-		Intent recievedIntent = getIntent();
-		newChar = (Character) recievedIntent.getSerializableExtra("new character");
+		System.out.println("INTENT GET");
+		id =  this.getIntent().getExtras().getInt("cid");
+		newChar = new Character();
+		newChar.setId(id);
+		System.out.println("CHARACTER ID GET");
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -154,6 +159,14 @@ public class BasicInfoActivity extends Activity {
 		baseInfo.eyes = eyes;
 		
 		newChar.setDescriptions(baseInfo);
+		newChar.writeToDB(SQLiteHelperBasicInfo.db,
+			SQLiteHelperAbilityScores.db, 
+			SQLiteHelperASTempMods.db, 
+			SQLiteHelperSkills.db, 
+			SQLiteHelperCombat.db, 
+			SQLiteHelperArmor.db, 
+			SQLiteHelperSavingThrows.db, 
+			SQLiteHelperWeapons.db);
 		
 	}
 

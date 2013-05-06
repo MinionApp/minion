@@ -60,31 +60,31 @@ public class CharCreateMainActivity extends Activity {
 	
 	public void gotoBasicInfo(View view) {
 		Intent intent = new Intent(this, BasicInfoActivity.class);
-		intent.putExtra("new character", newChar);
+		intent.putExtra("cid", newChar.id);
 		startActivity(intent);
 	}
 	
 	public void gotoAbilityScores(View view) {
 		Intent intent = new Intent(this, AbilityScoresActivity.class);
-		intent.putExtra("new character", newChar);
+		intent.putExtra("cid", newChar.id);
 		startActivity(intent);
 	}
 	
 	public void gotoSkills(View view) {
 		Intent intent = new Intent(this, SkillsActivity.class);
-		intent.putExtra("new character", newChar);
+		intent.putExtra("cid", newChar.id);
 		startActivity(intent);
 	}
 	
 	public void gotoCombat(View view) {
 		Intent intent = new Intent(this, CombatActivity.class);
-		intent.putExtra("new character", newChar);
+		intent.putExtra("cid", newChar.id);
 		startActivity(intent);
 	}
 	
 	public void gotoSavingThrows(View view) {
 		Intent intent = new Intent(this, SavingThrowsActivity.class);
-		intent.putExtra("new character", newChar);
+		intent.putExtra("cid", newChar.id);
 		startActivity(intent);
 	}
 
