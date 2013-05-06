@@ -52,13 +52,15 @@
 	        android:layout_weight="1"
 	        android:text="@string/acrobatics" />
 		
-	    <EditText android:id="@+id/acrobatics_ranks"
+	    <EditText 
+	        android:id="@+id/acrobatics_ranks"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/acrobatics_misc_mod"
+	    <EditText 
+	        android:id="@+id/acrobatics_misc_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -79,13 +81,15 @@
 	        android:layout_weight="1"
 	        android:text="@string/linguistics" />
 		
-	    <EditText android:id="@+id/linguistics_ranks"
+	    <EditText 
+	        android:id="@+id/linguistics_ranks"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/linguistics_misc_mod"
+	    <EditText 
+	        android:id="@+id/linguistics_misc_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -106,20 +110,23 @@
 	        android:layout_weight="1"
 	        android:text="@string/stealth" />
 		
-	    <EditText android:id="@+id/stealth_ranks"
+	    <EditText 
+	        android:id="@+id/stealth_ranks"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/stealth_misc_mod"
+	    <EditText 
+	        android:id="@+id/stealth_misc_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	</LinearLayout>
 	
-    <Button android:id="@+id/button_done"
+    <Button 
+        android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

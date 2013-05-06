@@ -65,25 +65,29 @@
 	        android:layout_weight="1"
 	        android:text="@string/str" />
 		
-	    <EditText android:id="@+id/str_ab_score"
+	    <EditText 
+	        android:id="@+id/str_ab_score"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/str_ab_mod"
+	    <EditText 
+	        android:id="@+id/str_ab_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/str_temp_adjust"
+	    <EditText 
+	        android:id="@+id/str_temp_adjust"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/str_temp_mod"
+	    <EditText 
+	        android:id="@+id/str_temp_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -104,25 +108,29 @@
 	        android:layout_weight="1"
 	        android:text="@string/dex" />
 		
-	    <EditText android:id="@+id/dex_ab_score"
+	    <EditText 
+	        android:id="@+id/dex_ab_score"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/dex_ab_mod"
+	    <EditText 
+	        android:id="@+id/dex_ab_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/dex_temp_adjust"
+	    <EditText 
+	        android:id="@+id/dex_temp_adjust"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/dex_temp_mod"
+	    <EditText 
+	        android:id="@+id/dex_temp_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -143,25 +151,29 @@
 	        android:layout_weight="1"
 	        android:text="@string/con" />
 		
-	    <EditText android:id="@+id/con_ab_score"
+	    <EditText 
+	        android:id="@+id/con_ab_score"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/con_ab_mod"
+	    <EditText 
+	        android:id="@+id/con_ab_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/con_temp_adjust"
+	    <EditText 
+	        android:id="@+id/con_temp_adjust"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/con_temp_mod"
+	    <EditText 
+	        android:id="@+id/con_temp_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -182,25 +194,29 @@
 	        android:layout_weight="1"
 	        android:text="@string/intel" />
 		
-	    <EditText android:id="@+id/int_ab_score"
+	    <EditText 
+	        android:id="@+id/int_ab_score"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/int_ab_mod"
+	    <EditText 
+	        android:id="@+id/int_ab_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/int_temp_adjust"
+	    <EditText 
+	        android:id="@+id/int_temp_adjust"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/int_temp_mod"
+	    <EditText 
+	        android:id="@+id/int_temp_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -221,25 +237,29 @@
 	        android:layout_weight="1"
 	        android:text="@string/wis" />
 		
-	    <EditText android:id="@+id/wis_ab_score"
+	    <EditText 
+	        android:id="@+id/wis_ab_score"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/wis_ab_mod"
+	    <EditText 
+	        android:id="@+id/wis_ab_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/wis_temp_adjust"
+	    <EditText 
+	        android:id="@+id/wis_temp_adjust"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/wis_temp_mod"
+	    <EditText 
+	        android:id="@+id/wis_temp_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -260,32 +280,37 @@
 	        android:layout_weight="1"
 	        android:text="@string/cha" />
 		
-	    <EditText android:id="@+id/cha_ab_score"
+	    <EditText 
+	        android:id="@+id/cha_ab_score"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/cha_ab_mod"
+	    <EditText 
+	        android:id="@+id/cha_ab_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/cha_temp_adjust"
+	    <EditText 
+	        android:id="@+id/cha_temp_adjust"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/cha_temp_mod"
+	    <EditText 
+	        android:id="@+id/cha_temp_mod"
 	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	</LinearLayout>
 	
-    <Button android:id="@+id/button_done"
+    <Button 
+        android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

@@ -38,13 +38,15 @@
 		android:layout_below="@+id/name_align_title"
 		android:orientation="horizontal">
 		
-	    <EditText android:id="@+id/char_name_enter"
+	    <EditText 
+	        android:id="@+id/char_name_enter"
 	        android:inputType="textCapWords"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/alignment_enter"
+	    <EditText 
+	        android:id="@+id/alignment_enter"
 	        android:inputType="textCapWords"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -58,7 +60,8 @@
         android:layout_below="@+id/name_align_enter"
         android:text="@string/player" />
     
-    <EditText android:id="@+id/player_enter"
+    <EditText 
+        android:id="@+id/player_enter"
         android:inputType="textCapWords"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -71,7 +74,8 @@
         android:layout_below="@+id/player_enter"
         android:text="@string/char_level" />
     
-    <EditText android:id="@+id/char_level_enter"
+    <EditText 
+        android:id="@+id/char_level_enter"
         android:inputType="number"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -107,13 +111,15 @@
 		android:layout_below="@+id/deity_homeland_title"
 		android:orientation="horizontal">
 	    
-	    <EditText android:id="@+id/deity_enter"
+	    <EditText 
+	        android:id="@+id/deity_enter"
 	        android:inputType="textCapWords"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText android:id="@+id/homeland_enter"
+	    <EditText 
+	        android:id="@+id/homeland_enter"
 	        android:inputType="textCapWords"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -165,22 +171,26 @@
 		android:layout_below="@+id/race_size_gender_age_title"
 		android:orientation="horizontal">
 	    
-	    <EditText android:id="@+id/race_enter"
+	    <EditText 
+	        android:id="@+id/race_enter"
 	        android:inputType="textCapWords"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" />
 	    
-	    <EditText android:id="@+id/size_enter"
+	    <EditText 
+	        android:id="@+id/size_enter"
 	        android:inputType="textCapWords"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" />
 	    
-	    <EditText android:id="@+id/gender_enter"
+	    <EditText 
+	        android:id="@+id/gender_enter"
 	        android:inputType="textCapWords"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" />
 	    
-	    <EditText android:id="@+id/age_enter"
+	    <EditText 
+	        android:id="@+id/age_enter"
 	        android:inputType="number"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" />
@@ -230,28 +240,33 @@
 		android:layout_below="@+id/h_w_hair_eyes_title"
 		android:orientation="horizontal">
 	    
-	    <EditText android:id="@+id/height_enter"
+	    <EditText 
+	        android:id="@+id/height_enter"
 	        android:inputType="number"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" />
 	    
-	    <EditText android:id="@+id/weight_enter"
+	    <EditText 
+	        android:id="@+id/weight_enter"
 	        android:inputType="numberDecimal"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" />
 	    
-	    <EditText android:id="@+id/hair_enter"
+	    <EditText 
+	        android:id="@+id/hair_enter"
 	        android:inputType="text"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" />
 	    
-	    <EditText android:id="@+id/eyes_enter"
+	    <EditText 
+	        android:id="@+id/eyes_enter"
 	        android:inputType="text"
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" />
 	</LinearLayout>
 	
-    <Button android:id="@+id/button_done"
+    <Button 
+        android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
