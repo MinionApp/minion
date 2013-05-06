@@ -20,8 +20,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CharacterDataSource {
 	// Database fields
-	private SQLiteDatabase database;
-	private MinionSQLiteHelper dbHelper;
+	//private SQLiteDatabase database;
+	//private MinionSQLiteHelper dbHelper;
 	
 	private SQLiteHelperRefTables helperRef;
 	private SQLiteHelperBasicInfo helperBasicInfo;
@@ -48,7 +48,7 @@ public class CharacterDataSource {
 	
 
 	public CharacterDataSource(Context context) {
-		dbHelper = new MinionSQLiteHelper(context);
+		//dbHelper = new MinionSQLiteHelper(context);
 
 		helperRef			= new SQLiteHelperRefTables(context);
 		helperBasicInfo 	= new SQLiteHelperBasicInfo(context);
@@ -63,14 +63,14 @@ public class CharacterDataSource {
 	}
 
 	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
+		//database = dbHelper.getWritableDatabase();
 		
 		dbRef = helperRef.getReadableDatabase();
 		
 		SQLiteHelperMinion[] helpers = {helperBasicInfo, helperAbilityScores, 
 				helperASTempMods, helperSkills, helperCombat, helperArmor, 
 				helperSavingThrows, helperWeapons};
-		SQLiteDatabase[] data = {dbRef, dbBasicInfo, dbAbilityScores, dbASTempMods, 
+		SQLiteDatabase[] data = {dbBasicInfo, dbAbilityScores, dbASTempMods, 
 				dbSkills, dbCombat, dbArmor, dbSavingThrows, dbWeapons};
 		
 		// test ref databases; create them if they don't exist
@@ -82,22 +82,26 @@ public class CharacterDataSource {
 			helperRef.onCreate(dbRef);
 		}
 		
-		for (int i = 1; i < helpers.length; i++) {
+		for (int i = 0; i < helpers.length; i++) {
 			if (helpers[i] == null) System.out.println("asdf");
 			data[i] = ((SQLiteOpenHelper) helpers[i]).getWritableDatabase();
 			
 			// test database; create if it doesn't exist
 			try {
-				System.out.println("poop");
+				System.out.println("testing table");
 				System.out.println(helpers[i].getTableName());
 				String[] columns = helpers[i].getColumns();
+				//String[] columns = { helpers[i].getColumns()[0] };
 				for (int j = 0; j < columns.length; j ++) {
 					System.out.println(columns[j]);
 				}
 				data[i].query(helpers[i].getTableName(),
-				       helpers[i].getColumns(), null, null, null, null, null);
+				       columns, null, null, null, null, null);
 			} catch (Exception e) { // table doesn't exist yet, create
-				System.out.println("more poop");
+				System.out.println(e.getCause());
+				e.printStackTrace();
+				
+				System.out.println("no table found, creating...");
 ;				((SQLiteOpenHelper) helpers[i]).onCreate(data[i]);
 			}
 		}
@@ -106,7 +110,7 @@ public class CharacterDataSource {
 	}
 
 	public void close() {
-		dbHelper.close();
+		//dbHelper.close();
 
 		helperBasicInfo.close();
 		helperAbilityScores.close();
@@ -139,8 +143,8 @@ public class CharacterDataSource {
 	public void deleteCharacter(Character character) {
 		long id = character.getId();
 		System.out.println("Comment deleted with id: " + id);
-		database.delete(MinionSQLiteHelper.TABLE_BASIC_INFO, MinionSQLiteHelper.COLUMN_ID
-			+ " = " + id, null);
+		//database.delete(MinionSQLiteHelper.TABLE_BASIC_INFO, MinionSQLiteHelper.COLUMN_ID
+		//	+ " = " + id, null);
 	}
 
 //	public void deleteCharacter(Character character) {

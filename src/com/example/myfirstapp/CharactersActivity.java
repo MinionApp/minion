@@ -26,7 +26,7 @@ public class CharactersActivity extends Activity {
 
 
 	    //List<Character> values = datasource.getAllCharacters();
-	    datasource.printTables();
+	    //datasource.printTables();
 	}
 
 	/**

@@ -64,7 +64,7 @@ public class SQLiteHelperSavingThrows extends SQLiteOpenHelper
 	}
 
 	@Override
-	public void printContents() {
+	public void printContents(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		
 	}

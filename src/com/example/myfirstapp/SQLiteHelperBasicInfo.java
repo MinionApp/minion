@@ -31,27 +31,27 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 	public static final String COLUMN_HAIR 		= "hair";
 	public static final String COLUMN_EYES 		= "eyes";
 	public static final String[] ALL_COLUMNS = 
-		{ COLUMN_ID, COLUMN_NAME, COLUMN_ALIGNMENT, COLUMN_LEVEL, COLUMN_DIETY, 
+		{ COLUMN_ID, COLUMN_NAME, COLUMN_LEVEL, COLUMN_DIETY, 
 			COLUMN_HOMELAND, COLUMN_RACE, COLUMN_SIZE, COLUMN_GENDER, COLUMN_AGE, 
 			COLUMN_HEIGHT, COLUMN_WEIGHT, COLUMN_HAIR, COLUMN_EYES };
 
 	// table creation SQL statement
 	private static final String CREATE_TABLE_STATEMENT = "CREATE TABLE "
 	    + TABLE_NAME 	+ "(" 
-		+ COLUMN_ID 		+ " integer primary key autoincrement, " 
-		+ COLUMN_NAME 		+ " text not null, "
-		+ COLUMN_ALIGNMENT 	+ " text, "
-		+ COLUMN_LEVEL 		+ " text, "
-		+ COLUMN_DIETY 		+ " text, "
-		+ COLUMN_HOMELAND 	+ " text, "
-		+ COLUMN_RACE 		+ " text, "
-		+ COLUMN_SIZE 		+ " text, "
-		+ COLUMN_GENDER 	+ " text, "
-		+ COLUMN_AGE 		+ " integer, "
-		+ COLUMN_HEIGHT 	+ " integer, "
-		+ COLUMN_WEIGHT 	+ " integer, "
-		+ COLUMN_HAIR 		+ " text, "
-		+ COLUMN_EYES 		+ " text) ";
+		+ COLUMN_ID 		+ " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+		+ COLUMN_NAME 		+ " TEXT, "
+		+ COLUMN_ALIGNMENT 	+ " TEXT, "
+		+ COLUMN_LEVEL 		+ " TEXT, "
+		+ COLUMN_DIETY 		+ " TEXT, "
+		+ COLUMN_HOMELAND 	+ " TEXT, "
+		+ COLUMN_RACE 		+ " TEXT, "
+		+ COLUMN_SIZE 		+ " TEXT, "
+		+ COLUMN_GENDER 	+ " TEXT, "
+		+ COLUMN_AGE 		+ " INTEGER, "
+		+ COLUMN_HEIGHT 	+ " INTEGER, "
+		+ COLUMN_WEIGHT 	+ " INTEGER, "
+		+ COLUMN_HAIR 		+ " TEXT, "
+		+ COLUMN_EYES 		+ " TEXT) ";
 
 	public SQLiteHelperBasicInfo(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -62,6 +62,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 		System.out.println("SQLiteHelperBasicInfo onCreate");
 		System.out.println(CREATE_TABLE_STATEMENT);
 		database.execSQL(CREATE_TABLE_STATEMENT);
+		System.out.println("BASIC INFO TABLE CREATED");
 	}
 
 	@Override
@@ -81,7 +82,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 		while (!cursor.isAfterLast()) {
 			int id = cursor.getInt(0);
 			String name = cursor.getString(1);
-			String alignment = cursor.getString(2);
+			//String alignment = cursor.getString(2);
 			int level = cursor.getInt(3);
 			String diety = cursor.getString(4);
 			String homeland = cursor.getString(5);
@@ -96,7 +97,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 
 			System.out.println(id + "/t"
 				+ name + "/t"
-				+ alignment + "/t"
+			//	+ alignment + "/t"
 				+ level + "/t"
 				+ diety + "/t"
 				+ homeland + "/t"
@@ -125,9 +126,5 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 		return TABLE_NAME;
 	}
 
-	@Override
-	public void printContents() {
-		// TODO Auto-generated method stub
-		
-	}
+
 }
