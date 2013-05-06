@@ -220,7 +220,7 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 			int id = cursor.getInt(0);
 			String abbrev = cursor.getString(1);
 			String name = cursor.getString(2);
-			System.out.println(id + "/t" + abbrev + "/t" + name);
+			System.out.println(id + "    " + abbrev + "    " + name);
 			cursor.moveToNext();
 	 	}
 		cursor.close();
@@ -233,20 +233,20 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 			int id = cursor.getInt(0);
 			String name = cursor.getString(1);
 			int as_id = cursor.getInt(2);
-			System.out.println(id + "/t" + name + "/t" + as_id);
+			System.out.println(id + "    " + name + "    " + as_id);
 			cursor.moveToNext();
 	 	}
 		cursor.close();
 
 		System.out.println("CONTENTS OF ref_saving_throws");
 		cursor = db.query(TABLE_REF_SAVING_THROWS,
-			ALL_COLUMNS_AS, null, null, null, null, null);
+			ALL_COLUMNS_ST, null, null, null, null, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			int id = cursor.getInt(0);
 			String name = cursor.getString(1);
 			int as_id = cursor.getInt(2);
-			System.out.println(id + "/t" + name + "/t" + as_id);
+			System.out.println(id + "    " + name + "    " + as_id);
 			cursor.moveToNext();
 	 	}
 		cursor.close();

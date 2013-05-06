@@ -135,11 +135,20 @@ public class CharacterDataSource {
 //		return newCharacter;
 //	}
 	
+	/**
+	 * Adds character to local SQLite database. Each component of the Character knows 
+	 * how to write itself to the database.
+	 * @param character character to add to database
+	 */
 	public void addCharacter(Character character) {
 		character.writeToDB(dbBasicInfo, dbAbilityScores, dbASTempMods, dbSkills, 
 			dbCombat, dbArmor, dbSavingThrows, dbWeapons);
 	}
 	
+	/**
+	 * Remove character from local database.
+	 * @param character character to remove
+	 */
 	public void deleteCharacter(Character character) {
 		long id = character.getId();
 		System.out.println("Comment deleted with id: " + id);
@@ -147,6 +156,7 @@ public class CharacterDataSource {
 		//	+ " = " + id, null);
 	}
 
+// NOTE: these methods won't be used, but are being kept for reference until actual add/delete methods are implemented
 //	public void deleteCharacter(Character character) {
 //		long id = character.getId();
 //		System.out.println("Comment deleted with id: " + id);
@@ -169,11 +179,17 @@ public class CharacterDataSource {
 //		return characters;
 //	}
 	
+	/**
+	 * Gets a list of all characters in local database
+	 * @return list of all characters
+	 */
 	public List<Character> getAllCharacters() {
 		List<Character> characters = new ArrayList<Character>();
+		// TODO actually get the characters
 		return characters;
 	}
-
+	
+	// helper method for building Character from current cursor
 	private Character cursorToCharacter(Cursor cursor) {
 		Character character = new Character();
 		character.setId(cursor.getLong(0));
@@ -182,6 +198,6 @@ public class CharacterDataSource {
 	}
 	
 	public void printTables() {
-		helperBasicInfo.printContents(dbBasicInfo);
+		helperRef.printContents(dbRef);
 	}
 }
