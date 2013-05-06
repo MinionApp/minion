@@ -57,6 +57,11 @@ public class AbilityScoresActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * On "done" button on ability scores screen get and ability
+	 * for each category and add them to an abilities array
+	 * Add the abilities score to the character
+	 */
 	public void abilityScores() {
 		Ability str = getStr();
 		Ability dex = getDex();
@@ -75,6 +80,12 @@ public class AbilityScoresActivity extends Activity {
 		newChar.setAbilityScores(abilities);
 	}
 	
+	/**
+	 * 
+	 * Get the values for the strength ability and store them
+	 * 
+	 * @return str the strength Ability
+	 */
 	private Ability getStr() {
 		EditText strAbScoreEnter = (EditText) findViewById(R.id.str_ab_score);
 		String strAbScoreRaw = strAbScoreEnter.getText().toString().trim();
@@ -97,7 +108,12 @@ public class AbilityScoresActivity extends Activity {
 		return str;
 	}
 	
-	
+	/**
+	 * 
+	 * Get the values for the dexterity ability and store them
+	 * 
+	 * @return dex the dexterity Ability
+	 */	
 	private Ability getDex() {
 		EditText dexAbScoreEnter = (EditText) findViewById(R.id.dex_ab_score);
 		String dexAbScoreRaw = dexAbScoreEnter.getText().toString().trim();
@@ -120,6 +136,12 @@ public class AbilityScoresActivity extends Activity {
 		return dex;
 	}
 	
+	/**
+	 * 
+	 * Get the values for the constitution ability and store them
+	 * 
+	 * @return con the constitution Ability
+	 */
 	private Ability getCon() {
 		EditText conAbScoreEnter = (EditText) findViewById(R.id.con_ab_score);
 		String conAbScoreRaw = conAbScoreEnter.getText().toString().trim();
@@ -142,6 +164,12 @@ public class AbilityScoresActivity extends Activity {
 		return con;
 	}
 	
+	/**
+	 * 
+	 * Get the values for the intelligence ability and store them
+	 * 
+	 * @return intel the intelligence Ability
+	 */
 	private Ability getInt() {
 		EditText intAbScoreEnter = (EditText) findViewById(R.id.int_ab_score);
 		String intAbScoreRaw = intAbScoreEnter.getText().toString().trim();
@@ -164,6 +192,12 @@ public class AbilityScoresActivity extends Activity {
 		return intel;
 	}
 	
+	/**
+	 * 
+	 * Get the values for the wisdom ability and store them
+	 * 
+	 * @return wis the wisdom Ability
+	 */
 	private Ability getWis() {
 		EditText wisAbScoreEnter = (EditText) findViewById(R.id.wis_ab_score);
 		String wisAbScoreRaw = wisAbScoreEnter.getText().toString().trim();
@@ -186,6 +220,12 @@ public class AbilityScoresActivity extends Activity {
 		return wis;
 	}
 	
+	/**
+	 * 
+	 * Get the values for the charisma ability and store them
+	 * 
+	 * @return cha the charisma Ability
+	 */
 	private Ability getCha() {
 		EditText chaAbScoreEnter = (EditText) findViewById(R.id.cha_ab_score);
 		String chaAbScoreRaw = chaAbScoreEnter.getText().toString().trim();

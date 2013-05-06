@@ -65,6 +65,9 @@ public class CombatActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Get all of the combat scores and store them.
+	 */
 	public void combatScores() {
 		setHp();
 		setSpeed();
@@ -72,6 +75,9 @@ public class CombatActivity extends Activity {
 		setArmor();
 	}
 	
+	/**
+	 * Parse the hit points and save them
+	 */
 	private void setHp() {
 		EditText hitPointsTotalEnter = (EditText) findViewById(R.id.hit_point_total_enter);
 		String hitPointsTotalRaw = hitPointsTotalEnter.getText().toString().trim();
@@ -84,6 +90,9 @@ public class CombatActivity extends Activity {
 		combat.setDamageReduction(hitPointsDr);
 	}
 	
+	/**
+	 * Parse the speed and calculate the overall speed modifier
+	 */
 	private void setSpeed() {
 		EditText speedBaseEnter = (EditText) findViewById(R.id.speed_base_enter);
 		String speedBaseRaw = speedBaseEnter.getText().toString().trim();
@@ -96,6 +105,9 @@ public class CombatActivity extends Activity {
 		combat.setSpeed(speedBase - speedArmor);
 	}
 	
+	/**
+	 * Parse the initiative values and calculate the overall initiative modifier
+	 */
 	private void setInitiative() {
 
 		EditText initiativeTotalEnter = (EditText) findViewById(R.id.initiative_total_enter);
@@ -113,6 +125,9 @@ public class CombatActivity extends Activity {
 		combat.setInitModifiers(initiativeDexMod + initiativeMiscMod);
 	}
 
+	/**
+	 * Parse and set the armor values in the combat object.
+	 */
 	private void setArmor() {
 		EditText armorBonusEnter = (EditText) findViewById(R.id.armor_bonus_enter);
 		String armorBonusRaw = armorBonusEnter.getText().toString().trim();
