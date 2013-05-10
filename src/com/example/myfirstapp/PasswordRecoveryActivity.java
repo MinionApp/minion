@@ -90,5 +90,6 @@ public class PasswordRecoveryActivity extends Activity {
 	public void gotoLogin(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
+		finish();
 	}
 }

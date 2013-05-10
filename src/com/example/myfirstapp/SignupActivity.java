@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * SignupActivity is an activity that provides a signup form for the user. It will respond to user
@@ -27,6 +28,7 @@ public class SignupActivity extends Activity{
 	private static final String IS_VALID_EMAIL = "isValidEmail";
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
+	private static final String USERNAME_IN_USE = "usernameInUse";
 	
 	/**
 	 * Displays the signup form in various states depending on the validity of the input and 
@@ -41,31 +43,28 @@ public class SignupActivity extends Activity{
 	    boolean isValidEmail = receivedIntent.getBooleanExtra(IS_VALID_EMAIL, false);
 	    boolean isValidPassword = receivedIntent.getBooleanExtra(IS_VALID_PASSWORD, false);
 	    boolean passwordsMatch = receivedIntent.getBooleanExtra(PASSWORDS_MATCH, false);
+	    boolean usernameInUse = receivedIntent.getBooleanExtra(USERNAME_IN_USE, false);
 	    // Displays blank signup page if it is the user's first viewing of the page
 	    if (isFirstView) {
 	    	setContentView(R.layout.activity_signup);
+	    } else if (usernameInUse) {
+	    	setContentView(R.layout.activity_signup);
+			EditText usernameEditText = (EditText)findViewById(R.id.usernameInput);
+			usernameEditText.requestFocus();
+	    	TextView error = (TextView) findViewById(R.id.error);
+	    	error.setText("Username already in use. Please choose another!");
+			EditText emailEditText = (EditText)findViewById(R.id.emailInput);
+			emailEditText.setText(receivedIntent.getStringExtra(EMAIL), EditText.BufferType.EDITABLE);
+			EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
+			passwordEditText.setText(receivedIntent.getStringExtra(PASSWORD), EditText.BufferType.EDITABLE);
+			EditText passwordConfirmationEditText = (EditText)findViewById(R.id.confirmPasswordInput);
+			passwordConfirmationEditText.setText(receivedIntent.getStringExtra("passwordConfirmation"), EditText.BufferType.EDITABLE);
 	    // Displays an alternate signup page with data between submissions preserved and relevant
 	    // error messages shown
 	    } else {
 	    	// Displays corresponding errors if neither email nor password are valid
 			if (!isValidEmail && !isValidPassword) {
 				setContentView(R.layout.activity_signup_invalid_email_and_password);
-				EditText emailEditText = (EditText)findViewById(R.id.emailInput);
-				emailEditText.requestFocus();
-			// Displays corresponding error if only email is invalid and password and confirmation
-			// password may not match
-			} else if (!isValidEmail) {
-				// Displays error for if password and confirmation don't match
-				if (!passwordsMatch) {
-					setContentView(R.layout.activity_signup_invalid_email_and_non_matching_passwords);
-				// Displays no error if password and confirmation do match
-				} else {
-					setContentView(R.layout.activity_signup_invalid_email_and_matching_passwords);
-					EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
-					passwordEditText.setText(receivedIntent.getStringExtra(PASSWORD), EditText.BufferType.EDITABLE);
-					EditText passwordConfirmationEditText = (EditText)findViewById(R.id.confirmPasswordInput);
-					passwordConfirmationEditText.setText(receivedIntent.getStringExtra("passwordConfirmation"), EditText.BufferType.EDITABLE);
-				}
 				EditText emailEditText = (EditText)findViewById(R.id.emailInput);
 				emailEditText.requestFocus();
 			// Displays error message if only the password is invalid
@@ -78,8 +77,6 @@ public class SignupActivity extends Activity{
 			// Displays error message if only the password and confirmation don't match
 			} else if (!passwordsMatch) {
 				setContentView(R.layout.activity_signup_non_matching_passwords);
-				EditText emailEditText = (EditText)findViewById(R.id.emailInput);
-				emailEditText.setText(receivedIntent.getStringExtra(EMAIL), EditText.BufferType.EDITABLE);
 				EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
 				passwordEditText.requestFocus();
 			}
@@ -142,10 +139,6 @@ public class SignupActivity extends Activity{
 		String username = usernameEditText.getText().toString().trim();
 		intent.putExtra(USERNAME, username);
 		
-		EditText emailEditText = (EditText) findViewById(R.id.emailInput);
-		String email = emailEditText.getText().toString().trim();
-		intent.putExtra(EMAIL, email);
-		
 		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
 		String password = passwordEditText.getText().toString().trim();
 		intent.putExtra(PASSWORD, password);
@@ -154,6 +147,7 @@ public class SignupActivity extends Activity{
 		String passwordConfirmation = passwordConfirmationEditText.getText().toString().trim();
 		intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
 		startActivity(intent);
+		finish();
 	}
 
 }

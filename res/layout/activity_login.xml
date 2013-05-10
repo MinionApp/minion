@@ -46,11 +46,21 @@
         android:ems="10"
         android:inputType="textPassword" />
     
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/passwordInput"
+        android:text=""
+        android:textColor="#FF0000"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
     <CheckBox android:id="@+id/keepLoggedIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/passwordInput"
+        android:layout_below="@+id/error"
         android:layout_alignLeft="@+id/passwordInput"
         android:text="@string/keep_logged_in"
         android:onClick="keepLoggedIn"/>
@@ -60,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/passwordInput"
-        android:layout_below="@+id/passwordInput"
+        android:layout_below="@+id/error"
         android:text="@string/login_button" 
         android:onClick="gotoHomepage"/>
     

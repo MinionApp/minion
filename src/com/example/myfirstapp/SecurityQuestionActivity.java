@@ -1,9 +1,16 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -11,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -21,11 +29,23 @@ import android.widget.Toast;
  */
 public class SecurityQuestionActivity extends Activity {
 	private static final String USERNAME = "username";
+	private static final String PASSWORD = "password";
+	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
 	
 	/**
 	 * Stores the username the user gave in their signup form.
 	 */
 	private String username;
+	
+	/**
+	 * Stores the password the user gave in their signup form.
+	 */
+	private String password;
+	
+	/**
+	 * Stores the confirmation password the user gave in their signup form.
+	 */
+	private String confirmationPassword;
 	
 	/**
 	 * Displays the security question selection page.
@@ -35,6 +55,8 @@ public class SecurityQuestionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Intent receivedIntent = getIntent();
 		username = receivedIntent.getStringExtra(USERNAME);
+		password = receivedIntent.getStringExtra(PASSWORD);
+		confirmationPassword = receivedIntent.getStringExtra(PASSWORD_CONFIRMATION);
 		setContentView(R.layout.activity_security_question);
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -88,7 +110,7 @@ public class SecurityQuestionActivity extends Activity {
 		Intent intent;
 		Spinner securityQuestions = (Spinner) findViewById(R.id.securityQuestionSpinner);
 		// Gives a string representation of whatever item is selected in the spinner
-		String selectedSecurityQuestion = securityQuestions.getSelectedItem().toString();
+		String question = securityQuestions.getSelectedItem().toString();
 		
 		EditText answerEditText = (EditText) findViewById(R.id.securityAnswerInput);
 		String answer = answerEditText.getText().toString().trim();
@@ -96,12 +118,76 @@ public class SecurityQuestionActivity extends Activity {
     	// Checks for internet connectivity
     	if (ConnectionChecker.hasConnection(this)) {
     		// Updates security question on remote database
-    		RemoteDbAccess.updateSecurityQuestion(username, selectedSecurityQuestion, answer, "security question", this);
+        	SignupTask task = new SignupTask(username, password, question, answer, this);
+    		task.execute(username);
     	} else {
     	    Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-    	    intent = new Intent(this, SecurityQuestionActivity.class);
-   			startActivity(intent);
+    	    //intent = new Intent(this, SecurityQuestionActivity.class);
+    	    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	    //finish();
     	}
+	}
+	
+	private class SignupTask extends AsyncTask<String, Void, String> {
+		private String un;
+		private String pw;
+		private String question;
+		private String answer;
+		private Context context;
+		
+		private SignupTask (String username, String password, String question, String answer, Context context) {
+			this.un = username;
+			this.pw = password;
+			this.question = question;
+			this.answer = answer;
+			this.context = context;
+		}
+		
+	    /**
+	     * Let's make the http request and return the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("username", un));
+	        postParameters.add(new BasicNameValuePair("password", pw));
+
+	        //String valid = "1";
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost("http://10.0.2.2/checkLogin.php", postParameters);  //Enetr Your remote PHP,ASP, Servlet file link
+	        	res = result.toString();  
+	        	//res = res.trim();  
+	        	res= res.replaceAll("\\s+","");  
+	        	//error.setText(res);  
+	        } catch (Exception e) {  
+	        	//un.setText(e.toString()); 
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parse the String result, and create a new array adapter for the list
+	     * view.
+	     */
+	    protected void onPostExecute(String result) {
+	    	TextView error = (TextView) findViewById(R.id.error);
+        	if (result.equals("1")) {  
+        		error.setText("Correct Username or Password");
+        		// Login succeeds, go to homepage.
+        		Intent intent = new Intent(context, LoginActivity.class);
+        		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            	startActivity(intent);
+            	finish();
+        	} else {
+        		error.setText("Username already in use. Please choose another!");  
+        	}
+	    }
+	 
 	}
 
 }

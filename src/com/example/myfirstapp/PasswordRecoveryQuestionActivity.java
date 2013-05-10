@@ -42,7 +42,6 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 		username = receivedIntent.getStringExtra(USERNAME);
 		setContentView(R.layout.activity_password_recovery_question);
 		// Gets security question for user from remote database
-		//question = RemoteDbAccess.getSecurityQuestion(username, "security question", this, this);
 		question = "What is your favorite color?";
 		TextView securityQuestionTextView = (TextView)findViewById(R.id.securityQuestion);
 		securityQuestionTextView.setText(question);
@@ -102,11 +101,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
     	// Checks for internet connectivity
     	if (ConnectionChecker.hasConnection(this)) {
     		// Tests security question for user on remote database
-    		//if(RemoteDbAccess.securityQuestionTest(username, question, answer)) {
-    			intent = new Intent(this, PasswordResetActivity.class);
-    		//} else {
-    		//	intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
-    		//}
+    		intent = new Intent(this, PasswordResetActivity.class);
     		intent.putExtra(USERNAME, username);
     	} else {
     	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();

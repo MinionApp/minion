@@ -1,8 +1,14 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -11,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * LoginActivity is an activity that provides the user with a basic login form. It also gives
@@ -21,6 +29,7 @@ import android.widget.EditText;
  *
  */
 public class LoginActivity extends Activity {
+	
 	/**
 	 * Stores if the user has selected to remain logged in.
 	 */
@@ -92,15 +101,19 @@ public class LoginActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoHomepage(View view) {
-		//Intent intent; // next activity to be set.
-		
-		// Get user login info.
-		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
-		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
-		String username = usernameEditText.getText().toString().trim();
-		String password = passwordEditText.getText().toString().trim();
-		// Login succeeds, go to homepage.
-		RemoteDbAccess.loginAttempt(username, password, keepLoggedIn, "login", this);
+		if (ConnectionChecker.hasConnection(this)) {
+			// Get user login info.
+			EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
+			EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
+			//TextView error = (TextView) findViewById(R.id.error);
+			String un = usernameEditText.getText().toString().trim();
+			String pw = passwordEditText.getText().toString().trim();
+			
+			CheckLoginTask task = new CheckLoginTask(un, pw, keepLoggedIn, this);
+			task.execute(un);
+    	} else {
+    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+    	}
 	}
 	
 	/**
@@ -129,5 +142,68 @@ public class LoginActivity extends Activity {
 	public void keepLoggedIn(View view) {
 	    // Is the view now checked?
 		keepLoggedIn = ((CheckBox) view).isChecked();
+	}
+	
+	private class CheckLoginTask extends AsyncTask<String, Void, String> {
+		private String un;
+		private String pw;
+		private boolean keepLoggedIn;
+		private Context context;
+		
+		private CheckLoginTask (String username, String password, boolean keepLoggedIn, Context context) {
+			this.un = username;
+			this.pw = password;
+			this.keepLoggedIn = keepLoggedIn;
+			this.context = context;
+		}
+		
+	    /**
+	     * Let's make the http request and return the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("username", un));
+	        postParameters.add(new BasicNameValuePair("password", pw));
+
+	        //String valid = "1";
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost("http://10.0.2.2/checkLogin.php", postParameters);  //Enetr Your remote PHP,ASP, Servlet file link
+	        	res = result.toString();  
+	        	//res = res.trim();  
+	        	res= res.replaceAll("\\s+","");  
+	        	//error.setText(res);  
+	        } catch (Exception e) {  
+	        	//un.setText(e.toString()); 
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parse the String result, and create a new array adapter for the list
+	     * view.
+	     */
+	    protected void onPostExecute(String result) {
+	    	TextView error = (TextView) findViewById(R.id.error);
+        	if (result.equals("1")) {  
+        		//error.setText("Correct Username or Password");
+        		// Stores the username into preferences.
+        		if (keepLoggedIn) {
+        			SaveSharedPreference.setUserName(context, un);
+        		}
+        		// Login succeeds, go to homepage.
+        		Intent intent = new Intent(context, HomeActivity.class);
+        		startActivity(intent);
+        		finish();
+        	} else {
+        		error.setText("Sorry!! Incorrect Username or Password");  
+        	}
+	    }
+	 
 	}
 }

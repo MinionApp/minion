@@ -72,11 +72,21 @@
         android:inputType="text" />
     
     <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/usernameInput"
+        android:text=""
+        android:textColor="#FF0000"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
         android:id="@+id/email"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameInput"
+        android:layout_below="@+id/error"
         android:text="@string/email_signup_input"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
