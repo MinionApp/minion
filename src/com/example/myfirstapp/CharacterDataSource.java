@@ -32,7 +32,7 @@ public class CharacterDataSource {
 	private SQLiteHelperArmor helperArmor;
 	private SQLiteHelperSavingThrows helperSavingThrows;
 	private SQLiteHelperWeapons helperWeapons;
-	private SQLiteHelperInterface[] helpers;
+	private SQLiteHelperInterface[] helpers; // array of all SQLite Helpers
 	
 	private SQLiteDatabase dbRef;
 //	private SQLiteDatabase dbBasicInfo;

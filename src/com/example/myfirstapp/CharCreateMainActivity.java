@@ -61,6 +61,9 @@ public class CharCreateMainActivity extends Activity {
 	public void gotoBasicInfo(View view) {
 		Intent intent = new Intent(this, BasicInfoActivity.class);
 		intent.putExtra("cid", newChar.id);
+		
+		//Bundle bundle = new Bundle();
+		//bundle.putSerializable("character", new Character());
 		startActivity(intent);
 	}
 	

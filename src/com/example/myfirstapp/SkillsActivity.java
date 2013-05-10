@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -50,6 +51,14 @@ public class SkillsActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	/**
+	 * Called when Done button is clicked.
+	 */
+	public void skills(View view) {
+		// TODO write method
+		Skill sk = new Skill(null, null);
 	}
 	
 }

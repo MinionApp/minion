@@ -83,7 +83,7 @@ public class BasicInfoActivity extends Activity {
 		//Level
 		EditText level_enter = (EditText) findViewById(R.id.char_level_enter);
 		String level = level_enter.getText().toString().trim();
-		Integer lvl = Integer.getInteger(level);
+		Integer lvl = Integer.parseInt(level);
 		if (lvl == null) {
 			//TODO:ERROR HANDLING
 		}
@@ -113,7 +113,7 @@ public class BasicInfoActivity extends Activity {
 		//Age
 		EditText age_enter = (EditText) findViewById(R.id.age_enter);
 		String age = age_enter.getText().toString().trim();
-		Integer ageNum = Integer.getInteger(age);
+		Integer ageNum = Integer.parseInt(age);
 		if (ageNum == null) {
 			//TODO:ERROR HANDLING
 		}
@@ -121,7 +121,7 @@ public class BasicInfoActivity extends Activity {
 		//Height
 		EditText height_enter = (EditText) findViewById(R.id.height_enter);
 		String height = height_enter.getText().toString().trim();
-		Integer heightNum = Integer.getInteger(height);
+		Integer heightNum = Integer.parseInt(height);
 		if (heightNum == null) {
 			//TODO:ERROR HANDLING
 		}
@@ -129,7 +129,7 @@ public class BasicInfoActivity extends Activity {
 		//Weight
 		EditText weight_enter = (EditText) findViewById(R.id.weight_enter);
 		String weight = weight_enter.getText().toString().trim();
-		Integer weightNum = Integer.getInteger(weight);
+		Integer weightNum = Integer.parseInt(weight);
 		if (weightNum == null) {
 			//TODO:ERROR HANDLING
 		}
@@ -159,14 +159,18 @@ public class BasicInfoActivity extends Activity {
 		baseInfo.eyes = eyes;
 		
 		newChar.setDescriptions(baseInfo);
-		newChar.writeToDB(SQLiteHelperBasicInfo.db,
-			SQLiteHelperAbilityScores.db, 
-			SQLiteHelperASTempMods.db, 
-			SQLiteHelperSkills.db, 
-			SQLiteHelperCombat.db, 
-			SQLiteHelperArmor.db, 
-			SQLiteHelperSavingThrows.db, 
-			SQLiteHelperWeapons.db);
+//		newChar.writeToDB(SQLiteHelperBasicInfo.db,
+//			SQLiteHelperAbilityScores.db, 
+//			SQLiteHelperASTempMods.db, 
+//			SQLiteHelperSkills.db, 
+//			SQLiteHelperCombat.db, 
+//			SQLiteHelperArmor.db, 
+//			SQLiteHelperSavingThrows.db, 
+//			SQLiteHelperWeapons.db);
+		
+		// return to character creation main screen
+		Intent intent = new Intent(this, CharCreateMainActivity.class);
+		startActivity(intent);
 		
 	}
 

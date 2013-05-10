@@ -16,7 +16,7 @@ import android.os.Parcelable;
  * @author Kevin Dong (kevinxd3)
  *
  */
-public class Character implements Parcelable {
+public class Character implements Serializable {
 	/**
 	 * 
 	 */
@@ -240,15 +240,4 @@ public class Character implements Parcelable {
 		return desc.name;
 	}
 
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
-		
-	}
 }

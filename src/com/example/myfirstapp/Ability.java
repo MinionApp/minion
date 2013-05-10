@@ -47,6 +47,7 @@ public class Ability {
 		//TODO: Consider ability values < 0
 		this.name = name;
 		this.base = score;
+		tempModifiers = new HashMap<String, Integer>();
 	}
 	
 	/**
