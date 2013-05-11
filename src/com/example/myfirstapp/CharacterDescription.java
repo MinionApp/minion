@@ -13,14 +13,17 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class CharacterDescription {
 	public long charID;
+	public boolean isNew; 
+	// used to determine whether to populate UI with stored values
 	
 	public String name;
 	public String player;
 	public String alignment;
+	public int level;
 	public String size;
 	public Alignment firstAlign;
 	public Alignment secondAlign;
-	public String diety;
+	public String deity;
 	public String homeLand;
 	public String gender;
 	public String race;
@@ -30,18 +33,35 @@ public class CharacterDescription {
 	public int weight;
 	public String hair;
 	public String eyes;
-	public int level;
+	
 	
 	public CharacterDescription(long id) {
 		charID = id;
-		// default values
+		
+		// attempt to load from DB
+		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, SQLiteHelperBasicInfo.ALL_COLUMNS, 
+				"_id = " + charID, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			isNew = false;
+			loadFromDB(cursor);
+		} else {
+			isNew = true;
+			setDefaults();
+		}
+	}
+	
+	/**
+	 * Sets default values for all fields
+	 */
+	private void setDefaults() {
 		name = "";
 		player = "";
 		alignment = "";
 		size = "";
 		firstAlign = null;
 		secondAlign = null;
-		diety = "";
+		level = 0;
+		deity = "";
 		homeLand = "";
 		gender = "";
 		race = "";
@@ -50,8 +70,32 @@ public class CharacterDescription {
 		weight = 0;
 		hair = "";
 		eyes = "";
-		level = 0;
+		
 	}
+	
+	/**
+	 * Populate fields with values from DB
+	 * @param cursor
+	 */
+	private void loadFromDB(Cursor cursor) {
+		// Columns: COLUMN_ID, COLUMN_NAME, COLUMN_ALIGNMENT, COLUMN_LEVEL, COLUMN_DEITY, 
+		// COLUMN_HOMELAND, COLUMN_RACE, COLUMN_SIZE, COLUMN_GENDER, COLUMN_AGE, 
+		// COLUMN_HEIGHT, COLUMN_WEIGHT, COLUMN_HAIR, COLUMN_EYES
+		name 		= cursor.getString(1);
+		alignment 	= cursor.getString(2);
+		level 		= cursor.getInt(3);
+		deity 		= cursor.getString(4);
+		homeLand 	= cursor.getString(5);
+		race 		= cursor.getString(6);
+		size 		= cursor.getString(7);
+		gender 		= cursor.getString(8);
+		age 		= cursor.getInt(9);
+		height 		= cursor.getInt(10);
+		weight 		= cursor.getInt(11);
+		hair 		= cursor.getString(12);
+		eyes 		= cursor.getString(13);
+	}
+	
 	
 	/** 
 	 * Writes character description / basic info to database. SHOULD ONLY BE CALLED BY CHARACTER
@@ -70,7 +114,7 @@ public class CharacterDescription {
 		// TODO figure out what to do with alignments
 		//values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name); // alignment1
 		//values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name); // alignment2
-		values.put(SQLiteHelperBasicInfo.COLUMN_DIETY, diety);
+		values.put(SQLiteHelperBasicInfo.COLUMN_DEITY, deity);
 		values.put(SQLiteHelperBasicInfo.COLUMN_HOMELAND, homeLand);
 		values.put(SQLiteHelperBasicInfo.COLUMN_GENDER, gender);
 		values.put(SQLiteHelperBasicInfo.COLUMN_RACE, race);
@@ -80,7 +124,12 @@ public class CharacterDescription {
 		values.put(SQLiteHelperBasicInfo.COLUMN_HAIR, hair);
 		values.put(SQLiteHelperBasicInfo.COLUMN_EYES, eyes);
 		
-		long insertId = db.insert(SQLiteHelperBasicInfo.TABLE_NAME, null, values);
+		if (isNew) {
+			db.insert(SQLiteHelperBasicInfo.TABLE_NAME, null, values);
+		} else {
+			db.update(SQLiteHelperBasicInfo.TABLE_NAME, values, " _id = " + charID, null);
+		}
+		
 		//String[] columns = {SQLiteHelperBasicInfo.COLUMN_ID};
 		//Cursor c = db.query(SQLiteHelperBasicInfo.TABLE_NAME, columns, columns[0] + " = " + name, null, null, null, null);
 		//return c.getInt(0);

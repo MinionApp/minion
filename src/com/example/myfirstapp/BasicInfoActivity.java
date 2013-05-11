@@ -14,17 +14,18 @@ import android.os.Build;
 
 public class BasicInfoActivity extends Activity {
 	private long charID;
+	CharacterDescription baseInfo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		System.out.println("BASIC INFO ONCREATE");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basic_info);
-		System.out.println("INTENT GET");
-		charID = this.getIntent().getExtras().getLong("cid");
-		System.out.println("CHARACTER ID GET");
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		charID = this.getIntent().getExtras().getLong("cid");
+		baseInfo = new CharacterDescription(charID);
+		loadData();
 	}
 
 	/**
@@ -61,9 +62,68 @@ public class BasicInfoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	public void loadData() {
+		if (!baseInfo.isNew) {
+			//Name
+			EditText char_name = (EditText) findViewById(R.id.char_name_enter);
+			char_name.setText(baseInfo.name);
+			
+			//Alignment
+			EditText align_enter = (EditText) findViewById(R.id.alignment_enter);
+			align_enter.setText(baseInfo.alignment);
+			
+			//Player
+			EditText player_enter = (EditText) findViewById(R.id.player_enter);
+			player_enter.setText(baseInfo.player);
+			
+			//Level
+			EditText level_enter = (EditText) findViewById(R.id.char_level_enter);
+			level_enter.setText(""+baseInfo.level);
+			
+			//Deity
+			EditText deity_enter = (EditText) findViewById(R.id.deity_enter);
+			deity_enter.setText(baseInfo.deity);
+			
+			//Homeland
+			EditText homeland_enter = (EditText) findViewById(R.id.homeland_enter);
+			homeland_enter.setText(baseInfo.homeLand);
+			
+			//Race
+			EditText race_enter = (EditText) findViewById(R.id.race_enter);
+			race_enter.setText(baseInfo.race);
+			
+			//Size
+			EditText size_enter = (EditText) findViewById(R.id.size_enter);
+			size_enter.setText(baseInfo.size);
+			
+			//Gender
+			EditText gender_enter = (EditText) findViewById(R.id.gender_enter);
+			gender_enter.setText(baseInfo.gender);
+			
+			//Age
+			EditText age_enter = (EditText) findViewById(R.id.age_enter);
+			age_enter.setText(""+baseInfo.age);
+			
+			//Height
+			EditText height_enter = (EditText) findViewById(R.id.height_enter);
+			height_enter.setText(""+baseInfo.height);
+			
+			//Weight
+			EditText weight_enter = (EditText) findViewById(R.id.weight_enter);
+			weight_enter.setText(""+baseInfo.weight);
+			
+			//Hair
+			EditText hair_enter = (EditText) findViewById(R.id.hair_enter);
+			hair_enter.setText(baseInfo.hair);
+			
+			//Eyes
+			EditText eyes_enter = (EditText) findViewById(R.id.eyes_enter);
+			eyes_enter.setText(baseInfo.eyes);
+		}
+	}
+	
 	public void basicInfo(View view){
-		System.out.println("BASIC INFO");
-		CharacterDescription baseInfo = new CharacterDescription(charID);
+		//System.out.println("BASIC INFO");
 		//TODO: Handle empty cases
 		
 		EditText char_name = (EditText) findViewById(R.id.char_name_enter);
@@ -101,7 +161,7 @@ public class BasicInfoActivity extends Activity {
 		EditText deity_enter = (EditText) findViewById(R.id.deity_enter);
 		String deity = deity_enter.getText().toString().trim();
 		if (!deity.matches("")) {
-			baseInfo.diety = deity;
+			baseInfo.deity = deity;
 		}
 		
 		//Homeland
@@ -168,23 +228,13 @@ public class BasicInfoActivity extends Activity {
 		if (!eyes.matches("")) {
 			baseInfo.eyes = eyes;
 		}
-		
-		//newChar.setDescriptions(baseInfo);
-//		newChar.writeToDB(SQLiteHelperBasicInfo.db,
-//			SQLiteHelperAbilityScores.db, 
-//			SQLiteHelperASTempMods.db, 
-//			SQLiteHelperSkills.db, 
-//			SQLiteHelperCombat.db, 
-//			SQLiteHelperArmor.db, 
-//			SQLiteHelperSavingThrows.db, 
-//			SQLiteHelperWeapons.db);
-		//SQLiteDatabase db = SQLiteHelperBasicInfo.db;
-		
+
 		// write data to database
 		baseInfo.writeToDB();
 		
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
+		intent.putExtra("cid", charID);
 		startActivity(intent);
 		
 	}

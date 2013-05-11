@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class SavingThrowsActivity extends Activity {
@@ -55,6 +56,12 @@ public class SavingThrowsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void savingThrows(View view) {}
+	public void savingThrows(View view) {
+
+		// return to character creation main screen
+		Intent intent = new Intent(this, CharCreateMainActivity.class);
+		intent.putExtra("cid", charID);
+		startActivity(intent);
+	}
 
 }

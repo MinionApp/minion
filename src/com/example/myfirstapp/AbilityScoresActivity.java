@@ -84,6 +84,11 @@ public class AbilityScoresActivity extends Activity {
 		//Intent recievedIntent = getIntent();
 		//Character newChar = (Character) recievedIntent.getSerializableExtra("new character");
 		//newChar.setAbilityScores(abilities);
+		
+		// return to character creation main screen
+		Intent intent = new Intent(this, CharCreateMainActivity.class);
+		intent.putExtra("cid", charID);
+		startActivity(intent);
 	}
 	
 	/**

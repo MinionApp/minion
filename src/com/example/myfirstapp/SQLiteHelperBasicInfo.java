@@ -21,7 +21,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 	public static final String COLUMN_NAME 		= "name";
 	public static final String COLUMN_ALIGNMENT = "alignment";
 	public static final String COLUMN_LEVEL 	= "level";
-	public static final String COLUMN_DIETY 	= "diety";
+	public static final String COLUMN_DEITY 	= "diety";
 	public static final String COLUMN_HOMELAND 	= "homeland";
 	public static final String COLUMN_RACE 		= "race";
 	public static final String COLUMN_SIZE 		= "size";
@@ -32,7 +32,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 	public static final String COLUMN_HAIR 		= "hair";
 	public static final String COLUMN_EYES 		= "eyes";
 	public static final String[] ALL_COLUMNS = 
-		{ COLUMN_ID, COLUMN_NAME, COLUMN_ALIGNMENT, COLUMN_LEVEL, COLUMN_DIETY, 
+		{ COLUMN_ID, COLUMN_NAME, COLUMN_ALIGNMENT, COLUMN_LEVEL, COLUMN_DEITY, 
 			COLUMN_HOMELAND, COLUMN_RACE, COLUMN_SIZE, COLUMN_GENDER, COLUMN_AGE, 
 			COLUMN_HEIGHT, COLUMN_WEIGHT, COLUMN_HAIR, COLUMN_EYES };
 
@@ -43,7 +43,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 		+ COLUMN_NAME 		+ " text unique not null, "
 		+ COLUMN_ALIGNMENT 	+ " text, "
 		+ COLUMN_LEVEL 		+ " text, "
-		+ COLUMN_DIETY 		+ " text, "
+		+ COLUMN_DEITY 		+ " text, "
 		+ COLUMN_HOMELAND 	+ " text, "
 		+ COLUMN_RACE 		+ " text, "
 		+ COLUMN_SIZE 		+ " text, "

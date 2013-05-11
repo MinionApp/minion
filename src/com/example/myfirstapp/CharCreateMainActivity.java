@@ -21,7 +21,11 @@ public class CharCreateMainActivity extends Activity {
 		if(newChar == null){
 			newChar = new Character();
 		}
-		charID = CharacterDataSource.getNewID();
+		try {
+			charID = this.getIntent().getExtras().getLong("cid");
+		} catch (Exception e) {
+			charID = CharacterDataSource.getNewID();
+		}
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -87,6 +91,11 @@ public class CharCreateMainActivity extends Activity {
 	public void gotoSavingThrows(View view) {
 		Intent intent = new Intent(this, SavingThrowsActivity.class);
 		intent.putExtra("cid", charID);
+		startActivity(intent);
+	}
+	
+	public void gotoCharacterList(View view) {
+		Intent intent = new Intent(this, CharactersActivity.class);
 		startActivity(intent);
 	}
 

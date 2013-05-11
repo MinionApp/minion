@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class SkillsActivity extends Activity {
@@ -61,6 +62,11 @@ public class SkillsActivity extends Activity {
 	public void skills(View view) {
 		// TODO write method
 		Skill sk = new Skill(null, null);
+		
+		// return to character creation main screen
+		Intent intent = new Intent(this, CharCreateMainActivity.class);
+		intent.putExtra("cid", charID);
+		startActivity(intent);
 	}
 	
 }
