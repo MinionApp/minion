@@ -19,10 +19,8 @@ public class Ability {
 	
 	/**
 	 * Initializes an ability with the given name and defaults the base stat to
-	 * 10. The average stat for most pathfinder rolling systems is 10 because it 
-	 * has no possitive or negative ability modifiers. This average changes
-	 * with the fantasy level of a campaign but since the standard is no bonuses or
-	 * detriments, this value was chosen.
+	 * -1. Stats cannot be negative as this is indicative of death or unconsciousness,
+	 * thus a default of -1 shows that this value is uninitialized.
 	 * <p>
 	 * No temporary modifiers are initialized.
 	 * 
@@ -31,7 +29,7 @@ public class Ability {
 	 */
 	public Ability(AbilityName name){
 		this.name = name;
-		base = 10;
+		base = -1;
 		tempModifiers = new HashMap<String,Integer>();
 	}
 	
