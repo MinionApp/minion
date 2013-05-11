@@ -13,7 +13,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
 public class BasicInfoActivity extends Activity {
-	//private Character newChar;
 	private long charID;
 	
 	@Override
@@ -22,9 +21,7 @@ public class BasicInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basic_info);
 		System.out.println("INTENT GET");
-		charID =  this.getIntent().getExtras().getLong("cid");
-		//newChar = new Character();
-		//newChar.setId(ID);
+		charID = this.getIntent().getExtras().getLong("cid");
 		System.out.println("CHARACTER ID GET");
 		// Show the Up button in the action bar.
 		setupActionBar();

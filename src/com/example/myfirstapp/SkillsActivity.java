@@ -10,11 +10,13 @@ import android.annotation.TargetApi;
 import android.os.Build;
 
 public class SkillsActivity extends Activity {
+	private long charID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_skills);
+		charID = this.getIntent().getExtras().getLong("cid");
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}

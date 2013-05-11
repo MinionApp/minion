@@ -12,6 +12,7 @@ import android.os.Build;
 
 public class CharCreateMainActivity extends Activity {
 	private Character newChar = null;
+	private long charID;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class CharCreateMainActivity extends Activity {
 		if(newChar == null){
 			newChar = new Character();
 		}
+		charID = CharacterDataSource.getNewID();
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -60,34 +62,31 @@ public class CharCreateMainActivity extends Activity {
 	
 	public void gotoBasicInfo(View view) {
 		Intent intent = new Intent(this, BasicInfoActivity.class);
-		intent.putExtra("cid", newChar.id);
-		
-		//Bundle bundle = new Bundle();
-		//bundle.putSerializable("character", new Character());
+		intent.putExtra("cid", charID);
 		startActivity(intent);
 	}
 	
 	public void gotoAbilityScores(View view) {
 		Intent intent = new Intent(this, AbilityScoresActivity.class);
-		intent.putExtra("cid", newChar.id);
+		intent.putExtra("cid", charID);
 		startActivity(intent);
 	}
 	
 	public void gotoSkills(View view) {
 		Intent intent = new Intent(this, SkillsActivity.class);
-		intent.putExtra("cid", newChar.id);
+		intent.putExtra("cid", charID);
 		startActivity(intent);
 	}
 	
 	public void gotoCombat(View view) {
 		Intent intent = new Intent(this, CombatActivity.class);
-		intent.putExtra("cid", newChar.id);
+		intent.putExtra("cid", charID);
 		startActivity(intent);
 	}
 	
 	public void gotoSavingThrows(View view) {
 		Intent intent = new Intent(this, SavingThrowsActivity.class);
-		intent.putExtra("cid", newChar.id);
+		intent.putExtra("cid", charID);
 		startActivity(intent);
 	}
 

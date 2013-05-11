@@ -14,11 +14,13 @@ import android.os.Build;
 public class AbilityScoresActivity extends Activity {
 	private static final String SAMPLE_MODIFIER = "sampleModifier";
 	
+	private long charID;
 	private Ability[] abilities;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ability_scores);
+		charID = this.getIntent().getExtras().getLong("cid");
 		// Show the Up button in the action bar.
 		setupActionBar();
 		abilities = new Ability[6];
@@ -59,7 +61,7 @@ public class AbilityScoresActivity extends Activity {
 	}
 	
 	/**
-	 * On "done" button on ability scores screen get and ability
+	 * On "done" button on ability scores screen get an ability
 	 * for each category and add them to an abilities array
 	 * Add the abilities score to the character
 	 */

@@ -18,7 +18,7 @@ public class CombatActivity extends Activity {
 	private static final String ARMOR_DEFLECTION_STRING = "armorDeflection";
 	private static final String ARMOR_MISC_STRING = "armorMisc";
 
-	
+	private long charID;
 	private Combat combat;
 	
 	
@@ -26,6 +26,7 @@ public class CombatActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_combat);
+		charID = this.getIntent().getExtras().getLong("cid");
 		// Show the Up button in the action bar.
 		setupActionBar();
 		combat = new Combat();
