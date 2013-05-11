@@ -156,10 +156,6 @@
             android:name="com.example.myfirstapp.NewPasswordValidatorActivity"
             android:label="@string/title_activity_new_password_validator" >
         </activity>
-        <activity
-            android:name="com.example.myfirstapp.JSONUseActivity"
-            android:label="@string/title_activity_jsonuse" >
-        </activity>
     </application>
 
 </manifest>

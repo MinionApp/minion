@@ -11,7 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Patterns;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -25,11 +26,10 @@ import android.widget.Toast;
  */
 public class EmptyValidatorActivity extends Activity {
 	private static final String USERNAME = "username";
-	private static final String EMAIL = "email";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
-	private static final String IS_FIRST_VIEW = "isFirstView";
-	private static final String IS_VALID_EMAIL = "isValidEmail";
+	private static final String QUESTION = "question";
+	private static final String ANSWER = "answer";
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
 	private static final String USERNAME_IN_USE = "usernameInUse";
@@ -46,8 +46,6 @@ public class EmptyValidatorActivity extends Activity {
 	private static final String PASSWORD_PATTERN = 
             "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 	
-	//private ProgressDialog pd;
-	
 	/**
 	 * Directs the intent to the correct activity based on the validity of what
 	 * has been input in the signup form.
@@ -59,34 +57,31 @@ public class EmptyValidatorActivity extends Activity {
 	    Intent receivedIntent = getIntent();
 	    // Receives the data the user input into the signup form
 	    String username = receivedIntent.getStringExtra(USERNAME);
-	    String email = receivedIntent.getStringExtra(EMAIL);
 	    String password = receivedIntent.getStringExtra(PASSWORD);
 	    String passwordConfirmation = receivedIntent.getStringExtra(PASSWORD_CONFIRMATION);
+	    String question = receivedIntent.getStringExtra(QUESTION);
+	    String answer = receivedIntent.getStringExtra(ANSWER);
 	    Intent intent;
 	    // If email is valid, password is valid, and the password and confirmation password match
-	    if (validEmail(email) && validPassword(password) && 
-	    		matchingPasswords(password, passwordConfirmation)) {
+	    if (validPassword(password) && matchingPasswords(password, passwordConfirmation)) {
 	    	// Checks for internet connectivity
 	    	if (ConnectionChecker.hasConnection(this)) {
 	    		// Updates login credentials on remote database
-	        	SignupTask task = new SignupTask(username, password, passwordConfirmation, email, this);
+	        	SignupTask task = new SignupTask(username, password, passwordConfirmation, question, answer, this);
 	    		task.execute(username);
 	    	} else {
 	    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
 		    	intent = new Intent(this, SignupActivity.class);
-		    	// Determines if the user should see a blank signup form 
-		    	intent.putExtra(IS_FIRST_VIEW, false);
-		    	// Stores if the given email is valid
-		    	intent.putExtra(IS_VALID_EMAIL, validEmail(email));
 		    	// Stores if the given password is valid
 		    	intent.putExtra(IS_VALID_PASSWORD, validPassword(password));
 		    	// Stores if the given password and confirmation password match
 		    	intent.putExtra(PASSWORDS_MATCH, matchingPasswords(password, passwordConfirmation));
 		    	// Sends the input information back to the signup form so user doesn't have to reenter
-				intent.putExtra(EMAIL, email);
 				intent.putExtra(PASSWORD, password);
 				intent.putExtra(USERNAME, username);
 				intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
+				intent.putExtra(QUESTION, question);
+				intent.putExtra(ANSWER, answer);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		 	   	startActivity(intent);
 		 	   	finish();
@@ -94,34 +89,21 @@ public class EmptyValidatorActivity extends Activity {
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, SignupActivity.class);
-	    	// Determines if the user should see a blank signup form 
-	    	intent.putExtra(IS_FIRST_VIEW, false);
-	    	// Stores if the given email is valid
-	    	intent.putExtra(IS_VALID_EMAIL, validEmail(email));
 	    	// Stores if the given password is valid
 	    	intent.putExtra(IS_VALID_PASSWORD, validPassword(password));
 	    	// Stores if the given password and confirmation password match
 	    	intent.putExtra(PASSWORDS_MATCH, matchingPasswords(password, passwordConfirmation));
 	    	// Sends the input information back to the signup form so user doesn't have to reenter
-			intent.putExtra(EMAIL, email);
 			intent.putExtra(PASSWORD, password);
 			intent.putExtra(USERNAME, username);
 			intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
+			intent.putExtra(QUESTION, question);
+			intent.putExtra(ANSWER, answer);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	 	   	startActivity(intent);
 	 	   	finish();
 	    }
 	    // note we never called setContentView()
-	}
-	
-	/**
-	 * Checks that the given email is a valid email address.
-	 * @param email The email address the user input.
-	 * @return true if email is formatted correctly, false otherwise.
-	 */
-	private boolean validEmail(String email) {
-		Pattern pattern = Patterns.EMAIL_ADDRESS;
-		return pattern.matcher(email).matches();
 	}
 	
 	/**
@@ -148,14 +130,16 @@ public class EmptyValidatorActivity extends Activity {
 		private String un;
 		private String pw;
 		private String passwordConfirmation;
-		private String email;
+		private String question;
+		private String answer;
 		private Context context;
 		
-		private SignupTask (String username, String password, String passwordConfirmation, String email, Context context) {
+		private SignupTask (String username, String password, String passwordConfirmation, String question, String answer, Context context) {
 			this.un = username;
 			this.pw = password;
 			this.passwordConfirmation = passwordConfirmation;
-			this.email = email;
+			this.question = question;
+			this.answer = answer;
 			this.context = context;
 		}
 		
@@ -167,6 +151,8 @@ public class EmptyValidatorActivity extends Activity {
 	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	        postParameters.add(new BasicNameValuePair("username", un));
 	        postParameters.add(new BasicNameValuePair("password", pw));
+	        postParameters.add(new BasicNameValuePair("question", question));
+	        postParameters.add(new BasicNameValuePair("answer", answer));
 
 	        //String valid = "1";
 			String result = null;
@@ -193,25 +179,22 @@ public class EmptyValidatorActivity extends Activity {
 	    protected void onPostExecute(String result) {
         	if (result.equals("1")) {  
         		// Login succeeds, go to homepage.
-        		Intent intent = new Intent(context, SecurityQuestionActivity.class);
+        		Intent intent = new Intent(context, LoginActivity.class);
         		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             	startActivity(intent);
             	finish();
         	} else {
         		Intent intent = new Intent(context, SignupActivity.class);
-    	    	intent.putExtra(IS_FIRST_VIEW, false);
-    	    	// Stores if the given email is valid
-    	    	intent.putExtra(IS_VALID_EMAIL, true);
     	    	// Stores if the given password is valid
     	    	intent.putExtra(IS_VALID_PASSWORD, true);
     	    	// Stores if the given password and confirmation password match
     	    	intent.putExtra(PASSWORDS_MATCH, true);
     	    	// Sends the input information back to the signup form so user doesn't have to reenter
-    			intent.putExtra(EMAIL, email);
     			intent.putExtra(PASSWORD, pw);
     			intent.putExtra(USERNAME, un);
     			intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
-    			
+    			intent.putExtra(QUESTION, question);
+    			intent.putExtra(ANSWER, answer);
     			// IF USERNAME IS ALREADY IN USE
     			intent.putExtra(USERNAME_IN_USE, true);
         		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -25,7 +25,6 @@
     <string name="signup_text">Don\'t have an account?</string>
     <string name="forgot_password_clickable_text">Forgot password?</string>
     <string name="signup_title">Signup</string>
-    <string name="email_signup_input">Email</string>
     <string name="username_signup_input">Username</string>
     <string name="password_signup_input">Password</string>
     <string name="finish_signup_button">Sign me up</string>
@@ -34,9 +33,7 @@
     <string name="title_activity_password_recovery">Password Recovery</string>
     <string name="recover_password_button">Recover Password</string>
     <string name="cancel_button">Cancel</string>
-    <string name="password_recovery_sent_message">A password recovery email has been sent. You should receive it shortly.</string>
-    <string name="return_to_login_clickable_text">(Return to Login)</string>
-    <string name="invalid_email_message">The provided email address is invalid.</string>
+    <string name="invalid_username_message">Username already in use. Please try again.</string>
     <string name="invalid_password_message">Your password must be at least 8 characters long and contain at least one digit, 
 	    one lowercase character, one uppercase character, one special character (@#$%^&#038;+=) and contain no spaces.</string>
     <string name="password_confirmation">Confirm Password</string>
@@ -47,9 +44,8 @@
     <string name="security_question_prompt">Choose a security question</string>
     <string name="security_answer_prompt">Answer your security question</string>
     <string name="placeholder_text">**Insert security question here**</string>
-
     <string name="waiting">Waiting...</string>
-    
+
     <string-array name="security_question_array">
         <item>What is your quest?</item>
         <item>What is your favorite color?</item>
@@ -141,5 +137,6 @@
     <string name="welcome">Welcome to Minion Character Creation!</string>
     <string name="char_creation_success">Character successfully saved!</string>
     <string name="title_activity_jsonuse">JSONUseActivity</string>
+    <string name="title_activity_test_spinner">TestSpinnerActivity</string>
 
 </resources>
