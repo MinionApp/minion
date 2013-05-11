@@ -217,7 +217,7 @@ public class Character implements Serializable {
 			SQLiteDatabase dbCombat, SQLiteDatabase dbArmor, 
 			SQLiteDatabase dbSavingThrows, SQLiteDatabase dbWeapons) {
 		// write basic info / character description
-		this.desc.writeToDB(id, dbBasicInfo);
+//		this.desc.writeToDB(id, dbBasicInfo);
 //		// write ability scores
 //		for (int i = 0; i < abilityScores.length; i++) {
 //			Ability a = abilityScores[i];

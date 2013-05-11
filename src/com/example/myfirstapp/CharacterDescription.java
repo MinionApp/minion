@@ -12,6 +12,8 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Loki White (lokiw)
  */
 public class CharacterDescription {
+	public long charID;
+	
 	public String name;
 	public String player;
 	public String alignment;
@@ -29,16 +31,38 @@ public class CharacterDescription {
 	public String hair;
 	public String eyes;
 	
+	public CharacterDescription(long id) {
+		charID = id;
+		// default values
+		name = "";
+		player = "";
+		alignment = "";
+		size = "";
+		firstAlign = null;
+		secondAlign = null;
+		diety = "";
+		homeLand = "";
+		gender = "";
+		race = "";
+		age = 0;
+		height = 0;
+		weight = 0;
+		hair = "";
+		eyes = "";
+	}
+	
 	/** 
 	 * Writes character description / basic info to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
 	 * @param db database to write into
 	 */
-	public void writeToDB(long id, SQLiteDatabase db) {
+	public void writeToDB() {
+		long id = charID;
+		SQLiteDatabase db = SQLiteHelperBasicInfo.db;
 		// TODO implement
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name);
-		values.put(SQLiteHelperBasicInfo.COLUMN_ID, id);
+		values.put(SQLiteHelperBasicInfo.COLUMN_ID, charID);
 		values.put(SQLiteHelperBasicInfo.COLUMN_ALIGNMENT, alignment);
 		values.put(SQLiteHelperBasicInfo.COLUMN_SIZE, size.toString());
 		// TODO figure out what to do with alignments

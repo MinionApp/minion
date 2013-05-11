@@ -9,11 +9,12 @@ import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
 public class BasicInfoActivity extends Activity {
-	private Character newChar;
-	private int id;
+	//private Character newChar;
+	private long charID;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +22,9 @@ public class BasicInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basic_info);
 		System.out.println("INTENT GET");
-		id =  this.getIntent().getExtras().getInt("cid");
-		newChar = new Character();
-		newChar.setId(id);
+		charID =  this.getIntent().getExtras().getLong("cid");
+		//newChar = new Character();
+		//newChar.setId(ID);
 		System.out.println("CHARACTER ID GET");
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -65,7 +66,7 @@ public class BasicInfoActivity extends Activity {
 	
 	public void basicInfo(View view){
 		System.out.println("BASIC INFO");
-		CharacterDescription baseInfo = new CharacterDescription();
+		CharacterDescription baseInfo = new CharacterDescription(charID);
 		//TODO: Handle empty cases
 		
 		EditText char_name = (EditText) findViewById(R.id.char_name_enter);
@@ -146,7 +147,7 @@ public class BasicInfoActivity extends Activity {
 		baseInfo.name = cName;
 		baseInfo.player = player;
 		baseInfo.alignment = align;
-		newChar.setLevel(lvl);
+		//newChar.setLevel(lvl);
 		baseInfo.diety = deity;
 		baseInfo.homeLand = homeland;
 		baseInfo.race = race;
@@ -158,7 +159,7 @@ public class BasicInfoActivity extends Activity {
 		baseInfo.hair = hair;
 		baseInfo.eyes = eyes;
 		
-		newChar.setDescriptions(baseInfo);
+		//newChar.setDescriptions(baseInfo);
 //		newChar.writeToDB(SQLiteHelperBasicInfo.db,
 //			SQLiteHelperAbilityScores.db, 
 //			SQLiteHelperASTempMods.db, 
@@ -167,6 +168,10 @@ public class BasicInfoActivity extends Activity {
 //			SQLiteHelperArmor.db, 
 //			SQLiteHelperSavingThrows.db, 
 //			SQLiteHelperWeapons.db);
+		//SQLiteDatabase db = SQLiteHelperBasicInfo.db;
+		
+		// write data to database
+		baseInfo.writeToDB();
 		
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
