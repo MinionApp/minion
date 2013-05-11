@@ -71,93 +71,106 @@ public class BasicInfoActivity extends Activity {
 		
 		EditText char_name = (EditText) findViewById(R.id.char_name_enter);
 		String cName = char_name.getText().toString().trim();
+		if (!cName.matches("")) {
+			baseInfo.name = cName;		
+		}
 		
 		//TODO: Make alignment a dropdown menu
 		//Alignment
 		EditText align_enter = (EditText) findViewById(R.id.alignment_enter);
 		String align = align_enter.getText().toString().trim();
+		if (!align.matches("")) {
+			baseInfo.alignment = align;
+		}
 		
 		//Player
 		EditText player_enter = (EditText) findViewById(R.id.player_enter);
 		String player = player_enter.getText().toString().trim();
+		if (!player.matches("")) {
+			baseInfo.player = player;
+		}
 		
 		//Level
 		EditText level_enter = (EditText) findViewById(R.id.char_level_enter);
 		String level = level_enter.getText().toString().trim();
-		Integer lvl = Integer.parseInt(level);
-		if (lvl == null) {
-			//TODO:ERROR HANDLING
+		System.out.println("NO USER INPUT: " + level);
+		if (!level.matches("")) {
+			System.out.println("REACHED THIS POINT");
+			//baseInfo.level = Integer.parseInt(level);
 		}
+
 		
 		//Deity
 		EditText deity_enter = (EditText) findViewById(R.id.deity_enter);
 		String deity = deity_enter.getText().toString().trim();
+		if (!deity.matches("")) {
+			baseInfo.diety = deity;
+		}
 		
 		//Homeland
 		EditText homeland_enter = (EditText) findViewById(R.id.homeland_enter);
 		String homeland = homeland_enter.getText().toString().trim();
+		if (!homeland.matches("")) {
+			baseInfo.homeLand = homeland;
+		}
 		
 		//Race
 		EditText race_enter = (EditText) findViewById(R.id.race_enter);
 		String race = race_enter.getText().toString().trim();
+		if (!race.matches("")) {
+			baseInfo.race = race;
+		}
 		
 		//TODO: Make size dropdown
 		//Size
 		EditText size_enter = (EditText) findViewById(R.id.size_enter);
 		String size = size_enter.getText().toString().trim();
+		if (!size.matches("")) {
+			baseInfo.size = size;
+		}
 		
 		//Gender
 		EditText gender_enter = (EditText) findViewById(R.id.gender_enter);
 		String gender = gender_enter.getText().toString().trim();
+		if (!gender.matches("")) {
+			baseInfo.gender = gender;
+		}
 		
 		//TODO: Figure out how to get out numbers
 		//Age
 		EditText age_enter = (EditText) findViewById(R.id.age_enter);
 		String age = age_enter.getText().toString().trim();
-		Integer ageNum = Integer.parseInt(age);
-		if (ageNum == null) {
-			//TODO:ERROR HANDLING
+		if (!age.matches("")) {
+			baseInfo.age = Integer.parseInt(age);
 		}
 		
 		//Height
 		EditText height_enter = (EditText) findViewById(R.id.height_enter);
 		String height = height_enter.getText().toString().trim();
-		Integer heightNum = Integer.parseInt(height);
-		if (heightNum == null) {
-			//TODO:ERROR HANDLING
+		if (!height.matches("")) {
+			baseInfo.height = Integer.parseInt(height);
 		}
 		
 		//Weight
 		EditText weight_enter = (EditText) findViewById(R.id.weight_enter);
 		String weight = weight_enter.getText().toString().trim();
-		Integer weightNum = Integer.parseInt(weight);
-		if (weightNum == null) {
-			//TODO:ERROR HANDLING
+		if (!weight.matches("")) {
+			baseInfo.weight = Integer.parseInt(weight);
 		}
 		
 		//Hair
 		EditText hair_enter = (EditText) findViewById(R.id.hair_enter);
 		String hair = hair_enter.getText().toString().trim();
+		if (!hair.matches("")) {
+			baseInfo.hair = hair;
+		}
 		
 		//Eyes
 		EditText eyes_enter = (EditText) findViewById(R.id.eyes_enter);
 		String eyes = eyes_enter.getText().toString().trim();
-		
-		
-		baseInfo.name = cName;
-		baseInfo.player = player;
-		baseInfo.alignment = align;
-		//newChar.setLevel(lvl);
-		baseInfo.diety = deity;
-		baseInfo.homeLand = homeland;
-		baseInfo.race = race;
-		baseInfo.gender = gender;
-		baseInfo.age = ageNum;
-		baseInfo.size = size;
-		baseInfo.height = heightNum;
-		baseInfo.weight = weightNum;
-		baseInfo.hair = hair;
-		baseInfo.eyes = eyes;
+		if (!eyes.matches("")) {
+			baseInfo.eyes = eyes;
+		}
 		
 		//newChar.setDescriptions(baseInfo);
 //		newChar.writeToDB(SQLiteHelperBasicInfo.db,

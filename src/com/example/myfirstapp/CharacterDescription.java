@@ -30,6 +30,7 @@ public class CharacterDescription {
 	public int weight;
 	public String hair;
 	public String eyes;
+	public int level;
 	
 	public CharacterDescription(long id) {
 		charID = id;
@@ -49,6 +50,7 @@ public class CharacterDescription {
 		weight = 0;
 		hair = "";
 		eyes = "";
+		level = 0;
 	}
 	
 	/** 

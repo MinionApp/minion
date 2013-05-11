@@ -1,6 +1,5 @@
 package com.example.myfirstapp;
 
-import java.io.Serializable;
 import java.util.*;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +15,7 @@ import android.os.Parcelable;
  * @author Kevin Dong (kevinxd3)
  *
  */
-public class Character implements Serializable {
+public class Character {
 	/**
 	 * 
 	 */
@@ -32,7 +31,6 @@ public class Character implements Serializable {
 	private Ability abilityScores[];
 	private Map<String,Skill> skills;
 	private Combat combat;
-	private int level;
 	private SavingThrow will;
 	private SavingThrow fort;
 	private SavingThrow ref;
@@ -43,7 +41,6 @@ public class Character implements Serializable {
 	public Character(){
 		abilityScores = new Ability[6];
 		skills = new HashMap<String,Skill>();
-		level = 1; 
 		will = new SavingThrow(AbilityName.WISDOME);
 		fort = new SavingThrow(AbilityName.CONSTITUTION);
 		ref = new SavingThrow(AbilityName.DEXTERITY);
@@ -59,16 +56,6 @@ public class Character implements Serializable {
 	 */
 	public void setDescriptions(CharacterDescription basicInfo){
 		desc = basicInfo;
-	}
-	
-	/**
-	 * set the character level to the given level
-	 * 
-	 * @param level	int representation of a character level
-	 * @modifies this
-	 */
-	public void setLevel(int level){
-		this.level = level;
 	}
 	
 	public void setAbilityScores(Ability[] scores){
@@ -188,7 +175,7 @@ public class Character implements Serializable {
 	public int getTotalHitPoints(){
 		
 		//TODO: include hpModifiers
-		return combat.getBaseHP() + abilityScores[2].getMod()*level;
+		return combat.getBaseHP() + abilityScores[2].getMod()*desc.level;
 	}
 	
 	/**
