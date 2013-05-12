@@ -72,11 +72,16 @@ public class AbilityScoresActivity extends Activity {
 	public void loadData() {
 		int[] fields = { R.id.str_ab_score, R.id.dex_ab_score, R.id.con_ab_score, 
 						R.id.int_ab_score, R.id.wis_ab_score, R.id.cha_ab_score };
+		int[] fields2 = { R.id.str_ab_mod, R.id.dex_ab_mod, R.id.con_ab_mod, 
+						R.id.int_ab_mod, R.id.wis_ab_mod, R.id.cha_ab_mod };
 		for (int i = 0; i < abilities.length; i++) {
 			if (!abilities[i].isNew) {
 				System.out.println(i + "  " + abilities[i].getBase());
 				EditText abScoreEnter = (EditText) findViewById(fields[i]);
 				abScoreEnter.setText(""+abilities[i].getBase());
+
+				EditText modEnter = (EditText) findViewById(fields2[i]);
+				modEnter.setText(""+abilities[i].getMod());
 			}
 		}
 	}
