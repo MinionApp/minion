@@ -172,7 +172,7 @@ public class LoginActivity extends Activity {
 	        //http post
 			String res;
 	        try{
-	        	result = CustomHttpClient.executeHttpPost("http://10.0.2.2/checkLogin.php", postParameters);  //Enetr Your remote PHP,ASP, Servlet file link
+	        	result = CustomHttpClient.executeHttpPost("http://10.0.2.2/checkLogin.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
 	        	res = result.toString();  
 	        	//res = res.trim();  
 	        	res= res.replaceAll("\\s+","");  

@@ -1,9 +1,16 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -21,9 +28,10 @@ import android.widget.Toast;
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
 	private static final String USERNAME = "username";
+	private static final String QUESTION = "question";
 	
 	/**
-	 * Stores the username the user gave in their signup form.
+	 * Stores the user's username.
 	 */
 	private String username;
 	
@@ -38,11 +46,11 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_password_recovery_question);
+		
 		Intent receivedIntent = getIntent();
 		username = receivedIntent.getStringExtra(USERNAME);
-		setContentView(R.layout.activity_password_recovery_question);
-		// Gets security question for user from remote database
-		question = "What is your favorite color?";
+		question = receivedIntent.getStringExtra(QUESTION);
 		TextView securityQuestionTextView = (TextView)findViewById(R.id.securityQuestion);
 		securityQuestionTextView.setText(question);
 		// Show the Up button in the action bar.
@@ -94,20 +102,74 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoLogin(View view) {
-		Intent intent;
 		EditText answerEditText = (EditText) findViewById(R.id.questionInput);
 		String answer = answerEditText.getText().toString().trim();
 		
     	// Checks for internet connectivity
     	if (ConnectionChecker.hasConnection(this)) {
     		// Tests security question for user on remote database
-    		intent = new Intent(this, PasswordResetActivity.class);
-    		intent.putExtra(USERNAME, username);
+    		CheckAnswerTask task = new CheckAnswerTask(username, question, answer, this);
+			task.execute(answer);
     	} else {
     	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-    	   intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
     	}
-		startActivity(intent);
 	}
 
+	private class CheckAnswerTask extends AsyncTask<String, Void, String> {
+		private String un;
+		private String question;
+		private String answer;
+		private Context context;
+		
+		private CheckAnswerTask (String username, String question, String answer, Context context) {
+			this.un = username;
+			this.question = question;
+			this.answer = answer;
+			this.context = context;
+		}
+		
+	    /**
+	     * Let's make the http request and return the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("username", un));
+	        postParameters.add(new BasicNameValuePair("question", question));
+	        postParameters.add(new BasicNameValuePair("answer", answer));
+
+	        //String valid = "1";
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost("http://10.0.2.2/checkAnswer.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
+	        	res = result.toString();  
+	        	//res = res.trim();  
+	        	res= res.replaceAll("\\s+","");  
+	        	//error.setText(res);  
+	        } catch (Exception e) {  
+	        	//un.setText(e.toString()); 
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parse the String result, and create a new array adapter for the list
+	     * view.
+	     */
+	    protected void onPostExecute(String result) {
+	    	TextView error = (TextView) findViewById(R.id.incorrectAnswerError);
+        	if (result.equals("1")) {
+        		Intent intent = new Intent(context, PasswordResetActivity.class);
+        		intent.putExtra(USERNAME, un);
+        		startActivity(intent);
+        		//finish();
+        	} else {
+        		error.setVisibility(View.VISIBLE);  
+        	}
+	    } 
+	}
 }

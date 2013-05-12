@@ -31,6 +31,7 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_signup">Signup</string>
     <string name="title_activity_password_recovery">Password Recovery</string>
+    <string name="title_activity_recovery_question">Recovery Question</string>
     <string name="recover_password_button">Recover Password</string>
     <string name="cancel_button">Cancel</string>
     <string name="invalid_username_message">Username already in use. Please try again.</string>
@@ -40,7 +41,7 @@
     <string name="non_matching_passwords_message">The provided passwords do not match.</string>
     <string name="keep_logged_in">Remember me</string>
     <string name="button_logout">Logout</string>
-    <string name="title_activity_security_question">SecurityQuestionActivity</string>
+    <string name="invalid_username_error">The specified username does not exist. Try again.</string>
     <string name="security_question_prompt">Choose a security question</string>
     <string name="security_answer_prompt">Answer your security question</string>
     <string name="placeholder_text">**Insert security question here**</string>

@@ -145,12 +145,8 @@
                 android:value="com.example.myfirstapp.PasswordRecoveryActivity" />
         </activity>
         <activity
-            android:name="com.example.myfirstapp.SecurityQuestionActivity"
-            android:label="@string/title_activity_security_question" >
-        </activity>
-        <activity
             android:name="com.example.myfirstapp.PasswordRecoveryQuestionActivity"
-            android:label="@string/title_activity_password_recovery_question" >
+            android:label="@string/title_activity_recovery_question" >
         </activity>
         <activity
             android:name="com.example.myfirstapp.NewPasswordValidatorActivity"

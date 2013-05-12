@@ -8,53 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SignupActivity" >
     
-    <!-- Just keeping this in case we want to reimplement it later
-	<LinearLayout
-	    android:id="@+id/names"
-		android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginTop="10dp"
-	    android:orientation="horizontal">
-		<TextView
-			android:id="@+id/firstName"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:text="@string/first_name_signup_input"
-		    android:textAppearance="?android:attr/textAppearanceMedium" />
-	    
-	    <TextView
-		    android:id="@+id/lastName"
-		    android:layout_width="0dp"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:text="@string/last_name_signup_input"
-		    android:textAppearance="?android:attr/textAppearanceMedium" />
-	</LinearLayout>
-    
-	<LinearLayout
-	    android:id="@+id/namesInput"
-		android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/names"
-	    android:orientation="horizontal">
-	    <EditText
-        	android:id="@+id/firstNameInput"
-        	android:layout_width="0dp"
-        	android:layout_height="wrap_content"
-        	android:layout_weight="1"
-        	android:inputType="textPersonName" />
-    
-    	<EditText
-        	android:id="@+id/lastNameInput"
-        	android:layout_width="0dp"
-        	android:layout_height="wrap_content"
-			android:layout_weight="1"
-        	android:inputType="textPersonName" />
-	</LinearLayout>
-	-->
-    
     <TextView
         android:id="@+id/username"
         android:layout_marginTop="10dp"
@@ -73,9 +26,8 @@
     
     <TextView
         android:id="@+id/usernameError"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/usernameInput"
         android:text="@string/invalid_username_message"
         android:textColor="#FF0000"
@@ -100,9 +52,8 @@
     
     <TextView
         android:id="@+id/invalidPasswordError"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/passwordInput"
         android:text="@string/invalid_password_message"
         android:textColor="#FF0000"
@@ -127,9 +78,8 @@
     
     <TextView
         android:id="@+id/nonmatchingPasswordError"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/confirmPasswordInput"
         android:text="@string/non_matching_passwords_message"
         android:textColor="#FF0000"

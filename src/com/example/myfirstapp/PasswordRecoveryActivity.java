@@ -1,8 +1,15 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -10,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * PasswordRecoveryActivity is an activity that provides a form that the user can use
@@ -19,6 +28,7 @@ import android.widget.EditText;
  */
 public class PasswordRecoveryActivity extends Activity {
 	private static final String USERNAME = "username";
+	private static final String QUESTION = "question";
 	
 	/**
 	 * Displays the password recovery page.
@@ -76,11 +86,16 @@ public class PasswordRecoveryActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoSecurityQuestion(View view) {
-        Intent intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
-		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
-		String username = usernameEditText.getText().toString().trim();
-		intent.putExtra(USERNAME, username);
-		startActivity(intent);
+		if (ConnectionChecker.hasConnection(this)) {
+			// Get user login info.
+			EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
+			String un = usernameEditText.getText().toString().trim();
+			
+			GetSecurityQuestionTask task = new GetSecurityQuestionTask(un, this);
+			task.execute(un);
+    	} else {
+    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+    	}
 	}
 	
 	/**
@@ -91,5 +106,58 @@ public class PasswordRecoveryActivity extends Activity {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 		finish();
+	}
+	
+	private class GetSecurityQuestionTask extends AsyncTask<String, Void, String> {
+		private String un;
+		private Context context;
+		
+		private GetSecurityQuestionTask (String username, Context context) {
+			this.un = username;
+			this.context = context;
+		}
+		
+	    /**
+	     * Let's make the http request and return the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("username", un));
+
+	        //String valid = "1";
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost("http://10.0.2.2/getSecurityQuestion.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
+	        	res = result.toString();  
+	        	//res = res.trim();  
+	        	res= res.replaceAll("\\s+","");  
+	        	//error.setText(res);  
+	        } catch (Exception e) {  
+	        	//un.setText(e.toString()); 
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parse the String result, and create a new array adapter for the list
+	     * view.
+	     */
+	    protected void onPostExecute(String result) {
+	    	TextView error = (TextView) findViewById(R.id.usernameError);
+        	if (result.equals("0")) {
+        		error.setVisibility(View.VISIBLE); 
+        	} else { 		
+        		Intent intent = new Intent(context, PasswordRecoveryQuestionActivity.class);
+        		intent.putExtra(USERNAME, un);
+        		intent.putExtra(QUESTION, result.replace("_", " ")); //to fix question string
+        		startActivity(intent);
+        		//finish();
+        	}
+	    } 
 	}
 }
