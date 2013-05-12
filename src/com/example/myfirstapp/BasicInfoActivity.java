@@ -153,7 +153,7 @@ public class BasicInfoActivity extends Activity {
 		System.out.println("NO USER INPUT: " + level);
 		if (!level.matches("")) {
 			System.out.println("REACHED THIS POINT");
-			//baseInfo.level = Integer.parseInt(level);
+			baseInfo.level = Integer.parseInt(level);
 		}
 
 		
