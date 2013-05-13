@@ -65,60 +65,60 @@ public class BasicInfoActivity extends Activity {
 	public void loadData() {
 		if (!baseInfo.isNew) {
 			//Name
-			EditText char_name = (EditText) findViewById(R.id.char_name_enter);
-			char_name.setText(baseInfo.name);
+			EditText charName = (EditText) findViewById(R.id.char_name_enter);
+			charName.setText(baseInfo.name);
 			
 			//Alignment
-			EditText align_enter = (EditText) findViewById(R.id.alignment_enter);
-			align_enter.setText(baseInfo.alignment);
+			EditText alignEnter = (EditText) findViewById(R.id.alignment_enter);
+			alignEnter.setText(baseInfo.alignment);
 			
 			//Player
-			EditText player_enter = (EditText) findViewById(R.id.player_enter);
-			player_enter.setText(baseInfo.player);
+			EditText playerEnter = (EditText) findViewById(R.id.player_enter);
+			playerEnter.setText(baseInfo.player);
 			
 			//Level
-			EditText level_enter = (EditText) findViewById(R.id.char_level_enter);
-			level_enter.setText(""+baseInfo.level);
+			EditText levelEnter = (EditText) findViewById(R.id.char_level_enter);
+			levelEnter.setText(""+baseInfo.level);
 			
 			//Deity
-			EditText deity_enter = (EditText) findViewById(R.id.deity_enter);
-			deity_enter.setText(baseInfo.deity);
+			EditText deityEnter = (EditText) findViewById(R.id.deity_enter);
+			deityEnter.setText(baseInfo.deity);
 			
 			//Homeland
-			EditText homeland_enter = (EditText) findViewById(R.id.homeland_enter);
-			homeland_enter.setText(baseInfo.homeLand);
+			EditText homelandEnter = (EditText) findViewById(R.id.homeland_enter);
+			homelandEnter.setText(baseInfo.homeLand);
 			
 			//Race
-			EditText race_enter = (EditText) findViewById(R.id.race_enter);
-			race_enter.setText(baseInfo.race);
+			EditText raceEnter = (EditText) findViewById(R.id.race_enter);
+			raceEnter.setText(baseInfo.race);
 			
 			//Size
-			EditText size_enter = (EditText) findViewById(R.id.size_enter);
-			size_enter.setText(baseInfo.size);
+			EditText sizeEnter = (EditText) findViewById(R.id.size_enter);
+			sizeEnter.setText(baseInfo.size);
 			
 			//Gender
-			EditText gender_enter = (EditText) findViewById(R.id.gender_enter);
-			gender_enter.setText(baseInfo.gender);
+			EditText genderEnter = (EditText) findViewById(R.id.gender_enter);
+			genderEnter.setText(baseInfo.gender);
 			
 			//Age
-			EditText age_enter = (EditText) findViewById(R.id.age_enter);
-			age_enter.setText(""+baseInfo.age);
+			EditText ageEnter = (EditText) findViewById(R.id.age_enter);
+			ageEnter.setText(""+baseInfo.age);
 			
 			//Height
-			EditText height_enter = (EditText) findViewById(R.id.height_enter);
-			height_enter.setText(""+baseInfo.height);
+			EditText heightEnter = (EditText) findViewById(R.id.height_enter);
+			heightEnter.setText(""+baseInfo.height);
 			
 			//Weight
-			EditText weight_enter = (EditText) findViewById(R.id.weight_enter);
-			weight_enter.setText(""+baseInfo.weight);
+			EditText weightEnter = (EditText) findViewById(R.id.weight_enter);
+			weightEnter.setText(""+baseInfo.weight);
 			
 			//Hair
-			EditText hair_enter = (EditText) findViewById(R.id.hair_enter);
-			hair_enter.setText(baseInfo.hair);
+			EditText hairEnter = (EditText) findViewById(R.id.hair_enter);
+			hairEnter.setText(baseInfo.hair);
 			
 			//Eyes
-			EditText eyes_enter = (EditText) findViewById(R.id.eyes_enter);
-			eyes_enter.setText(baseInfo.eyes);
+			EditText eyesEnter = (EditText) findViewById(R.id.eyes_enter);
+			eyesEnter.setText(baseInfo.eyes);
 		}
 	}
 	
@@ -126,30 +126,30 @@ public class BasicInfoActivity extends Activity {
 		//System.out.println("BASIC INFO");
 		//TODO: Handle empty cases
 		
-		EditText char_name = (EditText) findViewById(R.id.char_name_enter);
-		String cName = char_name.getText().toString().trim();
+		EditText charName = (EditText) findViewById(R.id.char_name_enter);
+		String cName = charName.getText().toString().trim();
 		if (!cName.matches("")) {
 			baseInfo.name = cName;		
 		}
 		
 		//TODO: Make alignment a dropdown menu
 		//Alignment
-		EditText align_enter = (EditText) findViewById(R.id.alignment_enter);
-		String align = align_enter.getText().toString().trim();
+		EditText alignEnter = (EditText) findViewById(R.id.alignment_enter);
+		String align = alignEnter.getText().toString().trim();
 		if (!align.matches("")) {
 			baseInfo.alignment = align;
 		}
 		
 		//Player
-		EditText player_enter = (EditText) findViewById(R.id.player_enter);
-		String player = player_enter.getText().toString().trim();
+		EditText playerEnter = (EditText) findViewById(R.id.player_enter);
+		String player = playerEnter.getText().toString().trim();
 		if (!player.matches("")) {
 			baseInfo.player = player;
 		}
 		
 		//Level
-		EditText level_enter = (EditText) findViewById(R.id.char_level_enter);
-		String level = level_enter.getText().toString().trim();
+		EditText levelEnter = (EditText) findViewById(R.id.char_level_enter);
+		String level = levelEnter.getText().toString().trim();
 		System.out.println("NO USER INPUT: " + level);
 		if (!level.matches("")) {
 			System.out.println("REACHED THIS POINT");
@@ -158,73 +158,73 @@ public class BasicInfoActivity extends Activity {
 
 		
 		//Deity
-		EditText deity_enter = (EditText) findViewById(R.id.deity_enter);
-		String deity = deity_enter.getText().toString().trim();
+		EditText deityEnter = (EditText) findViewById(R.id.deity_enter);
+		String deity = deityEnter.getText().toString().trim();
 		if (!deity.matches("")) {
 			baseInfo.deity = deity;
 		}
 		
 		//Homeland
-		EditText homeland_enter = (EditText) findViewById(R.id.homeland_enter);
-		String homeland = homeland_enter.getText().toString().trim();
+		EditText homelandEnter = (EditText) findViewById(R.id.homeland_enter);
+		String homeland = homelandEnter.getText().toString().trim();
 		if (!homeland.matches("")) {
 			baseInfo.homeLand = homeland;
 		}
 		
 		//Race
-		EditText race_enter = (EditText) findViewById(R.id.race_enter);
-		String race = race_enter.getText().toString().trim();
+		EditText raceEnter = (EditText) findViewById(R.id.race_enter);
+		String race = raceEnter.getText().toString().trim();
 		if (!race.matches("")) {
 			baseInfo.race = race;
 		}
 		
 		//TODO: Make size dropdown
 		//Size
-		EditText size_enter = (EditText) findViewById(R.id.size_enter);
-		String size = size_enter.getText().toString().trim();
+		EditText sizeEnter = (EditText) findViewById(R.id.size_enter);
+		String size = sizeEnter.getText().toString().trim();
 		if (!size.matches("")) {
 			baseInfo.size = size;
 		}
 		
 		//Gender
-		EditText gender_enter = (EditText) findViewById(R.id.gender_enter);
-		String gender = gender_enter.getText().toString().trim();
+		EditText genderEnter = (EditText) findViewById(R.id.gender_enter);
+		String gender = genderEnter.getText().toString().trim();
 		if (!gender.matches("")) {
 			baseInfo.gender = gender;
 		}
 		
 		//TODO: Figure out how to get out numbers
 		//Age
-		EditText age_enter = (EditText) findViewById(R.id.age_enter);
-		String age = age_enter.getText().toString().trim();
+		EditText ageEnter = (EditText) findViewById(R.id.age_enter);
+		String age = ageEnter.getText().toString().trim();
 		if (!age.matches("")) {
 			baseInfo.age = Integer.parseInt(age);
 		}
 		
 		//Height
-		EditText height_enter = (EditText) findViewById(R.id.height_enter);
-		String height = height_enter.getText().toString().trim();
+		EditText heightEnter = (EditText) findViewById(R.id.height_enter);
+		String height = heightEnter.getText().toString().trim();
 		if (!height.matches("")) {
 			baseInfo.height = Integer.parseInt(height);
 		}
 		
 		//Weight
-		EditText weight_enter = (EditText) findViewById(R.id.weight_enter);
-		String weight = weight_enter.getText().toString().trim();
+		EditText weightEnter = (EditText) findViewById(R.id.weight_enter);
+		String weight = weightEnter.getText().toString().trim();
 		if (!weight.matches("")) {
 			baseInfo.weight = Integer.parseInt(weight);
 		}
 		
 		//Hair
-		EditText hair_enter = (EditText) findViewById(R.id.hair_enter);
-		String hair = hair_enter.getText().toString().trim();
+		EditText hairEnter = (EditText) findViewById(R.id.hair_enter);
+		String hair = hairEnter.getText().toString().trim();
 		if (!hair.matches("")) {
 			baseInfo.hair = hair;
 		}
 		
 		//Eyes
-		EditText eyes_enter = (EditText) findViewById(R.id.eyes_enter);
-		String eyes = eyes_enter.getText().toString().trim();
+		EditText eyesEnter = (EditText) findViewById(R.id.eyes_enter);
+		String eyes = eyesEnter.getText().toString().trim();
 		if (!eyes.matches("")) {
 			baseInfo.eyes = eyes;
 		}
