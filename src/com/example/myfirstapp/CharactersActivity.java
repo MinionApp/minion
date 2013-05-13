@@ -27,7 +27,6 @@ public class CharactersActivity extends Activity {
         System.out.println("OPENING DATASOURCE");
 	    datasource.open();
 
-
 	    //List<Character> values = datasource.getAllCharacters();
 	    datasource.printTables();
 	}

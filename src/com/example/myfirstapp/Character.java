@@ -1,6 +1,5 @@
 package com.example.myfirstapp;
 
-import java.io.Serializable;
 import java.util.*;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +15,7 @@ import android.os.Parcelable;
  * @author Kevin Dong (kevinxd3)
  *
  */
-public class Character implements Parcelable {
+public class Character {
 	/**
 	 * 
 	 */
@@ -32,7 +31,6 @@ public class Character implements Parcelable {
 	private Ability abilityScores[];
 	private Map<String,Skill> skills;
 	private Combat combat;
-	private int level;
 	private SavingThrow will;
 	private SavingThrow fort;
 	private SavingThrow ref;
@@ -43,8 +41,7 @@ public class Character implements Parcelable {
 	public Character(){
 		abilityScores = new Ability[6];
 		skills = new HashMap<String,Skill>();
-		level = 1; 
-		will = new SavingThrow(AbilityName.WISDOME);
+		will = new SavingThrow(AbilityName.WISDOM);
 		fort = new SavingThrow(AbilityName.CONSTITUTION);
 		ref = new SavingThrow(AbilityName.DEXTERITY);
 		combat = new Combat();
@@ -59,16 +56,6 @@ public class Character implements Parcelable {
 	 */
 	public void setDescriptions(CharacterDescription basicInfo){
 		desc = basicInfo;
-	}
-	
-	/**
-	 * set the character level to the given level
-	 * 
-	 * @param level	int representation of a character level
-	 * @modifies this
-	 */
-	public void setLevel(int level){
-		this.level = level;
 	}
 	
 	public void setAbilityScores(Ability[] scores){
@@ -188,7 +175,7 @@ public class Character implements Parcelable {
 	public int getTotalHitPoints(){
 		
 		//TODO: include hpModifiers
-		return combat.getBaseHP() + abilityScores[2].getMod()*level;
+		return combat.getBaseHP() + abilityScores[2].getMod()*desc.level;
 	}
 	
 	/**
@@ -217,7 +204,7 @@ public class Character implements Parcelable {
 			SQLiteDatabase dbCombat, SQLiteDatabase dbArmor, 
 			SQLiteDatabase dbSavingThrows, SQLiteDatabase dbWeapons) {
 		// write basic info / character description
-		this.desc.writeToDB(id, dbBasicInfo);
+//		this.desc.writeToDB(id, dbBasicInfo);
 //		// write ability scores
 //		for (int i = 0; i < abilityScores.length; i++) {
 //			Ability a = abilityScores[i];
@@ -240,15 +227,4 @@ public class Character implements Parcelable {
 		return desc.name;
 	}
 
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
-		
-	}
 }

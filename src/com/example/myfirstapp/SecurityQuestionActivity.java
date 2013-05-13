@@ -96,7 +96,7 @@ public class SecurityQuestionActivity extends Activity {
     	// Checks for internet connectivity
     	if (ConnectionChecker.hasConnection(this)) {
     		// Updates security question on remote database
-    		RemoteDbAccess.updateSecurityQuestion(username, selectedSecurityQuestion, answer, "security question", this);
+    		//RemoteDbAccess.updateSecurityQuestion(username, selectedSecurityQuestion, answer, "security question", this);
     	} else {
     	    Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
     	    intent = new Intent(this, SecurityQuestionActivity.class);

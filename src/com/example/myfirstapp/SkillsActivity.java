@@ -4,16 +4,20 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class SkillsActivity extends Activity {
+	private long charID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_skills);
+		charID = this.getIntent().getExtras().getLong("cid");
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -50,6 +54,19 @@ public class SkillsActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	/**
+	 * Called when Done button is clicked.
+	 */
+	public void skills(View view) {
+		// TODO write method
+		Skill sk = new Skill(null, null);
+		
+		// return to character creation main screen
+		Intent intent = new Intent(this, CharCreateMainActivity.class);
+		intent.putExtra("cid", charID);
+		startActivity(intent);
 	}
 	
 }

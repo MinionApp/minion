@@ -4,16 +4,20 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class SavingThrowsActivity extends Activity {
+	private long charID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_saving_throws);
+		charID = this.getIntent().getExtras().getLong("cid");
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -50,6 +54,14 @@ public class SavingThrowsActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void savingThrows(View view) {
+
+		// return to character creation main screen
+		Intent intent = new Intent(this, CharCreateMainActivity.class);
+		intent.putExtra("cid", charID);
+		startActivity(intent);
 	}
 
 }

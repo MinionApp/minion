@@ -22,7 +22,7 @@ public class SavingThrow {
 	 * 					CONSTITUTION
 	 */
 	public SavingThrow(AbilityName attribute){
-		if (attribute != AbilityName.WISDOME && attribute != AbilityName.DEXTERITY
+		if (attribute != AbilityName.WISDOM && attribute != AbilityName.DEXTERITY
 				&& attribute != AbilityName.CONSTITUTION) {
 			throw new IllegalArgumentException();
 		}

@@ -3,6 +3,7 @@ package com.example.myfirstapp;
 import java.util.*;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -13,26 +14,26 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Loki White (lokiw)
  */
 public class Ability {
+	private long charID;
+	private int abilityID;
+	boolean isNew;
+	
 	private AbilityName name;
 	private int base;
 	private Map<String,Integer> tempModifiers;
 	
 	/**
 	 * Initializes an ability with the given name and defaults the base stat to
-	 * 10. The average stat for most pathfinder rolling systems is 10 because it 
-	 * has no possitive or negative ability modifiers. This average changes
-	 * with the fantasy level of a campaign but since the standard is no bonuses or
-	 * detriments, this value was chosen.
+	 * -1. Stats cannot be negative as this is indicative of death or unconsciousness,
+	 * thus a default of -1 shows that this value is uninitialized.
 	 * <p>
 	 * No temporary modifiers are initialized.
 	 * 
 	 * @param name	the name of the ability being stored as the AbilityName enum,
 	 * 				such as STRENGTH, DEXTERITY, ect...
 	 */
-	public Ability(AbilityName name){
-		this.name = name;
-		base = 10;
-		tempModifiers = new HashMap<String,Integer>();
+	public Ability(long id, AbilityName name){
+		this(id, name, -1);
 	}
 	
 	/**
@@ -43,10 +44,42 @@ public class Ability {
 	 * @param score	the value to initialize the base stat
 	 * 
 	 */
-	public Ability(AbilityName name, int score){
+	public Ability(long id, AbilityName name, int score){
+		charID = id;
 		//TODO: Consider ability values < 0
 		this.name = name;
 		this.base = score;
+		tempModifiers = new HashMap<String, Integer>();
+
+		// set abilityID
+		switch (name) {
+		case STRENGTH 		: abilityID = 0; break;
+		case DEXTERITY 		: abilityID = 1; break;
+		case CONSTITUTION 	: abilityID = 2; break;
+		case INTELLIGENCE 	: abilityID = 3; break;
+		case WISDOM 		: abilityID = 4; break;
+		case CHARISMA 		: abilityID = 5; break;
+		default 			: abilityID = -1;
+		}
+
+		loadAbilities();
+	}
+
+	private void loadAbilities() {
+		isNew = true;
+		// attempt to load from DB
+		Cursor cursor = SQLiteHelperAbilityScores.db.query(SQLiteHelperAbilityScores.TABLE_NAME, 
+				SQLiteHelperAbilityScores.ALL_COLUMNS, SQLiteHelperAbilityScores.COLUMN_CHAR_ID 
+				+ " = " + charID + " AND " + SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = "
+				+ abilityID, null, null, null, null);
+		System.out.println("Querying charID=" + charID + " abilityID=" + abilityID);
+		if (cursor.moveToFirst()) {
+			isNew = false;
+			// COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_SCORE
+			base = cursor.getInt(2);
+			System.out.println("base=" + base);
+		}
+		cursor.close();
 	}
 	
 	/**
@@ -137,7 +170,7 @@ public class Ability {
 	 * temporary modifiers currently stored.
 	 * <p>
 	 * The current ability score is the base score with additional temporary 
-	 * modifiers. Modifiers are added or suptracted depending on their sign and
+	 * modifiers. Modifiers are added or subtracted depending on their sign and
 	 * they affect the score directly. Thus a base score of 10 with a +2 modifier 
 	 * from an amulet will return a score of 12.
 	 * 
@@ -189,26 +222,33 @@ public class Ability {
 	 * @param db database to write into (except temporary mods)
 	 * @param dbTempMods database to write temporary mods into
 	 */
-	public void writeToDB(long id, SQLiteDatabase db, SQLiteDatabase dbTempMods) {
+	public void writeToDB() {
 		// TODO implement
-		int abilityID = 0; // get ability ID from ref db
+		SQLiteDatabase db = SQLiteHelperAbilityScores.db;
 		
 		ContentValues values = new ContentValues();
-		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, id);
+		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_SCORE, base);
-		db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
-		
-		for (String s : tempModifiers.keySet()) {
-			int i = tempModifiers.get(s);
-			// write to dbTempMods
-			values = new ContentValues();
-			values.put(SQLiteHelperASTempMods.COLUMN_CHAR_ID, id);
-			values.put(SQLiteHelperASTempMods.COLUMN_REF_AS_ID, abilityID);
-			values.put(SQLiteHelperASTempMods.COLUMN_NAME, s);
-			values.put(SQLiteHelperASTempMods.COLUMN_MOD, i);		
-			dbTempMods.insert(SQLiteHelperASTempMods.TABLE_NAME, null, values);
+		if (isNew) {
+			db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
+		} else {
+			db.update(SQLiteHelperAbilityScores.TABLE_NAME, values, SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID 
+					+ " AND " + SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = " + abilityID, null);
 		}
+		
+		SQLiteDatabase dbTempMods = SQLiteHelperASTempMods.db;
+		
+//		for (String s : tempModifiers.keySet()) {
+//			int i = tempModifiers.get(s);
+//			// write to dbTempMods
+//			values = new ContentValues();
+//			values.put(SQLiteHelperASTempMods.COLUMN_CHAR_ID, charID);
+//			values.put(SQLiteHelperASTempMods.COLUMN_REF_AS_ID, abilityID);
+//			values.put(SQLiteHelperASTempMods.COLUMN_NAME, s);
+//			values.put(SQLiteHelperASTempMods.COLUMN_MOD, i);		
+//			dbTempMods.insert(SQLiteHelperASTempMods.TABLE_NAME, null, values);
+//		}
 	}
 	
 }

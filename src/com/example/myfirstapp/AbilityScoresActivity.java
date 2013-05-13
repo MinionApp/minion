@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
@@ -13,14 +14,25 @@ import android.os.Build;
 public class AbilityScoresActivity extends Activity {
 	private static final String SAMPLE_MODIFIER = "sampleModifier";
 	
+	private long charID;
 	private Ability[] abilities;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ability_scores);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		charID = this.getIntent().getExtras().getLong("cid");
 		abilities = new Ability[6];
+		abilities[0] = new Ability(charID, AbilityName.STRENGTH);
+		abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
+		abilities[2] = new Ability(charID, AbilityName.CONSTITUTION);
+		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
+		abilities[4] = new Ability(charID, AbilityName.WISDOM);
+		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
+		loadData();
 	}
 
 	/**
@@ -56,28 +68,56 @@ public class AbilityScoresActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	public void loadData() {
+		int[] scoreFields = { R.id.str_ab_score, R.id.dex_ab_score, R.id.con_ab_score, 
+						R.id.int_ab_score, R.id.wis_ab_score, R.id.cha_ab_score };
+		int[] modFields = { R.id.str_ab_mod, R.id.dex_ab_mod, R.id.con_ab_mod, 
+						R.id.int_ab_mod, R.id.wis_ab_mod, R.id.cha_ab_mod };
+		for (int i = 0; i < abilities.length; i++) {
+			if (!abilities[i].isNew) {
+				System.out.println(i + "  " + abilities[i].getBase());
+				EditText abScoreEnter = (EditText) findViewById(scoreFields[i]);
+				abScoreEnter.setText(""+abilities[i].getBase());
+
+				EditText modEnter = (EditText) findViewById(modFields[i]);
+				modEnter.setText(""+abilities[i].getMod());
+			}
+		}
+	}
 	
 	/**
-	 * On "done" button on ability scores screen get and ability
+	 * On "done" button on ability scores screen get an ability
 	 * for each category and add them to an abilities array
 	 * Add the abilities score to the character
 	 */
-	public void abilityScores() {
-		Ability str = getStr();
-		Ability dex = getDex();
-		Ability con = getCon();
-		Ability intel = getInt();
-		Ability wis = getWis();
-		Ability cha = getCha();
+	public void abilityScores(View view) {
+		//TODO: Replace values with ones loaded from db
+		int defaultScore = 10;
+		
+		Ability str = getStr(defaultScore);
+		Ability dex = getDex(defaultScore);
+		Ability con = getCon(defaultScore);
+		Ability intel = getInt(defaultScore);
+		Ability wis = getWis(defaultScore);
+		Ability cha = getCha(defaultScore);
 		abilities[0] = str;
 		abilities[1] = dex;
 		abilities[2] = con;
 		abilities[3] = intel;
 		abilities[4] = wis;
 		abilities[5] = cha;
-		Intent recievedIntent = getIntent();
-		Character newChar = (Character) recievedIntent.getSerializableExtra("new character");
-		newChar.setAbilityScores(abilities);
+		
+		// write to DB
+		for (int i = 0; i < abilities.length; i++) {
+			abilities[i].writeToDB();
+			System.out.println("Writing charID=" + charID + " abilityID=" + i + " base=" + abilities[i].getBase());
+		}
+		
+		// return to character creation main screen
+		Intent intent = new Intent(this, CharCreateMainActivity.class);
+		intent.putExtra("cid", charID);
+		startActivity(intent);
 	}
 	
 	/**
@@ -86,25 +126,26 @@ public class AbilityScoresActivity extends Activity {
 	 * 
 	 * @return str the strength Ability
 	 */
-	private Ability getStr() {
+	private Ability getStr(int defaultValue) {
 		EditText strAbScoreEnter = (EditText) findViewById(R.id.str_ab_score);
 		String strAbScoreRaw = strAbScoreEnter.getText().toString().trim();
-		Integer strAbScore = Integer.getInteger(strAbScoreRaw);
-		
-		EditText strAbModEnter = (EditText) findViewById(R.id.str_ab_mod);
-		String strAbModRaw = strAbModEnter.getText().toString().trim();
-		Integer strAbMod = Integer.getInteger(strAbModRaw);
-		
-		EditText strTempAdjustEnter = (EditText) findViewById(R.id.str_temp_adjust);
-		String strTempAdjustRaw = strTempAdjustEnter.getText().toString().trim();
-		Integer strTempAdjust = Integer.getInteger(strTempAdjustRaw);
-		
+		Integer strAbScore;
+		if (!strAbScoreRaw.matches("")) {
+			strAbScore = Integer.parseInt(strAbScoreRaw);
+		} else {
+			strAbScore = defaultValue;
+		}
+		Ability str = abilities[0];
+		str.setBase(strAbScore);
+
 		EditText strTempModEnter = (EditText) findViewById(R.id.str_temp_mod);
 		String strTempModRaw = strTempModEnter.getText().toString().trim();
-		Integer strTempMod = Integer.getInteger(strTempModRaw);
+		if (!strTempModRaw.matches("")) {
+			Integer strTempMod = Integer.parseInt(strTempModRaw);
+			str.addTempModifier(SAMPLE_MODIFIER, strTempMod);
+
+		}
 		
-		Ability str = new Ability(AbilityName.STRENGTH, strAbScore);
-		str.addTempModifier(SAMPLE_MODIFIER, strTempMod);
 		return str;
 	}
 	
@@ -114,25 +155,26 @@ public class AbilityScoresActivity extends Activity {
 	 * 
 	 * @return dex the dexterity Ability
 	 */	
-	private Ability getDex() {
+	private Ability getDex(int defaultValue) {
 		EditText dexAbScoreEnter = (EditText) findViewById(R.id.dex_ab_score);
 		String dexAbScoreRaw = dexAbScoreEnter.getText().toString().trim();
-		Integer dexAbScore = Integer.getInteger(dexAbScoreRaw);
-		
-		EditText dexAbModEnter = (EditText) findViewById(R.id.dex_ab_mod);
-		String dexAbModRaw = dexAbModEnter.getText().toString().trim();
-		Integer dexAbMod = Integer.getInteger(dexAbModRaw);
-		
-		EditText dexTempAdjustEnter = (EditText) findViewById(R.id.dex_temp_adjust);
-		String dexTempAdjustRaw = dexTempAdjustEnter.getText().toString().trim();
-		Integer dexTempAdjust = Integer.getInteger(dexTempAdjustRaw);
-		
+		Integer dexAbScore;
+		if (!dexAbScoreRaw.matches("")) {
+			dexAbScore = Integer.parseInt(dexAbScoreRaw);
+		} else {
+			dexAbScore = defaultValue;
+		}
+		Ability dex = abilities[1];
+		dex.setBase(dexAbScore);
+
 		EditText dexTempModEnter = (EditText) findViewById(R.id.dex_temp_mod);
 		String dexTempModRaw = dexTempModEnter.getText().toString().trim();
-		Integer dexTempMod = Integer.getInteger(dexTempModRaw);
+		if (!dexTempModRaw.matches("")) {
+			Integer dexTempMod = Integer.parseInt(dexTempModRaw);
+			dex.addTempModifier(SAMPLE_MODIFIER, dexTempMod);
+
+		}
 		
-		Ability dex = new Ability(AbilityName.DEXTERITY, dexAbScore);
-		dex.addTempModifier(SAMPLE_MODIFIER, dexTempMod);
 		return dex;
 	}
 	
@@ -142,25 +184,26 @@ public class AbilityScoresActivity extends Activity {
 	 * 
 	 * @return con the constitution Ability
 	 */
-	private Ability getCon() {
+	private Ability getCon(int defaultValue) {
 		EditText conAbScoreEnter = (EditText) findViewById(R.id.con_ab_score);
 		String conAbScoreRaw = conAbScoreEnter.getText().toString().trim();
-		Integer conAbScore = Integer.getInteger(conAbScoreRaw);
-		
-		EditText conAbModEnter = (EditText) findViewById(R.id.con_ab_mod);
-		String conAbModRaw = conAbModEnter.getText().toString().trim();
-		Integer conAbMod = Integer.getInteger(conAbModRaw);
-		
-		EditText conTempAdjustEnter = (EditText) findViewById(R.id.con_temp_adjust);
-		String conTempAdjustRaw = conTempAdjustEnter.getText().toString().trim();
-		Integer conTempAdjust = Integer.getInteger(conTempAdjustRaw);
-		
+		Integer conAbScore;
+		if (!conAbScoreRaw.matches("")) {
+			conAbScore = Integer.parseInt(conAbScoreRaw);
+		} else {
+			conAbScore = defaultValue;
+		}
+		Ability con = abilities[2];
+		con.setBase(conAbScore);
+
 		EditText conTempModEnter = (EditText) findViewById(R.id.con_temp_mod);
 		String conTempModRaw = conTempModEnter.getText().toString().trim();
-		Integer conTempMod = Integer.getInteger(conTempModRaw);
+		if (!conTempModRaw.matches("")) {
+			Integer conTempMod = Integer.parseInt(conTempModRaw);
+			con.addTempModifier(SAMPLE_MODIFIER, conTempMod);
+
+		}
 		
-		Ability con = new Ability(AbilityName.CONSTITUTION, conAbScore);
-		con.addTempModifier(SAMPLE_MODIFIER, conTempMod);
 		return con;
 	}
 	
@@ -170,25 +213,26 @@ public class AbilityScoresActivity extends Activity {
 	 * 
 	 * @return intel the intelligence Ability
 	 */
-	private Ability getInt() {
-		EditText intAbScoreEnter = (EditText) findViewById(R.id.int_ab_score);
-		String intAbScoreRaw = intAbScoreEnter.getText().toString().trim();
-		Integer intAbScore = Integer.getInteger(intAbScoreRaw);
+	private Ability getInt(int defaultValue) {
+		EditText intelAbScoreEnter = (EditText) findViewById(R.id.int_ab_score);
+		String intelAbScoreRaw = intelAbScoreEnter.getText().toString().trim();
+		Integer intelAbScore;
+		if (!intelAbScoreRaw.matches("")) {
+			intelAbScore = Integer.parseInt(intelAbScoreRaw);
+		} else {
+			intelAbScore = defaultValue;
+		}
+		Ability intel = abilities[3];
+		intel.setBase(intelAbScore);
+
+		EditText intelTempModEnter = (EditText) findViewById(R.id.int_temp_mod);
+		String intelTempModRaw = intelTempModEnter.getText().toString().trim();
+		if (!intelTempModRaw.matches("")) {
+			Integer intelTempMod = Integer.parseInt(intelTempModRaw);
+			intel.addTempModifier(SAMPLE_MODIFIER, intelTempMod);
+
+		}
 		
-		EditText intAbModEnter = (EditText) findViewById(R.id.int_ab_mod);
-		String intAbModRaw = intAbModEnter.getText().toString().trim();
-		Integer intAbMod = Integer.getInteger(intAbModRaw);
-		
-		EditText intTempAdjustEnter = (EditText) findViewById(R.id.int_temp_adjust);
-		String intTempAdjustRaw = intTempAdjustEnter.getText().toString().trim();
-		Integer intTempAdjust = Integer.getInteger(intTempAdjustRaw);
-		
-		EditText intTempModEnter = (EditText) findViewById(R.id.int_temp_mod);
-		String intTempModRaw = intTempModEnter.getText().toString().trim();
-		Integer intTempMod = Integer.getInteger(intTempModRaw);
-		
-		Ability intel = new Ability(AbilityName.INTELLIGENCE, intAbScore);
-		intel.addTempModifier(SAMPLE_MODIFIER, intTempMod);
 		return intel;
 	}
 	
@@ -198,25 +242,26 @@ public class AbilityScoresActivity extends Activity {
 	 * 
 	 * @return wis the wisdom Ability
 	 */
-	private Ability getWis() {
+	private Ability getWis(int defaultValue) {
 		EditText wisAbScoreEnter = (EditText) findViewById(R.id.wis_ab_score);
 		String wisAbScoreRaw = wisAbScoreEnter.getText().toString().trim();
-		Integer wisAbScore = Integer.getInteger(wisAbScoreRaw);
-		
-		EditText wisAbModEnter = (EditText) findViewById(R.id.wis_ab_mod);
-		String wisAbModRaw = wisAbModEnter.getText().toString().trim();
-		Integer wisAbMod = Integer.getInteger(wisAbModRaw);
-		
-		EditText wisTempAdjustEnter = (EditText) findViewById(R.id.wis_temp_adjust);
-		String wisTempAdjustRaw = wisTempAdjustEnter.getText().toString().trim();
-		Integer wisTempAdjust = Integer.getInteger(wisTempAdjustRaw);
-		
+		Integer wisAbScore;
+		if (!wisAbScoreRaw.matches("")) {
+			wisAbScore = Integer.parseInt(wisAbScoreRaw);
+		} else {
+			wisAbScore = defaultValue;
+		}
+		Ability wis = abilities[4];
+		wis.setBase(wisAbScore);
+
 		EditText wisTempModEnter = (EditText) findViewById(R.id.wis_temp_mod);
 		String wisTempModRaw = wisTempModEnter.getText().toString().trim();
-		Integer wisTempMod = Integer.getInteger(wisTempModRaw);
+		if (!wisTempModRaw.matches("")) {
+			Integer wisTempMod = Integer.parseInt(wisTempModRaw);
+			wis.addTempModifier(SAMPLE_MODIFIER, wisTempMod);
+
+		}
 		
-		Ability wis = new Ability(AbilityName.WISDOME, wisAbScore);
-		wis.addTempModifier(SAMPLE_MODIFIER, wisTempMod);
 		return wis;
 	}
 	
@@ -226,25 +271,26 @@ public class AbilityScoresActivity extends Activity {
 	 * 
 	 * @return cha the charisma Ability
 	 */
-	private Ability getCha() {
+	private Ability getCha(int defaultValue) {
 		EditText chaAbScoreEnter = (EditText) findViewById(R.id.cha_ab_score);
 		String chaAbScoreRaw = chaAbScoreEnter.getText().toString().trim();
-		Integer chaAbScore = Integer.getInteger(chaAbScoreRaw);
-		
-		EditText chaAbModEnter = (EditText) findViewById(R.id.cha_ab_mod);
-		String chaAbModRaw = chaAbModEnter.getText().toString().trim();
-		Integer chaAbMod = Integer.getInteger(chaAbModRaw);
-		
-		EditText chaTempAdjustEnter = (EditText) findViewById(R.id.cha_temp_adjust);
-		String chaTempAdjustRaw = chaTempAdjustEnter.getText().toString().trim();
-		Integer chaTempAdjust = Integer.getInteger(chaTempAdjustRaw);
-		
+		Integer chaAbScore;
+		if (!chaAbScoreRaw.matches("")) {
+			chaAbScore = Integer.parseInt(chaAbScoreRaw);
+		} else {
+			chaAbScore = defaultValue;
+		}
+		Ability cha = abilities[5];
+		cha.setBase(chaAbScore);
+
 		EditText chaTempModEnter = (EditText) findViewById(R.id.cha_temp_mod);
 		String chaTempModRaw = chaTempModEnter.getText().toString().trim();
-		Integer chaTempMod = Integer.getInteger(chaTempModRaw);
+		if (!chaTempModRaw.matches("")) {
+			Integer chaTempMod = Integer.parseInt(chaTempModRaw);
+			cha.addTempModifier(SAMPLE_MODIFIER, chaTempMod);
+
+		}
 		
-		Ability cha = new Ability(AbilityName.CHARISMA, chaAbScore);
-		cha.addTempModifier(SAMPLE_MODIFIER, chaTempMod);
 		return cha;
 	}
 
