@@ -9,8 +9,19 @@
     tools:context=".GroupsActivity" >
 
     <TextView
+        android:id="@+id/welcome_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:text="@string/welcome_group" />
+    
+    <Button android:id="@+id/button_create_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcome_title"
+        android:layout_centerHorizontal="true"
+        android:text="Create New Group"
+     	android:onClick="gotoCreateGroup" />
 
 </RelativeLayout>
