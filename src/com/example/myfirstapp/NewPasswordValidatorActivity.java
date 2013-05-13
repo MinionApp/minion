@@ -125,7 +125,7 @@ public class NewPasswordValidatorActivity extends Activity {
 	        //http post
 			String res;
 	        try{
-	        	result = CustomHttpClient.executeHttpPost("http://10.0.2.2/resetPassword.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
+	        	result = CustomHttpClient.executeHttpPost("http://homes.cs.washington.edu/~elefse/resetPassword.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
 	        	res = result.toString();  
 	        	//res = res.trim();  
 	        	res= res.replaceAll("\\s+","");  
