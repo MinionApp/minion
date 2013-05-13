@@ -30,7 +30,7 @@ public class CharacterTest extends ActivityTestCase {
 	/**
 	 * Not required, but recommended.
 	 * This method is used to test that the application under test is initialized correctly.
-	 * If not, then results of tests can't be trusted.
+	 * If not, then results of other tests can't be trusted.
 	 */
 	public void testPreconditions() {
 		

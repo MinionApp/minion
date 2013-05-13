@@ -61,7 +61,7 @@ public class EmptyValidatorActivity extends Activity {
 	    	// Checks for internet connectivity
 	    	if (ConnectionChecker.hasConnection(this)) {
 		    	// Updates login credentials on remote database
-	    		RemoteDbAccess.updateLoginCredentials(username, password, "signup", this);
+	    		//RemoteDbAccess.updateLoginCredentials(username, password, "signup", this);
 	    	} else {
 	    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
 	    	   intent = new Intent(this, SignupActivity.class);

@@ -100,7 +100,9 @@ public class LoginActivity extends Activity {
 		String username = usernameEditText.getText().toString().trim();
 		String password = passwordEditText.getText().toString().trim();
 		// Login succeeds, go to homepage.
-		RemoteDbAccess.loginAttempt(username, password, keepLoggedIn, "login", this);
+		//RemoteDbAccess.loginAttempt(username, password, keepLoggedIn, "login", this);
+		Intent intent = new Intent(this, HomeActivity.class);
+		startActivity(intent);
 	}
 	
 	/**

@@ -69,10 +69,10 @@
     <string name="button_skills">Skills</string>
     <string name="button_combat">Combat</string>
     <string name="button_saving_throws">Saving Throws</string>
-    <string name="title_activity_ability_scores">AbilityScoresActivity</string>
-    <string name="title_activity_skills">SkillsActivity</string>
-    <string name="title_activity_combat">CombatActivity</string>
-    <string name="title_activity_saving_throws">SavingThrowsActivity</string>
+    <string name="title_activity_ability_scores">Ability Scores</string>
+    <string name="title_activity_skills">Skills</string>
+    <string name="title_activity_combat">Combat</string>
+    <string name="title_activity_saving_throws">Saving Throws</string>
     
     <string name="hit_points">HP (Health Points)</string>
     <string name="hit_points_total">Total</string>
