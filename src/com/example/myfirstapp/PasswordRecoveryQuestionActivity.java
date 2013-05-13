@@ -27,6 +27,7 @@ import android.widget.Toast;
  *
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/checkAnswer.php";
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
 	
@@ -51,8 +52,8 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 		Intent receivedIntent = getIntent();
 		username = receivedIntent.getStringExtra(USERNAME);
 		question = receivedIntent.getStringExtra(QUESTION);
-		TextView securityQuestionTextView = (TextView)findViewById(R.id.securityQuestion);
-		securityQuestionTextView.setText(question);
+		TextView security_questionTextView = (TextView)findViewById(R.id.security_question);
+		security_questionTextView.setText(question);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -102,7 +103,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoLogin(View view) {
-		EditText answerEditText = (EditText) findViewById(R.id.questionInput);
+		EditText answerEditText = (EditText) findViewById(R.id.question_input);
 		String answer = answerEditText.getText().toString().trim();
 		
     	// Checks for internet connectivity
@@ -115,12 +116,28 @@ public class PasswordRecoveryQuestionActivity extends Activity {
     	}
 	}
 
+	/**
+	 * CheckAnswerTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It takes the given username and answer
+	 * to the previously provided security question and checks to make sure these are correct
+	 * and then allows the user access to the password reset stage of the password recovery
+	 * process.
+	 *
+	 */
 	private class CheckAnswerTask extends AsyncTask<String, Void, String> {
 		private String un;
 		private String question;
 		private String answer;
 		private Context context;
 		
+		/**
+		 * Constructs a new CheckAnswerTask object.
+		 * @param username The user given username
+		 * @param question The question received from the remote database that corresponds
+		 * 		  to the given username
+		 * @param answer The user given answer to the security question
+		 * @param context The current Activity's context
+		 */
 		private CheckAnswerTask (String username, String question, String answer, Context context) {
 			this.un = username;
 			this.question = question;
@@ -129,7 +146,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 		}
 		
 	    /**
-	     * Let's make the http request and return the result as a String.
+	     * Makes the HTTP request and returns the result as a String.
 	     */
 	    protected String doInBackground(String... args) {
 	        //the data to send
@@ -138,35 +155,29 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	        postParameters.add(new BasicNameValuePair("question", question));
 	        postParameters.add(new BasicNameValuePair("answer", answer));
 
-	        //String valid = "1";
 			String result = null;
 	        
 	        //http post
 			String res;
 	        try{
-	        	result = CustomHttpClient.executeHttpPost("http://homes.cs.washington.edu/~elefse/checkAnswer.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
-	        	res = result.toString();  
-	        	//res = res.trim();  
-	        	res= res.replaceAll("\\s+","");  
-	        	//error.setText(res);  
-	        } catch (Exception e) {  
-	        	//un.setText(e.toString()); 
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+	        	res = result.toString();   
+	        	res= res.replaceAll("\\s+","");    
+	        } catch (Exception e) {   
 	        	res = e.toString();
 	        }
 	        return res;
 	    }
 	 
 	    /**
-	     * Parse the String result, and create a new array adapter for the list
-	     * view.
+	     * Parse the String result, and direct to correct Activity.
 	     */
 	    protected void onPostExecute(String result) {
-	    	TextView error = (TextView) findViewById(R.id.incorrectAnswerError);
+	    	TextView error = (TextView) findViewById(R.id.incorrect_answer_error);
         	if (result.equals("1")) {
         		Intent intent = new Intent(context, PasswordResetActivity.class);
         		intent.putExtra(USERNAME, un);
         		startActivity(intent);
-        		//finish();
         	} else {
         		error.setVisibility(View.VISIBLE);  
         	}

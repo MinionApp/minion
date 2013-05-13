@@ -29,6 +29,7 @@ import android.widget.Toast;
  *
  */
 public class LoginActivity extends Activity {
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/checkLogin.php";
 	
 	/**
 	 * Stores if the user has selected to remain logged in.
@@ -103,8 +104,8 @@ public class LoginActivity extends Activity {
 	public void gotoHomepage(View view) {
 		if (ConnectionChecker.hasConnection(this)) {
 			// Get user login info.
-			EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
-			EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
+			EditText usernameEditText = (EditText) findViewById(R.id.username_input);
+			EditText passwordEditText = (EditText) findViewById(R.id.password_input);
 			//TextView error = (TextView) findViewById(R.id.error);
 			String un = usernameEditText.getText().toString().trim();
 			String pw = passwordEditText.getText().toString().trim();
@@ -144,12 +145,26 @@ public class LoginActivity extends Activity {
 		keepLoggedIn = ((CheckBox) view).isChecked();
 	}
 	
+	/**
+	 * CheckLoginTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It checks if the user provided 
+	 * login credentials are correct and then directs to the correct Activity based on the
+	 * result.
+	 *
+	 */
 	private class CheckLoginTask extends AsyncTask<String, Void, String> {
 		private String un;
 		private String pw;
 		private boolean keepLoggedIn;
 		private Context context;
 		
+		/**
+		 * Constructs a new CheckLoginTask object.
+		 * @param username The user given username
+		 * @param password The user given password
+		 * @param keepLoggedIn If the user has selected to remain logged in or not
+		 * @param context The current Activity's context
+		 */
 		private CheckLoginTask (String username, String password, boolean keepLoggedIn, Context context) {
 			this.un = username;
 			this.pw = password;
@@ -158,7 +173,7 @@ public class LoginActivity extends Activity {
 		}
 		
 	    /**
-	     * Let's make the http request and return the result as a String.
+	     * Makes the HTTP request and returns the result as a String.
 	     */
 	    protected String doInBackground(String... args) {
 	        //the data to send
@@ -166,32 +181,26 @@ public class LoginActivity extends Activity {
 	        postParameters.add(new BasicNameValuePair("username", un));
 	        postParameters.add(new BasicNameValuePair("password", pw));
 
-	        //String valid = "1";
 			String result = null;
 	        
 	        //http post
 			String res;
 	        try{
-	        	result = CustomHttpClient.executeHttpPost("http://homes.cs.washington.edu/~elefse/checkLogin.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
-	        	res = result.toString();  
-	        	//res = res.trim();  
-	        	res= res.replaceAll("\\s+","");  
-	        	//error.setText(res);  
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+	        	res = result.toString();   
+	        	res= res.replaceAll("\\s+","");    
 	        } catch (Exception e) {  
-	        	//un.setText(e.toString()); 
 	        	res = e.toString();
 	        }
 	        return res;
 	    }
 	 
 	    /**
-	     * Parse the String result, and create a new array adapter for the list
-	     * view.
+	     * Parse the String result, and direct to correct Activity.
 	     */
 	    protected void onPostExecute(String result) {
 	    	TextView error = (TextView) findViewById(R.id.error);
         	if (result.equals("1")) {  
-        		//error.setText("Correct Username or Password");
         		// Stores the username into preferences.
         		if (keepLoggedIn) {
         			SaveSharedPreference.setUserName(context, un);
@@ -201,7 +210,7 @@ public class LoginActivity extends Activity {
         		startActivity(intent);
         		finish();
         	} else {
-        		error.setText("Sorry!! Incorrect Username or Password");  
+        		error.setVisibility(View.VISIBLE); 
         	}
 	    }
 	 

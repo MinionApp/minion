@@ -1,6 +1,5 @@
 package com.example.myfirstapp;
 
- 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +17,12 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import android.util.Log;
 
- 
+/**
+ * Utility class that helps serve HTTP requests to remote PHP files that then
+ * interact with the MySQL database.
+ * @author Elijah Elefson (elefse)
+ *
+ */
 public class CustomHttpClient {
 
 	/** The time it takes for our client to timeout */

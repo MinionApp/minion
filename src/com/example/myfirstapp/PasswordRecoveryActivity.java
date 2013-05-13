@@ -21,12 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * PasswordRecoveryActivity is an activity that provides a form that the user can use
- * in order to recover their password. (NOT YET IMPLEMENTED)
+ * PasswordRecoveryActivity is an activity that provides a form that the user input
+ * their username into to get their corresponding security question and continue
+ * on to the next stage of the password recovery process.
  * @author Elijah Elefson (elefse)
  *
  */
 public class PasswordRecoveryActivity extends Activity {
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getSecurityQuestion.php";
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
 	
@@ -88,7 +90,7 @@ public class PasswordRecoveryActivity extends Activity {
 	public void gotoSecurityQuestion(View view) {
 		if (ConnectionChecker.hasConnection(this)) {
 			// Get user login info.
-			EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
+			EditText usernameEditText = (EditText) findViewById(R.id.username_input);
 			String un = usernameEditText.getText().toString().trim();
 			
 			GetSecurityQuestionTask task = new GetSecurityQuestionTask(un, this);
@@ -108,47 +110,54 @@ public class PasswordRecoveryActivity extends Activity {
 		finish();
 	}
 	
+	/**
+	 * GetSecurityQuestionTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It takes the given username and retrieves the
+	 * corresponding security question for that user from the remote database. This information
+	 * is then passed on to the next Activity. 
+	 *
+	 */
 	private class GetSecurityQuestionTask extends AsyncTask<String, Void, String> {
 		private String un;
 		private Context context;
 		
+		/**
+		 * Constructs a new GetSecurityQuestionTask object.
+		 * @param username The user given username
+		 * @param context The current Activity's context
+		 */
 		private GetSecurityQuestionTask (String username, Context context) {
 			this.un = username;
 			this.context = context;
 		}
 		
 	    /**
-	     * Let's make the http request and return the result as a String.
+	     * Makes the HTTP request and returns the result as a String.
 	     */
 	    protected String doInBackground(String... args) {
 	        //the data to send
 	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	        postParameters.add(new BasicNameValuePair("username", un));
 
-	        //String valid = "1";
 			String result = null;
 	        
 	        //http post
 			String res;
 	        try{
-	        	result = CustomHttpClient.executeHttpPost("http://homes.cs.washington.edu/~elefse/getSecurityQuestion.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
 	        	res = result.toString();  
-	        	//res = res.trim();  
-	        	res= res.replaceAll("\\s+","");  
-	        	//error.setText(res);  
+	        	res= res.replaceAll("\\s+","");    
 	        } catch (Exception e) {  
-	        	//un.setText(e.toString()); 
 	        	res = e.toString();
 	        }
 	        return res;
 	    }
 	 
 	    /**
-	     * Parse the String result, and create a new array adapter for the list
-	     * view.
+	     * Parse the String result, and direct to correct Activity.
 	     */
 	    protected void onPostExecute(String result) {
-	    	TextView error = (TextView) findViewById(R.id.usernameError);
+	    	TextView error = (TextView) findViewById(R.id.username_error);
         	if (result.equals("0")) {
         		error.setVisibility(View.VISIBLE); 
         	} else { 		
@@ -156,7 +165,6 @@ public class PasswordRecoveryActivity extends Activity {
         		intent.putExtra(USERNAME, un);
         		intent.putExtra(QUESTION, result.replace("_", " ")); //to fix question string
         		startActivity(intent);
-        		//finish();
         	}
 	    } 
 	}

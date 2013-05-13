@@ -18,17 +18,17 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
-        android:id="@+id/usernameInput"
+        android:id="@+id/username_input"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/username"
         android:inputType="text" />
     
     <TextView
-        android:id="@+id/usernameError"
+        android:id="@+id/username_error"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameInput"
+        android:layout_below="@+id/username_input"
         android:text="@string/invalid_username_message"
         android:textColor="#FF0000"
         android:visibility="gone"
@@ -39,67 +39,67 @@
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameError"
+        android:layout_below="@+id/username_error"
         android:text="@string/password_signup_input"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
-        android:id="@+id/passwordInput"
+        android:id="@+id/password_input"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
         android:inputType="textPassword" />
     
     <TextView
-        android:id="@+id/invalidPasswordError"
+        android:id="@+id/invalid_password_error"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordInput"
+        android:layout_below="@+id/password_input"
         android:text="@string/invalid_password_message"
         android:textColor="#FF0000"
         android:visibility="gone"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <TextView
-        android:id="@+id/confirmPassword"
+        android:id="@+id/confirm_password"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/invalidPasswordError"
+        android:layout_below="@+id/invalid_password_error"
         android:text="@string/password_confirmation"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
-        android:id="@+id/confirmPasswordInput"
+        android:id="@+id/confirm_password_input"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/confirmPassword"
+        android:layout_below="@+id/confirm_password"
         android:inputType="textPassword" />
     
     <TextView
-        android:id="@+id/nonmatchingPasswordError"
+        android:id="@+id/nonmatching_password_error"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/confirmPasswordInput"
+        android:layout_below="@+id/confirm_password_input"
         android:text="@string/non_matching_passwords_message"
         android:textColor="#FF0000"
         android:visibility="gone"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <TextView
-        android:id="@+id/securityQuestionPrompt"
+        android:id="@+id/security_question_prompt"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nonmatchingPasswordError"
+        android:layout_below="@+id/nonmatching_password_error"
         android:text="@string/security_question_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <Spinner
-        android:id="@+id/securityQuestionSpinner"
+        android:id="@+id/security_question_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/securityQuestionPrompt"
+        android:layout_below="@+id/security_question_prompt"
         android:layout_centerHorizontal="true"
         android:drawSelectorOnTop="true"
         android:textSize="12sp"
@@ -107,28 +107,28 @@
         android:prompt="@string/security_question_prompt" />
     
     <TextView
-        android:id="@+id/securityAnswerPrompt"
+        android:id="@+id/security_answer_prompt"
         android:layout_marginTop="10dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/securityQuestionSpinner"
+        android:layout_below="@+id/security_question_spinner"
         android:text="@string/security_answer_prompt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <EditText
-        android:id="@+id/securityAnswerInput"
+        android:id="@+id/security_answer_input"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/securityAnswerPrompt"
+        android:layout_below="@+id/security_answer_prompt"
         android:layout_centerHorizontal="true"
         android:inputType="text" />
     
     <Button
-        android:id="@+id/finishButton"
+        android:id="@+id/finish_button"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/securityAnswerInput"
+        android:layout_below="@+id/security_answer_input"
         android:layout_centerHorizontal="true"
         android:text="@string/next_button"
         android:onClick="gotoValidator" />

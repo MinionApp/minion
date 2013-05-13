@@ -46,40 +46,40 @@ public class SignupActivity extends Activity{
 	    
 		setContentView(R.layout.activity_signup);
 	    if (usernameInUse) {
-			EditText usernameEditText = (EditText)findViewById(R.id.usernameInput);
+			EditText usernameEditText = (EditText)findViewById(R.id.username_input);
 			usernameEditText.requestFocus();
-	    	TextView error = (TextView) findViewById(R.id.usernameError);
+	    	TextView error = (TextView) findViewById(R.id.username_error);
 	    	error.setVisibility(View.VISIBLE);
-			EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
+			EditText passwordEditText = (EditText)findViewById(R.id.password_input);
 			passwordEditText.setText(receivedIntent.getStringExtra(PASSWORD), EditText.BufferType.EDITABLE);
-			EditText passwordConfirmationEditText = (EditText)findViewById(R.id.confirmPasswordInput);
+			EditText passwordConfirmationEditText = (EditText)findViewById(R.id.confirm_password_input);
 			passwordConfirmationEditText.setText(receivedIntent.getStringExtra("passwordConfirmation"), EditText.BufferType.EDITABLE);
 	    // Displays an alternate signup page with data between submissions preserved and relevant
 	    // error messages shown
 	    } else {
 			// Displays error message if only the password is invalid
 			if (!isValidPassword) {
-		    	TextView error = (TextView) findViewById(R.id.invalidPasswordError);
+		    	TextView error = (TextView) findViewById(R.id.invalid_password_error);
 		    	error.setVisibility(View.VISIBLE);
-				EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
+				EditText passwordEditText = (EditText)findViewById(R.id.password_input);
 				passwordEditText.requestFocus();
 			// Displays error message if only the password and confirmation don't match
 			} else if (!passwordsMatch) {
-		    	TextView error = (TextView) findViewById(R.id.nonmatchingPasswordError);
+		    	TextView error = (TextView) findViewById(R.id.nonmatching_password_error);
 		    	error.setVisibility(View.VISIBLE);
-				EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
+				EditText passwordEditText = (EditText)findViewById(R.id.password_input);
 				passwordEditText.requestFocus();
 			}
-			EditText usernameEditText = (EditText)findViewById(R.id.usernameInput);
+			EditText usernameEditText = (EditText)findViewById(R.id.username_input);
 			usernameEditText.setText(receivedIntent.getStringExtra(USERNAME), EditText.BufferType.EDITABLE);
 	    }
-		Spinner securityQuestions = (Spinner) findViewById(R.id.securityQuestionSpinner);
-		ArrayAdapter<String> myAdap = (ArrayAdapter<String>) securityQuestions.getAdapter(); //cast to an ArrayAdapter
+		Spinner securityQuestions = (Spinner) findViewById(R.id.security_question_spinner);
+		ArrayAdapter<String> myAdap = (ArrayAdapter<String>) securityQuestions.getAdapter();
 		int spinnerPosition = myAdap.getPosition(receivedIntent.getStringExtra(QUESTION));
 		//set the default according to value
 		securityQuestions.setSelection(spinnerPosition);
 		
-		EditText answerEditText = (EditText) findViewById(R.id.securityAnswerInput);
+		EditText answerEditText = (EditText) findViewById(R.id.security_answer_input);
 		answerEditText.setText(receivedIntent.getStringExtra(ANSWER), EditText.BufferType.EDITABLE);
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -133,24 +133,24 @@ public class SignupActivity extends Activity{
 	public void gotoValidator(View view) {
 		Intent intent = new Intent(this, EmptyValidatorActivity.class);
 		
-		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
+		EditText usernameEditText = (EditText) findViewById(R.id.username_input);
 		String username = usernameEditText.getText().toString().trim();
 		intent.putExtra(USERNAME, username);
 		
-		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
+		EditText passwordEditText = (EditText) findViewById(R.id.password_input);
 		String password = passwordEditText.getText().toString().trim();
 		intent.putExtra(PASSWORD, password);
 		
-		EditText passwordConfirmationEditText = (EditText) findViewById(R.id.confirmPasswordInput);
+		EditText passwordConfirmationEditText = (EditText) findViewById(R.id.confirm_password_input);
 		String passwordConfirmation = passwordConfirmationEditText.getText().toString().trim();
 		intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
 		
-		Spinner securityQuestions = (Spinner) findViewById(R.id.securityQuestionSpinner);
+		Spinner securityQuestions = (Spinner) findViewById(R.id.security_question_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String question = securityQuestions.getSelectedItem().toString();
 		intent.putExtra(QUESTION, question);
 		
-		EditText answerEditText = (EditText) findViewById(R.id.securityAnswerInput);
+		EditText answerEditText = (EditText) findViewById(R.id.security_answer_input);
 		String answer = answerEditText.getText().toString().trim();
 		intent.putExtra(ANSWER, answer);
 		

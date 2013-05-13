@@ -21,6 +21,7 @@
     <string name="login_title">Login</string>
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>
+    <string name="invalid_login">Incorrect Username or Password</string>
     <string name="signup_clickable_text">Sign Up</string>
     <string name="signup_text">Don\'t have an account?</string>
     <string name="forgot_password_clickable_text">Forgot password?</string>
@@ -45,7 +46,7 @@
     <string name="security_question_prompt">Choose a security question</string>
     <string name="security_answer_prompt">Answer your security question</string>
     <string name="placeholder_text">**Insert security question here**</string>
-    <string name="waiting">Waiting...</string>
+    <string name="waiting">Waiting&#8230;</string>
 
     <string-array name="security_question_array">
         <item>What is your quest?</item>
@@ -93,7 +94,7 @@
     <string name="armor_misc">Misc</string>
     <string name="attack_bonus">Base Attack Bonus</string>
     <string name="alignment">Alignment</string>
-    <string name="enter_text">Enter text...</string>
+    <string name="enter_text">Enter text&#8230;</string>
     <string name="player">Player</string>
     <string name="char_level">Character Level</string>
     <string name="deity">Deity</string>
@@ -137,7 +138,5 @@
     <string name="title_activity_groups">Manage Groups</string>
     <string name="welcome">Welcome to Minion Character Creation!</string>
     <string name="char_creation_success">Character successfully saved!</string>
-    <string name="title_activity_jsonuse">JSONUseActivity</string>
-    <string name="title_activity_test_spinner">TestSpinnerActivity</string>
 
 </resources>

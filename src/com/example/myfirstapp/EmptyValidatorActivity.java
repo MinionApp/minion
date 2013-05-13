@@ -23,6 +23,7 @@ import android.widget.Toast;
  *
  */
 public class EmptyValidatorActivity extends Activity {
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/signup.php";
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
@@ -124,6 +125,13 @@ public class EmptyValidatorActivity extends Activity {
 		return password.equals(passwordConfirmation);
 	}
 	
+	/**
+	 * SignupTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It uploads the data given by the
+	 * user in the signup form to the remote database if the username they chose is not
+	 * already in use and then directs them to the correct Activity. 
+	 *
+	 */
 	private class SignupTask extends AsyncTask<String, Void, String> {
 		private String un;
 		private String pw;
@@ -132,6 +140,15 @@ public class EmptyValidatorActivity extends Activity {
 		private String answer;
 		private Context context;
 		
+		/**
+		 * Constructs a new SignupTask object.
+		 * @param username The user given username
+		 * @param password The user given password
+		 * @param passwordConfirmation The user given password confirmation
+		 * @param question The user given security question
+		 * @param answer The user given security answer
+		 * @param context The current Activity's context
+		 */
 		private SignupTask (String username, String password, String passwordConfirmation, String question, String answer, Context context) {
 			this.un = username;
 			this.pw = password;
@@ -142,7 +159,7 @@ public class EmptyValidatorActivity extends Activity {
 		}
 		
 	    /**
-	     * Let's make the http request and return the result as a String.
+	     * Makes the HTTP request and returns the result as a String.
 	     */
 	    protected String doInBackground(String... args) {
 	        //the data to send
@@ -152,27 +169,22 @@ public class EmptyValidatorActivity extends Activity {
 	        postParameters.add(new BasicNameValuePair("question", question));
 	        postParameters.add(new BasicNameValuePair("answer", answer));
 
-	        //String valid = "1";
 			String result = null;
 	        
 	        //http post
 			String res;
 	        try{
-	        	result = CustomHttpClient.executeHttpPost("http://homes.cs.washington.edu/~elefse/signup.php", postParameters);  //Enter Your remote PHP,ASP, Servlet file link
-	        	res = result.toString();  
-	        	//res = res.trim();  
-	        	res= res.replaceAll("\\s+","");  
-	        	//error.setText(res);  
-	        } catch (Exception e) {  
-	        	//un.setText(e.toString()); 
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+	        	res = result.toString();    
+	        	res= res.replaceAll("\\s+","");   
+	        } catch (Exception e) {   
 	        	res = e.toString();
 	        }
 	        return res;
 	    }
 	 
 	    /**
-	     * Parse the String result, and create a new array adapter for the list
-	     * view.
+	     * Parse the String result, and direct to correct Activity.
 	     */
 	    protected void onPostExecute(String result) {
         	if (result.equals("1")) {  
@@ -193,7 +205,7 @@ public class EmptyValidatorActivity extends Activity {
     			intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
     			intent.putExtra(QUESTION, question);
     			intent.putExtra(ANSWER, answer);
-    			// IF USERNAME IS ALREADY IN USE
+    			// If username is already in use
     			intent.putExtra(USERNAME_IN_USE, true);
         		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             	startActivity(intent);
