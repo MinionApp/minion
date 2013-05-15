@@ -5,17 +5,14 @@ $question=$_POST['question'];
 $answer= $_POST['answer'];
 
 //connect to the db
-$user = "elefse";
-$pswd = "5jL9rFwi";
-$db = "test";
-$db = new PDO("mysql:dbname=test;host=cubist.cs.washington.edu", "elefse", "5jL9rFwi");
+$db = new PDO("mysql:dbname=sahabp_minion;host=cubist.cs.washington.edu", "sahabp", "9BJju8xn");
 
-$rows = $db->query($sql = "SELECT * FROM testLogin WHERE username = '$un'");
+$rows = $db->query($sql = "SELECT * FROM User WHERE username = '$un'");
 
 if($count = $rows->rowCount() > 0) {
 	echo 0; // for username unavailable
 } else  {
-	$sql = "INSERT INTO testLogin (username, password, question, answer) VALUES ('$un', '$pw', '$question', '$answer')";
+	$sql = "INSERT INTO User (username, password, question, answer) VALUES ('$un', '$pw', '$question', '$answer')";
 	$result = $db->exec($sql);
 	echo 1;  // for username available
 }

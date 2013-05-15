@@ -3,12 +3,9 @@ $un=$_POST['username'];
 $pw=$_POST['password']; 
 
 //connect to the db
-$user = "elefse";
-$pswd = "5jL9rFwi";
-$db = "test";
-$db = new PDO("mysql:dbname=test;host=cubist.cs.washington.edu", "elefse", "5jL9rFwi");
+$db = new PDO("mysql:dbname=sahabp_minion;host=cubist.cs.washington.edu", "sahabp", "9BJju8xn");
 
-$sql = "UPDATE testLogin SET password = '$pw' WHERE username = '$un'";
+$sql = "UPDATE User SET password = '$pw' WHERE username = '$un'";
 $result = $db->exec($sql);
 echo 1;  // for username available
 ?>
