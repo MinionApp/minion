@@ -16,7 +16,6 @@ import android.widget.TextView;
  * PasswordResetActivity is an activity that lets the user change their
  * password to a new one in the event that they have forgotten their previous password.
  * @author Elijah Elefson (elefse)
- *
  */
 public class PasswordResetActivity extends Activity {
 	private static final String USERNAME = "username";

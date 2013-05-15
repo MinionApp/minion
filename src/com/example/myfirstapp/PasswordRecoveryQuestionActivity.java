@@ -24,7 +24,6 @@ import android.widget.Toast;
  * PasswordRecoveryQuestionActivity is an activity that gives the user their security question
  * and then allows them to answer it in order to determine if they can reset their password.
  * @author Elijah Elefson (elefse)
- *
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/checkAnswer.php";
@@ -52,7 +51,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 		Intent receivedIntent = getIntent();
 		username = receivedIntent.getStringExtra(USERNAME);
 		question = receivedIntent.getStringExtra(QUESTION);
-		TextView security_questionTextView = (TextView)findViewById(R.id.security_question);
+		TextView security_questionTextView = (TextView) findViewById(R.id.security_question);
 		security_questionTextView.setText(question);
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -122,7 +121,6 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	 * to the previously provided security question and checks to make sure these are correct
 	 * and then allows the user access to the password reset stage of the password recovery
 	 * process.
-	 *
 	 */
 	private class CheckAnswerTask extends AsyncTask<String, Void, String> {
 		private String un;
@@ -162,7 +160,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	        try{
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
 	        	res = result.toString();   
-	        	res= res.replaceAll("\\s+","");    
+	        	res = res.replaceAll("\\s+", "");    
 	        } catch (Exception e) {   
 	        	res = e.toString();
 	        }
@@ -170,7 +168,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	    }
 	 
 	    /**
-	     * Parse the String result, and direct to correct Activity.
+	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
 	    	TextView error = (TextView) findViewById(R.id.incorrect_answer_error);

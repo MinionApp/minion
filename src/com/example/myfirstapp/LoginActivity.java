@@ -26,7 +26,6 @@ import android.widget.Toast;
  * first time. If the user has chosen to remain logged in this activity is bypassed and they
  * are directed to the home page.
  * @author Elijah Elefson (elefse)
- *
  */
 public class LoginActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/checkLogin.php";
@@ -150,7 +149,6 @@ public class LoginActivity extends Activity {
 	 * MySQL database parallel to the main UI thread. It checks if the user provided 
 	 * login credentials are correct and then directs to the correct Activity based on the
 	 * result.
-	 *
 	 */
 	private class CheckLoginTask extends AsyncTask<String, Void, String> {
 		private String un;
@@ -188,7 +186,7 @@ public class LoginActivity extends Activity {
 	        try{
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
 	        	res = result.toString();   
-	        	res= res.replaceAll("\\s+","");    
+	        	res = res.replaceAll("\\s+", "");    
 	        } catch (Exception e) {  
 	        	res = e.toString();
 	        }
@@ -196,7 +194,7 @@ public class LoginActivity extends Activity {
 	    }
 	 
 	    /**
-	     * Parse the String result, and direct to correct Activity.
+	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
 	    	TextView error = (TextView) findViewById(R.id.error);

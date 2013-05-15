@@ -18,7 +18,6 @@ import android.content.Intent;
  * to validate the correctness of the new password as well as if the new password and confirmation
  * password match before the user's password is reset.
  * @author Elijah Elefson (elefse)
- *
  */
 public class NewPasswordValidatorActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/resetPassword.php";
@@ -103,7 +102,6 @@ public class NewPasswordValidatorActivity extends Activity {
 	 * MySQL database parallel to the main UI thread. It updates the user's password to a valid
 	 * new one in the event that they forgot their original one and then directs to the correct
 	 * Activity. 
-	 *
 	 */
 	private class ResetPasswordTask extends AsyncTask<String, Void, String> {
 		private String un;
@@ -141,7 +139,7 @@ public class NewPasswordValidatorActivity extends Activity {
 	        try{
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
 	        	res = result.toString();    
-	        	res= res.replaceAll("\\s+","");   
+	        	res = res.replaceAll("\\s+", "");   
 	        } catch (Exception e) {  
 	        	res = e.toString();
 	        }
@@ -149,7 +147,7 @@ public class NewPasswordValidatorActivity extends Activity {
 	    }
 	 
 	    /**
-	     * Parse the String result, and direct to correct Activity.
+	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
 	    	if (result.equals("1")) {  

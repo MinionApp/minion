@@ -21,11 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * PasswordRecoveryActivity is an activity that provides a form that the user input
+ * PasswordRecoveryActivity is an activity that provides a form that the user inputs
  * their username into to get their corresponding security question and continue
  * on to the next stage of the password recovery process.
  * @author Elijah Elefson (elefse)
- *
  */
 public class PasswordRecoveryActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getSecurityQuestion.php";
@@ -114,8 +113,7 @@ public class PasswordRecoveryActivity extends Activity {
 	 * GetSecurityQuestionTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It takes the given username and retrieves the
 	 * corresponding security question for that user from the remote database. This information
-	 * is then passed on to the next Activity. 
-	 *
+	 * is then passed on to the next Activity.
 	 */
 	private class GetSecurityQuestionTask extends AsyncTask<String, Void, String> {
 		private String un;
@@ -146,7 +144,7 @@ public class PasswordRecoveryActivity extends Activity {
 	        try{
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
 	        	res = result.toString();  
-	        	res= res.replaceAll("\\s+","");    
+	        	res = res.replaceAll("\\s+", "");    
 	        } catch (Exception e) {  
 	        	res = e.toString();
 	        }
@@ -154,7 +152,7 @@ public class PasswordRecoveryActivity extends Activity {
 	    }
 	 
 	    /**
-	     * Parse the String result, and direct to correct Activity.
+	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
 	    	TextView error = (TextView) findViewById(R.id.username_error);

@@ -19,7 +19,6 @@ import android.widget.TextView;
  * input and display relevant error messages on invalid input and preserve valid input between
  * attempts.
  * @author Elijah Elefson (elefse)
- *
  */
 public class SignupActivity extends Activity{
 	private static final String USERNAME = "username";

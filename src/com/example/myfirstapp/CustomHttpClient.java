@@ -21,7 +21,6 @@ import android.util.Log;
  * Utility class that helps serve HTTP requests to remote PHP files that then
  * interact with the MySQL database.
  * @author Elijah Elefson (elefse)
- *
  */
 public class CustomHttpClient {
 
@@ -35,7 +34,6 @@ public class CustomHttpClient {
  
 	/**
 	 * Get our single instance of our HttpClient object.
-	 * 
 	 * @return an HttpClient object with connection parameters set
 	 */
 	private static HttpClient getHttpClient() {

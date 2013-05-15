@@ -20,7 +20,6 @@ import android.widget.Toast;
  * to validate the correctness of the email and password as well as if the password and
  * confirmation password match.
  * @author Elijah Elefson (elefse)
- *
  */
 public class EmptyValidatorActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/signup.php";
@@ -130,7 +129,6 @@ public class EmptyValidatorActivity extends Activity {
 	 * MySQL database parallel to the main UI thread. It uploads the data given by the
 	 * user in the signup form to the remote database if the username they chose is not
 	 * already in use and then directs them to the correct Activity. 
-	 *
 	 */
 	private class SignupTask extends AsyncTask<String, Void, String> {
 		private String un;
@@ -176,7 +174,7 @@ public class EmptyValidatorActivity extends Activity {
 	        try{
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
 	        	res = result.toString();    
-	        	res= res.replaceAll("\\s+","");   
+	        	res = res.replaceAll("\\s+", "");   
 	        } catch (Exception e) {   
 	        	res = e.toString();
 	        }
@@ -184,7 +182,7 @@ public class EmptyValidatorActivity extends Activity {
 	    }
 	 
 	    /**
-	     * Parse the String result, and direct to correct Activity.
+	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
         	if (result.equals("1")) {  
