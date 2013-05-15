@@ -1,8 +1,15 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -10,15 +17,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
- * PasswordRecoveryActivity is an activity that provides a form that the user can use
- * in order to recover their password. (NOT YET IMPLEMENTED)
+ * PasswordRecoveryActivity is an activity that provides a form that the user inputs
+ * their username into to get their corresponding security question and continue
+ * on to the next stage of the password recovery process.
  * @author Elijah Elefson (elefse)
- *
  */
 public class PasswordRecoveryActivity extends Activity {
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getSecurityQuestion.php";
 	private static final String USERNAME = "username";
+	private static final String QUESTION = "question";
 	
 	/**
 	 * Displays the password recovery page.
@@ -76,11 +87,16 @@ public class PasswordRecoveryActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoSecurityQuestion(View view) {
-        Intent intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
-		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
-		String username = usernameEditText.getText().toString().trim();
-		intent.putExtra(USERNAME, username);
-		startActivity(intent);
+		if (ConnectionChecker.hasConnection(this)) {
+			// Get user login info.
+			EditText usernameEditText = (EditText) findViewById(R.id.username_input);
+			String un = usernameEditText.getText().toString().trim();
+			
+			GetSecurityQuestionTask task = new GetSecurityQuestionTask(un, this);
+			task.execute(un);
+    	} else {
+    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+    	}
 	}
 	
 	/**
@@ -90,5 +106,64 @@ public class PasswordRecoveryActivity extends Activity {
 	public void gotoLogin(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
+		finish();
+	}
+	
+	/**
+	 * GetSecurityQuestionTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It takes the given username and retrieves the
+	 * corresponding security question for that user from the remote database. This information
+	 * is then passed on to the next Activity.
+	 */
+	private class GetSecurityQuestionTask extends AsyncTask<String, Void, String> {
+		private String un;
+		private Context context;
+		
+		/**
+		 * Constructs a new GetSecurityQuestionTask object.
+		 * @param username The user given username
+		 * @param context The current Activity's context
+		 */
+		private GetSecurityQuestionTask (String username, Context context) {
+			this.un = username;
+			this.context = context;
+		}
+		
+	    /**
+	     * Makes the HTTP request and returns the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("username", un));
+
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+	        	res = result.toString();  
+	        	res = res.replaceAll("\\s+", "");    
+	        } catch (Exception e) {  
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parses the String result and directs to the correct Activity
+	     */
+	    protected void onPostExecute(String result) {
+	    	TextView error = (TextView) findViewById(R.id.username_error);
+        	if (result.equals("0")) {
+        		error.setVisibility(View.VISIBLE); 
+        	} else { 		
+        		Intent intent = new Intent(context, PasswordRecoveryQuestionActivity.class);
+        		intent.putExtra(USERNAME, un);
+        		intent.putExtra(QUESTION, result.replace("_", " ")); //to fix question string
+        		startActivity(intent);
+        	}
+	    } 
 	}
 }

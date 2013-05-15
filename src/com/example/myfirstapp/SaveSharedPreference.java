@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
  * Utility to save the state of whether or not the user wishes to remain logged into
  * the application even after completely exiting the application.
  * @author Elijah Elefson (elefse)
- *
  */
 public class SaveSharedPreference {
 	static final String PREF_USER_NAME= "username";

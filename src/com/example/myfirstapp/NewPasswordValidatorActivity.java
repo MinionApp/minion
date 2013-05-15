@@ -1,10 +1,16 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 /**
@@ -12,13 +18,12 @@ import android.content.Intent;
  * to validate the correctness of the new password as well as if the new password and confirmation
  * password match before the user's password is reset.
  * @author Elijah Elefson (elefse)
- *
  */
 public class NewPasswordValidatorActivity extends Activity {
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/resetPassword.php";
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
-	private static final String IS_FIRST_VIEW = "isFirstView";
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
 	
@@ -52,24 +57,22 @@ public class NewPasswordValidatorActivity extends Activity {
 	    	// Checks for internet connectivity
 	    	if (ConnectionChecker.hasConnection(this)) {
 		    	// Updates login credentials on remote database
-		    	RemoteDbAccess.updateLoginCredentials(username, password, "password reset", this);
+	        	ResetPasswordTask task = new ResetPasswordTask(username, password, passwordConfirmation, this);
+	    		task.execute(username);
 	    	} else {
-	    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-	    	   intent = new Intent(this, PasswordResetActivity.class);
-	    	   startActivity(intent);
-	    	   finish();
+	    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
 	    	}
 	    // If any of the above conditions are not true
 	    } else {
 	    	intent = new Intent(this, PasswordResetActivity.class);
-	    	// Determines if the user should see a blank signup form 
-	    	intent.putExtra(IS_FIRST_VIEW, false);
+	    	intent.putExtra(USERNAME, username);
 	    	// Stores if the given password is valid
 	    	intent.putExtra(IS_VALID_PASSWORD, validPassword(password));
 	    	// Stores if the given password and confirmation password match
 	    	intent.putExtra(PASSWORDS_MATCH, matchingPasswords(password, passwordConfirmation));
+	    	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	    	startActivity(intent);
-	    	finish();
+	 	   	finish();
 		}
 	    // note we never called setContentView()
 	}
@@ -94,4 +97,79 @@ public class NewPasswordValidatorActivity extends Activity {
 		return password.equals(passwordConfirmation);
 	}
 
+	/**
+	 * ResetPasswordTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It updates the user's password to a valid
+	 * new one in the event that they forgot their original one and then directs to the correct
+	 * Activity. 
+	 */
+	private class ResetPasswordTask extends AsyncTask<String, Void, String> {
+		private String un;
+		private String pw;
+		private String passwordConfirmation;
+		private Context context;
+		
+		/**
+		 * Constructs a new ResetPasswordTask object.
+		 * @param username The user given username
+		 * @param password The user given password
+		 * @param passwordConfirmation The user given password confirmation
+		 * @param context The current Activity's context
+		 */
+		private ResetPasswordTask (String username, String password, String passwordConfirmation, Context context) {
+			this.un = username;
+			this.pw = password;
+			this.passwordConfirmation = passwordConfirmation;
+			this.context = context;
+		}
+		
+	    /**
+	     * Makes the HTTP request and returns the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("username", un));
+	        postParameters.add(new BasicNameValuePair("password", pw));
+	
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+	        	res = result.toString();    
+	        	res = res.replaceAll("\\s+", "");   
+	        } catch (Exception e) {  
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parses the String result and directs to the correct Activity
+	     */
+	    protected void onPostExecute(String result) {
+	    	if (result.equals("1")) {  
+	    		// Login succeeds, go to homepage.
+	    		Intent intent = new Intent(context, LoginActivity.class);
+	    		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(intent);
+	        	finish();
+	    	} else {
+	    		Intent intent = new Intent(context, PasswordResetActivity.class);
+		    	// Stores if the given password is valid
+		    	intent.putExtra(IS_VALID_PASSWORD, true);
+		    	// Stores if the given password and confirmation password match
+		    	intent.putExtra(PASSWORDS_MATCH, true);
+		    	// Sends the input information back to the signup form so user doesn't have to reenter
+				intent.putExtra(PASSWORD, pw);
+				intent.putExtra(USERNAME, un);
+				intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
+	    		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	startActivity(intent);
+	        	finish(); 
+	    	}
+	    }
+	}
 }
