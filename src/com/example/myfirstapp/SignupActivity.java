@@ -9,24 +9,26 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 /**
  * SignupActivity is an activity that provides a signup form for the user. It will respond to user
  * input and display relevant error messages on invalid input and preserve valid input between
  * attempts.
  * @author Elijah Elefson (elefse)
- *
  */
 public class SignupActivity extends Activity{
 	private static final String USERNAME = "username";
-	private static final String EMAIL = "email";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
-	private static final String IS_FIRST_VIEW = "isFirstView";
-	private static final String IS_VALID_EMAIL = "isValidEmail";
+	private static final String QUESTION = "question";
+	private static final String ANSWER = "answer";
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
+	private static final String USERNAME_IN_USE = "usernameInUse";
 	
 	/**
 	 * Displays the signup form in various states depending on the validity of the input and 
@@ -35,61 +37,53 @@ public class SignupActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		Intent receivedIntent = getIntent();
-		// If the page is being viewed for the first time isFirstView will be true, otherwise false
-		boolean isFirstView = receivedIntent.getBooleanExtra(IS_FIRST_VIEW, true);
-	    boolean isValidEmail = receivedIntent.getBooleanExtra(IS_VALID_EMAIL, false);
-	    boolean isValidPassword = receivedIntent.getBooleanExtra(IS_VALID_PASSWORD, false);
-	    boolean passwordsMatch = receivedIntent.getBooleanExtra(PASSWORDS_MATCH, false);
-	    // Displays blank signup page if it is the user's first viewing of the page
-	    if (isFirstView) {
-	    	setContentView(R.layout.activity_signup);
+	    boolean isValidPassword = receivedIntent.getBooleanExtra(IS_VALID_PASSWORD, true);
+	    boolean passwordsMatch = receivedIntent.getBooleanExtra(PASSWORDS_MATCH, true);
+	    boolean usernameInUse = receivedIntent.getBooleanExtra(USERNAME_IN_USE, false);
+	    
+		setContentView(R.layout.activity_signup);
+	    if (usernameInUse) {
+			EditText usernameEditText = (EditText)findViewById(R.id.username_input);
+			usernameEditText.requestFocus();
+	    	TextView error = (TextView) findViewById(R.id.username_error);
+	    	error.setVisibility(View.VISIBLE);
+			EditText passwordEditText = (EditText)findViewById(R.id.password_input);
+			passwordEditText.setText(receivedIntent.getStringExtra(PASSWORD), EditText.BufferType.EDITABLE);
+			EditText passwordConfirmationEditText = (EditText)findViewById(R.id.confirm_password_input);
+			passwordConfirmationEditText.setText(receivedIntent.getStringExtra("passwordConfirmation"), EditText.BufferType.EDITABLE);
 	    // Displays an alternate signup page with data between submissions preserved and relevant
 	    // error messages shown
 	    } else {
-	    	// Displays corresponding errors if neither email nor password are valid
-			if (!isValidEmail && !isValidPassword) {
-				setContentView(R.layout.activity_signup_invalid_email_and_password);
-				EditText emailEditText = (EditText)findViewById(R.id.emailInput);
-				emailEditText.requestFocus();
-			// Displays corresponding error if only email is invalid and password and confirmation
-			// password may not match
-			} else if (!isValidEmail) {
-				// Displays error for if password and confirmation don't match
-				if (!passwordsMatch) {
-					setContentView(R.layout.activity_signup_invalid_email_and_non_matching_passwords);
-				// Displays no error if password and confirmation do match
-				} else {
-					setContentView(R.layout.activity_signup_invalid_email_and_matching_passwords);
-					EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
-					passwordEditText.setText(receivedIntent.getStringExtra(PASSWORD), EditText.BufferType.EDITABLE);
-					EditText passwordConfirmationEditText = (EditText)findViewById(R.id.confirmPasswordInput);
-					passwordConfirmationEditText.setText(receivedIntent.getStringExtra("passwordConfirmation"), EditText.BufferType.EDITABLE);
-				}
-				EditText emailEditText = (EditText)findViewById(R.id.emailInput);
-				emailEditText.requestFocus();
 			// Displays error message if only the password is invalid
-			} else if (!isValidPassword) {
-				setContentView(R.layout.activity_signup_invalid_password);
-				EditText emailEditText = (EditText)findViewById(R.id.emailInput);
-				emailEditText.setText(receivedIntent.getStringExtra(EMAIL), EditText.BufferType.EDITABLE);
-				EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
+			if (!isValidPassword) {
+		    	TextView error = (TextView) findViewById(R.id.invalid_password_error);
+		    	error.setVisibility(View.VISIBLE);
+				EditText passwordEditText = (EditText)findViewById(R.id.password_input);
 				passwordEditText.requestFocus();
 			// Displays error message if only the password and confirmation don't match
 			} else if (!passwordsMatch) {
-				setContentView(R.layout.activity_signup_non_matching_passwords);
-				EditText emailEditText = (EditText)findViewById(R.id.emailInput);
-				emailEditText.setText(receivedIntent.getStringExtra(EMAIL), EditText.BufferType.EDITABLE);
-				EditText passwordEditText = (EditText)findViewById(R.id.passwordInput);
+		    	TextView error = (TextView) findViewById(R.id.nonmatching_password_error);
+		    	error.setVisibility(View.VISIBLE);
+				EditText passwordEditText = (EditText)findViewById(R.id.password_input);
 				passwordEditText.requestFocus();
 			}
-			EditText usernameEditText = (EditText)findViewById(R.id.usernameInput);
+			EditText usernameEditText = (EditText)findViewById(R.id.username_input);
 			usernameEditText.setText(receivedIntent.getStringExtra(USERNAME), EditText.BufferType.EDITABLE);
 	    }
+		Spinner securityQuestions = (Spinner) findViewById(R.id.security_question_spinner);
+		ArrayAdapter<String> myAdap = (ArrayAdapter<String>) securityQuestions.getAdapter();
+		int spinnerPosition = myAdap.getPosition(receivedIntent.getStringExtra(QUESTION));
+		//set the default according to value
+		securityQuestions.setSelection(spinnerPosition);
+		
+		EditText answerEditText = (EditText) findViewById(R.id.security_answer_input);
+		answerEditText.setText(receivedIntent.getStringExtra(ANSWER), EditText.BufferType.EDITABLE);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
-
+	
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */
@@ -138,22 +132,28 @@ public class SignupActivity extends Activity{
 	public void gotoValidator(View view) {
 		Intent intent = new Intent(this, EmptyValidatorActivity.class);
 		
-		EditText usernameEditText = (EditText) findViewById(R.id.usernameInput);
+		EditText usernameEditText = (EditText) findViewById(R.id.username_input);
 		String username = usernameEditText.getText().toString().trim();
 		intent.putExtra(USERNAME, username);
 		
-		EditText emailEditText = (EditText) findViewById(R.id.emailInput);
-		String email = emailEditText.getText().toString().trim();
-		intent.putExtra(EMAIL, email);
-		
-		EditText passwordEditText = (EditText) findViewById(R.id.passwordInput);
+		EditText passwordEditText = (EditText) findViewById(R.id.password_input);
 		String password = passwordEditText.getText().toString().trim();
 		intent.putExtra(PASSWORD, password);
 		
-		EditText passwordConfirmationEditText = (EditText) findViewById(R.id.confirmPasswordInput);
+		EditText passwordConfirmationEditText = (EditText) findViewById(R.id.confirm_password_input);
 		String passwordConfirmation = passwordConfirmationEditText.getText().toString().trim();
 		intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
+		
+		Spinner securityQuestions = (Spinner) findViewById(R.id.security_question_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String question = securityQuestions.getSelectedItem().toString();
+		intent.putExtra(QUESTION, question);
+		
+		EditText answerEditText = (EditText) findViewById(R.id.security_answer_input);
+		String answer = answerEditText.getText().toString().trim();
+		intent.putExtra(ANSWER, answer);
+		
 		startActivity(intent);
+		finish();
 	}
-
 }

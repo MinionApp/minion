@@ -5,15 +5,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /** Utility to check if the device has Internet connectivity.
- * 
- * @author Elijah Elefson (elefse)
- *
+ *  @author Elijah Elefson (elefse)
  */
 public class ConnectionChecker {
 	
 	/**
 	  * Checks if the device has Internet connection.
-	  * 
 	  * @return true if the device is connected to the Internet.
 	  */
 	public static boolean hasConnection(Context context) {
