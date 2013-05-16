@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
 public class BasicInfoActivity extends Activity {
+	private static final String CHARACTER_ID = "cid";
 	private long charID;
 	CharacterDescription baseInfo;
 	
@@ -23,7 +24,7 @@ public class BasicInfoActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		charID = this.getIntent().getExtras().getLong("cid");
+		charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		baseInfo = new CharacterDescription(charID);
 		loadData();
 	}
@@ -234,7 +235,7 @@ public class BasicInfoActivity extends Activity {
 		
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
-		intent.putExtra("cid", charID);
+		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 		
 	}

@@ -14,6 +14,8 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Loki White (lokiw)
  */
 public class Ability {
+	private static final String BASE = "base=";
+	
 	private long charID;
 	private int abilityID;
 	boolean isNew;
@@ -77,7 +79,7 @@ public class Ability {
 			isNew = false;
 			// COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_SCORE
 			base = cursor.getInt(2);
-			System.out.println("base=" + base);
+			System.out.println(BASE + base);
 		}
 		cursor.close();
 	}
@@ -238,17 +240,6 @@ public class Ability {
 		}
 		
 		SQLiteDatabase dbTempMods = SQLiteHelperASTempMods.db;
-		
-//		for (String s : tempModifiers.keySet()) {
-//			int i = tempModifiers.get(s);
-//			// write to dbTempMods
-//			values = new ContentValues();
-//			values.put(SQLiteHelperASTempMods.COLUMN_CHAR_ID, charID);
-//			values.put(SQLiteHelperASTempMods.COLUMN_REF_AS_ID, abilityID);
-//			values.put(SQLiteHelperASTempMods.COLUMN_NAME, s);
-//			values.put(SQLiteHelperASTempMods.COLUMN_MOD, i);		
-//			dbTempMods.insert(SQLiteHelperASTempMods.TABLE_NAME, null, values);
-//		}
 	}
 	
 }
