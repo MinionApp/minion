@@ -48,7 +48,7 @@
     <string name="security_answer_prompt">Answer your security question</string>
     <string name="placeholder_text">**Insert security question here**</string>
     <string name="invalid_username_error">The specified username does not exist. Try again.</string>
-    <string name="waiting">Waiting...</string>
+    <string name="waiting">Waiting&#8230;</string>
 
     <string-array name="security_question_array">
         <item>What is your quest?</item>
@@ -62,7 +62,7 @@
     <string name="new_password_input">Input new password</string>
     <string name="answer_button">Answer</string>
     <string name="title_activity_new_password_validator">NewPasswordValidatorActivity</string>
-    
+    <string name="title_activity_recovery_question">RecoveryQuestionActivity</string>
     <string name="title_activity_basic_info">Basic Info</string>
     <string name="character_name">Character Name</string>
     <string name="title_activity_char_create_main">Character Creation</string>
@@ -99,7 +99,7 @@
     <string name="attack_bonus">Base Attack Bonus</string>
     
     <string name="alignment">Alignment</string>
-    <string name="enter_text">Enter text...</string>
+    <string name="enter_text">Enter text&#8230;</string>
     <string name="player">Player</string>
     <string name="char_level">Character Level</string>
     <string name="deity">Deity</string>
