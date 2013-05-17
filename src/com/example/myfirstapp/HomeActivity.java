@@ -90,6 +90,7 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, LoginActivity.class);
 		SaveSharedPreference.setUserName(HomeActivity.this, "");
 		startActivity(intent);
+		finish();
 	}
 	
 	/**

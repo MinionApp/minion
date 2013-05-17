@@ -1,9 +1,16 @@
 package com.example.myfirstapp;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -17,13 +24,14 @@ import android.widget.Toast;
  * PasswordRecoveryQuestionActivity is an activity that gives the user their security question
  * and then allows them to answer it in order to determine if they can reset their password.
  * @author Elijah Elefson (elefse)
- *
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/checkAnswer.php";
 	private static final String USERNAME = "username";
+	private static final String QUESTION = "question";
 	
 	/**
-	 * Stores the username the user gave in their signup form.
+	 * Stores the user's username.
 	 */
 	private String username;
 	
@@ -38,14 +46,13 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_password_recovery_question);
+		
 		Intent receivedIntent = getIntent();
 		username = receivedIntent.getStringExtra(USERNAME);
-		setContentView(R.layout.activity_password_recovery_question);
-		// Gets security question for user from remote database
-		//question = RemoteDbAccess.getSecurityQuestion(username, "security question", this, this);
-		question = "What is your favorite color?";
-		TextView securityQuestionTextView = (TextView)findViewById(R.id.securityQuestion);
-		securityQuestionTextView.setText(question);
+		question = receivedIntent.getStringExtra(QUESTION);
+		TextView security_questionTextView = (TextView) findViewById(R.id.security_question);
+		security_questionTextView.setText(question);
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -95,24 +102,83 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void gotoLogin(View view) {
-		Intent intent;
-		EditText answerEditText = (EditText) findViewById(R.id.questionInput);
+		EditText answerEditText = (EditText) findViewById(R.id.question_input);
 		String answer = answerEditText.getText().toString().trim();
 		
     	// Checks for internet connectivity
     	if (ConnectionChecker.hasConnection(this)) {
     		// Tests security question for user on remote database
-    		//if(RemoteDbAccess.securityQuestionTest(username, question, answer)) {
-    			intent = new Intent(this, PasswordResetActivity.class);
-    		//} else {
-    		//	intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
-    		//}
-    		intent.putExtra(USERNAME, username);
+    		CheckAnswerTask task = new CheckAnswerTask(username, question, answer, this);
+			task.execute(answer);
     	} else {
     	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-    	   intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
     	}
-		startActivity(intent);
 	}
 
+	/**
+	 * CheckAnswerTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It takes the given username and answer
+	 * to the previously provided security question and checks to make sure these are correct
+	 * and then allows the user access to the password reset stage of the password recovery
+	 * process.
+	 */
+	private class CheckAnswerTask extends AsyncTask<String, Void, String> {
+		private String un;
+		private String question;
+		private String answer;
+		private Context context;
+		
+		/**
+		 * Constructs a new CheckAnswerTask object.
+		 * @param username The user given username
+		 * @param question The question received from the remote database that corresponds
+		 * 		  to the given username
+		 * @param answer The user given answer to the security question
+		 * @param context The current Activity's context
+		 */
+		private CheckAnswerTask (String username, String question, String answer, Context context) {
+			this.un = username;
+			this.question = question;
+			this.answer = answer;
+			this.context = context;
+		}
+		
+	    /**
+	     * Makes the HTTP request and returns the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("username", un));
+	        postParameters.add(new BasicNameValuePair("question", question));
+	        postParameters.add(new BasicNameValuePair("answer", answer));
+
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+	        	res = result.toString();   
+	        	res = res.replaceAll("\\s+", "");    
+	        } catch (Exception e) {   
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parses the String result and directs to the correct Activity
+	     */
+	    protected void onPostExecute(String result) {
+	    	TextView error = (TextView) findViewById(R.id.incorrect_answer_error);
+        	if (result.equals("1")) {
+        		Intent intent = new Intent(context, PasswordResetActivity.class);
+        		intent.putExtra(USERNAME, un);
+        		startActivity(intent);
+        	} else {
+        		error.setVisibility(View.VISIBLE);  
+        	}
+	    } 
+	}
 }
