@@ -154,7 +154,7 @@
             android:label="@string/title_activity_new_password_validator" >
         </activity>
         <activity
-            android:name="uw.cse403.minion.GroupCreate"
+            android:name="uw.cse403.minion.GroupCreateActivity"
             android:label="@string/title_activity_group_create"
             android:parentActivityName="uw.cse403.minion.GroupsActivity" >
             <meta-data

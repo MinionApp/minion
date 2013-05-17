@@ -8,6 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ViewInvitesActivity" >
 
+    <TextView
+        android:id="@+id/no_pending_invites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:text="You have no pending invites" />
     
 	<TextView
         android:id="@+id/invite1"
@@ -23,7 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="Decline" />
+        android:text="Decline" 
+        android:onClick="declineInvite" />
 
 	<Button
         android:id="@+id/accept_button"
@@ -32,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/decline_button"
         android:layout_alignTop="@+id/listView1"
-        android:text="Accept" />
+        android:text="Accept" 
+        android:onClick="acceptInvite" />
 
 </RelativeLayout>

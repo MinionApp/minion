@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -29,6 +31,8 @@ import android.widget.TextView;
  */
 public class ViewInvitesActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getInvites.php";
+	private static final String PHP_ADDRESS2 = "http://homes.cs.washington.edu/~elefse/acceptInvite.php";
+	private static final String PHP_ADDRESS3 = "http://homes.cs.washington.edu/~elefse/declineInvite.php";
 	private String username;
 	
 	@Override
@@ -80,6 +84,16 @@ public class ViewInvitesActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	public void acceptInvite(View view) {
+		acceptInviteTask task = new acceptInviteTask(this);
+		task.execute(username);
+	}
+	
+	public void declineInvite(View view) {
+		declineInviteTask task = new declineInviteTask(this);
+		task.execute(username);
+	}
+	
 	/**
 	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It updates the database to include the
@@ -123,8 +137,123 @@ public class ViewInvitesActivity extends Activity {
 	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
+	    	if(result.equals("0")) {
+	    		Button acceptButton = (Button) findViewById(R.id.accept_button);
+	    		acceptButton.setVisibility(View.GONE);
+	    		Button declineButton = (Button) findViewById(R.id.decline_button);
+	    		declineButton.setVisibility(View.GONE);
+	    		TextView inviteTextView = (TextView) findViewById(R.id.invite1);
+				inviteTextView.setVisibility(View.GONE);
+				TextView noInvitesTextView = (TextView) findViewById(R.id.no_pending_invites);
+				noInvitesTextView.setVisibility(View.VISIBLE);
+	    	} else {
+	    		TextView inviteTextView = (TextView) findViewById(R.id.invite1);
+				inviteTextView.setText(result);
+	    	}
+	    }
+	 
+	}
+	
+	/**
+	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It updates the database to include the
+	 * specified players as part of a group and puts the current as the game master.
+	 */
+	private class acceptInviteTask extends AsyncTask<String, Void, String> {
+		private Context context;
+		
+		/**
+		 * Constructs a new GetNumberOfInvitesTask object.
+		 * @param context The current Activity's context.
+		 */
+		private acceptInviteTask (Context context) {
+			this.context = context;
+		}
+		
+	    /**
+	     * Makes the HTTP request and returns the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
 	    	TextView inviteTextView = (TextView) findViewById(R.id.invite1);
-			inviteTextView.setText(result);
+			String group = inviteTextView.getText().toString().trim();
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("un", username));
+	        postParameters.add(new BasicNameValuePair("group", group));
+	        
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS2, postParameters);
+	        	res = result.toString();   
+	        	res = res.replaceAll("\\s+", "");    
+	        } catch (Exception e) {  
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parses the String result and directs to the correct Activity
+	     */
+	    protected void onPostExecute(String result) {
+	    	Intent intent = new Intent(context, ViewInvitesActivity.class);
+	    	startActivity(intent);
+			finish();
+	    }
+	 
+	}
+	
+	/**
+	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It updates the database to include the
+	 * specified players as part of a group and puts the current as the game master.
+	 */
+	private class declineInviteTask extends AsyncTask<String, Void, String> {
+		private Context context;
+		
+		/**
+		 * Constructs a new GetNumberOfInvitesTask object.
+		 * @param context The current Activity's context.
+		 */
+		private declineInviteTask (Context context) {
+			this.context = context;
+		}
+		
+	    /**
+	     * Makes the HTTP request and returns the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	    	TextView inviteTextView = (TextView) findViewById(R.id.invite1);
+			String group = inviteTextView.getText().toString().trim();
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("un", username));
+	        postParameters.add(new BasicNameValuePair("group", group));
+
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS3, postParameters);
+	        	res = result.toString();   
+	        	res = res.replaceAll("\\s+", "");    
+	        } catch (Exception e) {  
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parses the String result and directs to the correct Activity
+	     */
+	    protected void onPostExecute(String result) {
+	    	Intent intent = new Intent(context, ViewInvitesActivity.class);
+	    	startActivity(intent);
+			finish();
 	    }
 	 
 	}
