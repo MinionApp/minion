@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Build;
 
 public class CharCreateMainActivity extends Activity {
+	private static final String CHARACTER_ID = "cid";
+	
 	private Character newChar = null;
 	private long charID;
 	
@@ -22,7 +24,7 @@ public class CharCreateMainActivity extends Activity {
 			newChar = new Character();
 		}
 		try {
-			charID = this.getIntent().getExtras().getLong("cid");
+			charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		} catch (Exception e) {
 			charID = CharacterDataSource.getNewID();
 		}
@@ -66,31 +68,31 @@ public class CharCreateMainActivity extends Activity {
 	
 	public void gotoBasicInfo(View view) {
 		Intent intent = new Intent(this, BasicInfoActivity.class);
-		intent.putExtra("cid", charID);
+		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 	
 	public void gotoAbilityScores(View view) {
 		Intent intent = new Intent(this, AbilityScoresActivity.class);
-		intent.putExtra("cid", charID);
+		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 	
 	public void gotoSkills(View view) {
 		Intent intent = new Intent(this, SkillsActivity.class);
-		intent.putExtra("cid", charID);
+		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 	
 	public void gotoCombat(View view) {
 		Intent intent = new Intent(this, CombatActivity.class);
-		intent.putExtra("cid", charID);
+		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 	
 	public void gotoSavingThrows(View view) {
 		Intent intent = new Intent(this, SavingThrowsActivity.class);
-		intent.putExtra("cid", charID);
+		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 	
