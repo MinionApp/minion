@@ -49,7 +49,8 @@
     <string name="placeholder_text">**Insert security question here**</string>
     <string name="invalid_username_error">The specified username does not exist. Try again.</string>
     <string name="waiting">Waiting&#8230;</string>
-
+	<string name="title_activity_view_invites">View Invites</string>
+    
     <string-array name="security_question_array">
         <item>What is your quest?</item>
         <item>What is your favorite color?</item>

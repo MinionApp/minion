@@ -5,43 +5,39 @@ import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * HomeActivity is the activity that provides the user with the home page for the application.
  * This page is displayed after all login activities have been completed or bypassed. This page
  * also provides the means to get the the character management page, group management page, settings
  * page and the logout option.
- * @author Kevin Dong (kevinxd3)
+ * @author Elijah Elefson (elefse)
  *
  */
-public class HomeActivity extends Activity {
-	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getNumberOfInvites.php";
+public class ViewInvitesActivity extends Activity {
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getInvites.php";
 	private String username;
 	
-	/**
-	 * Displays the home page.
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
-		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
-		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
+		setContentView(R.layout.activity_view_invites);
+		username = SaveSharedPreference.getPersistentUserName(ViewInvitesActivity.this);
+		getInvitesTask task = new getInvitesTask(this);
 		task.execute(username);
-		// Show the Up button in the action bar.
-		//setupActionBar();
 	}
 
 	/**
@@ -84,73 +80,19 @@ public class HomeActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	@Override
-	public void onResume() {
-		super.onResume();
-		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
-		task.execute(username);
-	}
-
-	/**
-	 * Responds to the manage characters button click and goes to the manage
-	 * characters page.
-	 * @param view The current view
-	 */
-	public void gotoCharacters(View view) {
-		Intent intent = new Intent(this, CharactersActivity.class);
-		startActivity(intent);
-	}
-	
-	/**
-	 * Responds to the logout button click, logs the user out, and goes to the login page.
-	 * @param view The current view
-	 */
-	public void logout(View view) {
-		Intent intent = new Intent(this, LoginActivity.class);
-		SaveSharedPreference.setUserName(HomeActivity.this, "");
-		SaveSharedPreference.setPersistentUserName(HomeActivity.this, "");
-		startActivity(intent);
-		finish();
-	}
-	
-	/**
-	 * Responds to the manage groups button click and goes to the manage
-	 * groups page. 
-	 * @param view The current view
-	 */
-	public void gotoGroups(View view) {
-		Intent intent = new Intent(this, GroupsActivity.class);
-		startActivity(intent);
-	}
-
-	/**
-	 * Responds to the settings button click and goes to the manage
-	 * groups page. (Settings currently unimplemented so directs to
-	 * HomeActivity instead)
-	 * @param view The current view
-	 */
-	public void goToSettings(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
-		startActivity(intent);
-	}
-	
-	public void gotoTesting(View view) {
-		Intent intent = new Intent(this, SQLiteTestActivity.class);
-	}
-	
 	/**
 	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It updates the database to include the
 	 * specified players as part of a group and puts the current as the game master.
 	 */
-	private class GetNumberOfInvitesTask extends AsyncTask<String, Void, String> {
+	private class getInvitesTask extends AsyncTask<String, Void, String> {
 		private Context context;
 		
 		/**
 		 * Constructs a new GetNumberOfInvitesTask object.
 		 * @param context The current Activity's context.
 		 */
-		private GetNumberOfInvitesTask (Context context) {
+		private getInvitesTask (Context context) {
 			this.context = context;
 		}
 		
@@ -181,12 +123,9 @@ public class HomeActivity extends Activity {
 	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
-	    	if(!result.equals("0")) {
-	    		Button goToGroupsButton = (Button) findViewById(R.id.button2);
-		    	goToGroupsButton.setText("Manage Groups (" + result + ")");
-	    	}
+	    	TextView inviteTextView = (TextView) findViewById(R.id.invite1);
+			inviteTextView.setText(result);
 	    }
 	 
 	}
-
 }

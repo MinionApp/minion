@@ -1,12 +1,13 @@
 package uw.cse403.minion;
 
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class GroupsActivity extends Activity {
@@ -51,6 +52,18 @@ public class GroupsActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void gotoCreateGroup(View view) {
+		Intent intent = new Intent(this, GroupCreateActivity.class);
+		startActivity(intent);
+		finish();
+	}
+	
+	public void gotoPendingInvites(View view) {
+		Intent intent = new Intent(this, ViewInvitesActivity.class);
+		startActivity(intent);
+		finish();
 	}
 
 }

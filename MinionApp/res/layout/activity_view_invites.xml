@@ -6,30 +6,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".GroupsActivity" >
+    tools:context=".ViewInvitesActivity" >
 
-    <TextView
-        android:id="@+id/welcome_title"
+    
+	<TextView
+        android:id="@+id/invite1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
         android:textSize="16sp"
-        android:text="@string/welcome_group" />
+        android:text="" />
     
-    <Button android:id="@+id/button_create_group"
+    <Button
+        android:id="@+id/decline_button"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/welcome_title"
-        android:layout_centerHorizontal="true"
-        android:text="Create New Group"
-     	android:onClick="gotoCreateGroup" />
-    
-	<Button android:id="@+id/button_pending_invites"
+        android:layout_alignParentRight="true"
+        android:text="Decline" />
+
+	<Button
+        android:id="@+id/accept_button"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button_create_group"
-        android:layout_centerHorizontal="true"
-        android:text="Pending Invites"
-     	android:onClick="gotoPendingInvites" />
+        android:layout_toLeftOf="@+id/decline_button"
+        android:layout_alignTop="@+id/listView1"
+        android:text="Accept" />
 
 </RelativeLayout>

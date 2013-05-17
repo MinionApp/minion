@@ -161,6 +161,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.myfirstapp.GroupsActivity" />
         </activity>
+        <activity
+            android:name="uw.cse403.minion.ViewInvitesActivity"
+            android:label="@string/title_activity_view_invites" >
+        </activity>
     </application>
 
 </manifest>
