@@ -1,0 +1,21 @@
+
+-check-env:
+ [checkenv] Android SDK Tools Revision 21.1.0
+ [checkenv] Installed at /home/mj/android-sdk-linux
+
+-setup:
+     [echo] Project Name: MinionAppTest
+  [gettype] Project Type: Test Application
+
+-test-project-check:
+
+test:
+     [echo] Running tests ...
+     [exec] 
+     [exec] com.example.myfirstapp.test.LoginActivityTest:........
+     [exec] Test results for InstrumentationTestRunner=........
+     [exec] Time: 54.962
+     [exec] 
+     [exec] OK (8 tests)
+     [exec] 
+     [exec] 

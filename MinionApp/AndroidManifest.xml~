@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myfirstapp"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+<<<<<<< HEAD
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+=======
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+>>>>>>> basicUI
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.myfirstapp.LoginActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:parentActivityName="com.example.myfirstapp.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SQLiteTestActivity"
+            android:label="@string/title_activity_sqlite_test"
+            android:parentActivityName="com.example.myfirstapp.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.BasicInfoActivity"
+            android:label="@string/title_activity_basic_info"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.CharCreateMainActivity"
+            android:label="@string/title_activity_char_create_main"
+            android:parentActivityName="com.example.myfirstapp.SQLiteTestActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.SQLiteTestActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.AbilityScoresActivity"
+            android:label="@string/title_activity_ability_scores"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SkillsActivity"
+            android:label="@string/title_activity_skills"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.CombatActivity"
+            android:label="@string/title_activity_combat"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SavingThrowsActivity"
+            android:label="@string/title_activity_saving_throws"
+            android:parentActivityName="com.example.myfirstapp.CharCreateMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.CharactersActivity"
+            android:label="@string/title_activity_characters"
+            android:parentActivityName="com.example.myfirstapp.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.GroupsActivity"
+            android:label="@string/title_activity_groups"
+            android:parentActivityName="com.example.myfirstapp.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.SignupActivity"
+            android:label="@string/title_activity_signup"
+            android:parentActivityName="com.example.myfirstapp.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.EmptyValidatorActivity"
+            android:parentActivityName="com.example.myfirstapp.SignupActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.SignupActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.PasswordRecoveryActivity"
+            android:label="@string/title_activity_password_recovery"
+            android:parentActivityName="com.example.myfirstapp.LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.PasswordResetActivity"
+            android:label="@string/title_activity_password_recovery"
+            android:parentActivityName="com.example.myfirstapp.PasswordRecoveryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.PasswordRecoveryActivity" />
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.PasswordRecoveryQuestionActivity"
+            android:label="@string/title_activity_recovery_question" >
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.NewPasswordValidatorActivity"
+            android:label="@string/title_activity_new_password_validator" >
+        </activity>
+        <activity
+            android:name="com.example.myfirstapp.GroupCreate"
+            android:label="@string/title_activity_group_create"
+            android:parentActivityName="com.example.myfirstapp.GroupsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.GroupsActivity" />
+        </activity>
+    </application>
+
+</manifest>

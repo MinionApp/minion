@@ -1,4 +1,4 @@
-package com.example.myapp.test;
+package com.example.myfirstapp.test;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
