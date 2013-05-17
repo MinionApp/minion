@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test;
+package com.example.myapp.test;
 
 import android.test.ActivityTestCase;
 import android.test.ActivityUnitTestCase;
