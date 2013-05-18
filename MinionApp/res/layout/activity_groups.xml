@@ -16,18 +16,26 @@
         android:textSize="16sp"
         android:text="@string/welcome_group" />
     
+	<ListView
+        android:id="@+id/groupsListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/welcome_title"
+        android:layout_above="@+id/button_create_group" >
+    </ListView>
+    
     <Button android:id="@+id/button_create_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/welcome_title"
         android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button_pending_invites"
         android:text="Create New Group"
      	android:onClick="gotoCreateGroup" />
     
 	<Button android:id="@+id/button_pending_invites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button_create_group"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Pending Invites"
      	android:onClick="gotoPendingInvites" />
