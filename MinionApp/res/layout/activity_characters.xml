@@ -24,6 +24,13 @@
         android:text="@string/button_add_character"
      	android:onClick="addCharacter" />
     
+    <ListView
+        android:id="@+id/charListView"
+        android:layout_below="@+id/button_add_char"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </ListView>
+    
     <TextView
         android:id="@+id/success_title"
         android:layout_width="wrap_content"
