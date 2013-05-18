@@ -1,3 +1,9 @@
+<!-- Until I can be sure that the name of the ListView in this file and in the
+corresponding Java file don't have to match, I'm leaving them with the same name.
+This means that the id of the ListView in this file violates our style guide (it is
+camel-cased) by necessity.
+@author Caitlin Harding -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
