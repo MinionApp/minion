@@ -5,10 +5,12 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ListActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -16,6 +18,16 @@ import android.os.Build;
 
 public class CharactersActivity extends Activity {
 	private CharacterDataSource datasource;
+	
+	// Declare the UI components
+	private ListView charListView;
+	
+	// Change this array's name and contents to be the character information
+	// received from the database
+	private static String[] testArray = {"testing", "one", "two", "three"};
+	
+	// Adapter for connecting the array above to the UI view
+	private ArrayAdapter<String> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +40,21 @@ public class CharactersActivity extends Activity {
         System.out.println("OPENING DATASOURCE");
 	    datasource.open();
 
-	    //List<Character> values = datasource.getAllCharacters();
 	    datasource.printTables();
+	    // To test reading from database:
+	    //List<Character> values = datasource.getAllCharacters();
+	    //testArray = values.toArray(testArray);
+	    
+	    // Initialize the UI components
+        charListView = (ListView) findViewById(R.id.charListView);
+	    
+	    //int[] toViews = {android.R.id.text1}; // The TextView in activity_characters
+
+        // Create an empty adapter we will use to display the loaded data.
+        // We pass null for the cursor, then update it in onLoadFinished()
+        adapter = new ArrayAdapter<String>(this, 
+        		android.R.layout.simple_list_item_1, testArray);
+        charListView.setAdapter(adapter);
 	}
 
 	/**
@@ -70,5 +95,9 @@ public class CharactersActivity extends Activity {
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		startActivity(intent);
 	}
+	 
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        // Do something when a list item is clicked
+    }
 
 }
