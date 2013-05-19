@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
@@ -93,9 +94,18 @@ public class GroupCreateActivity extends Activity {
 			HashSet<String> users = new HashSet<String>();
 			//Create a set of all the users entered
 			users.addAll(Arrays.asList(user1, user2, user3, user4, user5));
+			TextView warning = (TextView) findViewById(R.id.warning);
 			//checks if all the users entered are unique
 			if(users.size() != 5){
-				findViewById(R.id.warning).setVisibility(0);
+				warning.setVisibility(0);
+			//checks that user isn't adding self to group
+			}else if(users.contains(username)){
+				warning.setText("Cannont add yourself to a group");
+				warning.setVisibility(0);
+			//checks that all fields had been set
+			}else if(users.contains("")){
+				warning.setText("Must input usernames for all fields");
+				warning.setVisibility(0);
 			}else{
 				SendInvitesTask task = new SendInvitesTask(groupName, user1, user2, user3, user4, user5, this);
 				task.execute(groupName);
