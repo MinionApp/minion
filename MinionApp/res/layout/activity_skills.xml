@@ -1196,7 +1196,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/knowledge_dungeoneering"
-        android:text="@string/done"
+        android:text="@string/save"
      	android:onClick="skills" />
 
 </RelativeLayout>
