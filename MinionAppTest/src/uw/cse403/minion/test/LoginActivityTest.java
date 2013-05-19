@@ -82,8 +82,7 @@ public class LoginActivityTest extends
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.login_button));
 		
 		
-		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.error);
-		assertTrue(errorView.isShown());
+		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
 		assertNotNull(errorView);
 		solo.assertCurrentActivity("Login failed", LoginActivity.class);
 		getActivity().finish();
@@ -105,8 +104,7 @@ public class LoginActivityTest extends
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.login_button));
 		
 		
-		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.error);
-		assertTrue(errorView.isShown());
+		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
 		assertNotNull(errorView);
 		solo.assertCurrentActivity("Login failed", LoginActivity.class);
 		getActivity().finish();
@@ -128,8 +126,7 @@ public class LoginActivityTest extends
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.login_button));
 		
 		
-		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.error);
-		assertTrue(errorView.isShown());
+		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
 		assertNotNull(errorView);
 		solo.assertCurrentActivity("Login failed", LoginActivity.class);
 		getActivity().finish();
