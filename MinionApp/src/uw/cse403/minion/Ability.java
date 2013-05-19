@@ -64,7 +64,9 @@ public class Ability {
 		default 			: abilityID = -1;
 		}
 
-		loadAbilities();
+		if (charID >= 0) {
+			loadAbilities();
+		}
 	}
 
 	private void loadAbilities() {
@@ -213,7 +215,7 @@ public class Ability {
 		if (score >= 10) {
 			mod = (score - 10) / 2;
 		} else {
-			mod = (11 - score) / 2;
+			mod = (score - 11) / 2;
 		}
 		
 		return mod;
