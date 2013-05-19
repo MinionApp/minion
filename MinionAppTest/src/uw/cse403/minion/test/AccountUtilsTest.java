@@ -6,6 +6,7 @@ import uw.cse403.minion.AccountUtils;
 public class AccountUtilsTest extends TestCase {
 	private static final String VALID_USERNAME = "test";
 	private static final String VALID_PASSWORD = "abcDEF123@";
+	private static final String VALID_PASSWORD2 = "abcDEF123#";
 	private static final String INVALID_CREDENTIAL = "failure";
 	private static final String UNUSED_USERNAME = "marytest";
 	private static final String PHP_DELETE = "http://homes.cs.washington.edu/~mlidge/deleteUser.php";
@@ -51,6 +52,29 @@ public class AccountUtilsTest extends TestCase {
 		success = account.deleteUser(UNUSED_USERNAME);
 		assertTrue(success);
 		
+	}
+	
+	public void testGetSecurityQuestion() {
+		boolean success = account.startSignupTask(UNUSED_USERNAME, VALID_PASSWORD, VALID_PASSWORD, SPINNER_QUESTION_1,
+				COLOR);
+		assertTrue(success);
+		String questionActual = account.getSecurityQuestion(UNUSED_USERNAME);
+		questionActual = questionActual	.replace("_", " ");
+		assertTrue(questionActual.equals(SPINNER_QUESTION_1));
+		success = account.deleteUser(UNUSED_USERNAME);
+		assertTrue(success);
+	}
+	
+	public void testResetPassword() {
+		boolean success = account.startSignupTask(UNUSED_USERNAME, VALID_PASSWORD, VALID_PASSWORD, SPINNER_QUESTION_1,
+				COLOR);
+		assertTrue(success);
+		success = account.resetPassword(UNUSED_USERNAME, VALID_PASSWORD2);
+		assertTrue(success);
+		success = account.checkLogin(UNUSED_USERNAME, VALID_PASSWORD2);
+		assertTrue(success);
+		success = account.deleteUser(UNUSED_USERNAME);
+		assertTrue(success);
 	}
 
 }
