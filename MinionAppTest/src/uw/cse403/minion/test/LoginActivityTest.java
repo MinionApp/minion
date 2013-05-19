@@ -44,7 +44,7 @@ public class LoginActivityTest extends
 
 		solo = new Solo(getInstrumentation(), getActivity());
 		loginActivity = getActivity();
-		SaveSharedPreference.setUserName(loginActivity, EMPTY);
+		SaveSharedPreference.clearPreferences(loginActivity);
 		
 	}
 	
@@ -55,7 +55,7 @@ public class LoginActivityTest extends
 	 * that a successful login will redirect to the home activity.
 	 */
 	public void testCanLoginValid() {
-		SaveSharedPreference.setUserName(loginActivity, EMPTY);
+		SaveSharedPreference.clearPreferences(loginActivity);
 		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
 		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
@@ -73,7 +73,7 @@ public class LoginActivityTest extends
 	 * that a failed login will bring up the error text view.
 	 */
 	public void testCannotLoginInvalidUsername() {
-		SaveSharedPreference.setUserName(loginActivity, EMPTY);
+		SaveSharedPreference.clearPreferences(loginActivity);
 		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
 		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
@@ -85,7 +85,7 @@ public class LoginActivityTest extends
 		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
 		assertNotNull(errorView);
 		solo.assertCurrentActivity("Login failed", LoginActivity.class);
-		getActivity().finish();
+		solo.finishOpenedActivities();
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public class LoginActivityTest extends
 	 * that a failed login will bring up the error text view.
 	 */
 	public void testCannotLoginInvalidPassword() {
-		SaveSharedPreference.setUserName(loginActivity, EMPTY);
+		SaveSharedPreference.clearPreferences(loginActivity);
 		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
 		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
@@ -107,7 +107,7 @@ public class LoginActivityTest extends
 		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
 		assertNotNull(errorView);
 		solo.assertCurrentActivity("Login failed", LoginActivity.class);
-		getActivity().finish();
+		solo.finishOpenedActivities();
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class LoginActivityTest extends
 	 * that a failed login will bring up the error text view.
 	 */
 	public void testCannotLoginInvalidBoth() {
-		SaveSharedPreference.setUserName(loginActivity, EMPTY);
+		SaveSharedPreference.clearPreferences(loginActivity);
 		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
 		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
@@ -129,7 +129,7 @@ public class LoginActivityTest extends
 		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
 		assertNotNull(errorView);
 		solo.assertCurrentActivity("Login failed", LoginActivity.class);
-		getActivity().finish();
+		solo.finishOpenedActivities();
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public class LoginActivityTest extends
 	 * This is a black box test that checks if the desired result is stored.
 	 */
 	public void testKeepLoggedInTrue() {
-		SaveSharedPreference.setUserName(loginActivity, EMPTY);
+		SaveSharedPreference.clearPreferences(loginActivity);
 		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
 		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
@@ -161,7 +161,7 @@ public class LoginActivityTest extends
 	 * This is a black box test that checks if the desired result is stored.
 	 */
 	public void testKeepLoggedInFalse() {
-		SaveSharedPreference.setUserName(loginActivity, EMPTY);
+		SaveSharedPreference.clearPreferences(loginActivity);
 		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
 		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
