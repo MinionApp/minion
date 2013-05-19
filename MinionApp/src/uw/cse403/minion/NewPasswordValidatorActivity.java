@@ -26,7 +26,7 @@ public class NewPasswordValidatorActivity extends Activity {
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
-	
+
 	/**
 	 *  The regex that will only allow string with the following qualities:
 	 *  	1.) Must be at least 8 characters long
@@ -37,47 +37,68 @@ public class NewPasswordValidatorActivity extends Activity {
 	 *  	6.) Must contain no spaces
 	 */
 	private static final String PASSWORD_PATTERN = 
-            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-	
+			"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+
 	/**
 	 * Directs the intent to the correct activity based on the validity of the
 	 * passwords given to the password recovery form.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    Intent receivedIntent = getIntent();
-	    // Receives the data the user input into the password recovery form
-	    String username = receivedIntent.getStringExtra(USERNAME);
-	    String password = receivedIntent.getStringExtra(PASSWORD);
-	    String passwordConfirmation = receivedIntent.getStringExtra(PASSWORD_CONFIRMATION);
-	    Intent intent;
-	    // If password is valid and the password and confirmation password match
-	    if (validPassword(password) && matchingPasswords(password, passwordConfirmation)) {
-	    	// Checks for internet connectivity
-	    	if (ConnectionChecker.hasConnection(this)) {
-	    	   // Updates login credentials on remote database
-	       	    ResetPasswordTask task = new ResetPasswordTask(username, password, passwordConfirmation, this);
-      		    task.execute(username);
-
-	    	} else {
-	    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-	    	}
-	    // If any of the above conditions are not true
-	    } else {
-	    	intent = new Intent(this, PasswordResetActivity.class);
-	    	intent.putExtra(USERNAME, username);
-	    	// Stores if the given password is valid
-	    	intent.putExtra(IS_VALID_PASSWORD, validPassword(password));
-	    	// Stores if the given password and confirmation password match
-	    	intent.putExtra(PASSWORDS_MATCH, matchingPasswords(password, passwordConfirmation));
-	    	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	    	startActivity(intent);
-	 	   	finish();
+		super.onCreate(savedInstanceState);
+		Intent receivedIntent = getIntent();
+		// Receives the data the user input into the password recovery form
+		String username = receivedIntent.getStringExtra(USERNAME);
+		String password = receivedIntent.getStringExtra(PASSWORD);
+		String passwordConfirmation = receivedIntent.getStringExtra(PASSWORD_CONFIRMATION);
+		AccountUtils account = new AccountUtils();
+		Intent intent;
+		boolean valid = account.validPassword(password);
+		boolean match = account.matchingPasswords(password, passwordConfirmation);
+		// If password is valid and the password and confirmation password match
+		if (valid && match) {
+			// Checks for internet connectivity
+			if (ConnectionChecker.hasConnection(this)) {
+				// Updates login credentials on remote database
+				boolean success = account.resetPassword(username, password);
+				if (success) {
+					// reset succeeds, go to homepage.
+					intent = new Intent(this, LoginActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+					finish();
+				} else {
+					intent = new Intent(this, PasswordResetActivity.class);
+			    	// Stores if the given password is valid
+			    	intent.putExtra(IS_VALID_PASSWORD, true);
+			    	// Stores if the given password and confirmation password match
+			    	intent.putExtra(PASSWORDS_MATCH, true);
+			    	// Sends the input information back to the signup form so user doesn't have to reenter
+					intent.putExtra(PASSWORD, password);
+					intent.putExtra(USERNAME, username);
+					intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
+		    		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		        	startActivity(intent);
+		        	finish(); 
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+			}
+			// If any of the above conditions are not true
+		} else {
+			intent = new Intent(this, PasswordResetActivity.class);
+			intent.putExtra(USERNAME, username);
+			// Stores if the given password is valid
+			intent.putExtra(IS_VALID_PASSWORD, valid);
+			// Stores if the given password and confirmation password match
+			intent.putExtra(PASSWORDS_MATCH, match);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			finish();
 		}
-	    // note we never called setContentView()
+		// note we never called setContentView()
 	}
-	
+
 	/**
 	 * Checks that the given password is a valid password.
 	 * @param password The password the user input.
@@ -87,7 +108,7 @@ public class NewPasswordValidatorActivity extends Activity {
 		Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
 		return pattern.matcher(password).matches();
 	}
-	
+
 	/**
 	 * Checks that the given password and the given confirmation password match one another.
 	 * @param password The password the user input
@@ -98,79 +119,5 @@ public class NewPasswordValidatorActivity extends Activity {
 		return password.equals(passwordConfirmation);
 	}
 
-	/**
-	 * ResetPasswordTask is a private inner class that allows requests to be made to the remote
-	 * MySQL database parallel to the main UI thread. It updates the user's password to a valid
-	 * new one in the event that they forgot their original one and then directs to the correct
-	 * Activity. 
-	 */
-	private class ResetPasswordTask extends AsyncTask<String, Void, String> {
-		private String un;
-		private String pw;
-		private String passwordConfirmation;
-		private Context context;
-		
-		/**
-		 * Constructs a new ResetPasswordTask object.
-		 * @param username The user given username
-		 * @param password The user given password
-		 * @param passwordConfirmation The user given password confirmation
-		 * @param context The current Activity's context
-		 */
-		private ResetPasswordTask (String username, String password, String passwordConfirmation, Context context) {
-			this.un = username;
-			this.pw = password;
-			this.passwordConfirmation = passwordConfirmation;
-			this.context = context;
-		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
-	        postParameters.add(new BasicNameValuePair("password", pw));
-	
-			String result = null;
-	        
-	        //http post
-			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();    
-	        	res = res.replaceAll("\\s+", "");   
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	if (result.equals("1")) {  
-	    		// Login succeeds, go to homepage.
-	    		Intent intent = new Intent(context, LoginActivity.class);
-	    		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	startActivity(intent);
-	        	finish();
-	    	} else {
-	    		Intent intent = new Intent(context, PasswordResetActivity.class);
-		    	// Stores if the given password is valid
-		    	intent.putExtra(IS_VALID_PASSWORD, true);
-		    	// Stores if the given password and confirmation password match
-		    	intent.putExtra(PASSWORDS_MATCH, true);
-		    	// Sends the input information back to the signup form so user doesn't have to reenter
-				intent.putExtra(PASSWORD, pw);
-				intent.putExtra(USERNAME, un);
-				intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
-	    		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	startActivity(intent);
-	        	finish(); 
-	    	}
-	    }
-	}
+
 }
