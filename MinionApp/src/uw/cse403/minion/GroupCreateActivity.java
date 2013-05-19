@@ -158,6 +158,7 @@ public class GroupCreateActivity extends Activity {
 	     */
 	    protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, GroupsActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
         	finish();
 	    }

@@ -1,6 +1,8 @@
 package uw.cse403.minion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -19,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
@@ -28,6 +31,9 @@ import android.content.Intent;
 import android.os.Build;
 
 public class GroupsActivity extends Activity {
+	private static final String GROUPNAME = "groupname";
+	private static final String GAME_MASTER = "gm";
+	
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getGroups.php";
 	private String username;
 	
@@ -36,10 +42,10 @@ public class GroupsActivity extends Activity {
 
 	// Change this array's name and contents to be the character information
 	// received from the database
-	private static ArrayList<String> testArray;
+	private static ArrayList<HashMap<String, String>> testArray;
 
 	// Adapter for connecting the array above to the UI view
-	private ArrayAdapter<String> adapter;
+	private SimpleAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,19 +93,24 @@ public class GroupsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	@Override
+	public void onResume() {
+		super.onResume();
+		GetGroupsTask task = new GetGroupsTask(this);
+		task.execute(username);
+	}
+	
 	public void gotoCreateGroup(View view) {
 		Intent intent = new Intent(this, GroupCreateActivity.class);
 		startActivity(intent);
-		finish();
 	}
 	
 	public void gotoPendingInvites(View view) {
 		Intent intent = new Intent(this, ViewInvitesActivity.class);
 		startActivity(intent);
-		finish();
 	}
 
-	private class GetGroupsTask extends AsyncTask<String, Void, ArrayList<String>> {
+	private class GetGroupsTask extends AsyncTask<String, Void, ArrayList<HashMap<String, String>>> {
 		private Context context;
 		
 		private GetGroupsTask(Context context) {
@@ -109,12 +120,14 @@ public class GroupsActivity extends Activity {
 	    /**
 	     * Makes the HTTP request and returns the result as a String.
 	     */
-	    protected ArrayList<String> doInBackground(String... args) {
+	    protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
 	        //the data to send
 	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	        postParameters.add(new BasicNameValuePair("un", username));
 	        
-	        ArrayList<String> groupsArray = new ArrayList<String>();
+	        // Hashmap for ListView
+	        ArrayList<HashMap<String, String>> groupsArray = new ArrayList<HashMap<String, String>>();
+	        //ArrayList<String> groupsArray = new ArrayList<String>();
 			String result = null;
 	        
 	        //http post
@@ -131,12 +144,18 @@ public class GroupsActivity extends Activity {
 	                 
 	                // Storing each json item in variable
 	                String groupName = c.getString("groupname");
-	                Log.i("GROUP NAME", groupName);
-	                groupsArray.add(groupName);
+	                String gm = c.getString("gm");
+	                
+	                // creating new HashMap
+	                HashMap<String, String> map = new HashMap<String, String>();
+	                map.put(GROUPNAME, groupName);
+	                map.put(GAME_MASTER, gm);
+	                // adding HashList to ArrayList
+	                groupsArray.add(map);
 	            }
 	        } catch (Exception e) {
 	        	res = e.toString();
-	        	Log.i("ERROR", res);
+	        	//Log.i("ERROR", res);
 	        }
 	        return groupsArray;
 	    }
@@ -144,7 +163,7 @@ public class GroupsActivity extends Activity {
 	    /**
 	     * Parses the String result and directs to the correct Activity
 	     */
-	    protected void onPostExecute(ArrayList<String> result) {
+	    protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
 	    	testArray = result;
 	    	
 		    // Initialize the UI components
@@ -154,8 +173,9 @@ public class GroupsActivity extends Activity {
 
 	        // Create an empty adapter we will use to display the loaded data.
 	        // We pass null for the cursor, then update it in onLoadFinished()
-	        adapter = new ArrayAdapter<String>(context, 
-	        		android.R.layout.simple_list_item_1, testArray);
+	        adapter = new SimpleAdapter(context, testArray,
+	        		android.R.layout.simple_list_item_2, new String[] { GROUPNAME, GAME_MASTER }, new int[] {
+	        			android.R.id.text1, android.R.id.text2 });
 	        groupsListView.setAdapter(adapter);
 	        
 	        groupsListView.setOnItemClickListener(new OnItemClickListener() {
@@ -163,7 +183,11 @@ public class GroupsActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// When clicked, show a toast with the TextView text
-		            Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();	
+		            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(context, ViewGroupActivity.class);
+					String groupname = ((TextView) view).getText().toString();
+					intent.putExtra(GROUPNAME, groupname);
+					startActivity(intent);
 				}
 	          });
 	    }

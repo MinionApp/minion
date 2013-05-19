@@ -17,31 +17,10 @@
         android:visibility="gone"
         android:text="You have no pending invites" />
     
-	<TextView
-        android:id="@+id/invite1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textSize="16sp"
-        android:text="" />
-    
-    <Button
-        android:id="@+id/decline_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="Decline" 
-        android:onClick="declineInvite" />
-
-	<Button
-        android:id="@+id/accept_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/decline_button"
-        android:layout_alignTop="@+id/listView1"
-        android:text="Accept" 
-        android:onClick="acceptInvite" />
+	<ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </ListView>
 
 </RelativeLayout>
