@@ -36,11 +36,10 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 	public void testCanSelectInSpinner() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		solo.pressSpinnerItem(SPINNER_INDEX, 1);
-		Spinner securityQuestions = (Spinner) getActivity().findViewById(R.id.security_question_spinner);
-		String actualQuestion = securityQuestions.getSelectedItem().toString();
-		assertTrue(actualQuestion.equals(SPINNER_QUESTION_1));
-
-		getActivity().finish();
+		//Spinner securityQuestions = (Spinner) getActivity().findViewById(R.id.security_question_spinner);
+		//String actualQuestion = securityQuestions.getSelectedItem().toString();
+		assertTrue(solo.isSpinnerTextSelected(SPINNER_INDEX, SPINNER_QUESTION_1));
+		solo.finishOpenedActivities();
 	}
 	
 	public void testCanEnterText() {
@@ -57,17 +56,18 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 		assertTrue(VALID_USERNAME.equals(usernameString));
 		assertTrue(VALID_PASSWORD.equals(passwordString));
 		assertTrue(VALID_PASSWORD.equals(passwordMatchString));
-		getActivity().finish();
+		solo.finishOpenedActivities();
 	}
 	
 	public void testUsernameInUse() {
 		Intent i = new Intent();
 		i.putExtra(USERNAME_IN_USE, true);
 		setActivityIntent(i);
+		Solo solo = new Solo(getInstrumentation(), getActivity());
 		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.username_error);
 		assertTrue(errorView.isShown());
 		assertNotNull(errorView);
-		getActivity().finish();
+		solo.finishOpenedActivities();
 	}
 	
 	public void testInvalidPassword() {
@@ -78,22 +78,24 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.invalid_password_error);
 		assertTrue(errorView.isShown());
 		assertNotNull(errorView);
-		getActivity().finish();
+		solo.finishOpenedActivities();
 	}
 	
 	public void testNonMatchingPassword() {
 		Intent i = new Intent();
 		i.putExtra(PASSWORDS_MATCH, false);
 		setActivityIntent(i);
+		Solo solo = new Solo(getInstrumentation(), getActivity());
 		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.nonmatching_password_error);
 		assertTrue(errorView.isShown());
 		assertNotNull(errorView);
-		getActivity().finish();
+		solo.finishOpenedActivities();;
 	}
 	
 	
 	@Override
 	protected void tearDown() {
-		getActivity().finish();
+		Solo solo = new Solo(getInstrumentation(), getActivity());
+		solo.finishOpenedActivities();
 	}
 }
