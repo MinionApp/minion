@@ -14,14 +14,6 @@
         <property name="basedir" value="${basedir}"/>
     -->
     
-    <!-- Checks each line for tab characters (spaces should 
-		be used) - note that this does not check indentation, 
-		which is done below. This just checks for the presence
-		of the tab character.                                -->
-    <!-- See http://checkstyle.sf.net/config_whitespace.html -->
-    <module name="FileTabCharacter">
-		<property name="eachLine" value="true"/>
-	</module>
 	
     <module name="TreeWalker">
 
