@@ -226,7 +226,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/attack_bonus_enter"
-        android:text="@string/done"
+        android:text="@string/save"
      	android:onClick="combatScores" />
 
 </RelativeLayout>

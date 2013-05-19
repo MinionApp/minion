@@ -193,7 +193,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/will_numbers"
-        android:text="@string/done"
+        android:text="@string/save"
      	android:onClick="savingThrows" />
 
 </RelativeLayout>

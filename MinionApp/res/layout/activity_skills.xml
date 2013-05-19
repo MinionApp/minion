@@ -170,7 +170,7 @@
         
         <EditText 
 	        android:id="@+id/craft1_enter"
-	        android:inputType="numberSigned"
+	        android:inputType="textAutoCorrect"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
@@ -206,7 +206,7 @@
         
         <EditText 
 	        android:id="@+id/craft2_enter"
-	        android:inputType="numberSigned"
+	        android:inputType="textAutoCorrect"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
@@ -242,7 +242,7 @@
 		
         <EditText 
 	        android:id="@+id/craft3_enter"
-	        android:inputType="numberSigned"
+	        android:inputType="textAutoCorrect"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
@@ -855,6 +855,13 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:text="@string/perform" />
+        
+        <EditText 
+	        android:id="@+id/perform1_enter"
+	        android:inputType="textAutoCorrect"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
 		
 	    <EditText 
 	        android:id="@+id/perform1_ranks"
@@ -884,6 +891,13 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:text="@string/perform" />
+        
+        <EditText 
+	        android:id="@+id/perform2_enter"
+	        android:inputType="textAutoCorrect"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
 		
 	    <EditText 
 	        android:id="@+id/perform2_ranks"
@@ -913,6 +927,13 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:text="@string/profession" />
+        
+        <EditText 
+	        android:id="@+id/profession1_enter"
+	        android:inputType="textAutoCorrect"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
 		
 	    <EditText 
 	        android:id="@+id/profession1_ranks"
@@ -942,6 +963,13 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:text="@string/profession" />
+        
+        <EditText 
+	        android:id="@+id/profession2_enter"
+	        android:inputType="textAutoCorrect"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
 		
 	    <EditText 
 	        android:id="@+id/profession2_ranks"
@@ -1195,8 +1223,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/knowledge_dungeoneering"
-        android:text="@string/done"
+        android:layout_below="@id/use_magic_device"
+        android:text="@string/save"
      	android:onClick="skills" />
 
 </RelativeLayout>
