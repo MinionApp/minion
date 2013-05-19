@@ -94,6 +94,7 @@ public class GroupCreateActivity extends Activity {
 			TextView warning = (TextView) findViewById(R.id.warning);
 			//checks if all the users entered are unique
 			if(users.size() != 5){
+				warning.setText("Cannot create group with less then 5 members");
 				warning.setVisibility(0);
 			//checks that user isn't adding self to group
 			}else if(users.contains(username)){

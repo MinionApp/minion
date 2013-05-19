@@ -174,7 +174,18 @@
     <string name="title_activity_groups">Manage Groups</string>
     <string name="welcome">Welcome to Minion Character Creation!</string>
     <string name="char_creation_success">Character successfully saved!</string>
+    
     <string name="welcome_group">Welome to Minion Group Creation!</string>
+    <string name="create_new_group">Create New Group</string>
+    <string name="pending_invites">Pending Invites</string>
+    <string name="group_name">Name</string>
+    <string name="group_name_enter">Enter Group Name</string>
+    <string name="group_user_name">User Name</string>
+    <string name="group_enter_user_1">Enter User 1</string>
+    <string name="group_enter_user_2">Enter User 2</string>
+    <string name="group_enter_user_3">Enter User 3</string>
+    <string name="group_enter_user_4">Enter User 4</string>
+    <string name="group_enter_user_5">Enter User 5</string>
     <string name="title_activity_group_create">GroupCreate</string>
     <string name="title_activity_view_group">ViewGroupActivity</string>
     <string name="title_activity_edit_group">EditGroupActivity</string>

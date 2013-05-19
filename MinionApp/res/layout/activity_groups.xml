@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/button_pending_invites"
-        android:text="Create New Group"
+        android:text="@string/create_new_group"
      	android:onClick="gotoCreateGroup" />
     
 	<Button android:id="@+id/button_pending_invites"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Pending Invites"
+        android:text="@string/pending_invites"
      	android:onClick="gotoPendingInvites" />
 
 </RelativeLayout>

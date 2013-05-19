@@ -19,14 +19,14 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter Group Name" />
+        	android:text="@string/group_name_enter" />
     
     	<EditText 
     	    android:id="@+id/group_name_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="Name"/>
+        	android:hint="@string/group_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -40,14 +40,14 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 1" />
+        	android:text="@string/group_enter_user_1" />
     
     	<EditText 
     	    android:id="@+id/user_1_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -61,14 +61,14 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 2" />
+        	android:text="@string/group_enter_user_2" />
     
     	<EditText 
     	    android:id="@+id/user_2_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -82,14 +82,14 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 3" />
+        	android:text="@string/group_enter_user_3" />
     
     	<EditText 
     	    android:id="@+id/user_3_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -103,14 +103,14 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 4" />
+        	android:text="@string/group_enter_user_4" />
     
     	<EditText
     	    android:id="@+id/user_4_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -124,14 +124,14 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 5" />
+        	android:text="@string/group_enter_user_5" />
     
     	<EditText
     	    android:id="@+id/user_5_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <Button
@@ -148,7 +148,6 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_below="@id/create_group_button"
-        android:text="Cannot have multiple of the same user"
         android:textColor="#ff0000"
         android:visibility="invisible" />
 
