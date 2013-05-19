@@ -142,5 +142,14 @@
         android:layout_alignParentRight="true"
         android:text="@string/done"
         android:onClick="sendInvites" />
+    
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/create_group_button"
+        android:text="Cannot have multiple of the same user"
+        android:textColor="#ff0000"
+        android:visibility="invisible" />
 
 </RelativeLayout>

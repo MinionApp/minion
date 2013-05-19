@@ -1,6 +1,8 @@
 package uw.cse403.minion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -11,9 +13,12 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +33,7 @@ public class GroupCreateActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_create);
 		username = SaveSharedPreference.getPersistentUserName(GroupCreateActivity.this);
+
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -82,13 +88,23 @@ public class GroupCreateActivity extends Activity {
 			String user3 = user3EditText.getText().toString().trim();
 			String user4 = user4EditText.getText().toString().trim();
 			String user5 = user5EditText.getText().toString().trim();
-				
-			SendInvitesTask task = new SendInvitesTask(groupName, user1, user2, user3, user4, user5, this);
-			task.execute(groupName);
+			
+			
+			HashSet<String> users = new HashSet<String>();
+			//Create a set of all the users entered
+			users.addAll(Arrays.asList(user1, user2, user3, user4, user5));
+			//checks if all the users entered are unique
+			if(users.size() != 5){
+				findViewById(R.id.warning).setVisibility(0);
+			}else{
+				SendInvitesTask task = new SendInvitesTask(groupName, user1, user2, user3, user4, user5, this);
+				task.execute(groupName);
+			}
     	} else {
     		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
     	}
 	}
+	
 	
 	/**
 	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
