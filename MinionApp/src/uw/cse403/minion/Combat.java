@@ -1,6 +1,8 @@
 package uw.cse403.minion;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import android.content.ContentValues;
@@ -28,102 +30,212 @@ public class Combat {
 	private int speed;
 	private int initModifiers;
 	private int bAb;
-	private int armorTotal;
 	
-
-
+	/**
+	 * Creates a new Combat Object with all values initialized to 0
+	 * or empty lists accordingly
+	 */
 	public Combat() {
 		baseHP = 0;
 		damageReduction = 0;
 		lethalDamage = 0;
 		bludgeningDamage = 0;
 		armorModifiers = new HashMap<String, Integer>();
-		hpModifiers = new HashMap<String, Integer>();
 		speed = 0;
 		initModifiers = 0;
 		bAb = 0;
 	}
 	
+	/**
+	 * Get base hit point value
+	 * @return	an integer representing base HP
+	 */
 	public int getBaseHP() {
 		return baseHP;
 	}
 
+	/**
+	 * Set base hit points to given value
+	 * @param baseHP	an integer to set base HP to
+	 */
 	public void setBaseHP(int baseHP) {
 		this.baseHP = baseHP;
 	}
 
+	/**
+	 * Get the numeric value of Damage Reduction. Does not
+	 * include the effect type so in DR x/- this returns the
+	 * x but gives no indication of the -
+	 * 
+	 * @return	an integer representing the value of the Damage Reduction
+	 */
 	public int getDamageReduction() {
 		return damageReduction;
 	}
 
+	/**
+	 * Set the numeric value of Damage Reduction.
+	 * 
+	 * @param damageReduction the integer value of the Damage Reduction
+	 */
 	public void setDamageReduction(int damageReduction) {
 		this.damageReduction = damageReduction;
 	}
 
+	/**
+	 * The current lethal damage currently taken by the character, 
+	 * regardless of max or current hit points.
+	 * 
+	 * @return	A positive amount of damage taken by the character
+	 */
 	public int getLethalDamage() {
 		return lethalDamage;
 	}
 
+	/**
+	 * Set the current amount of lethal damage taken by character, 
+	 * overriding all previous damage with new value.
+	 * 
+	 * @param lethalDamage	Set damage taken by character
+	 */
 	public void setLethalDamage(int lethalDamage) {
 		this.lethalDamage = lethalDamage;
 	}
 
-	public int getBludgeningDamage() {
+	/**
+	 * The current bludgeoning  damage currently taken by the character, 
+	 * regardless of max or current hit points.
+	 * 
+	 * @return	A positive amount of damage taken by the character
+	 */
+	public int getBludgeoningDamage() {
 		return bludgeningDamage;
 	}
-
-	public void setBludgeningDamage(int bludgeningDamage) {
+	
+	/**
+	 * Set the current amount of bludgeoning damage taken by character, 
+	 * overriding all previous damage with new value.
+	 * 
+	 * @param lethalDamage	Set damage taken by character
+	 */
+	public void setBludgeoningDamage(int bludgeningDamage) {
 		this.bludgeningDamage = bludgeningDamage;
 	}
 
-	public Map<String, Integer> getArmorModifiers() {
-		return armorModifiers;
+	/**
+	 * Returns the modifier under the given name. Can return both negative
+	 * and positive modifiers. These modifiers represent values that will be
+	 * either added or subtracted from a character's armor class.
+	 * 
+	 * @param armorName the name of the Armor Modifier whose value is retrieved
+	 * @return 	the value associated with the given String, may be either negative
+	 * 			or positive. Returns 0 if no Armor Modifier of the given name
+	 * 			was found
+	 */
+	public int getArmorModifier(String armorName){
+		if (armorModifiers.containsKey(armorName)) {
+			return armorModifiers.get(armorName);
+		}
+		
+		return 0;
 	}
-
-	public void addArmorModifiers(String type, int value) {
-		armorModifiers.put(type, value);
-	}
-
 	
-	public Map<String, Integer> getHpModifiers() {
-		return hpModifiers;
+	/**
+	 * Removes the modifier under the given name as well as the record of that name.
+	 * 
+	 * @param armorName	the name of the Armor Modifier to remove
+	 * @modifies this
+	 */
+	public void removeArmorModifier(String armorName){
+		if (armorModifiers.containsKey(armorName)) {
+			armorModifiers.remove(armorName);
+		}
+	}
+	
+	/**
+	 * Adds a new Armor Modifier with the given name and value
+	 * 
+	 * @param armorName	the name of the Armor Modifier
+	 * @param armorValue	the value of the modifier
+	 * @modifies this
+	 */
+	public void addArmorModifier(String armorName, int armorValue){
+		//TODO: Consider already existing values
+		armorModifiers.put(armorName, armorValue);
 	}
 
-	public void setHpModifiers(String type, int value) {
-		hpModifiers.put(type, value);
-	}
-
+	/**
+	 * Get base speed in US feet.
+	 * 
+	 * @return	an integer base speed in feet
+	 */
 	public int getSpeed() {
 		return speed;
 	}
-
+	
+	/**
+	 * Set the base speed of a character stored in US feet.
+	 * 
+	 * @param speed	an integer base speed in feet
+	 */
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
 
-	public int getInitModifiers() {
+	/**
+	 * A single number representing all initiative modifiers,
+	 * not including dex modifier.
+	 * 
+	 * @return an integer of all modifiers to initiative added together
+	 */
+	public int getInitModifier() {
 		return initModifiers;
 	}
 
+	/**
+	 * Override old initiative modifiers with new modifier representing
+	 * all modifiers to initiative except dexterity
+	 * 
+	 * @param initModifiers	integer modifier to initiative
+	 */
 	public void setInitModifiers(int initModifiers) {
 		this.initModifiers = initModifiers;
 	}
 
+	/**
+	 * return base attack bonus given by character class, user set
+	 * 
+	 * @return	an integer base attack bonus
+	 */
 	public int getbAb() {
 		return bAb;
 	}
 
+	/**
+	 * Set base attack bonus, overriding old base attack bonus
+	 * 
+	 * @param bAb	integer new base attack bonus
+	 */
 	public void setbAb(int bAb) {
 		this.bAb = bAb;
 	}
 
+	/**
+	 * Return total armor class
+	 * 
+	 * @return	an integer total armor class
+	 */
 	public int getArmorTotal() {
-		return armorTotal;
+		//TODO: Include dexterity modifier
+		int score = 10;
+		Collection<Integer> temps = armorModifiers.values();
+		Iterator<Integer> it = temps.iterator();
+		while (it.hasNext()) {
+			score += it.next();
+		}
+		return score;
 	}
 
-	public void setArmorTotal(int armorTotal) {
-		this.armorTotal = armorTotal;
-	}
 	
 	/** 
 	 * Writes Combat to database. SHOULD ONLY BE CALLED BY CHARACTER
@@ -141,7 +253,7 @@ public class Combat {
 		values.put(SQLiteHelperCombat.COLUMN_SPEED_BASE, speed);
 		values.put(SQLiteHelperCombat.COLUMN_INIT_MISC_MOD, initModifiers);
 		values.put(SQLiteHelperCombat.COLUMN_BASE_ATTACK_BONUS, bAb);
-		// still need to do lethal/bludgeoning, and armor/hp mods
+		// still need to do lethal/bludgeoning, and armor mods
 		db.insert(SQLiteHelperCombat.TABLE_NAME, null, values);
 	}
 }

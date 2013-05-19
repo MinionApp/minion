@@ -185,7 +185,7 @@ public class Character {
 	 * @return	current hit points of character.
 	 */
 	public int getCurrentHitPoints(){
-		return getTotalHitPoints() - (combat.getLethalDamage() + combat.getBludgeningDamage());
+		return getTotalHitPoints() - (combat.getLethalDamage() + combat.getBludgeoningDamage());
 	}
 	
 	/**
