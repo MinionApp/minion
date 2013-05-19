@@ -36,9 +36,9 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 	public void testCanSelectInSpinner() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		solo.pressSpinnerItem(SPINNER_INDEX, 1);
-		//Spinner securityQuestions = (Spinner) solo.ge;
-		//String actualQuestion = securityQuestions.getSelectedItem().toString();
-		assertTrue(solo.isSpinnerTextSelected(SPINNER_QUESTION_1));
+		Spinner securityQuestions = (Spinner) getActivity().findViewById(R.id.security_question_spinner);
+		String actualQuestion = securityQuestions.getSelectedItem().toString();
+		assertTrue(actualQuestion.equals(SPINNER_QUESTION_1));
 
 		getActivity().finish();
 	}
