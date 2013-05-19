@@ -13,7 +13,9 @@ try {
 	$num++;
 	$sql = "UPDATE `Group` SET `num_users` = '$num' WHERE groupname = '$group'";
 	$result = $db->exec($sql);
-	$sql = "DELETE FROM group_user WHERE groupname = '$group' AND username = '$un'";
+	$sql = "INSERT INTO group_user (groupname, username) VALUES ('$group', '$un')";
+	$result = $db->exec($sql);
+	$sql = "DELETE FROM invites WHERE groupname = '$group' AND username = '$un'";
 	$result = $db->exec($sql);
 	echo $num;
 } catch (PDOException $e) {

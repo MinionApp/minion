@@ -122,21 +122,6 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, GroupsActivity.class);
 		startActivity(intent);
 	}
-
-	/**
-	 * Responds to the settings button click and goes to the manage
-	 * groups page. (Settings currently unimplemented so directs to
-	 * HomeActivity instead)
-	 * @param view The current view
-	 */
-	public void goToSettings(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
-		startActivity(intent);
-	}
-	
-	public void gotoTesting(View view) {
-		Intent intent = new Intent(this, SQLiteTestActivity.class);
-	}
 	
 	/**
 	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
