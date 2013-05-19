@@ -66,6 +66,6 @@ public class SaveSharedPreference {
      * @return the username, an empty string otherwise.
      */
     public static String getPersistentUserName(Context context) {
-    	return getPrefs(context).getString(PREF_USER_NAME, "");
+    	return getPrefs(context).getString(PERSISTENT_USER_NAME, "");
     }
 }
