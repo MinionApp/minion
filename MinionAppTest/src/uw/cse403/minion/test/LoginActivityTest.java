@@ -56,14 +56,14 @@ public class LoginActivityTest extends
 	 */
 	public void testCanLoginValid() {
 		SaveSharedPreference.setUserName(loginActivity, EMPTY);
-		EditText usernameField = (EditText) solo.getView(uw.cse403.minion.R.id.username_input); 
-		EditText passwordField = (EditText) solo.getView(uw.cse403.minion.R.id.password_input); 
+		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
+		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
 		solo.typeText(usernameField, VALID_USERNAME);
 		solo.typeText(passwordField, VALID_PASSWORD);
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.login_button));
 		solo.assertCurrentActivity("Login successful", HomeActivity.class);
-		solo.finishOpenedActivities();
+		getActivity().finish();
 	}
 	
 	/**
@@ -74,18 +74,19 @@ public class LoginActivityTest extends
 	 */
 	public void testCannotLoginInvalidUsername() {
 		SaveSharedPreference.setUserName(loginActivity, EMPTY);
-		EditText usernameField = (EditText) solo.getView(uw.cse403.minion.R.id.username_input); 
-		EditText passwordField = (EditText) solo.getView(uw.cse403.minion.R.id.password_input); 
+		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
+		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
 		solo.typeText(usernameField, INVALID_CREDENTIAL);
 		solo.typeText(passwordField, VALID_PASSWORD);
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.login_button));
 		
 		
-		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
+		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.error);
+		assertTrue(errorView.isShown());
 		assertNotNull(errorView);
-		solo.assertCurrentActivity("Login successful", LoginActivity.class);
-		solo.finishOpenedActivities();
+		solo.assertCurrentActivity("Login failed", LoginActivity.class);
+		getActivity().finish();
 	}
 	
 	/**
@@ -96,18 +97,19 @@ public class LoginActivityTest extends
 	 */
 	public void testCannotLoginInvalidPassword() {
 		SaveSharedPreference.setUserName(loginActivity, EMPTY);
-		EditText usernameField = (EditText) solo.getView(uw.cse403.minion.R.id.username_input); 
-		EditText passwordField = (EditText) solo.getView(uw.cse403.minion.R.id.password_input); 
+		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
+		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
 		solo.typeText(usernameField, VALID_USERNAME);
 		solo.typeText(passwordField, INVALID_CREDENTIAL);
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.login_button));
 		
 		
-		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
+		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.error);
+		assertTrue(errorView.isShown());
 		assertNotNull(errorView);
-		solo.assertCurrentActivity("Login successful", LoginActivity.class);
-		solo.finishOpenedActivities();
+		solo.assertCurrentActivity("Login failed", LoginActivity.class);
+		getActivity().finish();
 	}
 	
 	/**
@@ -118,18 +120,19 @@ public class LoginActivityTest extends
 	 */
 	public void testCannotLoginInvalidBoth() {
 		SaveSharedPreference.setUserName(loginActivity, EMPTY);
-		EditText usernameField = (EditText) solo.getView(uw.cse403.minion.R.id.username_input); 
-		EditText passwordField = (EditText) solo.getView(uw.cse403.minion.R.id.password_input); 
+		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
+		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
 		solo.typeText(usernameField, INVALID_CREDENTIAL);
 		solo.typeText(passwordField, INVALID_CREDENTIAL);
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.login_button));
 		
 		
-		TextView errorView = solo.getText(solo.getString(uw.cse403.minion.R.string.invalid_login), true);
+		TextView errorView = (TextView) getActivity().findViewById(uw.cse403.minion.R.id.error);
+		assertTrue(errorView.isShown());
 		assertNotNull(errorView);
-		solo.assertCurrentActivity("Login successful", LoginActivity.class);
-		solo.finishOpenedActivities();
+		solo.assertCurrentActivity("Login failed", LoginActivity.class);
+		getActivity().finish();
 	}
 	
 	/**
@@ -140,8 +143,8 @@ public class LoginActivityTest extends
 	 */
 	public void testKeepLoggedInTrue() {
 		SaveSharedPreference.setUserName(loginActivity, EMPTY);
-		EditText usernameField = (EditText) solo.getView(uw.cse403.minion.R.id.username_input); 
-		EditText passwordField = (EditText) solo.getView(uw.cse403.minion.R.id.password_input); 
+		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
+		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
 		solo.typeText(usernameField, VALID_USERNAME);
 		solo.typeText(passwordField, VALID_PASSWORD);
@@ -162,8 +165,8 @@ public class LoginActivityTest extends
 	 */
 	public void testKeepLoggedInFalse() {
 		SaveSharedPreference.setUserName(loginActivity, EMPTY);
-		EditText usernameField = (EditText) solo.getView(uw.cse403.minion.R.id.username_input); 
-		EditText passwordField = (EditText) solo.getView(uw.cse403.minion.R.id.password_input); 
+		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
+		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
 		
 		solo.typeText(usernameField, VALID_USERNAME);
 		solo.typeText(passwordField, VALID_PASSWORD);
