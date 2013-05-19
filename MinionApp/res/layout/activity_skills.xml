@@ -1,7 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+	 android:layout_height="match_parent">
+
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -1189,14 +1193,16 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	</LinearLayout>
-    
-    <Button 
-        android:id="@+id/button_done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/knowledge_dungeoneering"
-        android:text="@string/done"
-     	android:onClick="skills" />
+
+		<Button
+		    android:id="@+id/button_done"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/use_magic_device"
+		    android:gravity="right"
+		    android:onClick="skills"
+		    android:text="@string/done" />
 
 </RelativeLayout>
+
+</ScrollView>

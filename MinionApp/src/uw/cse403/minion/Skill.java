@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class Skill {
 	private static final int CLASS_BONUS = 3;
 	
+	private int skillID; // get skill ID from ref db
 	private String name;
 	private int ranks;
 	private boolean classSkill;
@@ -162,7 +163,6 @@ public class Skill {
 	 */
 	public void writeToDB(long id, SQLiteDatabase db) {
 		// TODO implement
-		int skillID = 0; // get skill ID from ref db
 		
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, id);
