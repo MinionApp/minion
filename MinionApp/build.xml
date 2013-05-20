@@ -86,7 +86,14 @@
          In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
          in order to avoid having your file be overridden by tools such as "android update project"
     -->
-    <!-- version-tag: 1 -->
+    <!-- version-tag: custom  -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
-
+   <taskdef resource="checkstyletask.properties" classpath="${basedir}/libs/checkstyle.jar" />
+       <target name="checkstyle">
+          <checkstyle config="my_project_style.xml">
+               <fileset dir="src" includes="**/*.java" />
+               <formatter type="plain" />
+               <formatter type="xml" toFile="checkstyle-result.xml" />
+           </checkstyle>
+      </target>
 </project>
