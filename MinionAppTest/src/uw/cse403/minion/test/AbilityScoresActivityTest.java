@@ -23,10 +23,6 @@ public class AbilityScoresActivityTest extends
 	private Solo solo;
 	private Activity charCreate;
 	
-	private String lowScore = "7";
-	private String aveScore = "10";
-	private String highSchore = "18";
-	
 	public AbilityScoresActivityTest() {
 		super(CharactersActivity.class);
 
