@@ -87,6 +87,7 @@ public class HomeActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
 		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
 		task.execute(username);
 	}

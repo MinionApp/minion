@@ -96,6 +96,7 @@ public class GroupsActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		username = SaveSharedPreference.getPersistentUserName(GroupsActivity.this);
 		GetGroupsTask task = new GetGroupsTask(this);
 		task.execute(username);
 	}
