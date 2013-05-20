@@ -279,7 +279,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/h_w_hair_eyes_enter"
-        android:text="@string/done"
+        android:text="@string/save"
      	android:onClick="basicInfo" />
 
 </RelativeLayout>

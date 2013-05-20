@@ -182,5 +182,7 @@
     <string name="char_creation_success">Character successfully saved!</string>
     <string name="welcome_group">Welome to Minion Group Creation!</string>
     <string name="title_activity_group_create">GroupCreate</string>
+    
+    <string name="save">Save</string>
 
 </resources>
