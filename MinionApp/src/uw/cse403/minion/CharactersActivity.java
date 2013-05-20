@@ -1,6 +1,9 @@
 package uw.cse403.minion;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONObject;
 
 
 import android.os.Bundle;
@@ -9,14 +12,21 @@ import android.app.ListActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 
 public class CharactersActivity extends Activity {
+	private static final String CHARACTER_ID = "cid";
+	
 	private CharacterDataSource datasource;
 	
 	// Declare the UI components
@@ -24,7 +34,7 @@ public class CharactersActivity extends Activity {
 	
 	// Change this array's name and contents to be the character information
 	// received from the database
-	private static String[] testArray = {"testing", "one", "two", "three"};
+	private static ArrayList<String> testArray;
 	
 	// Adapter for connecting the array above to the UI view
 	private ArrayAdapter<String> adapter;
@@ -47,14 +57,42 @@ public class CharactersActivity extends Activity {
 	    
 	    // Initialize the UI components
         charListView = (ListView) findViewById(R.id.charListView);
-	    
-	    //int[] toViews = {android.R.id.text1}; // The TextView in activity_characters
 
+        //GETS ALL CHAR
+        Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+        		null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) { 
+				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
+				String characterName = cursor.getString(1);
+				testArray.add(characterName);
+				cursor.moveToNext();
+			}
+		}
+        cursor.close();
+        
         // Create an empty adapter we will use to display the loaded data.
         // We pass null for the cursor, then update it in onLoadFinished()
         adapter = new ArrayAdapter<String>(this, 
         		android.R.layout.simple_list_item_1, testArray);
         charListView.setAdapter(adapter);
+        charListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// When clicked, show a toast with the TextView text
+	            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
+				String charName = ((TextView) view).getText().toString();
+		        //GETS charID based on character name
+		        Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, SQLiteHelperBasicInfo.ALL_COLUMNS, 
+		        		SQLiteHelperBasicInfo.COLUMN_NAME + " = " + charName, null, null, null, null);
+		        int cid = cursor2.getInt(1);
+		        cursor2.close();
+				intent.putExtra(CHARACTER_ID, cid);
+				startActivity(intent);
+			}
+          });
 	}
 
 	/**

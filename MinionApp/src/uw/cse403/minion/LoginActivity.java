@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -103,18 +102,18 @@ public class LoginActivity extends Activity {
 	 */
 	public void gotoHomepage(View view) {
 	    if (ConnectionChecker.hasConnection(this)) {
-		// Get user login info.
-		EditText usernameEditText = (EditText) findViewById(R.id.username_input);
-		EditText passwordEditText = (EditText) findViewById(R.id.password_input);
-		//TextView error = (TextView) findViewById(R.id.error);
-		String un = usernameEditText.getText().toString().trim();
-		String pw = passwordEditText.getText().toString().trim();
-			
-		CheckLoginTask task = new CheckLoginTask(un, pw, keepLoggedIn, this);
-		task.execute(un);
-    	    } else {
+			// Get user login info.
+			EditText usernameEditText = (EditText) findViewById(R.id.username_input);
+			EditText passwordEditText = (EditText) findViewById(R.id.password_input);
+			//TextView error = (TextView) findViewById(R.id.error);
+			String un = usernameEditText.getText().toString().trim();
+			String pw = passwordEditText.getText().toString().trim();
+				
+			CheckLoginTask task = new CheckLoginTask(un, pw, keepLoggedIn, this);
+			task.execute(un);
+    	} else {
     		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-    	    }
+    	}
 
 	}
 	
@@ -203,8 +202,10 @@ public class LoginActivity extends Activity {
         	if (result.equals("1")) {  
         		// Stores the username into preferences.
         		if (keepLoggedIn) {
-        			SaveSharedPreference.setUserName(context, un);
+        			SaveSharedPreference.setUserName(LoginActivity.this, un);
         		}
+        		// Stores the username to be used by later Activities
+        		SaveSharedPreference.setPersistentUserName(context, un);
         		// Login succeeds, go to homepage.
         		Intent intent = new Intent(context, HomeActivity.class);
         		startActivity(intent);

@@ -126,7 +126,7 @@ public class SkillsActivity extends Activity {
 					ranksFieldID = R.id.climb_ranks;
 					modsFieldID = R.id.climb_misc_mod; break;
 				case 5: 
-					if (crafts < 3)
+					//if (crafts < 3)
 						crafts++;
 					if (crafts == 1) {
 						ranksFieldID = R.id.craft1_ranks;
@@ -135,9 +135,6 @@ public class SkillsActivity extends Activity {
 						ranksFieldID = R.id.craft2_ranks;
 						modsFieldID = R.id.craft2_misc_mod;
 					} else if (crafts == 3) {
-						ranksFieldID = R.id.craft3_ranks;
-						modsFieldID = R.id.craft3_misc_mod;
-					} else {
 						ranksFieldID = R.id.craft3_ranks;
 						modsFieldID = R.id.craft3_misc_mod;
 					} break;
@@ -202,7 +199,7 @@ public class SkillsActivity extends Activity {
 					ranksFieldID = R.id.perception_ranks;
 					modsFieldID = R.id.perception_misc_mod; break;
 				case 26: 
-					if (performs < 2)
+					//if (performs < 2)
 						performs++;
 					if (performs == 1) {
 						ranksFieldID = R.id.perform1_ranks;
@@ -212,7 +209,7 @@ public class SkillsActivity extends Activity {
 						modsFieldID = R.id.perform2_misc_mod;
 					} break;
 				case 27: 
-					if (professions < 2)
+					//if (professions < 2)
 						professions++;
 					if (professions == 1) {
 						ranksFieldID = R.id.profession1_ranks;

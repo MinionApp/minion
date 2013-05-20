@@ -1,26 +1,35 @@
 package uw.cse403.minion;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 /**
  * HomeActivity is the activity that provides the user with the home page for the application.
  * This page is displayed after all login activities have been completed or bypassed. This page
- * also provides the means to get the the character management page, group management page, settings
- * page and the logout option.
+ * also provides the means to get the the character management page, group management page, and
+ * the logout option.
  * @author Kevin Dong (kevinxd3)
  *
  */
 public class HomeActivity extends Activity {
-
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getNumberOfInvites.php";
+	private String username;
+	
 	/**
 	 * Displays the home page.
 	 */
@@ -28,6 +37,9 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
+		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
+		task.execute(username);
 		// Show the Up button in the action bar.
 		//setupActionBar();
 	}
@@ -72,6 +84,16 @@ public class HomeActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Updates the view if it is reached via back button presses.
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
+		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
+		task.execute(username);
+	}
 
 	/**
 	 * Responds to the manage characters button click and goes to the manage
@@ -90,6 +112,7 @@ public class HomeActivity extends Activity {
 	public void logout(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
 		SaveSharedPreference.setUserName(HomeActivity.this, "");
+		SaveSharedPreference.setPersistentUserName(HomeActivity.this, "");
 		startActivity(intent);
 		finish();
 	}
@@ -103,19 +126,56 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, GroupsActivity.class);
 		startActivity(intent);
 	}
-
+	
 	/**
-	 * Responds to the settings button click and goes to the manage
-	 * groups page. (Settings currently unimplemented so directs to
-	 * HomeActivity instead)
-	 * @param view The current view
+	 * GetNumberOfInvitesTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It gets the number of pending invites for the
+	 * current user and updates the text on the manage groups button to reflect this number.
 	 */
-	public void goToSettings(View view) {
-		Intent intent = new Intent(this, HomeActivity.class);
-		startActivity(intent);
-	}
-	public void gotoTesting(View view) {
-		Intent intent = new Intent(this, SQLiteTestActivity.class);
+	private class GetNumberOfInvitesTask extends AsyncTask<String, Void, String> {
+		private Context context;
+		
+		/**
+		 * Constructs a new GetNumberOfInvitesTask object.
+		 * @param context The current Activity's context.
+		 */
+		private GetNumberOfInvitesTask (Context context) {
+			this.context = context;
+		}
+		
+	    /**
+	     * Makes the HTTP request and returns the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("un", username));
+	        
+
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+	        	res = result.toString();   
+	        	res = res.replaceAll("\\s+", "");    
+	        } catch (Exception e) {  
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	    /**
+	     * Parses the String result and directs to the correct Activity
+	     */
+	    protected void onPostExecute(String result) {
+	    	if(!result.equals("0")) {
+	    		Button goToGroupsButton = (Button) findViewById(R.id.button2);
+		    	goToGroupsButton.setText("Manage Groups (" + result + ")");
+	    	}
+	    }
+	 
 	}
 
 }

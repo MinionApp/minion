@@ -13,8 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
 
-
-
 /**
  * EmptyValidatorActivity is an activity with no content, but serves as an intermediary step
  * to validate the correctness of the email and password as well as if the password and
