@@ -1,16 +1,8 @@
 package uw.cse403.minion;
 
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -29,7 +21,6 @@ import android.widget.Toast;
  * @author Mary Jone (mlidge) [secondary]
  */
 public class PasswordRecoveryActivity extends Activity {
-	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getSecurityQuestion.php";
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
 	private AccountUtils account;

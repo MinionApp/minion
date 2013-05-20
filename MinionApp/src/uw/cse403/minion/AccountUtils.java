@@ -25,6 +25,8 @@ public class AccountUtils {
 			"http://homes.cs.washington.edu/~elefse/getSecurityQuestion.php";
 	private static final String PHP_ADDRESS_RESET = 
 			"http://homes.cs.washington.edu/~elefse/resetPassword.php";
+	private static final String PHP_ADDRESS_CHECK_ANSWER = 
+			"http://homes.cs.washington.edu/~elefse/checkAnswer.php";
 
 	
 	
@@ -139,6 +141,23 @@ public class AccountUtils {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public boolean checkAnswer(String username, String question, String answer) {
+		CheckAnswerTask task = new CheckAnswerTask(username, question, answer);
+		String res;
+		try {
+			res = task.execute("").get();
+			return res.equals("1");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 	
 	/**
@@ -371,6 +390,59 @@ public class AccountUtils {
 	    }
 	 
 	   
+	}
+	
+	/**
+	 * CheckAnswerTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It takes the given username and answer
+	 * to the previously provided security question and checks to make sure these are correct
+	 * and then allows the user access to the password reset stage of the password recovery
+	 * process.
+	 */
+	private class CheckAnswerTask extends AsyncTask<String, Void, String> {
+		private String un;
+		private String question;
+		private String answer;
+		
+		/**
+		 * Constructs a new CheckAnswerTask object.
+		 * @param username The user given username
+		 * @param question The question received from the remote database that corresponds
+		 * 		  to the given username
+		 * @param answer The user given answer to the security question
+		 * @param context The current Activity's context
+		 */
+		private CheckAnswerTask (String username, String question, String answer) {
+			this.un = username;
+			this.question = question;
+			this.answer = answer;
+		}
+		
+	    /**
+	     * Makes the HTTP request and returns the result as a String.
+	     */
+	    protected String doInBackground(String... args) {
+	        //the data to send
+	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+	        postParameters.add(new BasicNameValuePair("username", un));
+	        postParameters.add(new BasicNameValuePair("question", question));
+	        postParameters.add(new BasicNameValuePair("answer", answer));
+
+			String result = null;
+	        
+	        //http post
+			String res;
+	        try{
+	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_CHECK_ANSWER, postParameters);
+	        	res = result.toString();   
+	        	res = res.replaceAll("\\s+", "");    
+	        } catch (Exception e) {   
+	        	res = e.toString();
+	        }
+	        return res;
+	    }
+	 
+	 
 	}
 	
 }
