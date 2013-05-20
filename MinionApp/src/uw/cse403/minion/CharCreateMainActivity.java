@@ -16,10 +16,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 
 public class CharCreateMainActivity extends Activity {
@@ -195,38 +197,46 @@ public class CharCreateMainActivity extends Activity {
 			}
 	    	
 	    	
-			/*JSONObject skillsObject = new JSONObject();
-	    	JSONArray abilityScores = new JSONArray();
+	    	Cursor cursor = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
+					SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
+	    	JSONObject skillsObject = new JSONObject();
+	    	JSONArray skills = new JSONArray();
 	    	try {
-	    		for(int i = 0; i < 6; i++) {
-			    	JSONObject ability = new JSONObject();
-			    	ability.put("name", abilities[i].getName());
-			    	ability.put("score", abilities[i].getScore());
-			    	ability.put("mod", abilities[i].getMod());
-			    	abilityScores.put(ability);
-	    		}
-	    		abilityObject.put("abilities", abilityScores);
-			} catch (JSONException e1) {
+		    	if (cursor.moveToFirst()) {
+					while (!cursor.isAfterLast()) { 
+						// Columns: COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_RANKS, COLUMN_MISC_MOD
+						int skillID = cursor.getInt(1);
+						int ranks = cursor.getInt(2);
+						int miscMod = cursor.getInt(3);
+						JSONObject skill = new JSONObject();
+				    	skill.put("ref_id", skillID);
+				    	skill.put("ranks", ranks);
+				    	skill.put("misc_mod", miscMod);
+				    	skills.put(skill);
+						cursor.moveToNext();
+					}
+					skillsObject.put("skills", skills);
+				}
+	    	} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}*/
-
+			}
+			cursor.close();
 	    	
 	        // the data to send
 	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	        postParameters.add(new BasicNameValuePair("username", username));
 	        postParameters.add(new BasicNameValuePair("basicInfo", basicInfo.toString()));
 	        postParameters.add(new BasicNameValuePair("abilities", abilityObject.toString()));
-	        //postParameters.add(new BasicNameValuePair("skills", skillsObject.toString()));
-	        //Log.i("JSON", skillsObject.toString());
+	        postParameters.add(new BasicNameValuePair("skills", skillsObject.toString()));
+	        Log.i("JSON", skillsObject.toString());
 			String result = null;
 	        
 	        //http post
 			String res;
 	        try{
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();    
-	        	res = res.replaceAll("\\s+", "");   
+	        	res = result.toString();       
 	        } catch (Exception e) {   
 	        	res = e.toString();
 	        }
@@ -237,10 +247,10 @@ public class CharCreateMainActivity extends Activity {
 	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
-        	Intent intent = new Intent(context, CharactersActivity.class);
-        	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+        	//Intent intent = new Intent(context, CharactersActivity.class);
+        	//intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //startActivity(intent);
+            //finish();
 	    }
 	}	 
 }

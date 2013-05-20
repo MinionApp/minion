@@ -2,6 +2,7 @@
 $un=$_POST['username'];   
 $basicInfo=json_decode($_POST['basicInfo']);
 $abilities=json_decode($_POST['abilities']);
+$skills=json_decode($_POST['skills']);
 
 try {
 	//connect to the db
@@ -44,6 +45,16 @@ try {
 			$sql = "UPDATE `char_ability` SET `score` = '$score' WHERE `char_id` = '$id' AND `ref_id` = '$i'";
 			$result = $db->exec($sql);
 			$i++;
+		}
+		
+		foreach($skills->skills as $skill) {
+			$ref_id = $skill->ref_id;
+			$ranks = $skill->ranks;
+			$misc_mod = $ability->score;
+			$sql = "DELETE FROM `char_skills` WHERE `char_id` = '$id' AND `ref_id` = '$ref_id'";
+			$result = $db->exec($sql);
+			$sql = "INSERT INTO `char_skills` (`char_id`, `ref_id`, `ranks`, `misc_mod`) VALUES ('$id', '$ref_id', '$ranks', '$misc_mod')";
+			$result = $db->exec($sql);
 		}
 		
 		echo 0;
@@ -89,7 +100,13 @@ try {
 		}
 		
 		// skills
-		
+		foreach($skills->skills as $skill) {
+			$ref_id = $skill->ref_id;
+			$ranks = $skill->ranks;
+			$misc_mod = $ability->score;
+			$sql = "INSERT INTO `char_skills` (`char_id`, `ref_id`, `ranks`, `misc_mod`) VALUES ('$id', '$ref_id', '$ranks', '$misc_mod')";
+			$result = $db->exec($sql);
+		}
 		echo 1;
 	}
 } catch (PDOException $e) {
