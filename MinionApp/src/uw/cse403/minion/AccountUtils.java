@@ -14,6 +14,12 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * AccountUtils is a collection of asynchronous tasks and 
+ * validators used to manipulate user accounts.
+ * @author Mary Jones (mlidge)
+ */
+
 public class AccountUtils {
 	private static final String PHP_ADDRESS_SIGNUP = 
 			"http://homes.cs.washington.edu/~elefse/signup.php";
@@ -41,11 +47,7 @@ public class AccountUtils {
 	 */
 	private static final String PASSWORD_PATTERN = 
             "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-	
-	public AccountUtils() {
-	
-	}
-	
+
 	/**
 	 * Checks that the given password is a valid password.
 	 * @param password The password the user input.
@@ -66,6 +68,15 @@ public class AccountUtils {
 		return password.equals(passwordConfirmation);
 	}
 	
+	/**
+	 * A wrapper method for the SignUpTask AsyncTask
+	 * @param username The user's chosen username
+	 * @param password The user's inputted password
+	 * @param passwordConfirmation The confirmation of the inputted password
+	 * @param question The chosen security question
+	 * @param answer The answer to the security question
+	 * @return a boolean representing a successful signin
+	 */
 	public boolean startSignupTask(String username, String password, String passwordConfirmation, String question, 
 			String answer) {
 		SignupTask task = new SignupTask(username, password, passwordConfirmation, question, answer);
@@ -82,6 +93,12 @@ public class AccountUtils {
 	    return false;
 	}
 		
+	/**
+	 * 
+	 * @param username the inputted username
+	 * @param password the inputted password
+	 * @return a boolean representing a successful login
+	 */
 	public boolean checkLogin(String username, String password) {
 		CheckLoginTask check = new CheckLoginTask(username, password);
 		try {

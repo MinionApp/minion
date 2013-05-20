@@ -1,17 +1,9 @@
 package uw.cse403.minion;
 
-import java.util.ArrayList;
-import java.util.regex.Pattern;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import android.os.AsyncTask;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 
 /**
  * NewPasswordValidatorActivity is an activity with no content, but serves as an intermediary step
@@ -20,24 +12,12 @@ import android.content.Intent;
  * @author Elijah Elefson (elefse)
  */
 public class NewPasswordValidatorActivity extends Activity {
-	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/resetPassword.php";
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
 
-	/**
-	 *  The regex that will only allow string with the following qualities:
-	 *  	1.) Must be at least 8 characters long
-	 *  	2.) Must contains at least 1 numerical digit
-	 *  	3.) Must contain at least 1 lowercase character
-	 *  	4.) Must contain at least 1 uppercase character
-	 *  	5.) Must contain at least 1 of the special symbols @#$%^&+=
-	 *  	6.) Must contain no spaces
-	 */
-	private static final String PASSWORD_PATTERN = 
-			"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 
 	/**
 	 * Directs the intent to the correct activity based on the validity of the
@@ -98,26 +78,5 @@ public class NewPasswordValidatorActivity extends Activity {
 		}
 		// note we never called setContentView()
 	}
-
-	/**
-	 * Checks that the given password is a valid password.
-	 * @param password The password the user input.
-	 * @return true if password is formatted correctly, false otherwise.
-	 */
-	private boolean validPassword(String password) {
-		Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
-		return pattern.matcher(password).matches();
-	}
-
-	/**
-	 * Checks that the given password and the given confirmation password match one another.
-	 * @param password The password the user input
-	 * @param passwordConfirmation The confirmation password the user input
-	 * @return true if password and confirmation password match, false otherwise.
-	 */
-	private boolean matchingPasswords(String password, String passwordConfirmation) {
-		return password.equals(passwordConfirmation);
-	}
-
 
 }

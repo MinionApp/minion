@@ -1,9 +1,7 @@
 package uw.cse403.minion.test;
 
-import uw.cse403.minion.EmptyValidatorActivity;
 import uw.cse403.minion.NewPasswordValidatorActivity;
 import uw.cse403.minion.PasswordResetActivity;
-import uw.cse403.minion.R;
 import uw.cse403.minion.SignupActivity;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
@@ -12,6 +10,11 @@ import android.widget.TextView;
 
 import com.jayway.android.robotium.solo.Solo;
 
+/**
+ * White box tests for the password reset mechanism
+ * @author Mary Jones (mlidge)
+ *
+ */
 public class PasswordResetActivityTest extends
 		ActivityInstrumentationTestCase2<PasswordResetActivity> {
 	
@@ -27,6 +30,9 @@ public class PasswordResetActivityTest extends
 		
 	}
 	
+	/**
+	 * Make sure the user can enter text
+	 */
 	public void testCanEnterText() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		EditText passwordEdit = (EditText) solo.getView(uw.cse403.minion.R.id.password_input);
@@ -44,6 +50,9 @@ public class PasswordResetActivityTest extends
 		solo.finishOpenedActivities();
 	}
 	
+	/**
+	 * Ensure the password cannot be reset to something invalid.
+	 */
 	public void testInvalidPassword() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		EditText passwordEdit = (EditText) solo.getView(uw.cse403.minion.R.id.password_input);
@@ -61,6 +70,9 @@ public class PasswordResetActivityTest extends
 		solo.finishOpenedActivities();
 	}
 	
+	/**
+	 * Ensure the newly entered passwords match
+	 */
 	public void testNonMatchingPassword() {
 		Solo solo = new Solo(getInstrumentation(), getActivity()); 
 		EditText password = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input);
