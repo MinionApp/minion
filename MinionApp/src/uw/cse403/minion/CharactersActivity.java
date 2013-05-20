@@ -86,17 +86,19 @@ public class CharactersActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// When clicked, show a toast with the TextView text
-	            Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-				//Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
-				//String charName = ((TextView) view).getText().toString();
+	            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
+				String charName = ((TextView) view).getText().toString();
 		        //GETS charID based on character name
-		        //Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
-		        //		SQLiteHelperBasicInfo.COLUMN_NAME + " = " + charName, null, null, null, null);
-		       // long cid = cursor2.getLong(0);
-		        //cursor2.close();
-				//int cid = 0;
-				//intent.putExtra(CHARACTER_ID, cid);
-				//startActivity(intent);
+		        Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
+		        		SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
+		        long cid = 0;
+		        if (cursor2.moveToFirst()) {
+		        	cid = cursor2.getLong(0);
+				}
+		        cursor2.close();
+				intent.putExtra(CHARACTER_ID, cid);
+				startActivity(intent);
 			}
           });
 	}
