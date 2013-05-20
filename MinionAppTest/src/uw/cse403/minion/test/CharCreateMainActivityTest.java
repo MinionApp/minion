@@ -49,10 +49,10 @@ public class CharCreateMainActivityTest extends
 	 * Test that setup to get to charCreateMainActivity at beginning of each test works
 	 */
 	public void testGetToCharCreateMainActivity() {
-	/*	SaveSharedPreference.clearPreferences(charCreate);
+		SaveSharedPreference.clearPreferences(charCreate);
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));	
 		solo.assertCurrentActivity("charCreateMainActivity", CharCreateMainActivity.class);
-		getActivity().finish(); */
+		getActivity().finish(); 
 
 	}
 	
