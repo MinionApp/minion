@@ -170,8 +170,8 @@ public class Skill {
 		values.put(SQLiteHelperSkills.COLUMN_REF_S_ID, skillID);
 		values.put(SQLiteHelperSkills.COLUMN_RANKS, ranks);
 		if (modifiers.size() > 0) {
-			modifiers.get(modifiers.keySet().iterator().next());
-			values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, ranks);
+			int mod = modifiers.get(modifiers.keySet().iterator().next());
+			values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, mod);
 		}
 		
 		SQLiteHelperSkills.db.insert(SQLiteHelperSkills.TABLE_NAME, null, values);

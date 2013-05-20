@@ -28,6 +28,8 @@ public class SkillsActivity extends Activity {
 		charID = this.getIntent().getExtras().getLong("cid");
 		// Show the Up button in the action bar.
 		setupActionBar();
+
+		loadData();
 	}
 
 	/**
@@ -63,6 +65,198 @@ public class SkillsActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	public void loadData() {
+		// prefixes for the xml fields
+		String[] xmlField = { "", "acrobatics", "appraise", "bluff", "climb", "craft", "diplomacy", 
+			"disable_device", "disguise", "escape_artist", "fly", "handle_animal", "heal", "intimidate",
+			"knowledge_arcana", "knowledge_dungeoneering", "knowledge_engineering", "knowledge_geography",
+			"knowledge_history", "knowledge_local", "knowledge_nature", "knowledge_nobility",
+			"knowledge_planes", "knowledge_religion", "linguistics", "perception", "perform", "profession",
+			"ride", "sense_motive", "sleight_of_hand", "spellcraft", "stealth", "survival", "swim", "use_magic_device" };
+
+		int crafts = 0;
+		int performs = 0;
+		int professions = 0;
+
+		Cursor cursor = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
+				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) { 
+				// Columns: COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_RANKS, COLUMN_MISC_MOD
+				int skillID = cursor.getInt(1);
+				int ranks = cursor.getInt(2);
+				int miscMod = cursor.getInt(3);
+//				String ranksEnter;
+//				String modEnter;
+//				if (skillID == 5)  { // craft
+//					crafts++;
+//					ranksEnter = xmlField[5] + crafts + "_ranks";
+//					modEnter = xmlField[5] + crafts + "_misc_mod";
+//				} else if (skillID == 26)  { // perform
+//					performs++;
+//					ranksEnter = xmlField[26] + performs + "_ranks";
+//					modEnter = xmlField[26] + performs + "_misc_mod";
+//				} else if (skillID == 27)  { // profession
+//					professions++;
+//					ranksEnter = xmlField[27] + professions + "_ranks";
+//					modEnter = xmlField[27] + professions + "_misc_mod";
+//				} else {
+//					ranksEnter = xmlField[skillID] + "_ranks";
+//					modEnter = xmlField[skillID] + "_misc_mod";
+//				}
+//				EditText ranksEnterField = (EditText) findViewById(R.id.acrobatics_ranks);
+//				ranksEnterField.setText(""+ranks);
+//				EditText modEnterField = (EditText) findViewById(R.id.acrobatics_misc_mod);
+//				modEnterField.setText(""+miscMod);
+				
+				int ranksFieldID = 0;
+				int modsFieldID = 0;
+				switch (skillID) {
+				case 1: 
+					ranksFieldID = R.id.acrobatics_ranks;
+					modsFieldID = R.id.acrobatics_misc_mod; break;
+				case 2: 
+					ranksFieldID = R.id.appraise_ranks;
+					modsFieldID = R.id.appraise_misc_mod; break;
+				case 3: 
+					ranksFieldID = R.id.bluff_ranks;
+					modsFieldID = R.id.bluff_misc_mod; break;
+				case 4: 
+					ranksFieldID = R.id.climb_ranks;
+					modsFieldID = R.id.climb_misc_mod; break;
+				case 5: 
+					if (crafts < 3)
+						crafts++;
+					if (crafts == 1) {
+						ranksFieldID = R.id.craft1_ranks;
+						modsFieldID = R.id.craft1_misc_mod;
+					} else if (crafts == 2) {
+						ranksFieldID = R.id.craft2_ranks;
+						modsFieldID = R.id.craft2_misc_mod;
+					} else if (crafts == 3) {
+						ranksFieldID = R.id.craft3_ranks;
+						modsFieldID = R.id.craft3_misc_mod;
+					} else {
+						ranksFieldID = R.id.craft3_ranks;
+						modsFieldID = R.id.craft3_misc_mod;
+					} break;
+				case 6: 
+					ranksFieldID = R.id.diplomacy_ranks;
+					modsFieldID = R.id.diplomacy_misc_mod; break;
+				case 7: 
+					ranksFieldID = R.id.disable_device_ranks;
+					modsFieldID = R.id.disable_device_misc_mod; break;
+				case 8: 
+					ranksFieldID = R.id.disguise_ranks;
+					modsFieldID = R.id.disguise_misc_mod; break;
+				case 9: 
+					ranksFieldID = R.id.escape_artist_ranks;
+					modsFieldID = R.id.escape_artist_misc_mod; break;
+				case 10: 
+					ranksFieldID = R.id.fly_ranks;
+					modsFieldID = R.id.fly_misc_mod; break;
+				case 11: 
+					ranksFieldID = R.id.handle_animal_ranks;
+					modsFieldID = R.id.handle_animal_misc_mod; break;
+				case 12: 
+					ranksFieldID = R.id.heal_ranks;
+					modsFieldID = R.id.heal_misc_mod; break;
+				case 13: 
+					ranksFieldID = R.id.intimidate_ranks;
+					modsFieldID = R.id.intimidate_misc_mod; break;
+				case 14: 
+					ranksFieldID = R.id.knowledge_arcana_ranks;
+					modsFieldID = R.id.knowledge_arcana_misc_mod; break;
+				case 15: 
+					ranksFieldID = R.id.knowledge_dungeoneering_ranks;
+					modsFieldID = R.id.knowledge_dungeoneering_misc_mod; break;
+				case 16: 
+					ranksFieldID = R.id.knowledge_engineering_ranks;
+					modsFieldID = R.id.knowledge_engineering_misc_mod; break;
+				case 17: 
+					ranksFieldID = R.id.knowledge_geography_ranks;
+					modsFieldID = R.id.knowledge_geography_misc_mod; break;
+				case 18: 
+					ranksFieldID = R.id.knowledge_history_ranks;
+					modsFieldID = R.id.knowledge_history_misc_mod; break;
+				case 19: 
+					ranksFieldID = R.id.knowledge_local_ranks;
+					modsFieldID = R.id.knowledge_local_misc_mod; break;
+				case 20: 
+					ranksFieldID = R.id.knowledge_nature_ranks;
+					modsFieldID = R.id.knowledge_nature_misc_mod; break;
+				case 21: 
+					ranksFieldID = R.id.knowledge_nobility_ranks;
+					modsFieldID = R.id.knowledge_nobility_misc_mod; break;
+				case 22: 
+					ranksFieldID = R.id.knowledge_planes_ranks;
+					modsFieldID = R.id.knowledge_planes_misc_mod; break;
+				case 23: 
+					ranksFieldID = R.id.knowledge_religion_ranks;
+					modsFieldID = R.id.knowledge_religion_misc_mod; break;
+				case 24: 
+					ranksFieldID = R.id.linguistics_ranks;
+					modsFieldID = R.id.linguistics_misc_mod; break;
+				case 25: 
+					ranksFieldID = R.id.perception_ranks;
+					modsFieldID = R.id.perception_misc_mod; break;
+				case 26: 
+					if (performs < 2)
+						performs++;
+					if (performs == 1) {
+						ranksFieldID = R.id.perform1_ranks;
+						modsFieldID = R.id.perform1_misc_mod;
+					} else if (performs == 2) {
+						ranksFieldID = R.id.perform2_ranks;
+						modsFieldID = R.id.perform2_misc_mod;
+					} break;
+				case 27: 
+					if (professions < 2)
+						professions++;
+					if (professions == 1) {
+						ranksFieldID = R.id.profession1_ranks;
+						modsFieldID = R.id.profession1_misc_mod;
+					} else if (professions == 2) {
+						ranksFieldID = R.id.profession2_ranks;
+						modsFieldID = R.id.profession2_misc_mod;
+					} break;
+				case 28: 
+					ranksFieldID = R.id.ride_ranks;
+					modsFieldID = R.id.ride_misc_mod; break;
+				case 29: 
+					ranksFieldID = R.id.sense_motive_ranks;
+					modsFieldID = R.id.sense_motive_misc_mod; break;
+				case 30: 
+					ranksFieldID = R.id.sleight_of_hand_ranks;
+					modsFieldID = R.id.sleight_of_hand_misc_mod; break;
+				case 31: 
+					ranksFieldID = R.id.spellcraft_ranks;
+					modsFieldID = R.id.spellcraft_misc_mod; break;
+				case 32: 
+					ranksFieldID = R.id.stealth_ranks;
+					modsFieldID = R.id.stealth_misc_mod; break;
+				case 33: 
+					ranksFieldID = R.id.survival_ranks;
+					modsFieldID = R.id.survival_misc_mod; break;
+				case 34: 
+					ranksFieldID = R.id.swim_ranks;
+					modsFieldID = R.id.swim_misc_mod; break;
+				case 35: 
+					ranksFieldID = R.id.use_magic_device_ranks;
+					modsFieldID = R.id.use_magic_device_misc_mod; break;
+				}
+				
+				EditText ranksEnterField = (EditText) findViewById(ranksFieldID);
+				ranksEnterField.setText(""+ranks);
+				EditText modEnterField = (EditText) findViewById(modsFieldID);
+				modEnterField.setText(""+miscMod);
+
+				cursor.moveToNext();
+			}
+		}
+		cursor.close();
+	}
 	
 	// helper class for storing a string and int together
 	// mostly for making the following code readable
@@ -82,7 +276,7 @@ public class SkillsActivity extends Activity {
 		//Skill sk = new Skill(null, null);
 		ArrayList<Skill> skills = new ArrayList<Skill>();
 		
-// this segment of code is for factoring the code so it's not so redundant
+// this segment of code is for factoring the code so that it's not so redundant
 // however the priority is getting this to work, so we can finish this later
 //		// load skills from DB
 //		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 

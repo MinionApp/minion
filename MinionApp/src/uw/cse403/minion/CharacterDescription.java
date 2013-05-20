@@ -65,7 +65,7 @@ public class CharacterDescription {
 		isNew = true;
 		// attempt to load from DB
 		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, SQLiteHelperBasicInfo.ALL_COLUMNS, 
-				"_id = " + charID, null, null, null, null);
+				SQLiteHelperBasicInfo.COLUMN_ID + " = " + charID, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			isNew = false;
 			// Columns: COLUMN_ID, COLUMN_NAME, COLUMN_ALIGNMENT, COLUMN_LEVEL, COLUMN_DEITY, 
