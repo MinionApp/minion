@@ -21,8 +21,8 @@ import android.widget.Button;
 /**
  * HomeActivity is the activity that provides the user with the home page for the application.
  * This page is displayed after all login activities have been completed or bypassed. This page
- * also provides the means to get the the character management page, group management page, settings
- * page and the logout option.
+ * also provides the means to get the the character management page, group management page, and
+ * the logout option.
  * @author Kevin Dong (kevinxd3)
  *
  */
@@ -84,6 +84,9 @@ public class HomeActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Updates the view if it is reached via back button presses.
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -125,9 +128,9 @@ public class HomeActivity extends Activity {
 	}
 	
 	/**
-	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
-	 * MySQL database parallel to the main UI thread. It updates the database to include the
-	 * specified players as part of a group and puts the current as the game master.
+	 * GetNumberOfInvitesTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It gets the number of pending invites for the
+	 * current user and updates the text on the manage groups button to reflect this number.
 	 */
 	private class GetNumberOfInvitesTask extends AsyncTask<String, Void, String> {
 		private Context context;

@@ -123,9 +123,18 @@ public class CharCreateMainActivity extends Activity {
     	}
 	}
 
+	/**
+	 * UploadCharacterTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It uploads any currently filled out character
+	 * information to the remote database for storage.
+	 */
 	private class UploadCharacterTask extends AsyncTask<String, Void, String> {
 		private Context context;
 		
+		/**
+		 * Constructs a new UploadCharacterTask object.
+		 * @param context The current Activity's context
+		 */
 		private UploadCharacterTask (Context context) {
 			this.context = context;
 		}
@@ -134,8 +143,9 @@ public class CharCreateMainActivity extends Activity {
 	     * Makes the HTTP request and returns the result as a String.
 	     */
 	    protected String doInBackground(String... args) {
-	    	CharacterDescription baseInfo = new CharacterDescription(charID);
 	    	
+	    	// Creates JSON object for basic character information
+	    	CharacterDescription baseInfo = new CharacterDescription(charID);
 	    	JSONObject basicInfo = new JSONObject();
 	    	try {
 	    		long id = charID;
@@ -159,6 +169,7 @@ public class CharCreateMainActivity extends Activity {
 				e1.printStackTrace();
 			}
 	    	
+	    	// Creates JSON object for character abilities
 	    	Ability[] abilities = new Ability[6];
 			abilities[0] = new Ability(charID, AbilityName.STRENGTH);
 			abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
@@ -201,7 +212,7 @@ public class CharCreateMainActivity extends Activity {
 			}*/
 
 	    	
-	        //the data to send
+	        // the data to send
 	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	        postParameters.add(new BasicNameValuePair("username", username));
 	        postParameters.add(new BasicNameValuePair("basicInfo", basicInfo.toString()));

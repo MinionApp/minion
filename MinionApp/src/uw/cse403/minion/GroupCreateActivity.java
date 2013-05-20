@@ -22,10 +22,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+/**
+ * GroupCreateActivity is an activity that provides the user with a form to create a new group
+ * and invite players to it.
+ * @author Elijah Elefson (elefse)
+ */
 public class GroupCreateActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/sendInvites.php";
 	private String username;
 	
+	/**
+	 * Displays the new group creation page.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,6 +54,9 @@ public class GroupCreateActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -53,6 +64,9 @@ public class GroupCreateActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -70,6 +84,12 @@ public class GroupCreateActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Responds to the send invites button click by first checking that the players to
+	 * be invited are valid. If the are valid the invites are sent and the group is created.
+	 * If they are not the user is prompted with an error message and must try again.
+	 * @param view The current view
+	 */
 	public void sendInvites(View view) {
 	    if (ConnectionChecker.hasConnection(this)) {
 			// Get user invites.

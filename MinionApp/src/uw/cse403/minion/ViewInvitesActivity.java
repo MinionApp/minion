@@ -24,12 +24,9 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * HomeActivity is the activity that provides the user with the home page for the application.
- * This page is displayed after all login activities have been completed or bypassed. This page
- * also provides the means to get the the character management page, group management page, settings
- * page and the logout option.
+ * ViewInvitesActivity is the activity that provides the user with a view of what pending invites
+ * they have and the ability to accept or decline them.
  * @author Elijah Elefson (elefse)
- *
  */
 public class ViewInvitesActivity extends ListActivity {
 	private static final String GROUPNAME = "groupname";
@@ -40,22 +37,31 @@ public class ViewInvitesActivity extends ListActivity {
 	private String username;
 	private String group;
 	
-	// Declare the UI components
+	/**
+	 * Declare the UI components
+	 */
 	private ListView invitesListView;
 
-	// Change this array's name and contents to be the character information
-	// received from the database
+	/**
+	 * Change this array's name and contents to be the character information
+	 * received from the database
+	 */
 	private static ArrayList<String> testArray;
 
-	// Adapter for connecting the array above to the UI view
+	/**
+	 * Adapter for connecting the array above to the UI view
+	 */
 	private ArrayAdapter<String> adapter;
 	
+	/**
+	 * Displays the view invites page for the current user.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_invites);
 		username = SaveSharedPreference.getPersistentUserName(ViewInvitesActivity.this);
-		getInvitesTask task = new getInvitesTask(this);
+		GetInvitesTask task = new GetInvitesTask(this);
 		task.execute(username);
 	}
 
@@ -99,44 +105,53 @@ public class ViewInvitesActivity extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Updates the view if it is reached via back button presses.
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
-		getInvitesTask task = new getInvitesTask(this);
+		GetInvitesTask task = new GetInvitesTask(this);
 		task.execute(username);
 	}
 	
+	/**
+	 * Responds to the accept invite button click by adding the user to the
+	 * group.
+	 * @param view The current view
+	 */
 	public void acceptInvite(View view) {
 		int position = getListView().getPositionForView((View) view.getParent());
 	    group = (String) getListView().getItemAtPosition(position);
-
-	    //Toast.makeText(ViewInvitesActivity.this, String.format("Accepting", group), Toast.LENGTH_SHORT).show();
 		acceptInviteTask task = new acceptInviteTask(this);
 		task.execute(username);
 	}
 	
+	/**
+	 * Responds to the decline invite button click by removing any pending invites
+	 * the user has from the current group.
+	 * @param view The current view
+	 */
 	public void declineInvite(View view) {
 		int position = getListView().getPositionForView((View) view.getParent());
 	    group = (String) getListView().getItemAtPosition(position);
-
-	    //Toast.makeText(ViewInvitesActivity.this, String.format("Accepting", group), Toast.LENGTH_SHORT).show();
 		declineInviteTask task = new declineInviteTask(this);
 		task.execute(username);
 	}
 	
 	/**
-	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
-	 * MySQL database parallel to the main UI thread. It updates the database to include the
-	 * specified players as part of a group and puts the current as the game master.
+	 * GetInvitesTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It gets all of the pending invites
+	 * for the current user and displays them in a ListView.
 	 */
-	private class getInvitesTask extends AsyncTask<String, Void, ArrayList<String>> {
+	private class GetInvitesTask extends AsyncTask<String, Void, ArrayList<String>> {
 		private Context context;
 		
 		/**
-		 * Constructs a new GetNumberOfInvitesTask object.
+		 * Constructs a new GetInvitesTask object.
 		 * @param context The current Activity's context.
 		 */
-		private getInvitesTask (Context context) {
+		private GetInvitesTask (Context context) {
 			this.context = context;
 		}
 		
@@ -148,7 +163,7 @@ public class ViewInvitesActivity extends ListActivity {
 	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	        postParameters.add(new BasicNameValuePair("un", username));
 	        
-	     // Hashmap for ListView
+	        // Hashmap for ListView
 	        ArrayList<String> invitesArray = new ArrayList<String>();
 			String result = null;
 	        
@@ -156,8 +171,7 @@ public class ViewInvitesActivity extends ListActivity {
 			String res;
 	        try{
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();   
-	        	//res = res.replaceAll("\\s+", ""); 
+	        	res = result.toString();    
 	        	JSONObject results  = new JSONObject(res);
 	        	JSONArray invites = results.getJSONArray("items");
 	        	// looping through groups
@@ -190,13 +204,9 @@ public class ViewInvitesActivity extends ListActivity {
 			    // Initialize the UI components
 		        invitesListView = (ListView) findViewById(android.R.id.list);
 
-			    //int[] toViews = {android.R.id.text1}; // The TextView in activity_characters
-
 		        // Create an empty adapter we will use to display the loaded data.
 		        // We pass null for the cursor, then update it in onLoadFinished()
-		        adapter = //new ArrayAdapter<String>(context, R.layout.custom_invite_list_item, testArray);
-		        new ArrayAdapter<String>(context, R.layout.custom_invite_list_item, 
-		        		   R.id.invite, testArray);
+		        adapter = new ArrayAdapter<String>(context, R.layout.custom_invite_list_item, R.id.invite, testArray);
 		        invitesListView.setAdapter(adapter);
 		        
 		        invitesListView.setOnItemClickListener(new OnItemClickListener() {

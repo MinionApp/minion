@@ -2,8 +2,6 @@ package uw.cse403.minion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeMap;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -12,24 +10,25 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+/**
+ * GroupsActivity is an activity that provides the user with a page to view and manage the
+ * various groups they own and are part of.
+ * @author Elijah Elefson (elefse)
+ */
 public class GroupsActivity extends Activity {
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
@@ -37,16 +36,25 @@ public class GroupsActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getGroups.php";
 	private String username;
 	
-	// Declare the UI components
+	/**
+	 * Declare the UI components
+	 */
 	private ListView groupsListView;
 
-	// Change this array's name and contents to be the character information
-	// received from the database
+	/**
+	 * Change this array's name and contents to be the character information
+	 * received from the database
+	 */
 	private static ArrayList<HashMap<String, String>> testArray;
 
-	// Adapter for connecting the array above to the UI view
+	/**
+	 * Adapter for connecting the array above to the UI view
+	 */
 	private SimpleAdapter adapter;
 	
+	/**
+	 * Displays the groups page.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,6 +77,9 @@ public class GroupsActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -76,6 +87,9 @@ public class GroupsActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -93,6 +107,9 @@ public class GroupsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Updates the view if it is reached via back button presses.
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -101,19 +118,38 @@ public class GroupsActivity extends Activity {
 		task.execute(username);
 	}
 	
+	/**
+	 * Responds to the create group button click and goes to the create
+	 * group page. 
+	 * @param view The current view
+	 */
 	public void gotoCreateGroup(View view) {
 		Intent intent = new Intent(this, GroupCreateActivity.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Responds to the pending invites button click and goes to the pending
+	 * invites page. 
+	 * @param view The current view
+	 */
 	public void gotoPendingInvites(View view) {
 		Intent intent = new Intent(this, ViewInvitesActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * GetGroupsTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. It gets all of the groups the user is
+	 * currently a part of and displays them in a ListView.
+	 */
 	private class GetGroupsTask extends AsyncTask<String, Void, ArrayList<HashMap<String, String>>> {
 		private Context context;
 		
+		/**
+		 * Constructs a new GetGroupsTask object.
+		 * @param context The current Activity's context.
+		 */
 		private GetGroupsTask(Context context) {
 			this.context = context;
 		}
@@ -128,15 +164,14 @@ public class GroupsActivity extends Activity {
 	        
 	        // Hashmap for ListView
 	        ArrayList<HashMap<String, String>> groupsArray = new ArrayList<HashMap<String, String>>();
-	        //ArrayList<String> groupsArray = new ArrayList<String>();
+
 			String result = null;
 	        
 	        //http post
 			String res;
 	        try{
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();   
-	        	//res = res.replaceAll("\\s+", "");
+	        	res = result.toString();
 	        	JSONObject results  = new JSONObject(res);
 	        	JSONArray groups = results.getJSONArray("items");
 	        	// looping through groups
@@ -156,7 +191,6 @@ public class GroupsActivity extends Activity {
 	            }
 	        } catch (Exception e) {
 	        	res = e.toString();
-	        	//Log.i("ERROR", res);
 	        }
 	        return groupsArray;
 	    }
@@ -169,8 +203,6 @@ public class GroupsActivity extends Activity {
 	    	
 		    // Initialize the UI components
 	        groupsListView = (ListView) findViewById(R.id.groupsListView);
-
-		    //int[] toViews = {android.R.id.text1}; // The TextView in activity_characters
 
 	        // Create an empty adapter we will use to display the loaded data.
 	        // We pass null for the cursor, then update it in onLoadFinished()
