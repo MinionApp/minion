@@ -276,7 +276,7 @@ public class Combat {
 	 * @param id id of character
 	 * @param db database to write into
 	 */
-	public void writeToDB(long id, SQLiteDatabase db) {
+	public void writeToDB(long id) {
 		// TODO implement
 		int skillID = 0; // get skill ID from ref db
 		
@@ -288,6 +288,6 @@ public class Combat {
 		values.put(SQLiteHelperCombat.COLUMN_INIT_MISC_MOD, initModifiers);
 		values.put(SQLiteHelperCombat.COLUMN_BASE_ATTACK_BONUS, bAb);
 		// still need to do lethal/bludgeoning, and armor mods
-		db.insert(SQLiteHelperCombat.TABLE_NAME, null, values);
+		SQLiteHelperCombat.db.insert(SQLiteHelperCombat.TABLE_NAME, null, values);
 	}
 }

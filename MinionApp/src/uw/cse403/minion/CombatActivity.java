@@ -85,7 +85,7 @@ public class CombatActivity extends Activity {
 			speedArmorEnter.setText(combat.speedArmor);
 
 			EditText initiativeMiscModEnter = (EditText) findViewById(R.id.initiative_misc_modifier_enter);
-			initiativeMiscModEnter.setText(combat.getInitModifiers());
+			initiativeMiscModEnter.setText(combat.getInitModifier());
 		}
 	}
 
@@ -145,7 +145,7 @@ public class CombatActivity extends Activity {
 			speedArmor = Integer.parseInt(speedArmorRaw);
 		}
 		
-		combat.setSpeed(speedBase, speedArmor);
+		combat.setSpeed(speedBase - speedArmor);
 	}
 	
 	/**

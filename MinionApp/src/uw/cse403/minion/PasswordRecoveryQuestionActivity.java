@@ -25,6 +25,7 @@ import android.widget.Toast;
  * PasswordRecoveryQuestionActivity is an activity that gives the user their security question
  * and then allows them to answer it in order to determine if they can reset their password.
  * @author Elijah Elefson (elefse)
+ * @author Mary Jones (mlidge) [secondary]
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
 	

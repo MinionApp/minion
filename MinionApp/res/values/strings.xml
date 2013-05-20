@@ -191,5 +191,6 @@
     <string name="title_activity_edit_group">EditGroupActivity</string>
     
     <string name="save">Save</string>
+    <string name="button_test">Test GUI</string>
 
 </resources>
