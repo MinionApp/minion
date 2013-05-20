@@ -16,6 +16,7 @@ import android.util.Log;
 public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
+	 static SQLiteDatabase db;
 
 	// REF ABILITY SCORES columns
 	public static final String TABLE_REF_ABILITY_SCORES = "ref_ability_scores";
@@ -125,7 +126,7 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 		}
 	}
 	// helper class for storing an int and string together
-	// mostly for making code readable
+	// mostly for making the following code readable
 	private class IntStr {
 		int i;
 		String s;
