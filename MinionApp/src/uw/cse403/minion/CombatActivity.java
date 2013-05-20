@@ -31,7 +31,8 @@ public class CombatActivity extends Activity {
 		charID = this.getIntent().getExtras().getLong("cid");
 		// Show the Up button in the action bar.
 		setupActionBar();
-		combat = new Combat();
+		combat = new Combat(charID);
+		//loadData();
 	}
 
 	/**
@@ -66,6 +67,26 @@ public class CombatActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void loadData() {
+		// TODO Auto-generated method stub
+		if (!combat.isNew) {
+			EditText hitPointsTotalEnter = (EditText) findViewById(R.id.hit_point_total_enter);
+			hitPointsTotalEnter.setText(combat.getBaseHP());
+			
+			EditText hitPointsDrEnter = (EditText) findViewById(R.id.hit_point_dr_enter);
+			hitPointsDrEnter.setText(combat.getDamageReduction());
+
+			EditText speedBaseEnter = (EditText) findViewById(R.id.speed_base_enter);
+			speedBaseEnter.setText(combat.speedBase);
+			
+			EditText speedArmorEnter = (EditText) findViewById(R.id.speed_armor_enter);
+			speedArmorEnter.setText(combat.speedArmor);
+
+			EditText initiativeMiscModEnter = (EditText) findViewById(R.id.initiative_misc_modifier_enter);
+			initiativeMiscModEnter.setText(combat.getInitModifiers());
+		}
 	}
 
 	/**
@@ -124,7 +145,7 @@ public class CombatActivity extends Activity {
 			speedArmor = Integer.parseInt(speedArmorRaw);
 		}
 		
-		combat.setSpeed(speedBase - speedArmor);
+		combat.setSpeed(speedBase, speedArmor);
 	}
 	
 	/**
@@ -184,6 +205,8 @@ public class CombatActivity extends Activity {
 			int armorMisc = Integer.parseInt(armorMiscRaw);
 			combat.addArmorModifiers(ARMOR_MISC_STRING, armorMisc);
 		}
+		
+		combat.writeToDB(charID);
 		
 	}
 }
