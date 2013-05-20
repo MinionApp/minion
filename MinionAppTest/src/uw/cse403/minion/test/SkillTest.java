@@ -24,9 +24,9 @@ public class SkillTest extends TestCase {
 	 * Test three parameter constructor for fatal failure only
 	 */
 	public void testSkillStringAbilityNameIntBoolean() {
-		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY, 1, true);
-		Skill climb = new Skill("Climb", AbilityName.STRENGTH, 0, false);
-		Skill jibberish = new Skill("#jSe820", AbilityName.CHARISMA, 4, false);
+		Skill acro = new Skill(-1, "Acrobatics", AbilityName.DEXTERITY, 1, true);
+		Skill climb = new Skill(-1, "Climb", AbilityName.STRENGTH, 0, false);
+		Skill jibberish = new Skill(-1, "#jSe820", AbilityName.CHARISMA, 4, false);
 		
 		assertTrue(acro != null);
 		assertTrue(climb != null);
@@ -60,7 +60,7 @@ public class SkillTest extends TestCase {
 		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY);
 		assertEquals(0, acro.getRank());
 		
-		Skill climb = new Skill("Climb", AbilityName.DEXTERITY, 1, true);
+		Skill climb = new Skill(-1, "Climb", AbilityName.DEXTERITY, 1, true);
 		assertEquals(1, climb.getRank());
 	}
 	
@@ -126,8 +126,8 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor, addModifier and Ability class
 	 */
 	public void testGetBonus() {
-		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY, 4, true);
-		Skill climb = new Skill("Climb", AbilityName.STRENGTH, 0, true);
+		Skill acro = new Skill(-1, "Acrobatics", AbilityName.DEXTERITY, 4, true);
+		Skill climb = new Skill(-1, "Climb", AbilityName.STRENGTH, 0, true);
 
 		Ability dex = new Ability(-1, AbilityName.DEXTERITY, 12);
 		Ability str = new Ability(-1, AbilityName.STRENGTH, 8);
