@@ -3,6 +3,12 @@ package uw.cse403.minion.test;
 import uw.cse403.minion.Combat;
 import junit.framework.TestCase;
 
+/**
+ * Whitebox test of backend Combat object
+ * 
+ * @author loki
+ *
+ */
 public class CombatTest extends TestCase {
 
 	/**

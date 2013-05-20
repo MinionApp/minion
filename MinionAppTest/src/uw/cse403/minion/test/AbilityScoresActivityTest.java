@@ -8,12 +8,24 @@ import uw.cse403.minion.CharactersActivity;
 import uw.cse403.minion.SaveSharedPreference;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.EditText;
 
+/**
+ * Whitebox test for AbilityScoresActivity to make sure text fields and buttons
+ * are functional.
+ * 
+ * @author loki
+ *
+ */
 public class AbilityScoresActivityTest extends
 		ActivityInstrumentationTestCase2<CharactersActivity> {
 	
 	private Solo solo;
 	private Activity charCreate;
+	
+	private String lowScore = "7";
+	private String aveScore = "10";
+	private String highSchore = "18";
 	
 	public AbilityScoresActivityTest() {
 		super(CharactersActivity.class);
@@ -21,7 +33,7 @@ public class AbilityScoresActivityTest extends
 	}
 	
 	/**
-	 * setup() instantiates Solo and stores the CharCreateMainActivity.
+	 * setup() instantiates Solo and stores the CharactersActivity.
 	 */
 	@Override
 	protected void setUp() throws Exception {
@@ -32,7 +44,8 @@ public class AbilityScoresActivityTest extends
 	}
 	
 	/**
-	 * Test that setup to get to charCreateMainActivity at beginning of each test works
+	 * Test that setup to get to charCreateMainActivity and then to AbilityScores
+	 *  at beginning of each test works
 	 */
 	public void testGetToAbilityScoresActivity() {
 		SaveSharedPreference.clearPreferences(charCreate);

@@ -4,6 +4,12 @@ import uw.cse403.minion.Ability;
 import uw.cse403.minion.AbilityName;
 import junit.framework.TestCase;
 
+/**
+ * Whitebox test of backend Ability Object
+ * 
+ * @author loki
+ *
+ */
 public class AbilityTest extends TestCase {
 
 	/*
