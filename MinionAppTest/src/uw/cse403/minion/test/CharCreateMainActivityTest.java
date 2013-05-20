@@ -14,7 +14,7 @@ import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
- * Testing of CharCreateMainActivity, but must start in CharacterActivity for 
+ * Whitebox testing of CharCreateMainActivity, but must start in CharacterActivity for 
  * database objects to initialize properly. Thus we move to the CharCreateMainActivity
  * at the beginning of each method in order to properly initialize.
  * 
