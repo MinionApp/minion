@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class Skill {
 	private static final int CLASS_BONUS = 3;
 	
+	private int skillID; // get skill ID from ref db
 	private String name;
 	private int ranks;
 	private boolean classSkill;
@@ -45,7 +46,8 @@ public class Skill {
 	 * @param classSkill	a boolean that if <code>false</code> means the skill is not a class
 	 * 						skill and if <code>true</code> is a class skill
 	 */
-	public Skill(String name, AbilityName attribute, int rank, boolean classSkill){
+	public Skill(int id, String name, AbilityName attribute, int rank, boolean classSkill){
+		this.skillID = id;
 		this.name = name;
 		// TODO: Consider not allowing negative ranks
 		if (rank < 0) {
@@ -169,16 +171,19 @@ public class Skill {
 	 * @param id id of character
 	 * @param db database to write into
 	 */
-	public void writeToDB(long id, SQLiteDatabase db) {
+	public void writeToDB(long id) {
 		// TODO implement
-		int skillID = 0; // get skill ID from ref db
 		
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, id);
 		values.put(SQLiteHelperSkills.COLUMN_REF_S_ID, skillID);
 		values.put(SQLiteHelperSkills.COLUMN_RANKS, ranks);
-		values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, ranks);
-		db.insert(SQLiteHelperSkills.TABLE_NAME, null, values);
+		if (modifiers.size() > 0) {
+			int mod = modifiers.get(modifiers.keySet().iterator().next());
+			values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, mod);
+		}
+		
+		SQLiteHelperSkills.db.insert(SQLiteHelperSkills.TABLE_NAME, null, values);
 	}
 	
 }
