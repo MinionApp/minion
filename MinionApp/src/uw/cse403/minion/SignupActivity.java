@@ -29,6 +29,7 @@ public class SignupActivity extends Activity{
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
 	private static final String USERNAME_IN_USE = "usernameInUse";
+	private static final String IS_VALID_USERNAME = "isValidUsername";
 	
 	/**
 	 * Displays the signup form in various states depending on the validity of the input and 
@@ -42,6 +43,7 @@ public class SignupActivity extends Activity{
 	    boolean isValidPassword = receivedIntent.getBooleanExtra(IS_VALID_PASSWORD, true);
 	    boolean passwordsMatch = receivedIntent.getBooleanExtra(PASSWORDS_MATCH, true);
 	    boolean usernameInUse = receivedIntent.getBooleanExtra(USERNAME_IN_USE, false);
+	    boolean isValidUsername = receivedIntent.getBooleanExtra(IS_VALID_USERNAME, true);
 	    
 		setContentView(R.layout.activity_signup);
 	    if (usernameInUse) {
@@ -53,8 +55,8 @@ public class SignupActivity extends Activity{
 			passwordEditText.setText(receivedIntent.getStringExtra(PASSWORD), EditText.BufferType.EDITABLE);
 			EditText passwordConfirmationEditText = (EditText)findViewById(R.id.confirm_password_input);
 			passwordConfirmationEditText.setText(receivedIntent.getStringExtra("passwordConfirmation"), EditText.BufferType.EDITABLE);
-	    // Displays an alternate signup page with data between submissions preserved and relevant
-	    // error messages shown
+		// Displays an alternate signup page with data between submissions preserved and relevant
+	    // error messages shown	
 	    } else {
 			// Displays error message if only the password is invalid
 			if (!isValidPassword) {
@@ -62,21 +64,37 @@ public class SignupActivity extends Activity{
 		    	error.setVisibility(View.VISIBLE);
 				EditText passwordEditText = (EditText)findViewById(R.id.password_input);
 				passwordEditText.requestFocus();
+				EditText usernameEditText = (EditText)findViewById(R.id.username_input);
+				usernameEditText.setText(receivedIntent.getStringExtra(USERNAME), EditText.BufferType.EDITABLE);
 			// Displays error message if only the password and confirmation don't match
 			} else if (!passwordsMatch) {
 		    	TextView error = (TextView) findViewById(R.id.nonmatching_password_error);
 		    	error.setVisibility(View.VISIBLE);
 				EditText passwordEditText = (EditText)findViewById(R.id.password_input);
 				passwordEditText.requestFocus();
+				EditText usernameEditText = (EditText)findViewById(R.id.username_input);
+				usernameEditText.setText(receivedIntent.getStringExtra(USERNAME), EditText.BufferType.EDITABLE);
 			}
-			EditText usernameEditText = (EditText)findViewById(R.id.username_input);
-			usernameEditText.setText(receivedIntent.getStringExtra(USERNAME), EditText.BufferType.EDITABLE);
+			if (!isValidUsername) {
+				EditText usernameEditText = (EditText)findViewById(R.id.username_input);
+				usernameEditText.requestFocus();
+		    	TextView error = (TextView) findViewById(R.id.username_error);
+		    	error.setText("No username entered");
+		    	error.setVisibility(View.VISIBLE);
+				EditText passwordEditText = (EditText)findViewById(R.id.password_input);
+				passwordEditText.setText(receivedIntent.getStringExtra(PASSWORD), EditText.BufferType.EDITABLE);
+				EditText passwordConfirmationEditText = (EditText)findViewById(R.id.confirm_password_input);
+				passwordConfirmationEditText.setText(receivedIntent.getStringExtra("passwordConfirmation"), EditText.BufferType.EDITABLE);
+			}
 	    }
 	    
 		Spinner securityQuestions = (Spinner) findViewById(R.id.security_question_spinner);
 		ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, R.array.security_question_array,
                 R.layout.multiline_spinner_dropdown_item);
 		securityQuestions.setAdapter(myAdap);
+		int spinnerPosition = myAdap.getPosition(receivedIntent.getStringExtra(QUESTION));
+		//set the default according to value
+		securityQuestions.setSelection(spinnerPosition);
 		
 		EditText answerEditText = (EditText) findViewById(R.id.security_answer_input);
 		answerEditText.setText(receivedIntent.getStringExtra(ANSWER), EditText.BufferType.EDITABLE);

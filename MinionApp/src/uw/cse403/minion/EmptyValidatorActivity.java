@@ -29,6 +29,7 @@ public class EmptyValidatorActivity extends Activity {
 	private static final String IS_VALID_PASSWORD = "isValidPassword";
 	private static final String PASSWORDS_MATCH = "passwordsMatch";
 	private static final String USERNAME_IN_USE = "usernameInUse";
+	private static final String IS_VALID_USERNAME = "isValidUsername";
 	
 	/**
 	 *  The regex that will only allow string with the following qualities:
@@ -59,10 +60,11 @@ public class EmptyValidatorActivity extends Activity {
 	    String answer = receivedIntent.getStringExtra(ANSWER);
 	    AccountUtils validator = new AccountUtils();
 	    Intent intent;
-	    boolean valid = validator.validPassword(password);
+	    boolean validPassword = validator.validPassword(password);
 	    boolean match = validator.matchingPasswords(password, passwordConfirmation);
+	    boolean validUsername = validator.validUsername(username);
 	    // If email is valid, password is valid, and the password and confirmation password match
-	    if (valid && match ) {
+	    if (validPassword && match && validUsername) {
 	    	// Checks for internet connectivity
 	    	if (ConnectionChecker.hasConnection(this)) {
 	    	    // Updates login credentials on remote database
@@ -79,6 +81,8 @@ public class EmptyValidatorActivity extends Activity {
 	    	    	intent.putExtra(IS_VALID_PASSWORD, true);
 	    	    	// Stores if the given password and confirmation password match
 	    	    	intent.putExtra(PASSWORDS_MATCH, true);
+	    	    	// Stores if the given username is valid
+	    	    	intent.putExtra(IS_VALID_USERNAME, true);
 	    	    	// Sends the input information back to the signup form so user doesn't have to reenter
 	    			intent.putExtra(PASSWORD, password);
 	    			intent.putExtra(USERNAME, username);
@@ -95,9 +99,11 @@ public class EmptyValidatorActivity extends Activity {
 	    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
 		    	intent = new Intent(this, SignupActivity.class);
 		    	// Stores if the given password is valid
-		    	intent.putExtra(IS_VALID_PASSWORD, valid);
+		    	intent.putExtra(IS_VALID_PASSWORD, validPassword);
 		    	// Stores if the given password and confirmation password match
 		    	intent.putExtra(PASSWORDS_MATCH, match);
+    	    	// Stores if the given username is valid
+    	    	intent.putExtra(IS_VALID_USERNAME, validUsername);
 		    	// Sends the input information back to the signup form so user doesn't have to reenter
 				intent.putExtra(PASSWORD, password);
 				intent.putExtra(USERNAME, username);
@@ -112,9 +118,11 @@ public class EmptyValidatorActivity extends Activity {
 	    } else {
 	    	intent = new Intent(this, SignupActivity.class);
 	    	// Stores if the given password is valid
-	    	intent.putExtra(IS_VALID_PASSWORD, valid);
+	    	intent.putExtra(IS_VALID_PASSWORD, validPassword);
 	    	// Stores if the given password and confirmation password match
 	    	intent.putExtra(PASSWORDS_MATCH, match);
+	    	// Stores if the given username is valid
+	    	intent.putExtra(IS_VALID_USERNAME, validUsername);
 	    	// Sends the input information back to the signup form so user doesn't have to reenter
 			intent.putExtra(PASSWORD, password);
 			intent.putExtra(USERNAME, username);
