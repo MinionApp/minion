@@ -68,4 +68,14 @@ public class SaveSharedPreference {
     public static String getPersistentUserName(Context context) {
     	return getPrefs(context).getString(PERSISTENT_USER_NAME, "");
     }
+    
+    /**
+     * Clears out the SharedPreferences object. ONLY FOR USE IN TESTING
+     * @param context The context of an activity.
+     */
+    public static void clearPreferences(Context context) {
+    	Editor editor = getPrefs(context).edit();
+        editor.clear();
+        editor.commit();
+    }
 }

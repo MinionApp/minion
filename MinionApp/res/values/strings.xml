@@ -189,5 +189,7 @@
     <string name="title_activity_group_create">GroupCreate</string>
     <string name="title_activity_view_group">ViewGroupActivity</string>
     <string name="title_activity_edit_group">EditGroupActivity</string>
+    
+    <string name="save">Save</string>
 
 </resources>

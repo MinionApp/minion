@@ -195,7 +195,6 @@ public class BasicInfoActivity extends Activity {
 			baseInfo.gender = gender;
 		}
 		
-		//TODO: Figure out how to get out numbers
 		//Age
 		EditText ageEnter = (EditText) findViewById(R.id.age_enter);
 		String age = ageEnter.getText().toString().trim();
