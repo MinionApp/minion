@@ -176,8 +176,6 @@ public class Character {
 	 * @return int for total hit points
 	 */
 	public int getTotalHitPoints(){
-		
-		//TODO: include hpModifiers
 		return combat.getBaseHP() + abilityScores[2].getMod()*desc.level;
 	}
 	
@@ -188,7 +186,8 @@ public class Character {
 	 * @return	current hit points of character.
 	 */
 	public int getCurrentHitPoints(){
-		return getTotalHitPoints() - (combat.getLethalDamage() + combat.getBludgeningDamage());
+		//TODO: consider moving to combat
+		return getTotalHitPoints() - (combat.getLethalDamage() + combat.getBludgeoningDamage());
 	}
 	
 	/**

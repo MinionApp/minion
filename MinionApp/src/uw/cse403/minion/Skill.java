@@ -84,6 +84,15 @@ public class Skill {
 	}
 	
 	/**
+	 * Get raw skill ranks
+	 * 
+	 * @return	an integer representing ranks in skill
+	 */
+	public int getRank() {
+		return ranks;
+	}
+	
+	/**
 	 * Returns the modifier under the given name. Can return both negative
 	 * and positive modifiers. These modifiers represent values that will be
 	 * either added or subtracted from the skill.
@@ -145,7 +154,7 @@ public class Skill {
 		}
 		
 		//Add associated ability modifier to bonus
-		ranks += mod.getMod();
+		bonus += mod.getMod();
 		
 		//Add miscellaneous modifiers to bonus
 		Collection<Integer> mods = modifiers.values();

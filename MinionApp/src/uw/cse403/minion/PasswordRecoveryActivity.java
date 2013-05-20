@@ -1,16 +1,8 @@
 package uw.cse403.minion;
 
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -26,11 +18,12 @@ import android.widget.Toast;
  * their username into to get their corresponding security question and continue
  * on to the next stage of the password recovery process.
  * @author Elijah Elefson (elefse)
+ * @author Mary Jone (mlidge) [secondary]
  */
 public class PasswordRecoveryActivity extends Activity {
-	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getSecurityQuestion.php";
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
+	private AccountUtils account;
 	
 	/**
 	 * Displays the password recovery page.
@@ -39,6 +32,7 @@ public class PasswordRecoveryActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_password_recovery);
+		account = new AccountUtils();
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -93,8 +87,16 @@ public class PasswordRecoveryActivity extends Activity {
 			EditText usernameEditText = (EditText) findViewById(R.id.username_input);
 			String un = usernameEditText.getText().toString().trim();
 			
-			GetSecurityQuestionTask task = new GetSecurityQuestionTask(un, this);
-			task.execute(un);
+			String res = account.getSecurityQuestion(un);
+			TextView error = (TextView) findViewById(R.id.username_error);
+        	if (res == null || res.equals("0")) {
+        		error.setVisibility(View.VISIBLE); 
+        	} else { 		
+        		Intent intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
+        		intent.putExtra(USERNAME, un);
+        		intent.putExtra(QUESTION, res.replace("_", " ")); //to fix question string
+        		startActivity(intent);
+        	}
     	} else {
     		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
     	}
@@ -110,61 +112,5 @@ public class PasswordRecoveryActivity extends Activity {
 		finish();
 	}
 	
-	/**
-	 * GetSecurityQuestionTask is a private inner class that allows requests to be made to the remote
-	 * MySQL database parallel to the main UI thread. It takes the given username and retrieves the
-	 * corresponding security question for that user from the remote database. This information
-	 * is then passed on to the next Activity.
-	 */
-	private class GetSecurityQuestionTask extends AsyncTask<String, Void, String> {
-		private String un;
-		private Context context;
-		
-		/**
-		 * Constructs a new GetSecurityQuestionTask object.
-		 * @param username The user given username
-		 * @param context The current Activity's context
-		 */
-		private GetSecurityQuestionTask (String username, Context context) {
-			this.un = username;
-			this.context = context;
-		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
-
-			String result = null;
-	        
-	        //http post
-			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();  
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	TextView error = (TextView) findViewById(R.id.username_error);
-        	if (result.equals("0")) {
-        		error.setVisibility(View.VISIBLE); 
-        	} else { 		
-        		Intent intent = new Intent(context, PasswordRecoveryQuestionActivity.class);
-        		intent.putExtra(USERNAME, un);
-        		intent.putExtra(QUESTION, result.replace("_", " ")); //to fix question string
-        		startActivity(intent);
-        	}
-	    } 
-	}
+	
 }

@@ -55,11 +55,11 @@ public class SavingThrow {
 	 * 			was found
 	 */
 	public int getModifier(String name){
-		if (modifiers.containsKey(name)) {
-			return modifiers.get(name);
+		Integer retVal = modifiers.get(name);
+		if (retVal == null) {
+			return 0;
 		}
-		
-		return 0;
+		return retVal;
 	}
 	
 	/**
@@ -69,9 +69,8 @@ public class SavingThrow {
 	 * @modifies this
 	 */
 	public void removeModifier(String name){
-		if (modifiers.containsKey(name)) {
-			modifiers.remove(name);
-		}
+		// remove checks if modifiers contains name
+		modifiers.remove(name);
 	}
 	
 	/**
@@ -79,11 +78,23 @@ public class SavingThrow {
 	 * 
 	 * @param name	the name of the modifier
 	 * @param value	the value of the modifier
+	 * @throws IllegalArgumentException, if name is null or value equals zero
 	 * @modifies this
+	 * @return the previous modifier associated with name
+	 * 		   or 0 if no modifier was associated
 	 */
-	public void addModifier(String name, int value){
-		//TODO: Consider already existing values
-		modifiers.put(name, value);
+	public int addModifier(String name, int value){
+		if (name == null) {
+			throw new IllegalArgumentException("no null modifier names allowed");
+		} else if (value == 0) {
+			throw new IllegalArgumentException("no zero modifiers allowed");
+		}
+		
+		Integer prev = modifiers.put(name, value);
+		if (prev == null) {
+			return 0;
+		}
+		return prev;
 	}
 	
 	/**

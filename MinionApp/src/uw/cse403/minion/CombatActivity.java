@@ -168,42 +168,42 @@ public class CombatActivity extends Activity {
 		String armorBonusRaw = armorBonusEnter.getText().toString().trim();
 		if (!armorBonusRaw.matches("")) {
 			int armorBonus = Integer.parseInt(armorBonusRaw);
-			combat.addArmorModifiers(ARMOR_BONUS_STRING, armorBonus);
+			combat.addArmorModifier(ARMOR_BONUS_STRING, armorBonus);
 		}
 		
 		EditText armorShieldEnter = (EditText) findViewById(R.id.armor_shield_enter);
 		String armorShieldRaw = armorShieldEnter.getText().toString().trim();
 		if (!armorShieldRaw.matches("")) {
 			int armorShield = Integer.parseInt(armorShieldRaw);
-			combat.addArmorModifiers(ARMOR_SHIELD_STRING, armorShield);
+			combat.addArmorModifier(ARMOR_SHIELD_STRING, armorShield);
 		}
 		
 		EditText armorSizeEnter = (EditText) findViewById(R.id.armor_size_enter);
 		String armorSizeRaw = armorSizeEnter.getText().toString().trim();
 		if (!armorSizeRaw.matches("")) {
 			int armorSize = Integer.parseInt(armorSizeRaw);
-			combat.addArmorModifiers(ARMOR_SIZE_STRING, armorSize);
+			combat.addArmorModifier(ARMOR_SIZE_STRING, armorSize);
 		}
 		
 		EditText armorNaturalEnter = (EditText) findViewById(R.id.armor_natural_enter);
 		String armorNaturalRaw = armorNaturalEnter.getText().toString().trim();
 		if (!armorNaturalRaw.matches("")) {
 			int armorNatural = Integer.parseInt(armorNaturalRaw);
-			combat.addArmorModifiers(ARMOR_NATURAL_STRING, armorNatural);
+			combat.addArmorModifier(ARMOR_NATURAL_STRING, armorNatural);
 		}
 		
 		EditText armorDeflectionEnter = (EditText) findViewById(R.id.armor_deflection_enter);
 		String armorDeflectionRaw = armorDeflectionEnter.getText().toString().trim();
 		if (!armorDeflectionRaw.matches("")) {
 			int armorDeflection = Integer.parseInt(armorDeflectionRaw);
-			combat.addArmorModifiers(ARMOR_DEFLECTION_STRING, armorDeflection);
+			combat.addArmorModifier(ARMOR_DEFLECTION_STRING, armorDeflection);
 		}
 		
 		EditText armorMiscEnter = (EditText) findViewById(R.id.armor_misc_enter);
 		String armorMiscRaw = armorMiscEnter.getText().toString().trim();
 		if (!armorMiscRaw.matches("")) {
 			int armorMisc = Integer.parseInt(armorMiscRaw);
-			combat.addArmorModifiers(ARMOR_MISC_STRING, armorMisc);
+			combat.addArmorModifier(ARMOR_MISC_STRING, armorMisc);
 		}
 		
 		combat.writeToDB(charID);
