@@ -184,5 +184,6 @@
     <string name="title_activity_group_create">GroupCreate</string>
     
     <string name="save">Save</string>
+    <string name="button_test">Test GUI</string>
 
 </resources>

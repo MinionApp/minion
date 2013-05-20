@@ -116,6 +116,7 @@ public class HomeActivity extends Activity {
 	}
 	public void gotoTesting(View view) {
 		Intent intent = new Intent(this, SQLiteTestActivity.class);
+		startActivity(intent);
 	}
 
 }

@@ -195,6 +195,7 @@
     <string name="welcome_message">Welcome to Minion!</string>
     <string name="icon_description">Placeholder image</string>
     <string name="title_activity_home">Home</string>
+    <string name="button_test">Test GUI</string>
     <string name="button_manage_characters">Manage Characters</string>
     <string name="button_manage_groups">Manage Groups</string>
     <string name="button_settings">Settings</string>
