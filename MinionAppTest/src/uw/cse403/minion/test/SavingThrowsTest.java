@@ -1,6 +1,5 @@
 package uw.cse403.minion.test;
 
-import uw.cse403.minion.Ability;
 import uw.cse403.minion.AbilityName;
 import uw.cse403.minion.SavingThrow;
 import junit.framework.TestCase;
@@ -13,6 +12,7 @@ import junit.framework.TestCase;
 
 public class SavingThrowsTest extends TestCase {
 	
+	// black box
 	public void test_constructor_NullParamater() {
 		try {
 			SavingThrow s = new SavingThrow(null);
@@ -22,6 +22,7 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// black box
 	public void test_constructor_InvalidParameter() {
 		try {
 			SavingThrow s = new SavingThrow(AbilityName.INTELLIGENCE);
@@ -31,6 +32,7 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// black box
 	public void test_constructor_WisdomParamater() {
 		try {
 			SavingThrow s = new SavingThrow(AbilityName.WISDOM);
@@ -39,6 +41,7 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// black box
 	public void test_constructor_DexterityParamater() {
 		try {
 			SavingThrow s = new SavingThrow(AbilityName.DEXTERITY);
@@ -47,6 +50,7 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// black box
 	public void test_constructor_ConstitutionParamater() {
 		try {
 			SavingThrow s = new SavingThrow(AbilityName.CONSTITUTION);
@@ -55,6 +59,7 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// white box
 	public void test_setBaseSave_ArgLessThanZero() {
 		try {
 			SavingThrow s = new SavingThrow(AbilityName.WISDOM);
@@ -65,6 +70,7 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// white box
 	public void test_setBaseSave_ArgIsZero() {
 		try {
 			SavingThrow s = new SavingThrow(AbilityName.WISDOM);
@@ -74,12 +80,14 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// black box
 	public void test_getModifier_ArgNotInTable() {
 		SavingThrow s = new SavingThrow(AbilityName.WISDOM);
 		int modifier = s.getModifier("sample");
 		assertEquals(0, modifier);
 	}
 	
+	// black box
 	public void test_addModifier_getModifier_ValidArgsInTable() {
 		SavingThrow s = new SavingThrow(AbilityName.WISDOM);
 		s.addModifier("sample", 10);
@@ -87,6 +95,7 @@ public class SavingThrowsTest extends TestCase {
 		assertEquals(10, modifier);
 	}
 	
+	// black box
 	public void test_addModifier_NullNameArg() {
 		try {
 			SavingThrow s = new SavingThrow(AbilityName.WISDOM);
@@ -97,6 +106,7 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// black box
 	public void test_addModifier_ZeroValueModifierArg() {
 		try {
 			SavingThrow s = new SavingThrow(AbilityName.WISDOM);
@@ -107,12 +117,14 @@ public class SavingThrowsTest extends TestCase {
 		}
 	}
 	
+	// black box
 	public void test_addModifier_NoPrevValue() {
 		SavingThrow s = new SavingThrow(AbilityName.WISDOM);
 		int prev = s.addModifier("sample", 10);
 		assertEquals(0, prev);
 	}
 	
+	// black box
 	public void test_addModifier_SomePrevValue() {
 		SavingThrow s = new SavingThrow(AbilityName.WISDOM);
 		s.addModifier("sample", 5);
@@ -120,18 +132,21 @@ public class SavingThrowsTest extends TestCase {
 		assertEquals(5, prev);
 	}
 	
+	// white box
 	public void test_removeModifier_NullModifier() {
 		// ensure remove does not crash with null -- permitted but dumb
 		SavingThrow s = new SavingThrow(AbilityName.WISDOM);
 		s.removeModifier(null);
 	}
 	
+	// white box
 	public void test_removeModifier_NonexistentModifier() {
 		// ensure remove does not crash
 		SavingThrow s = new SavingThrow(AbilityName.WISDOM);
 		s.removeModifier("sample");
 	}
 	
+	// white box
 	public void test_removeModifier_ModifierExists() {
 		SavingThrow s = new SavingThrow(AbilityName.WISDOM);
 		s.addModifier("sample", 5);
