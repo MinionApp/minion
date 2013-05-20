@@ -18,7 +18,10 @@ import com.jayway.android.robotium.solo.Solo;
  * that the user is test, and that the group clicked has the correct set of users
  * (user_1, user_2, user_3, user_4, user_5) and the correct set of characters corresponding
  * to those users (user_1_character, user_2_character, user_3_character, user_4_character,
- * user_5_character). This is a black box unit test. 
+ * user_5_character). This is a black box unit test. This is the testing portion of 
+ * our test-driven development for the ViewGroupActivity component of our application. It
+ * tests the currently stubbed out version of ViewGroupActivity.java.
+ * 
  */
 public class ViewGroupActivityTest extends 
 	ActivityInstrumentationTestCase2<ViewGroupActivity> {
