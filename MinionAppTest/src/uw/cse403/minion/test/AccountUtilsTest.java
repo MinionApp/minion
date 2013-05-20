@@ -3,6 +3,14 @@ package uw.cse403.minion.test;
 import junit.framework.TestCase;
 import uw.cse403.minion.AccountUtils;
 
+/**
+ * Black box tests for account functions:
+ * Handle validation of passwords and asynchronous http requests
+ * to the database.
+ * 
+ * @author Mary Jones (mlidge)
+ *
+ */
 public class AccountUtilsTest extends TestCase {
 	private static final String VALID_USERNAME = "test";
 	private static final String VALID_PASSWORD = "abcDEF123@";
@@ -20,6 +28,9 @@ public class AccountUtilsTest extends TestCase {
 		account = new AccountUtils();	
 	}
 	
+	/**
+	 * Test that a valid password is valid and an invalid one is not.
+	 */
 	public void testValidPassword() {
 		boolean valid = account.validPassword(VALID_PASSWORD);
 		assertTrue(valid);
@@ -27,13 +38,23 @@ public class AccountUtilsTest extends TestCase {
 		assertFalse(valid);
 	}
 
+	/**
+	 * Test to ensure correct return values for password pairs.
+	 */
 	public void testMatchingPasswords() {
 		boolean match = account.matchingPasswords(VALID_PASSWORD, VALID_PASSWORD);
-		assertTrue(match);
+		assertTrue(match);	
 		match = account.matchingPasswords(VALID_PASSWORD, INVALID_CREDENTIAL);
 		assertFalse(match);
 	}
-
+	
+	/**
+	 * Check to see if a user can log in or not appropriately given the combinations of :
+	 * Valid Username/Valid Password
+	 * Invalid Username/Valid Password
+	 * Valid Username/Invalid Password
+	 * Invalid Username/Invalid Password
+	 */
 	public void testCheckLogin() {
 		boolean valid = account.checkLogin(VALID_USERNAME, VALID_PASSWORD);
 		assertTrue(valid);
@@ -45,6 +66,9 @@ public class AccountUtilsTest extends TestCase {
 		assertFalse(valid);
 	}
 	
+	/**
+	 * Ensure that given credentials a signup can be completed
+	 */
 	public void testSignUp() {
 		boolean success = account.startSignupTask(UNUSED_USERNAME, VALID_PASSWORD, VALID_PASSWORD, SPINNER_QUESTION_1,
 				COLOR);
@@ -54,6 +78,9 @@ public class AccountUtilsTest extends TestCase {
 		
 	}
 	
+	/**
+	 * Test getting a security question given a username
+	 */
 	public void testGetSecurityQuestion() {
 		boolean success = account.startSignupTask(UNUSED_USERNAME, VALID_PASSWORD, VALID_PASSWORD, SPINNER_QUESTION_1,
 				COLOR);
@@ -65,6 +92,9 @@ public class AccountUtilsTest extends TestCase {
 		assertTrue(success);
 	}
 	
+	/**
+	 * Test resetting a password
+	 */
 	public void testResetPassword() {
 		boolean success = account.startSignupTask(UNUSED_USERNAME, VALID_PASSWORD, VALID_PASSWORD, SPINNER_QUESTION_1,
 				COLOR);
@@ -73,6 +103,32 @@ public class AccountUtilsTest extends TestCase {
 		assertTrue(success);
 		success = account.checkLogin(UNUSED_USERNAME, VALID_PASSWORD2);
 		assertTrue(success);
+		success = account.deleteUser(UNUSED_USERNAME);
+		assertTrue(success);
+	}
+	
+	/**
+	 * Test checking that an answer to a security question is valid
+	 */
+	public void testCheckAnswerValid() {
+		boolean success = account.startSignupTask(UNUSED_USERNAME, VALID_PASSWORD, VALID_PASSWORD, SPINNER_QUESTION_1,
+				COLOR);
+		assertTrue(success);
+		success = account.checkAnswer(UNUSED_USERNAME, SPINNER_QUESTION_1, COLOR);
+		assertTrue(success);
+		success = account.deleteUser(UNUSED_USERNAME);
+		assertTrue(success);
+	}
+	
+	/**
+	 * Test checking that an invalid answer to a security question is invalid.
+	 */
+	public void testCheckAnswerInvalid() {
+		boolean success = account.startSignupTask(UNUSED_USERNAME, VALID_PASSWORD, VALID_PASSWORD, SPINNER_QUESTION_1,
+				COLOR);
+		assertTrue(success);
+		success = account.checkAnswer(UNUSED_USERNAME, SPINNER_QUESTION_1, "brown");
+		assertFalse(success);
 		success = account.deleteUser(UNUSED_USERNAME);
 		assertTrue(success);
 	}

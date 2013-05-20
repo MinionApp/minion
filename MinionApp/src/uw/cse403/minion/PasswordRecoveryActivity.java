@@ -18,7 +18,7 @@ import android.widget.Toast;
  * their username into to get their corresponding security question and continue
  * on to the next stage of the password recovery process.
  * @author Elijah Elefson (elefse)
- * @author Mary Jone (mlidge) [secondary]
+ * @author Mary Jones (mlidge) [secondary]
  */
 public class PasswordRecoveryActivity extends Activity {
 	private static final String USERNAME = "username";

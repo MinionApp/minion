@@ -11,6 +11,12 @@ import android.widget.TextView;
 
 import com.jayway.android.robotium.solo.Solo;
 
+/**
+ * White box tests that test the ablility for a user to sign up
+ * for an account only with correct credentials
+ * @author mj
+ *
+ */
 public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupActivity> {
 	private static final int SPINNER_INDEX = 0;
 	private static final String SPINNER_QUESTION_1 = "What is your favorite color?";
@@ -24,11 +30,10 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 		super(SignupActivity.class);
 	}
 	
-	@Override
-	protected void setUp() {
-		
-	}
 	
+	/**
+	 * Test the ability to select an item in the spinner
+	 */
 	public void testCanSelectInSpinner() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		solo.pressSpinnerItem(SPINNER_INDEX, 1);
@@ -36,6 +41,9 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 		solo.finishOpenedActivities();
 	}
 	
+	/**
+	 * Test that a user can enter text
+	 */
 	public void testCanEnterText() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		EditText username = (EditText) solo.getView(uw.cse403.minion.R.id.username_input); 
@@ -57,6 +65,9 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 		solo.finishOpenedActivities();
 	}
 	
+	/**
+	 * Test that a username in use cannot be signed up with
+	 */
 	public void testUsernameInUse() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		EditText username = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
@@ -76,6 +87,9 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 		solo.finishOpenedActivities();
 	}
 	
+	/**
+	 * Test that a user cannot sign up with an invalid password
+	 */
 	public void testInvalidPassword() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		EditText username = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
@@ -98,6 +112,9 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 		solo.finishOpenedActivities();
 	}
 	
+	/**
+	 * Test that a user cannot sign up with non-matching passwords
+	 */
 	public void testNonMatchingPassword() {
 		Solo solo = new Solo(getInstrumentation(), getActivity());
 		EditText username = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
@@ -118,10 +135,5 @@ public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupA
 		solo.finishOpenedActivities();
 	}
 	
-	
-	@Override
-	protected void tearDown() {
-		Solo solo = new Solo(getInstrumentation(), getActivity());
-		solo.finishOpenedActivities();
-	}
+
 }
