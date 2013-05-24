@@ -117,18 +117,26 @@
     <string name="ab_name">Ability Name</string>
     <string name="ab_score">Ability Score</string>
     <string name="ab_mod">Ability Modifier</string>
-    <string name="temp_adjust">Temp Adjust</string>
-    <string name="temp_mod">Temp Mod</string>
+    <string name="base">Base</string>
+    <string name="temp">Temp</string>
     <string name="str">STR\nStrength</string>
     <string name="dex">DEX\nDexterity</string>
     <string name="con">CON\nConstitution</string>
     <string name="intel">INT\nIntelligence</string>
     <string name="wis">WIS\nWisdom</string>
     <string name="cha">CHA\nCharisma</string>
+    <string name="equals">=</string>
+    <string name="plus">+</string>
     
     <string name="skill_names">Skill Names</string>
+    <string name="total_bonus">Total Bonus</string>
     <string name="ranks">Ranks</string>
     <string name="misc_mod">Misc. Mod.</string>
+    <string name="eqcha">= Cha</string>
+    <string name="eqdex">= Dex</string>
+    <string name="eqint">= Int</string>
+    <string name="eqstr">= Str</string>
+    <string name="eqwis">= Wis</string>
     <string name="acrobatics">Acrobatics</string>
     <string name="appraise">Appraise</string>
     <string name="bluff">Bluff</string>
