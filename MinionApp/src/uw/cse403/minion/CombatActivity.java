@@ -12,13 +12,13 @@ import android.content.Intent;
 import android.os.Build;
 
 public class CombatActivity extends Activity {
-	private static final String ARMOR_BONUS_STRING = "armorBonus";
-	private static final String ARMOR_SHIELD_STRING = "armorShield";
-	private static final String ARMOR_DEX_STRING = "armorDex";
-	private static final String ARMOR_SIZE_STRING = "armorSize";
-	private static final String ARMOR_NATURAL_STRING = "armorNatural";
-	private static final String ARMOR_DEFLECTION_STRING = "armorDeflection";
-	private static final String ARMOR_MISC_STRING = "armorMisc";
+//	public static final String ARMOR_BONUS_STRING = "armorBonus";
+//	public static final String ARMOR_SHIELD_STRING = "armorShield";
+//	public static final String ARMOR_DEX_STRING = "armorDex";
+//	public static final String ARMOR_SIZE_STRING = "armorSize";
+//	public static final String ARMOR_NATURAL_STRING = "armorNatural";
+//	public static final String ARMOR_DEFLECTION_STRING = "armorDeflection";
+//	public static final String ARMOR_MISC_STRING = "armorMisc";
 
 	private long charID;
 	private Combat combat;
@@ -32,7 +32,7 @@ public class CombatActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		combat = new Combat(charID);
-		//loadData();
+		loadData();
 	}
 
 	/**
@@ -73,19 +73,19 @@ public class CombatActivity extends Activity {
 		// TODO Auto-generated method stub
 		if (!combat.isNew) {
 			EditText hitPointsTotalEnter = (EditText) findViewById(R.id.hit_point_total_enter);
-			hitPointsTotalEnter.setText(combat.getBaseHP());
+			hitPointsTotalEnter.setText(""+combat.getBaseHP());
 			
 			EditText hitPointsDrEnter = (EditText) findViewById(R.id.hit_point_dr_enter);
-			hitPointsDrEnter.setText(combat.getDamageReduction());
+			hitPointsDrEnter.setText(""+combat.getDamageReduction());
 
 			EditText speedBaseEnter = (EditText) findViewById(R.id.speed_base_enter);
-			speedBaseEnter.setText(combat.speedBase);
+			speedBaseEnter.setText(""+combat.speedBase);
 			
 			EditText speedArmorEnter = (EditText) findViewById(R.id.speed_armor_enter);
-			speedArmorEnter.setText(combat.speedArmor);
+			speedArmorEnter.setText(""+combat.speedArmor);
 
 			EditText initiativeMiscModEnter = (EditText) findViewById(R.id.initiative_misc_modifier_enter);
-			initiativeMiscModEnter.setText(combat.getInitModifier());
+			initiativeMiscModEnter.setText(""+combat.getInitModifier());
 		}
 	}
 
@@ -168,42 +168,42 @@ public class CombatActivity extends Activity {
 		String armorBonusRaw = armorBonusEnter.getText().toString().trim();
 		if (!armorBonusRaw.matches("")) {
 			int armorBonus = Integer.parseInt(armorBonusRaw);
-			combat.addArmorModifier(ARMOR_BONUS_STRING, armorBonus);
+			combat.addArmorModifier(Combat.ARMOR_BONUS_STRING, armorBonus);
 		}
 		
 		EditText armorShieldEnter = (EditText) findViewById(R.id.armor_shield_enter);
 		String armorShieldRaw = armorShieldEnter.getText().toString().trim();
 		if (!armorShieldRaw.matches("")) {
 			int armorShield = Integer.parseInt(armorShieldRaw);
-			combat.addArmorModifier(ARMOR_SHIELD_STRING, armorShield);
+			combat.addArmorModifier(Combat.ARMOR_SHIELD_STRING, armorShield);
 		}
 		
 		EditText armorSizeEnter = (EditText) findViewById(R.id.armor_size_enter);
 		String armorSizeRaw = armorSizeEnter.getText().toString().trim();
 		if (!armorSizeRaw.matches("")) {
 			int armorSize = Integer.parseInt(armorSizeRaw);
-			combat.addArmorModifier(ARMOR_SIZE_STRING, armorSize);
+			combat.addArmorModifier(Combat.ARMOR_SIZE_STRING, armorSize);
 		}
 		
 		EditText armorNaturalEnter = (EditText) findViewById(R.id.armor_natural_enter);
 		String armorNaturalRaw = armorNaturalEnter.getText().toString().trim();
 		if (!armorNaturalRaw.matches("")) {
 			int armorNatural = Integer.parseInt(armorNaturalRaw);
-			combat.addArmorModifier(ARMOR_NATURAL_STRING, armorNatural);
+			combat.addArmorModifier(Combat.ARMOR_NATURAL_STRING, armorNatural);
 		}
 		
 		EditText armorDeflectionEnter = (EditText) findViewById(R.id.armor_deflection_enter);
 		String armorDeflectionRaw = armorDeflectionEnter.getText().toString().trim();
 		if (!armorDeflectionRaw.matches("")) {
 			int armorDeflection = Integer.parseInt(armorDeflectionRaw);
-			combat.addArmorModifier(ARMOR_DEFLECTION_STRING, armorDeflection);
+			combat.addArmorModifier(Combat.ARMOR_DEFLECTION_STRING, armorDeflection);
 		}
 		
 		EditText armorMiscEnter = (EditText) findViewById(R.id.armor_misc_enter);
 		String armorMiscRaw = armorMiscEnter.getText().toString().trim();
 		if (!armorMiscRaw.matches("")) {
 			int armorMisc = Integer.parseInt(armorMiscRaw);
-			combat.addArmorModifier(ARMOR_MISC_STRING, armorMisc);
+			combat.addArmorModifier(Combat.ARMOR_MISC_STRING, armorMisc);
 		}
 		
 		combat.writeToDB(charID);

@@ -12,3 +12,5 @@ combat (char_id, hp_total, hp_dr, speed_base, speed_armor, init_misc_mod, base_a
 armor (char_id, armor_bonus, shield_bonus, nat_armor, deflection_mod, misc_mod)
 saving throws (char_id, saving_throws_ref_id, base_save, magic_mod, misc_mod, temp_mod)
 weapons (char_id, name, attack_bonus, crit, type, range, ammo, damage)
+
+combat (char_id, hp_total, hp_dr, speed_base, speed_armor, init_misc_mod, armor, armor_shield, armor_natural, armor_deflec, armor_misc, base_attack_bonus)
