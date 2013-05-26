@@ -16,6 +16,7 @@ public class Skill {
 	
 	private int skillID; // get skill ID from ref db
 	private String name;
+	private String title; // write-in fields for Craft, Perform, Profession
 	private int ranks;
 	private boolean classSkill;
 	private Map<String,Integer> modifiers;
@@ -36,6 +37,10 @@ public class Skill {
 		assocAbility = attribute;
 	}
 	
+	public Skill(int id, String name, AbilityName attribute, int rank, boolean classSkill){
+		this(id, name, null, attribute, rank, classSkill);
+	}
+	
 	/**
 	 * Initializes a new skill with almost all necessary information. Sets values for
 	 * given name, associated ability, rank and whether or not it is a class skill.
@@ -46,9 +51,10 @@ public class Skill {
 	 * @param classSkill	a boolean that if <code>false</code> means the skill is not a class
 	 * 						skill and if <code>true</code> is a class skill
 	 */
-	public Skill(int id, String name, AbilityName attribute, int rank, boolean classSkill){
+	public Skill(int id, String name, String title, AbilityName attribute, int rank, boolean classSkill){
 		this.skillID = id;
 		this.name = name;
+		this.title = title;
 		// TODO: Consider not allowing negative ranks
 		if (rank < 0) {
 			this.ranks = 0;
@@ -67,6 +73,15 @@ public class Skill {
 	 */
 	public String getName(){
 		return name;
+	}
+	
+	/**
+	 * Returns the title of the skill
+	 * 
+	 * @return	String title of skill, may be null
+	 */
+	public String getTitle(){
+		return title;
 	}
 	
 	/**
@@ -177,6 +192,9 @@ public class Skill {
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, id);
 		values.put(SQLiteHelperSkills.COLUMN_REF_S_ID, skillID);
+		if (skillID == 5 || skillID == 26 || skillID == 27) {
+			values.put(SQLiteHelperSkills.COLUMN_TITLE, title);
+		}
 		values.put(SQLiteHelperSkills.COLUMN_RANKS, ranks);
 		if (modifiers.size() > 0) {
 			int mod = modifiers.get(modifiers.keySet().iterator().next());
