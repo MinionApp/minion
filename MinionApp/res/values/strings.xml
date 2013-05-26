@@ -193,5 +193,6 @@
     <string name="title_activity_group_create">GroupCreate</string>
     
     <string name="save">Save</string>
+    <string name="zero">0</string>
 
 </resources>

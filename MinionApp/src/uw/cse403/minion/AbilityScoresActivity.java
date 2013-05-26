@@ -140,7 +140,7 @@ public class AbilityScoresActivity extends Activity {
 		Ability str = abilities[0];
 		str.setBase(strAbScore);
 
-		EditText strTempModEnter = (EditText) findViewById(R.id.str_temp_mod);
+		EditText strTempModEnter = (EditText) findViewById(R.id.str_temp);
 		String strTempModRaw = strTempModEnter.getText().toString().trim();
 		if (!strTempModRaw.matches("")) {
 			Integer strTempMod = Integer.parseInt(strTempModRaw);
@@ -169,7 +169,7 @@ public class AbilityScoresActivity extends Activity {
 		Ability dex = abilities[1];
 		dex.setBase(dexAbScore);
 
-		EditText dexTempModEnter = (EditText) findViewById(R.id.dex_temp_mod);
+		EditText dexTempModEnter = (EditText) findViewById(R.id.dex_temp);
 		String dexTempModRaw = dexTempModEnter.getText().toString().trim();
 		if (!dexTempModRaw.matches("")) {
 			Integer dexTempMod = Integer.parseInt(dexTempModRaw);
@@ -198,7 +198,7 @@ public class AbilityScoresActivity extends Activity {
 		Ability con = abilities[2];
 		con.setBase(conAbScore);
 
-		EditText conTempModEnter = (EditText) findViewById(R.id.con_temp_mod);
+		EditText conTempModEnter = (EditText) findViewById(R.id.con_temp);
 		String conTempModRaw = conTempModEnter.getText().toString().trim();
 		if (!conTempModRaw.matches("")) {
 			Integer conTempMod = Integer.parseInt(conTempModRaw);
@@ -227,7 +227,7 @@ public class AbilityScoresActivity extends Activity {
 		Ability intel = abilities[3];
 		intel.setBase(intelAbScore);
 
-		EditText intelTempModEnter = (EditText) findViewById(R.id.int_temp_mod);
+		EditText intelTempModEnter = (EditText) findViewById(R.id.int_temp);
 		String intelTempModRaw = intelTempModEnter.getText().toString().trim();
 		if (!intelTempModRaw.matches("")) {
 			Integer intelTempMod = Integer.parseInt(intelTempModRaw);
@@ -256,7 +256,7 @@ public class AbilityScoresActivity extends Activity {
 		Ability wis = abilities[4];
 		wis.setBase(wisAbScore);
 
-		EditText wisTempModEnter = (EditText) findViewById(R.id.wis_temp_mod);
+		EditText wisTempModEnter = (EditText) findViewById(R.id.wis_temp);
 		String wisTempModRaw = wisTempModEnter.getText().toString().trim();
 		if (!wisTempModRaw.matches("")) {
 			Integer wisTempMod = Integer.parseInt(wisTempModRaw);
@@ -285,7 +285,7 @@ public class AbilityScoresActivity extends Activity {
 		Ability cha = abilities[5];
 		cha.setBase(chaAbScore);
 
-		EditText chaTempModEnter = (EditText) findViewById(R.id.cha_temp_mod);
+		EditText chaTempModEnter = (EditText) findViewById(R.id.cha_temp);
 		String chaTempModRaw = chaTempModEnter.getText().toString().trim();
 		if (!chaTempModRaw.matches("")) {
 			Integer chaTempMod = Integer.parseInt(chaTempModRaw);
