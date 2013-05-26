@@ -65,16 +65,14 @@
 	        android:layout_weight="1"
 	        android:text="@string/str" />
 		
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/str_ab_score"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/str_ab_mod"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
@@ -122,16 +120,14 @@
 	        android:layout_weight="1"
 	        android:text="@string/dex" />
 		
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/dex_ab_score"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/dex_ab_mod"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
@@ -179,16 +175,14 @@
 	        android:layout_weight="1"
 	        android:text="@string/con" />
 		
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/con_ab_score"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/con_ab_mod"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
@@ -236,16 +230,14 @@
 	        android:layout_weight="1"
 	        android:text="@string/intel" />
 		
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/int_ab_score"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/int_ab_mod"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
@@ -293,16 +285,14 @@
 	        android:layout_weight="1"
 	        android:text="@string/wis" />
 		
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/wis_ab_score"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/wis_ab_mod"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
@@ -350,16 +340,14 @@
 	        android:layout_weight="1"
 	        android:text="@string/cha" />
 		
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/cha_ab_score"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
 	    
-	    <EditText 
+	    <TextView 
 	        android:id="@+id/cha_ab_mod"
-	        android:inputType="numberSigned"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1" />
