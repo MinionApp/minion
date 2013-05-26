@@ -178,12 +178,12 @@ public class CombatActivity extends Activity {
 			combat.addArmorModifier(Combat.ARMOR_SHIELD_STRING, armorShield);
 		}
 		
-		EditText armorSizeEnter = (EditText) findViewById(R.id.armor_size_enter);
-		String armorSizeRaw = armorSizeEnter.getText().toString().trim();
-		if (!armorSizeRaw.matches("")) {
-			int armorSize = Integer.parseInt(armorSizeRaw);
-			combat.addArmorModifier(Combat.ARMOR_SIZE_STRING, armorSize);
-		}
+//		EditText armorSizeEnter = (EditText) findViewById(R.id.armor_size_enter);
+//		String armorSizeRaw = armorSizeEnter.getText().toString().trim();
+//		if (!armorSizeRaw.matches("")) {
+//			int armorSize = Integer.parseInt(armorSizeRaw);
+//			combat.addArmorModifier(Combat.ARMOR_SIZE_STRING, armorSize);
+//		}
 		
 		EditText armorNaturalEnter = (EditText) findViewById(R.id.armor_natural_enter);
 		String armorNaturalRaw = armorNaturalEnter.getText().toString().trim();
