@@ -23,10 +23,16 @@ public class SQLiteHelperCombat extends SQLiteOpenHelper
 	public static final String COLUMN_SPEED_BASE 	= "speed_base";
 	public static final String COLUMN_SPEED_ARMOR 	= "speed_armor";
 	public static final String COLUMN_INIT_MISC_MOD = "init_misc_mod";
+	public static final String COLUMN_ARMOR 		= "armor";
+	public static final String COLUMN_ARMOR_SHIELD 	= "armor_shield";
+	public static final String COLUMN_ARMOR_NATURAL = "armor_natural";
+	public static final String COLUMN_ARMOR_DEFLEC 	= "armor_deflec";
+	public static final String COLUMN_ARMOR_MISC 	= "armor_misc";
 	public static final String COLUMN_BASE_ATTACK_BONUS = "base_attack_bonus";
 	public static final String[] ALL_COLUMNS = 
 		{ COLUMN_CHAR_ID, COLUMN_HP_TOTAL, COLUMN_HP_DR, COLUMN_SPEED_BASE, COLUMN_SPEED_ARMOR,
-			COLUMN_INIT_MISC_MOD, COLUMN_BASE_ATTACK_BONUS };
+			COLUMN_INIT_MISC_MOD, COLUMN_ARMOR, COLUMN_ARMOR_SHIELD, COLUMN_ARMOR_NATURAL,
+			COLUMN_ARMOR_DEFLEC, COLUMN_ARMOR_MISC, COLUMN_BASE_ATTACK_BONUS };
 
 	// table creation SQL statement
 	private static final String CREATE_TABLE_STATEMENT = "CREATE TABLE "
@@ -35,8 +41,13 @@ public class SQLiteHelperCombat extends SQLiteOpenHelper
 		+ COLUMN_HP_TOTAL		+ " INTEGER, "
 		+ COLUMN_HP_DR 			+ " INTEGER, "
 		+ COLUMN_SPEED_BASE		+ " INTEGER, "
-		+ COLUMN_SPEED_ARMOR		+ " INTEGER, "
-		+ COLUMN_INIT_MISC_MOD		+ " INTEGER, "
+		+ COLUMN_SPEED_ARMOR	+ " INTEGER, "
+		+ COLUMN_INIT_MISC_MOD	+ " INTEGER, "
+		+ COLUMN_ARMOR 			+ " INTEGER, "
+		+ COLUMN_ARMOR_SHIELD 	+ " INTEGER, "
+		+ COLUMN_ARMOR_NATURAL 	+ " INTEGER, "
+		+ COLUMN_ARMOR_DEFLEC 	+ " INTEGER, "
+		+ COLUMN_ARMOR_MISC 	+ " INTEGER, "
 		+ COLUMN_BASE_ATTACK_BONUS	+ " INTEGER, "
 		// references Basic Info _id
 		+ " FOREIGN KEY(" + COLUMN_CHAR_ID + ") REFERENCES " 
