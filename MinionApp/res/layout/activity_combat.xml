@@ -22,14 +22,16 @@
         	android:layout_height="wrap_content"
         	android:text="@string/hit_points" />
     	
-    	<EditText android:id="@+id/hit_point_total_enter"
+    	<EditText 
+    	    android:id="@+id/hit_point_total_enter"
     	    android:inputType="numberSigned"
        		android:layout_width="wrap_content"
        		android:layout_height="wrap_content"
        		android:hint="@string/hit_points_total" />
     
         	
-    	<EditText android:id="@+id/hit_point_dr_enter"
+    	<EditText 
+    	    android:id="@+id/hit_point_dr_enter"
     	    android:inputType="numberSigned"
        		android:layout_width="wrap_content"
        		android:layout_height="wrap_content"
@@ -81,19 +83,30 @@
         	android:layout_weight="1"
         	android:text="@string/initiative" />
     	
-    	<EditText
-    	    android:id="@+id/initiative_total_enter"
-    	    android:inputType="numberSigned"
+    	<TextView
+    	    android:id="@+id/initiative_total"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
-    	    android:hint="@string/initiative_total" />
+    	    android:hint="@string/total" />
+    	
+    	<TextView
+    	    android:id="@+id/initiative_equals"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:hint="@string/equals" />
         	
-    	<EditText android:id="@+id/initiative_dex_modifier_enter"
-    	    android:inputType="numberSigned"
+    	<TextView 
+    	    android:id="@+id/initiative_dex_modifier_enter"
        		android:layout_width="wrap_content"
        		android:layout_height="wrap_content"
        		android:layout_weight="1"
        		android:hint="@string/initiative_dex" />
+    	
+    	<TextView
+    	    android:id="@+id/initiative_plus"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:hint="@string/plus" />
     	
     	<EditText android:id="@+id/initiative_misc_modifier_enter"
     	    android:inputType="numberSigned"
@@ -119,13 +132,18 @@
         	android:layout_weight="1"
         	android:text="@string/armor_class" />
     	
-    	<EditText
-    	    android:id="@+id/armor_total_enter"
-    	    android:inputType="numberSigned"
+    	<TextView
+    	    android:id="@+id/armor_total"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:layout_weight="1"
-    	    android:hint="@string/armor_total" />
+    	    android:hint="@string/total" />
+    	
+    	<TextView
+    	    android:id="@+id/armor_equals"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:hint="@string/equals" />
         	
     	<TextView
     	    android:id="@+id/armor_constant"
@@ -159,15 +177,15 @@
     	    android:layout_weight="1"
     	    android:hint="@string/armor_shield" />
         	
-    	<EditText
-    	    android:id="@+id/armor_dex_enter"
+    	<TextView
+    	    android:id="@+id/armor_dex"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="1"
         	android:hint="@string/armor_dex" />
     	
-    	<EditText android:id="@+id/armor_size_enter"
-    	    android:inputType="numberSigned"
+    	<TextView 
+    	    android:id="@+id/armor_size"
        		android:layout_width="wrap_content"
        		android:layout_height="wrap_content"
        		android:layout_weight="1"
@@ -219,7 +237,7 @@
        		android:layout_height="wrap_content"
        		android:layout_toRightOf="@id/attack_bonus"
        		android:layout_below="@id/armor_class_3"
-       		android:hint="@string/enter_text" />
+       		android:hint="@string/bab" />
    	 
    	 <Button android:id="@+id/button_done"
         android:layout_width="wrap_content"

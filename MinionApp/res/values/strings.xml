@@ -97,6 +97,7 @@
     <string name="armor_deflection">Deflection</string>
     <string name="armor_misc">Misc</string>
     <string name="attack_bonus">Base Attack Bonus</string>
+    <string name="bab">B.A.B.</string>
     
     <string name="alignment">Alignment</string>
     <string name="enter_text">Enter text&#8230;</string>
