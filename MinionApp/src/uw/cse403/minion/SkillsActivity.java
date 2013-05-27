@@ -923,4 +923,3 @@ public class SkillsActivity extends Activity {
 	}
 	
 }
-	
