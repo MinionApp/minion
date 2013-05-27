@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -28,6 +29,12 @@ public class CharCreateMainActivity extends Activity {
 			charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		} catch (Exception e) {
 			charID = CharacterDataSource.getNewID();
+			// disable buttons until Basic Info is completed.
+			Button b1 = (Button)findViewById(R.id.ability_scores); b1.setEnabled(false);
+			Button b2 = (Button)findViewById(R.id.skills); b2.setEnabled(false);
+			Button b3 = (Button)findViewById(R.id.combat); b3.setEnabled(false);
+			Button b4 = (Button)findViewById(R.id.saving_throws); b4.setEnabled(false);
+			Button b5 = (Button)findViewById(R.id.done_button); b5.setEnabled(false);
 		}
 		// Show the Up button in the action bar.
 		setupActionBar();
