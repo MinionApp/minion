@@ -226,8 +226,10 @@ public class Combat {
 	 * 
 	 * @param speed	an integer base speed in feet
 	 */
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void setSpeed(int speedBase, int speedArmor) {
+		this.speedBase = speedBase;
+		this.speedArmor = speedArmor;
+		this.speed = speedBase - speedArmor;
 	}
 
 	/**
@@ -306,7 +308,9 @@ public class Combat {
 		values.put(SQLiteHelperCombat.COLUMN_ARMOR_DEFLEC, armorModifiers.get(ARMOR_DEFLECTION_STRING));
 		values.put(SQLiteHelperCombat.COLUMN_ARMOR_MISC, armorModifiers.get(ARMOR_MISC_STRING));
 		values.put(SQLiteHelperCombat.COLUMN_BASE_ATTACK_BONUS, bAb);
-		// still need to do lethal/bludgeoning, and armor mods
+		
+		// still need to do lethal/bludgeoning, and armor/hp mods
+
 		SQLiteHelperCombat.db.insert(SQLiteHelperCombat.TABLE_NAME, null, values);
 	}
 }

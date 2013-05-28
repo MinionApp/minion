@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -17,4 +17,11 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <item name="android:spinnerStyle">@style/spinnerStyle</item>
+    </style>
+    <style name="spinnerStyle">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/spinner_background_holo_light</item>
+    </style>
 </resources>

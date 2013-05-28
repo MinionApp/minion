@@ -1,7 +1,5 @@
 package uw.cse403.minion;
 
-
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -74,11 +72,11 @@ public class SignupActivity extends Activity{
 			EditText usernameEditText = (EditText)findViewById(R.id.username_input);
 			usernameEditText.setText(receivedIntent.getStringExtra(USERNAME), EditText.BufferType.EDITABLE);
 	    }
+	    
 		Spinner securityQuestions = (Spinner) findViewById(R.id.security_question_spinner);
-		ArrayAdapter<String> myAdap = (ArrayAdapter<String>) securityQuestions.getAdapter();
-		int spinnerPosition = myAdap.getPosition(receivedIntent.getStringExtra(QUESTION));
-		//set the default according to value
-		securityQuestions.setSelection(spinnerPosition);
+		ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, R.array.security_question_array,
+                R.layout.multiline_spinner_dropdown_item);
+		securityQuestions.setAdapter(myAdap);
 		
 		EditText answerEditText = (EditText) findViewById(R.id.security_answer_input);
 		answerEditText.setText(receivedIntent.getStringExtra(ANSWER), EditText.BufferType.EDITABLE);

@@ -16,6 +16,7 @@ import android.os.Parcelable;
  *
  */
 public class Character {
+	long charID;
 	/**
 	 * 
 	 */
@@ -39,6 +40,8 @@ public class Character {
 	 * Initialize a new character with base or no values
 	 */
 	public Character(){
+		//charID = id;
+		
 		abilityScores = new Ability[6];
 		skills = new HashMap<String,Skill>();
 		will = new SavingThrow(AbilityName.WISDOM);

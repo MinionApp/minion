@@ -49,6 +49,7 @@
     <string name="placeholder_text">**Insert security question here**</string>
     <string name="invalid_username_error">The specified username does not exist. Try again.</string>
     <string name="waiting">Waiting&#8230;</string>
+    <string name="title_activity_view_invites">View Invites</string>
 
     <string-array name="security_question_array">
         <item>What is your quest?</item>
@@ -75,7 +76,6 @@
     <string name="title_activity_skills">Skills</string>
     <string name="title_activity_combat">Combat</string>
     <string name="title_activity_saving_throws">Saving Throws</string>
-    
     <string name="hit_points">HP (Health Points)</string>
     <string name="hit_points_total">Total</string>
     <string name="hit_points_dr">DR</string>
@@ -99,6 +99,7 @@
     <string name="attack_bonus">Base Attack Bonus</string>
     <string name="bab">B.A.B.</string>
     
+
     <string name="alignment">Alignment</string>
     <string name="enter_text">Enter text&#8230;</string>
     <string name="player">Player</string>
@@ -114,7 +115,6 @@
     <string name="hair">Hair</string>
     <string name="eyes">Eyes</string>
     <string name="done">Done</string>
-    
     <string name="ab_name">Ability Name</string>
     <string name="ab_score">Ability Score</string>
     <string name="ab_mod">Ability Modifier</string>
@@ -173,7 +173,6 @@
     <string name="survival">Survival</string>
     <string name="swim">Swim</string>
     <string name="use_magic_device">Use Magic Device</string>
-    
     <string name="fortitude_title">Fortitude (Constitution)</string>
     <string name="reflex_title">Reflex (Dexterity)</string>
     <string name="will_title">Will (Wisdom)</string>
@@ -182,15 +181,26 @@
     <string name="magic_modifier">Magic</string>
     <string name="misc_modifier">Misc</string>
     <string name="temp_modifier">Temp</string>
-    
     <string name="total">Total</string>
     <string name="title_activity_characters">Manage Characters</string>
     <string name="title_activity_groups">Manage Groups</string>
-    
     <string name="welcome">Welcome to Minion Character Creation!</string>
     <string name="char_creation_success">Character successfully saved!</string>
+    
     <string name="welcome_group">Welome to Minion Group Creation!</string>
+    <string name="create_new_group">Create New Group</string>
+    <string name="pending_invites">Pending Invites</string>
+    <string name="group_name">Name</string>
+    <string name="group_name_enter">Enter Group Name</string>
+    <string name="group_user_name">User Name</string>
+    <string name="group_enter_user_1">Enter User 1</string>
+    <string name="group_enter_user_2">Enter User 2</string>
+    <string name="group_enter_user_3">Enter User 3</string>
+    <string name="group_enter_user_4">Enter User 4</string>
+    <string name="group_enter_user_5">Enter User 5</string>
     <string name="title_activity_group_create">GroupCreate</string>
+    <string name="title_activity_view_group">ViewGroupActivity</string>
+    <string name="title_activity_edit_group">EditGroupActivity</string>
     
     <string name="save">Save</string>
     <string name="zero">0</string>

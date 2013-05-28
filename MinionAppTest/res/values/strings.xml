@@ -2,5 +2,8 @@
 <resources>
 
     <string name="app_name">MinionAppTestTest</string>
+    <string name="title_activity_view_group">ViewGroupActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

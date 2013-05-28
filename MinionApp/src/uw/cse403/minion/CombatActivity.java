@@ -32,6 +32,7 @@ public class CombatActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		combat = new Combat(charID);
+
 		loadData();
 	}
 
@@ -145,7 +146,7 @@ public class CombatActivity extends Activity {
 			speedArmor = Integer.parseInt(speedArmorRaw);
 		}
 		
-		combat.setSpeed(speedBase - speedArmor);
+		combat.setSpeed(speedBase, speedArmor);
 	}
 	
 	/**

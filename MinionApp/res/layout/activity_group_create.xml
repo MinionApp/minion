@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".GroupCreate" >
+    tools:context=".GroupCreateActivity" >
 
     <LinearLayout
 		android:id="@+id/group_name"
@@ -19,13 +19,14 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter Group Name" />
+        	android:text="@string/group_name_enter" />
     
     	<EditText 
+    	    android:id="@+id/group_name_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="Name"/>
+        	android:hint="@string/group_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -39,13 +40,15 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 1" />
+        	android:layout_marginTop="8dp"
+        	android:text="@string/group_enter_user_1" />
     
     	<EditText 
+    	    android:id="@+id/user_1_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -59,13 +62,15 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 2" />
+        	android:layout_marginTop="8dp"
+        	android:text="@string/group_enter_user_2" />
     
     	<EditText 
+    	    android:id="@+id/user_2_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -79,13 +84,15 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 3" />
+        	android:layout_marginTop="8dp"
+        	android:text="@string/group_enter_user_3" />
     
     	<EditText 
+    	    android:id="@+id/user_3_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -99,13 +106,15 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 4" />
+        	android:layout_marginTop="8dp"
+        	android:text="@string/group_enter_user_4" />
     
-    	<EditText 
+    	<EditText
+    	    android:id="@+id/user_4_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <LinearLayout
@@ -119,13 +128,15 @@
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
         	android:layout_weight="1"
-        	android:text="Enter User 5" />
+        	android:layout_marginTop="8dp"
+        	android:text="@string/group_enter_user_5" />
     
-    	<EditText 
+    	<EditText
+    	    android:id="@+id/user_5_input"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_weight="2"
-        	android:hint="User Name"/>
+        	android:hint="@string/group_user_name"/>
     </LinearLayout>
     
     <Button
@@ -134,6 +145,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/user_5"
         android:layout_alignParentRight="true"
-        android:text="@string/done" />
+        android:text="@string/done"
+        android:onClick="sendInvites" />
+    
+    <TextView
+        android:id="@+id/warning"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/create_group_button"
+        android:textColor="#ff0000"
+        android:visibility="invisible" />
 
 </RelativeLayout>

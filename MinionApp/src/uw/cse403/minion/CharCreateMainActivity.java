@@ -1,19 +1,35 @@
 package uw.cse403.minion;
 
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 
 public class CharCreateMainActivity extends Activity {
 	private static final String CHARACTER_ID = "cid";
+	
+	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/uploadCharacter.php";
+	private String username;
 	
 	private Character newChar = null;
 	private long charID;
@@ -22,6 +38,7 @@ public class CharCreateMainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_char_create_main);
+		username = SaveSharedPreference.getPersistentUserName(CharCreateMainActivity.this);
 		if(newChar == null){
 			newChar = new Character();
 		}
@@ -105,8 +122,14 @@ public class CharCreateMainActivity extends Activity {
 	}
 	
 	public void gotoCharacterList(View view) {
-		Intent intent = new Intent(this, CharactersActivity.class);
-		startActivity(intent);
+    	// Checks for internet connectivity
+    	if (ConnectionChecker.hasConnection(this)) {
+    	    // Updates login credentials on remote database
+//    		UploadCharacterTask task = new UploadCharacterTask(this);
+//    	    task.execute(username);
+    	} else {
+    		
+    	}
 	}
 
 }
