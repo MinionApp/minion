@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:focusable="false"
         android:text="Decline" 
         android:onClick="declineInvite" />
 
@@ -29,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/decline_button"
+        android:focusable="false"
         android:text="Accept" 
         android:onClick="acceptInvite" />
 

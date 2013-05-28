@@ -30,6 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
  */
 public class ViewInvitesActivity extends ListActivity {
 	private static final String GROUPNAME = "groupname";
+	private static final String GAME_MASTER = "gm";
 	
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getInvites.php";
 	private static final String PHP_ADDRESS2 = "http://homes.cs.washington.edu/~elefse/acceptInvite.php";
@@ -216,8 +217,10 @@ public class ViewInvitesActivity extends ListActivity {
 						// When clicked, show a toast with the TextView text
 			            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(context, ViewGroupActivity.class);
-						String groupname = ((TextView) view).getText().toString();
+						TextView groupTextView = (TextView) view.findViewById(R.id.invite);
+						String groupname = groupTextView.getText().toString();
 						intent.putExtra(GROUPNAME, groupname);
+						intent.putExtra(GAME_MASTER, "test");
 						startActivity(intent);
 					}
 		          });

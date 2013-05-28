@@ -60,10 +60,10 @@
         <activity
             android:name="uw.cse403.minion.CharCreateMainActivity"
             android:label="@string/title_activity_char_create_main"
-            android:parentActivityName="uw.cse403.minion.SQLiteTestActivity" >
+            android:parentActivityName="uw.cse403.minion.CharactersActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.SQLiteTestActivity" />
+                android:value="com.example.myfirstapp.CharactersActivity" />
         </activity>
         <activity
             android:name="uw.cse403.minion.AbilityScoresActivity"

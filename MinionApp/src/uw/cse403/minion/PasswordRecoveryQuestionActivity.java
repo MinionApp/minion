@@ -25,11 +25,14 @@ import android.widget.Toast;
  * PasswordRecoveryQuestionActivity is an activity that gives the user their security question
  * and then allows them to answer it in order to determine if they can reset their password.
  * @author Elijah Elefson (elefse)
+ * @author Mary Jones (mlidge) [secondary]
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
-	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/checkAnswer.php";
+	
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
+	
+	private AccountUtils account;
 	
 	/**
 	 * Stores the user's username.
@@ -48,7 +51,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_password_recovery_question);
-		
+		account = new AccountUtils();
 		Intent receivedIntent = getIntent();
 		username = receivedIntent.getStringExtra(USERNAME);
 		question = receivedIntent.getStringExtra(QUESTION);
@@ -109,77 +112,19 @@ public class PasswordRecoveryQuestionActivity extends Activity {
     	// Checks for internet connectivity
     	if (ConnectionChecker.hasConnection(this)) {
     		// Tests security question for user on remote database
-    		CheckAnswerTask task = new CheckAnswerTask(username, question, answer, this);
-			task.execute(answer);
+    		boolean result = account.checkAnswer(username, question, answer);
+    		TextView error = (TextView) findViewById(R.id.incorrect_answer_error);
+        	if (result) {
+        		Intent intent = new Intent(this, PasswordResetActivity.class);
+        		intent.putExtra(USERNAME, username);
+        		startActivity(intent);
+        	} else {
+        		error.setVisibility(View.VISIBLE);  
+        	}
     	} else {
     	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
     	}
 	}
 
-	/**
-	 * CheckAnswerTask is a private inner class that allows requests to be made to the remote
-	 * MySQL database parallel to the main UI thread. It takes the given username and answer
-	 * to the previously provided security question and checks to make sure these are correct
-	 * and then allows the user access to the password reset stage of the password recovery
-	 * process.
-	 */
-	private class CheckAnswerTask extends AsyncTask<String, Void, String> {
-		private String un;
-		private String question;
-		private String answer;
-		private Context context;
-		
-		/**
-		 * Constructs a new CheckAnswerTask object.
-		 * @param username The user given username
-		 * @param question The question received from the remote database that corresponds
-		 * 		  to the given username
-		 * @param answer The user given answer to the security question
-		 * @param context The current Activity's context
-		 */
-		private CheckAnswerTask (String username, String question, String answer, Context context) {
-			this.un = username;
-			this.question = question;
-			this.answer = answer;
-			this.context = context;
-		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
-	        postParameters.add(new BasicNameValuePair("question", question));
-	        postParameters.add(new BasicNameValuePair("answer", answer));
-
-			String result = null;
-	        
-	        //http post
-			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {   
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	TextView error = (TextView) findViewById(R.id.incorrect_answer_error);
-        	if (result.equals("1")) {
-        		Intent intent = new Intent(context, PasswordResetActivity.class);
-        		intent.putExtra(USERNAME, un);
-        		startActivity(intent);
-        	} else {
-        		error.setVisibility(View.VISIBLE);  
-        	}
-	    } 
-	}
+	
 }

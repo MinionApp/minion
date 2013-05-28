@@ -188,6 +188,7 @@ public class Character {
 	 * @return	current hit points of character.
 	 */
 	public int getCurrentHitPoints(){
+		//TODO: consider moving to combat
 		return getTotalHitPoints() - (combat.getLethalDamage() + combat.getBludgeoningDamage());
 	}
 	

@@ -15,9 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.TwoLineListItem;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -207,8 +210,8 @@ public class GroupsActivity extends Activity {
 	        // Create an empty adapter we will use to display the loaded data.
 	        // We pass null for the cursor, then update it in onLoadFinished()
 	        adapter = new SimpleAdapter(context, testArray,
-	        		android.R.layout.simple_list_item_2, new String[] { GROUPNAME, GAME_MASTER }, new int[] {
-	        			android.R.id.text1, android.R.id.text2 });
+	        		R.layout.custom_group_list_item, new String[] { GROUPNAME, GAME_MASTER }, new int[] {
+	        			R.id.text1, R.id.text2 });
 	        groupsListView.setAdapter(adapter);
 	        
 	        groupsListView.setOnItemClickListener(new OnItemClickListener() {
@@ -218,8 +221,12 @@ public class GroupsActivity extends Activity {
 					// When clicked, show a toast with the TextView text
 		            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(context, ViewGroupActivity.class);
-					String groupname = ((TextView) view).getText().toString();
+					TextView text1 = (TextView) view.findViewById(R.id.text1);
+					String groupname = text1.getText().toString();
 					intent.putExtra(GROUPNAME, groupname);
+					TextView text2 = (TextView) view.findViewById(R.id.text2);
+					String gm = text2.getText().toString();
+					intent.putExtra(GAME_MASTER, gm);
 					startActivity(intent);
 				}
 	          });

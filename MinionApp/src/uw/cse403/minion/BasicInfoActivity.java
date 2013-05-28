@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -71,12 +73,17 @@ public class BasicInfoActivity extends Activity {
 			charName.setText(baseInfo.name);
 			
 			//Alignment
-			EditText alignEnter = (EditText) findViewById(R.id.alignment_enter);
-			alignEnter.setText(baseInfo.alignment);
+			Spinner alignments = (Spinner) findViewById(R.id.alignment_spinner);
+			ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, R.array.alignment_array,
+	                R.layout.multiline_spinner_dropdown_item);
+			alignments.setAdapter(myAdap);
+			int spinnerPosition = myAdap.getPosition(baseInfo.alignment);
+			//set the default according to value
+			alignments.setSelection(spinnerPosition);
 			
 			//Player
-			EditText playerEnter = (EditText) findViewById(R.id.player_enter);
-			playerEnter.setText(baseInfo.player);
+			//EditText playerEnter = (EditText) findViewById(R.id.player_enter);
+			//playerEnter.setText(baseInfo.player);
 			
 			//Level
 			EditText levelEnter = (EditText) findViewById(R.id.char_level_enter);
@@ -95,8 +102,13 @@ public class BasicInfoActivity extends Activity {
 			raceEnter.setText(baseInfo.race);
 			
 			//Size
-			EditText sizeEnter = (EditText) findViewById(R.id.size_enter);
-			sizeEnter.setText(baseInfo.size);
+			Spinner sizes = (Spinner) findViewById(R.id.size_spinner);
+			ArrayAdapter<CharSequence> myAdap2 = ArrayAdapter.createFromResource(this, R.array.size_array,
+	                R.layout.multiline_spinner_dropdown_item);
+			sizes.setAdapter(myAdap2);
+			int spinnerPosition2 = myAdap2.getPosition(baseInfo.size);
+			//set the default according to value
+			sizes.setSelection(spinnerPosition2);
 			
 			//Gender
 			EditText genderEnter = (EditText) findViewById(R.id.gender_enter);
@@ -134,20 +146,20 @@ public class BasicInfoActivity extends Activity {
 			baseInfo.name = cName;		
 		}
 		
-		//TODO: Make alignment a dropdown menu
 		//Alignment
-		EditText alignEnter = (EditText) findViewById(R.id.alignment_enter);
-		String align = alignEnter.getText().toString().trim();
+		Spinner alignments = (Spinner) findViewById(R.id.alignment_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String align = alignments.getSelectedItem().toString();
 		if (!align.matches("")) {
 			baseInfo.alignment = align;
 		}
 		
 		//Player
-		EditText playerEnter = (EditText) findViewById(R.id.player_enter);
-		String player = playerEnter.getText().toString().trim();
-		if (!player.matches("")) {
-			baseInfo.player = player;
-		}
+		//EditText playerEnter = (EditText) findViewById(R.id.player_enter);
+		//String player = playerEnter.getText().toString().trim();
+		//if (!player.matches("")) {
+		//	baseInfo.player = player;
+		//}
 		
 		//Level
 		EditText levelEnter = (EditText) findViewById(R.id.char_level_enter);
@@ -180,10 +192,10 @@ public class BasicInfoActivity extends Activity {
 			baseInfo.race = race;
 		}
 		
-		//TODO: Make size dropdown
 		//Size
-		EditText sizeEnter = (EditText) findViewById(R.id.size_enter);
-		String size = sizeEnter.getText().toString().trim();
+		Spinner sizes = (Spinner) findViewById(R.id.size_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String size = sizes.getSelectedItem().toString();
 		if (!size.matches("")) {
 			baseInfo.size = size;
 		}
