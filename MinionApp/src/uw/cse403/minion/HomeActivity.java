@@ -90,6 +90,8 @@ public class HomeActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		Button goToGroupsButton = (Button) findViewById(R.id.button2);
+    	goToGroupsButton.setText("Manage Groups");
 		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
 		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
 		task.execute(username);
