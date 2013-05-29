@@ -8,5 +8,41 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EditGroupActivity" >
 
+    <ListView
+        android:id="@+id/editMembersListView"
+        android:choiceMode="singleChoice"
+        android:layout_above="@+id/editing_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </ListView>
+    
+    <LinearLayout 
+        android:id="@+id/editing_buttons"
+        android:layout_alignParentBottom="true" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+	    
+	    <Button android:id="@+id/button_remove_user"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"     
+	        android:text="@string/remove_user"
+	        android:layout_weight="1"
+	     	android:onClick="removePlayerFromGroup" />
+	    
+	    <Button android:id="@+id/button_invite_user"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"    
+	        android:text="@string/invite_user"
+	        android:layout_weight="1"
+	     	android:onClick="inviteNewPlayers" />
+	    
+	    <Button android:id="@+id/button_finish_editing"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"      
+	        android:text="@string/finish_editing"
+	        android:layout_weight="1"
+	     	android:onClick="finishEditing" />
+    </LinearLayout>
+    
 
 </RelativeLayout>

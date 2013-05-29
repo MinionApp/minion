@@ -1,5 +1,8 @@
 package uw.cse403.minion;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +12,8 @@ import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 /**
  * EditGroupActivity is an activity that provides the user with the ability to edit a
@@ -19,13 +24,34 @@ import android.view.View;
  * @author Elijah Elefson (elefse)
  */
 public class EditGroupActivity extends Activity {
+	
+	private ListView membersListView;
+	
+	/**
+	 * Change this array's name and contents to be the character information
+	 * received from the database
+	 */
+	private static ArrayList<HashMap<String, String>> testArray;
 
+	/**
+	 * Adapter for connecting the array above to the UI view
+	 */
+	private SimpleAdapter adapter;
+	
+	private String username;
+	
 	/**
 	 * Displays the edit group page for the selected group.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_groups);
+		// Show the Up button in the action bar.
+		setupActionBar();
+		username = SaveSharedPreference.getPersistentUserName(EditGroupActivity.this);
+		
 	}
 	
 	/**
@@ -73,7 +99,7 @@ public class EditGroupActivity extends Activity {
 	}
 	
 	/**
-	 * Responds to the remove playler button click by removing the selected player
+	 * Responds to the remove player button click by removing the selected player
 	 * from the group.
 	 * @param view The current view
 	 */
