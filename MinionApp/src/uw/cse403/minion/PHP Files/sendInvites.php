@@ -1,10 +1,6 @@
 <?php
 $group=$_POST['group'];
-$u1=$_POST['user1'];
-$u2=$_POST['user2'];
-$u3=$_POST['user3'];
-$u4=$_POST['user4'];
-$u5=$_POST['user5'];
+$players=json_decode($_POST['players']);
 $gm=$_POST['gm'];
 
 try {
@@ -17,8 +13,14 @@ try {
 	$sql = "INSERT INTO group_user (groupname, username) VALUES ('$group', '$gm')";
 	$result = $db->exec($sql);
 	
-	$sql = "INSERT INTO invites (groupname, username) VALUES ('$group', '$u1'), ('$group', '$u2'), ('$group', '$u3'), ('$group', '$u4'), ('$group', '$u5')";
-	$result = $db->exec($sql);
+	// players
+	$i = 0;
+	foreach($players->players as $player) {
+		$name = $player->player;
+		$sql = "INSERT INTO invites (groupname, username) VALUES ('$group', '$name')";
+		$result = $db->exec($sql);
+		$i++;
+	}
 	echo 1; 
 } catch (PDOException $e) {
 	print "Error!: " . $e->getMessage() . "<br/>";
