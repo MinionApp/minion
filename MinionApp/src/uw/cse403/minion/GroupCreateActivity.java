@@ -37,12 +37,20 @@ import android.os.Build;
  * @author Elijah Elefson (elefse)
  */
 public class GroupCreateActivity extends Activity {
+	private static final String GROUPNAME = "groupname";
+	private static final String GAME_MASTER = "gm";
+	private static final String PLAYERS = "players";
+	
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/sendInvites.php";
 	private String username;
 	private LinearLayout.LayoutParams layoutParams;
     private LinearLayout ll;
     private int numberOfPlayers;
     private List<EditText> editTexts;
+    private boolean cameFromEditGroup;
+	private String groupName;
+	private String gm;
+	private ArrayList<String> playersList;
 	
 	/**
 	 * Displays the new group creation page.
@@ -84,6 +92,20 @@ public class GroupCreateActivity extends Activity {
                 ll.addView(l1, layoutParams);
 
             }});
+        
+        Intent i = getIntent();
+		cameFromEditGroup = i.getBooleanExtra("sentFromEditGroup", false);;
+        if(cameFromEditGroup) {
+        	LinearLayout l2 = (LinearLayout) findViewById(R.id.group_name);
+        	l2.setVisibility(View.GONE);
+        	groupName = i.getExtras().getString(GROUPNAME);
+    		gm = i.getExtras().getString(GAME_MASTER);
+    		playersList = i.getStringArrayListExtra(PLAYERS);
+    		Log.i("playersList", playersList.toString());
+        	TextView inviteNewPlayers = (TextView) findViewById(R.id.invite_new_players);
+        	inviteNewPlayers.setText("Send New Invites For " + groupName);
+        	inviteNewPlayers.setVisibility(View.VISIBLE);
+        }
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -146,13 +168,19 @@ public class GroupCreateActivity extends Activity {
 	    		users.add(user);
 	    	}
 			
-			String groupName = groupNameEditText.getText().toString().trim();
+	    	if(!cameFromEditGroup) {
+	    		groupName = groupNameEditText.getText().toString().trim();
+	    	}
 			
 			//Create a set of all the users entered
 			TextView warning = (TextView) findViewById(R.id.warning);
 
+			// checks that the user input some nonempty group name
+			if(groupName.equals("")) {
+				warning.setText("Enter a valid group name");
+				warning.setVisibility(0);
 			//checks that user isn't adding self to group
-			if(users.contains(username)) {
+	    	} else if(users.contains(username)) {
 				warning.setText("Cannont add yourself to a group");
 				warning.setVisibility(0);
 			//checks that all fields had been set
@@ -182,11 +210,7 @@ public class GroupCreateActivity extends Activity {
 		/**
 		 * Constructs a new SendInvitesTask object.
 		 * @param groupName The given group name.
-		 * @param user1 First player to be included in the group.
-		 * @param user2 Second player to be included in the group.
-		 * @param user3 Third player to be included in the group.
-		 * @param user4 Fourth player to be included in the group.
-		 * @param user5 Fifth player to be included in the group.
+		 * @param users Set of all users to be invited.
 		 * @param context The current Activity's context.
 		 */
 		private SendInvitesTask (String groupName, HashSet<String> users, Context context) {
@@ -208,6 +232,7 @@ public class GroupCreateActivity extends Activity {
 			    	players.put(player);
 	    		}
 	    		playersObject.put("players", players);
+	    		playersObject.put("fromEdit", cameFromEditGroup);
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -238,7 +263,16 @@ public class GroupCreateActivity extends Activity {
 	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
-			Intent intent = new Intent(context, GroupsActivity.class);
+	    	Intent intent;
+	    	if(cameFromEditGroup) {
+	    		intent = new Intent(context, EditGroupActivity.class);
+	    		intent.putExtra(GROUPNAME, groupName);
+	    		intent.putExtra(GAME_MASTER, gm);
+	    		Log.i("playersListBeforeReturn", playersList.toString());
+	    		intent.putStringArrayListExtra(PLAYERS, playersList);
+	    	} else {
+	    		intent = new Intent(context, GroupsActivity.class);
+	    	}
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
         	finish();

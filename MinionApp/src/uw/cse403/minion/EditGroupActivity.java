@@ -165,7 +165,16 @@ public class EditGroupActivity extends ListActivity {
 	 * @param view The current view
 	 */
 	public void inviteNewPlayers(View view) {
-		// TODO Auto-generated method stub
+		Intent intent = new Intent(this, GroupCreateActivity.class);
+		intent.putExtra("sentFromEditGroup", true);
+		EditText groupNameEditText = (EditText) findViewById(R.id.group_name);
+		groupName = groupNameEditText.getText().toString().trim();
+		intent.putExtra(GROUPNAME, groupName);
+		TextView gameMasterName = (TextView) findViewById(R.id.game_master_name);
+		gm = gameMasterName.getText().toString();
+		intent.putExtra(GAME_MASTER, gm);
+		intent.putStringArrayListExtra(PLAYERS, playersList);
+		startActivity(intent);
 	}
 	
 	/**
@@ -232,6 +241,7 @@ public class EditGroupActivity extends ListActivity {
 			TextView gameMasterName = (TextView) findViewById(R.id.game_master_name);
 			gm = gameMasterName.getText().toString();
 			intent.putExtra(GAME_MASTER, gm);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			finish();
 	    }

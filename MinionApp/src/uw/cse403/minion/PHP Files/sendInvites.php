@@ -7,11 +7,15 @@ try {
 	//connect to the db
 	$db = new PDO("mysql:dbname=sahabp_minion;host=cubist.cs.washington.edu", "sahabp", "9BJju8xn");
 	
-	$sql = "INSERT INTO `Group` (`groupname`, `num_users`, `gm`) VALUES ('$group', '1', '$gm')";
-	$result = $db->exec($sql);
+	$fromEdit = $players->fromEdit;
 	
-	$sql = "INSERT INTO group_user (groupname, username) VALUES ('$group', '$gm')";
-	$result = $db->exec($sql);
+	if(!$fromEdit) {
+		$sql = "INSERT INTO `Group` (`groupname`, `num_users`, `gm`) VALUES ('$group', '1', '$gm')";
+		$result = $db->exec($sql);
+		
+		$sql = "INSERT INTO group_user (groupname, username) VALUES ('$group', '$gm')";
+		$result = $db->exec($sql);
+	}
 	
 	// players
 	$i = 0;
