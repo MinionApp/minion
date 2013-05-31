@@ -248,38 +248,6 @@ public class EditGroupActivity extends ListActivity {
 	}
 	
 	/**
-	 * SendNewInvitesTask is a private inner class that allows requests to be made to the remote
-	 * MySQL database parallel to the main UI thread. Sends the new invites to the players
-	 * specified by the user. Updates the database accordingly.
-	 */
-	private class SendNewInvitesTask extends AsyncTask<String, Void, String> {
-		
-		/**
-		 * Constructs a new SendNewInvitesTaskk object.
-		 * @param context The current Activity's context
-		 */
-		private SendNewInvitesTask(Context context) {
-			// TODO Auto-generated method stub
-		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	    	// TODO Auto-generated method stub
-	    	return "";
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	// TODO Auto-generated method stub
-	    }
-	 
-	}
-	
-	/**
 	 * RemovePlayerTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. Removes the players specified by the user
 	 * from the group. Updates the database accordingly.

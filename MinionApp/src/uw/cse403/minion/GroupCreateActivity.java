@@ -180,8 +180,8 @@ public class GroupCreateActivity extends Activity {
 				warning.setText("Enter a valid group name");
 				warning.setVisibility(0);
 			//checks that user isn't adding self to group
-	    	} else if(users.contains(username)) {
-				warning.setText("Cannont add yourself to a group");
+	    	} else if(users.contains(username) && !cameFromEditGroup) {
+				warning.setText("Cannot add yourself to a group");
 				warning.setVisibility(0);
 			//checks that all fields had been set
 			} else if(users.contains("")) {
