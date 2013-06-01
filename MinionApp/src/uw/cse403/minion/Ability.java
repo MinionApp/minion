@@ -222,6 +222,11 @@ public class Ability {
 		
 		return mod;
 	}
+	
+	public int getRefID() {
+		return abilityID;
+	}
+	
 	/** 
 	 * Writes Ability to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character

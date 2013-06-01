@@ -27,7 +27,7 @@ public class SavingThrow {
 	 * Initialize a saving throw.
 	 * 
 	 * @param 			attribute	the associated attribute for the saving throw,
-	 * 					throws IllegalArgumentException if not WISDOME, DEXTERITY or
+	 * 					throws IllegalArgumentException if not WISDOM, DEXTERITY or
 	 * 					CONSTITUTION
 	 */
 	public SavingThrow(AbilityName attribute){
