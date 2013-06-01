@@ -51,11 +51,7 @@
         </activity>
         <activity
             android:name="uw.cse403.minion.BasicInfoActivity"
-            android:label="@string/title_activity_basic_info"
-            android:parentActivityName="uw.cse403.minion.CharCreateMainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+            android:label="@string/title_activity_basic_info" >
         </activity>
         <activity
             android:name="uw.cse403.minion.CharCreateMainActivity"
@@ -67,35 +63,19 @@
         </activity>
         <activity
             android:name="uw.cse403.minion.AbilityScoresActivity"
-            android:label="@string/title_activity_ability_scores"
-            android:parentActivityName="uw.cse403.minion.CharCreateMainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+            android:label="@string/title_activity_ability_scores" >
         </activity>
         <activity
             android:name="uw.cse403.minion.SkillsActivity"
-            android:label="@string/title_activity_skills"
-            android:parentActivityName="uw.cse403.minion.CharCreateMainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+            android:label="@string/title_activity_skills" >
         </activity>
         <activity
             android:name="uw.cse403.minion.CombatActivity"
-            android:label="@string/title_activity_combat"
-            android:parentActivityName="uw.cse403.minion.CharCreateMainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+            android:label="@string/title_activity_combat" >
         </activity>
         <activity
             android:name="uw.cse403.minion.SavingThrowsActivity"
-            android:label="@string/title_activity_saving_throws"
-            android:parentActivityName="uw.cse403.minion.CharCreateMainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.CharCreateMainActivity" />
+            android:label="@string/title_activity_saving_throws" >
         </activity>
         <activity
             android:name="uw.cse403.minion.CharactersActivity"

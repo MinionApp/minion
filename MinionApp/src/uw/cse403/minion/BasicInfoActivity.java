@@ -24,8 +24,6 @@ public class BasicInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basic_info);
-		// Show the Up button in the action bar.
-		setupActionBar();
 		
 		charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		baseInfo = new CharacterDescription(charID);

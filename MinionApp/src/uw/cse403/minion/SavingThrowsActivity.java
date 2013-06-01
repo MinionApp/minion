@@ -20,8 +20,6 @@ public class SavingThrowsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_saving_throws);
 		charID = this.getIntent().getExtras().getLong("cid");
-		// Show the Up button in the action bar.
-		setupActionBar();
 	}
 
 	/**

@@ -29,8 +29,6 @@ public class CombatActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_combat);
 		charID = this.getIntent().getExtras().getLong("cid");
-		// Show the Up button in the action bar.
-		setupActionBar();
 		combat = new Combat(charID);
 
 		loadData();

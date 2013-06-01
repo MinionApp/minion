@@ -23,8 +23,6 @@ public class AbilityScoresActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ability_scores);
-		// Show the Up button in the action bar.
-		setupActionBar();
 		
 		charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		abilities = new Ability[6];
