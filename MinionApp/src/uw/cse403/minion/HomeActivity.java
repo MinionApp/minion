@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * HomeActivity is the activity that provides the user with the home page for the application.
@@ -38,8 +39,12 @@ public class HomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
-		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
-		task.execute(username);
+		if (ConnectionChecker.hasConnection(this)) {
+			GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
+			task.execute(username);
+    	} else {
+    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+    	}
 		// Show the Up button in the action bar.
 		//setupActionBar();
 	}
@@ -172,9 +177,14 @@ public class HomeActivity extends Activity {
 	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
-	    	if(!result.equals("0")) {
-	    		Button goToGroupsButton = (Button) findViewById(R.id.button2);
-		    	goToGroupsButton.setText("Manage Groups (" + result + ")");
+	    	try {
+	    		int resultAsNumber = Integer.parseInt(result);
+		    	if(resultAsNumber > 0) {
+		    		Button goToGroupsButton = (Button) findViewById(R.id.button2);
+			    	goToGroupsButton.setText("Manage Groups (" + result + ")");
+		    	}
+	    	} catch (Exception e) {
+	    		
 	    	}
 	    }
 	 
