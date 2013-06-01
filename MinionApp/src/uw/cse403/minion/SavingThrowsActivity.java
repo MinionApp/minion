@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -15,11 +17,21 @@ import android.os.Build;
 public class SavingThrowsActivity extends Activity {
 	private long charID;
 
+	private SavingThrow fortitude;
+	private SavingThrow reflex;
+	private SavingThrow will;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_saving_throws);
 		charID = this.getIntent().getExtras().getLong("cid");
+
+		fortitude = new SavingThrow(AbilityName.CONSTITUTION);
+		reflex = new SavingThrow(AbilityName.DEXTERITY);
+		will = new SavingThrow(AbilityName.WISDOM);
+		
+		loadData();
 	}
 
 	/**
@@ -56,12 +68,165 @@ public class SavingThrowsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	private void loadData() {
+		// TODO Auto-generated method stub
+		if (!fortitude.isNew) {
+			TextView fortTotalField = (TextView) findViewById(R.id.fortitude_total);
+			fortTotalField.setText(""+fortitude.getTotal());
+			
+			EditText fortBaseEnter = (EditText) findViewById(R.id.fortitude_base);
+			fortBaseEnter.setText(""+fortitude.getBaseSave());
+			
+			EditText fortMagicEnter = (EditText) findViewById(R.id.fortitude_magic);
+			fortMagicEnter.setText(""+fortitude.getModifier(SavingThrow.MAGIC_MOD_STRING));
+			
+			EditText fortMiscEnter = (EditText) findViewById(R.id.fortitude_misc);
+			fortMiscEnter.setText(""+fortitude.getModifier(SavingThrow.MISC_MOD_STRING));
+			
+			EditText fortTempEnter = (EditText) findViewById(R.id.fortitude_temp);
+			fortTempEnter.setText(""+fortitude.getModifier(SavingThrow.TEMP_MOD_STRING));
+		}
+
+		if (!reflex.isNew) {
+			TextView reflexTotalField = (TextView) findViewById(R.id.reflex_total);
+			reflexTotalField.setText(""+reflex.getTotal());
+
+			EditText reflexBaseEnter = (EditText) findViewById(R.id.reflex_base);
+			reflexBaseEnter.setText(""+reflex.getBaseSave());
+			
+			EditText reflexMagicEnter = (EditText) findViewById(R.id.reflex_magic);
+			reflexMagicEnter.setText(""+reflex.getModifier(SavingThrow.MAGIC_MOD_STRING));
+			
+			EditText reflexMiscEnter = (EditText) findViewById(R.id.reflex_misc);
+			reflexMiscEnter.setText(""+reflex.getModifier(SavingThrow.MISC_MOD_STRING));
+			
+			EditText reflexTempEnter = (EditText) findViewById(R.id.reflex_temp);
+			reflexTempEnter.setText(""+reflex.getModifier(SavingThrow.TEMP_MOD_STRING));
+		}
+
+		if (!will.isNew) {
+			TextView willTotalField = (TextView) findViewById(R.id.will_total);
+			willTotalField.setText(""+will.getTotal());
+
+			EditText willBaseEnter = (EditText) findViewById(R.id.will_base);
+			willBaseEnter.setText(""+will.getBaseSave());
+			
+			EditText willMagicEnter = (EditText) findViewById(R.id.will_magic);
+			willMagicEnter.setText(""+will.getModifier(SavingThrow.MAGIC_MOD_STRING));
+			
+			EditText willMiscEnter = (EditText) findViewById(R.id.will_misc);
+			willMiscEnter.setText(""+will.getModifier(SavingThrow.MISC_MOD_STRING));
+			
+			EditText willTempEnter = (EditText) findViewById(R.id.will_temp);
+			willTempEnter.setText(""+will.getModifier(SavingThrow.TEMP_MOD_STRING));
+		}
+	}
+	
 	public void savingThrows(View view) {
+		setFortitude();
+		setReflex();
+		setWill();
+		
+		fortitude.writeToDB(charID);
+		reflex.writeToDB(charID);
+		will.writeToDB(charID);
+		
+		
 
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra("cid", charID);
 		startActivity(intent);
+	}
+	
+	private void setFortitude() {
+		EditText fortBaseEnter = (EditText) findViewById(R.id.fortitude_base);
+		String fortBaseRaw = fortBaseEnter.getText().toString().trim();
+		if (!fortBaseRaw.matches("")) {
+			int fortBase = Integer.parseInt(fortBaseRaw);
+			fortitude.setBaseSave(fortBase);
+		}
+		
+		EditText fortMagicEnter = (EditText) findViewById(R.id.fortitude_magic);
+		String fortMagicRaw = fortMagicEnter.getText().toString().trim();
+		if (!fortMagicRaw.matches("")) {
+			int fortMagic = Integer.parseInt(fortMagicRaw);
+			fortitude.addModifier(SavingThrow.MAGIC_MOD_STRING, fortMagic);
+		}
+		
+		EditText fortMiscEnter = (EditText) findViewById(R.id.fortitude_misc);
+		String fortMiscRaw = fortMiscEnter.getText().toString().trim();
+		if (!fortMiscRaw.matches("")) {
+			int fortMisc = Integer.parseInt(fortMiscRaw);
+			fortitude.addModifier(SavingThrow.MISC_MOD_STRING, fortMisc);
+		}
+		
+		EditText fortTempEnter = (EditText) findViewById(R.id.fortitude_temp);
+		String fortTempRaw = fortTempEnter.getText().toString().trim();
+		if (!fortTempRaw.matches("")) {
+			int fortTemp = Integer.parseInt(fortTempRaw);
+			fortitude.addModifier(SavingThrow.TEMP_MOD_STRING, fortTemp);
+		}
+	}
+
+	private void setReflex() {
+		EditText reflexBaseEnter = (EditText) findViewById(R.id.reflex_base);
+		String reflexBaseRaw = reflexBaseEnter.getText().toString().trim();
+		if (!reflexBaseRaw.matches("")) {
+			int reflexBase = Integer.parseInt(reflexBaseRaw);
+			reflex.setBaseSave(reflexBase);
+		}
+		
+		EditText reflexMagicEnter = (EditText) findViewById(R.id.reflex_magic);
+		String reflexMagicRaw = reflexMagicEnter.getText().toString().trim();
+		if (!reflexMagicRaw.matches("")) {
+			int reflexMagic = Integer.parseInt(reflexMagicRaw);
+			reflex.addModifier(SavingThrow.MAGIC_MOD_STRING, reflexMagic);
+		}
+		
+		EditText reflexMiscEnter = (EditText) findViewById(R.id.reflex_misc);
+		String reflexMiscRaw = reflexMiscEnter.getText().toString().trim();
+		if (!reflexMiscRaw.matches("")) {
+			int reflexMisc = Integer.parseInt(reflexMiscRaw);
+			reflex.addModifier(SavingThrow.MISC_MOD_STRING, reflexMisc);
+		}
+		
+		EditText reflexTempEnter = (EditText) findViewById(R.id.reflex_temp);
+		String reflexTempRaw = reflexTempEnter.getText().toString().trim();
+		if (!reflexTempRaw.matches("")) {
+			int reflexTemp = Integer.parseInt(reflexTempRaw);
+			reflex.addModifier(SavingThrow.TEMP_MOD_STRING, reflexTemp);
+		}
+	}
+
+	private void setWill() {
+		EditText willBaseEnter = (EditText) findViewById(R.id.will_base);
+		String willBaseRaw = willBaseEnter.getText().toString().trim();
+		if (!willBaseRaw.matches("")) {
+			int willBase = Integer.parseInt(willBaseRaw);
+			will.setBaseSave(willBase);
+		}
+		
+		EditText willMagicEnter = (EditText) findViewById(R.id.will_magic);
+		String willMagicRaw = willMagicEnter.getText().toString().trim();
+		if (!willMagicRaw.matches("")) {
+			int willMagic = Integer.parseInt(willMagicRaw);
+			will.addModifier(SavingThrow.MAGIC_MOD_STRING, willMagic);
+		}
+		
+		EditText willMiscEnter = (EditText) findViewById(R.id.will_misc);
+		String willMiscRaw = willMiscEnter.getText().toString().trim();
+		if (!willMiscRaw.matches("")) {
+			int willMisc = Integer.parseInt(willMiscRaw);
+			will.addModifier(SavingThrow.MISC_MOD_STRING, willMisc);
+		}
+		
+		EditText willTempEnter = (EditText) findViewById(R.id.will_temp);
+		String willTempRaw = willTempEnter.getText().toString().trim();
+		if (!willTempRaw.matches("")) {
+			int willTemp = Integer.parseInt(willTempRaw);
+			will.addModifier(SavingThrow.TEMP_MOD_STRING, willTemp);
+		}
 	}
 
 }

@@ -23,7 +23,6 @@ public class CombatActivity extends Activity {
 	private long charID;
 	private Combat combat;
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,6 +84,26 @@ public class CombatActivity extends Activity {
 
 			EditText initiativeMiscModEnter = (EditText) findViewById(R.id.initiative_misc_modifier_enter);
 			initiativeMiscModEnter.setText(""+combat.getInitModifier());
+
+			// armor stuff
+			EditText armorBonusEnter = (EditText) findViewById(R.id.armor_bonus_enter);
+			armorBonusEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_BONUS_STRING));
+			
+			EditText armorShieldEnter = (EditText) findViewById(R.id.armor_shield_enter);
+			armorShieldEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_SHIELD_STRING));
+			
+			EditText armorNaturalEnter = (EditText) findViewById(R.id.armor_natural_enter);
+			armorNaturalEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_NATURAL_STRING));
+			
+			EditText armorDeflectionEnter = (EditText) findViewById(R.id.armor_deflection_enter);
+			armorDeflectionEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_DEFLECTION_STRING));
+			
+			EditText armorMiscEnter = (EditText) findViewById(R.id.armor_misc_enter);
+			armorMiscEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_MISC_STRING));
+			
+			// base attack bonus
+			EditText babEnter = (EditText) findViewById(R.id.attack_bonus_enter);
+			babEnter.setText(""+combat.getbAb());
 		}
 	}
 
@@ -98,8 +117,17 @@ public class CombatActivity extends Activity {
 		
 		setHp();
 		setSpeed(defaultSpeed, defaultArmorPen);
-		setInitiative();		
+		setInitiative();	
 		setArmor();
+		// set base attack bonus
+		EditText babEnter = (EditText) findViewById(R.id.attack_bonus_enter);
+		String babRaw = babEnter.getText().toString().trim();
+		if (!babRaw.matches("")) {
+			int bab = Integer.parseInt(babRaw);
+			combat.setbAb(bab);
+		}
+		
+		combat.writeToDB(charID);
 		
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);

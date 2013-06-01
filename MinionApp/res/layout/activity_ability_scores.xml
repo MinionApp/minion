@@ -1,19 +1,21 @@
-<GridLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:useDefaultMargins="true"
-	android:alignmentMode="alignBounds"
-	android:columnOrderPreserved="false"
-	android:columnCount="7"
-	android:rowCount="7" >
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="left|fill_horizontal"
+    android:alignmentMode="alignBounds"
+    android:columnCount="7"
+    android:columnOrderPreserved="false"
+    android:padding="25dp"
+    android:rowCount="7"
+    android:useDefaultMargins="true" >
 
     <TextView
         android:id="@+id/ab_name_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/ab_name" />
     
     <TextView
@@ -21,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/ab_score" />
     
     <TextView
@@ -28,6 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/ab_mod" />
     
     <TextView
@@ -35,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/equals" />
     
     <TextView
@@ -42,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/base" />
     
     <TextView
@@ -49,41 +55,46 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/plus" />
     
     <TextView
         android:id="@+id/temp_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/temp" />    
-    
-    
+        android:gravity="left"
+        android:text="@string/temp" />
     
     <TextView
         android:id="@+id/str_title"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/str" />
 	
-    <TextView 
+    <TextView
         android:id="@+id/str_ab_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/zero" />
     
-    <TextView 
+    <TextView
         android:id="@+id/str_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:gravity="left"
+        android:text="@string/zero" />
     
     <TextView
         android:id="@+id/str_equals"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/equals" />
     
     <EditText 
@@ -98,6 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/plus" />
     
     <EditText 
@@ -107,33 +119,36 @@
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal" />
 
-    
-
     <TextView
         android:id="@+id/dex_title"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/dex" />
 	
-    <TextView 
+    <TextView
         android:id="@+id/dex_ab_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/zero" />
     
-    <TextView 
+    <TextView
         android:id="@+id/dex_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:gravity="left"
+        android:text="@string/zero" />
     
     <TextView
         android:id="@+id/dex_equals"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
+        android:gravity="left"
         android:text="@string/equals" />
     
     <EditText 
@@ -173,11 +188,12 @@
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
     
-    <TextView 
+    <TextView
         android:id="@+id/con_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/zero" />
     
     <TextView
         android:id="@+id/con_equals"
@@ -223,11 +239,12 @@
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
     
-    <TextView 
+    <TextView
         android:id="@+id/int_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/zero" />
     
     <TextView
         android:id="@+id/int_equals"
@@ -273,11 +290,12 @@
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
     
-    <TextView 
+    <TextView
         android:id="@+id/wis_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/zero" />
     
     <TextView
         android:id="@+id/wis_equals"
@@ -323,11 +341,12 @@
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
     
-    <TextView 
+    <TextView
         android:id="@+id/cha_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:text="@string/zero" />
     
     <TextView
         android:id="@+id/cha_equals"
@@ -356,6 +375,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal" />
+    
+    <Button 
+        android:id="@+id/button_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/h_w_hair_eyes_enter"
+        android:text="@string/save"
+     	android:onClick="abilityScores" />
 	    
 </GridLayout>
     

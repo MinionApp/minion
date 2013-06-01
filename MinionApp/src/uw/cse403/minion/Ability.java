@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Loki White (lokiw)
  */
 public class Ability {
+	 static final String SAMPLE_MODIFIER = "sampleModifier";
 	private static final String BASE = "base=";
 	
 	private long charID;
@@ -79,8 +80,9 @@ public class Ability {
 		System.out.println("Querying charID=" + charID + " abilityID=" + abilityID);
 		if (cursor.moveToFirst()) {
 			isNew = false;
-			// COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_SCORE
+			// COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_BASE, COLUMN_TEMP
 			base = cursor.getInt(2);
+			tempModifiers.put(SAMPLE_MODIFIER, cursor.getInt(3));
 			System.out.println(BASE + base);
 		}
 		cursor.close();
@@ -233,7 +235,8 @@ public class Ability {
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
-		values.put(SQLiteHelperAbilityScores.COLUMN_SCORE, base);
+		values.put(SQLiteHelperAbilityScores.COLUMN_BASE, base);
+		values.put(SQLiteHelperAbilityScores.COLUMN_TEMP, tempModifiers.get(SAMPLE_MODIFIER));
 		if (isNew) {
 			db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
 		} else {

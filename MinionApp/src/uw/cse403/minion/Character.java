@@ -130,7 +130,8 @@ public class Character {
 	 * @return	int representing total will save bonus
 	 */
 	public int getWillSave(){
-		return will.getTotal(abilityScores[4]);
+		//return will.getTotal(abilityScores[4]);
+		return will.getTotal();
 	}
 	
 	/**
@@ -140,7 +141,8 @@ public class Character {
 	 * @return	int representing total fortitude save bonus
 	 */
 	public int getFortitudeSave(){
-		return fort.getTotal(abilityScores[2]);
+		//return fort.getTotal(abilityScores[2]);
+		return fort.getTotal();
 	}
 	
 	/**
@@ -150,7 +152,8 @@ public class Character {
 	 * @return	int representing total reflex save bonus
 	 */
 	public int getReflexSave(){
-		return ref.getTotal(abilityScores[1]);
+		//return ref.getTotal(abilityScores[1]);
+		return ref.getTotal();
 	}
 	
 	/**

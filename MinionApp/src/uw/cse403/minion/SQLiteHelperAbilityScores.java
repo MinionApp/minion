@@ -19,16 +19,18 @@ public class SQLiteHelperAbilityScores extends SQLiteOpenHelper
 	public static final String TABLE_NAME = "ability_scores";
 	public static final String COLUMN_CHAR_ID 	= "char_id";
 	public static final String COLUMN_REF_AS_ID = "ref_as_id";
-	public static final String COLUMN_SCORE 	= "score";
+	public static final String COLUMN_BASE 	= "base";
+	public static final String COLUMN_TEMP 	= "temp";
 	public static final String[] ALL_COLUMNS = 
-		{ COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_SCORE };
+		{ COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_BASE, COLUMN_TEMP };
 
 	// table creation SQL statement
 	private static final String CREATE_TABLE_STATEMENT = "CREATE TABLE "
 	    + TABLE_NAME 	+ "(" 
 		+ COLUMN_CHAR_ID 		+ " INTEGER, " 
 		+ COLUMN_REF_AS_ID 		+ " INTEGER, " 
-		+ COLUMN_SCORE 			+ " INTEGER, "
+		+ COLUMN_BASE 			+ " INTEGER, "
+		+ COLUMN_TEMP 			+ " INTEGER, "
 		// references Basic Info _id
 		+ " FOREIGN KEY(" + COLUMN_CHAR_ID + ") REFERENCES " 
 			+ SQLiteHelperBasicInfo.TABLE_NAME + "(" 
