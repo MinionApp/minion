@@ -8,7 +8,7 @@ import android.util.Log;
 public class MinionSQLiteHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
-	
+
 	// BASIC INFO columns
 	public static final String TABLE_BASIC_INFO = "basic_info";
 	public static final String COLUMN_ID 		= "_id";
@@ -28,29 +28,29 @@ public class MinionSQLiteHelper extends SQLiteOpenHelper {
 
 	// BASIC INFO table creation SQL statement
 	private static final String CREATE_TABLE_BASIC_INFO = "create table "
-	    + TABLE_BASIC_INFO + "(" 
-		+ COLUMN_ID 		+ " integer primary key autoincrement, " 
-		+ COLUMN_NAME 		+ " text not null, "
-		+ COLUMN_LEVEL 		+ " text, "
-		+ COLUMN_DIETY 		+ " text, "
-		+ COLUMN_HOMELAND 	+ " text, "
-		+ COLUMN_RACE 		+ " text, "
-		+ COLUMN_SIZE 		+ " text, "
-		+ COLUMN_GENDER 	+ " text, "
-		+ COLUMN_AGE 		+ " integer, "
-		+ COLUMN_HEIGHT 	+ " integer, "
-		+ COLUMN_WEIGHT 	+ " integer, "
-		+ COLUMN_HAIR 		+ " text, "
-		+ COLUMN_EYES 		+ " text) ";
+			+ TABLE_BASIC_INFO + "(" 
+			+ COLUMN_ID 		+ " integer primary key autoincrement, " 
+			+ COLUMN_NAME 		+ " text not null, "
+			+ COLUMN_LEVEL 		+ " text, "
+			+ COLUMN_DIETY 		+ " text, "
+			+ COLUMN_HOMELAND 	+ " text, "
+			+ COLUMN_RACE 		+ " text, "
+			+ COLUMN_SIZE 		+ " text, "
+			+ COLUMN_GENDER 	+ " text, "
+			+ COLUMN_AGE 		+ " integer, "
+			+ COLUMN_HEIGHT 	+ " integer, "
+			+ COLUMN_WEIGHT 	+ " integer, "
+			+ COLUMN_HAIR 		+ " text, "
+			+ COLUMN_EYES 		+ " text) ";
 
-	
+
 
 
 	// SKILLS table creation SQL statement
 
 
 	public MinionSQLiteHelper(Context context) {
-	  super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class MinionSQLiteHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
 		// TODO Auto-generated method stub
 		Log.w(MinionSQLiteHelper.class.getName(),
-			   "Upgrading database from version " + oldVer + " to "
-		           + newVer + ", which will destroy all old data");
+				"Upgrading database from version " + oldVer + " to "
+						+ newVer + ", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_BASIC_INFO);
 		onCreate(db);
 	}

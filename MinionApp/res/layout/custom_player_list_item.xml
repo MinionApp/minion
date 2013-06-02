@@ -1,29 +1,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent" 
-    android:layout_height="?android:attr/listPreferredItemHeight" 
-    android:paddingTop="2dip" 
-    android:paddingBottom="2dip" 
-    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft" >
-    
-	<TextView
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:paddingBottom="2dip"
+    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+    android:paddingTop="2dip" >
+
+    <TextView
         android:id="@+id/player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="16sp"
-        android:text="" />
-    
-	<TextView
+        android:text=""
+        android:textSize="16sp" />
+
+    <TextView
         android:id="@+id/current_gm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:text="Current GM"
         android:textSize="16sp"
-        android:text="Current GM" 
         android:visibility="gone" />
-	
+
     <Button
         android:id="@+id/remove_button"
         style="?android:attr/buttonStyleSmall"
@@ -31,17 +31,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:focusable="false"
-        android:text="Remove Player" 
-        android:onClick="removePlayerFromGroup" />
+        android:onClick="removePlayerFromGroup"
+        android:text="Remove Player" />
 
-	<Button
+    <Button
         android:id="@+id/gm_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/remove_button"
         android:focusable="false"
-        android:text="Make GM" 
-        android:onClick="makePlayerGM" />
+        android:onClick="makePlayerGM"
+        android:text="Make GM" />
 
 </RelativeLayout>

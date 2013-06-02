@@ -15,7 +15,7 @@ public class CharacterDescription {
 	public long charID;
 	public boolean isNew; 
 	// used to determine whether to populate UI with stored values
-	
+
 	public String name;
 	public String player;
 	public String alignment;
@@ -33,8 +33,8 @@ public class CharacterDescription {
 	public int weight;
 	public String hair;
 	public String eyes;
-	
-	
+
+
 	public CharacterDescription(long id) {
 		charID = id;
 		// set defaults
@@ -54,10 +54,10 @@ public class CharacterDescription {
 		weight = 0;
 		hair = "";
 		eyes = "";
-		
+
 		loadFromDB();
 	}
-	
+
 	/**
 	 * Populate fields with values from DB
 	 */
@@ -87,8 +87,8 @@ public class CharacterDescription {
 		}
 		cursor.close();
 	}
-	
-	
+
+
 	/** 
 	 * Writes character description / basic info to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
@@ -115,16 +115,16 @@ public class CharacterDescription {
 		values.put(SQLiteHelperBasicInfo.COLUMN_WEIGHT, weight);
 		values.put(SQLiteHelperBasicInfo.COLUMN_HAIR, hair);
 		values.put(SQLiteHelperBasicInfo.COLUMN_EYES, eyes);
-		
+
 		if (isNew) {
 			db.insert(SQLiteHelperBasicInfo.TABLE_NAME, null, values);
 		} else {
 			db.update(SQLiteHelperBasicInfo.TABLE_NAME, values, SQLiteHelperBasicInfo.COLUMN_ID + " = " + charID, null);
 		}
-		
+
 		//String[] columns = {SQLiteHelperBasicInfo.COLUMN_ID};
 		//Cursor c = db.query(SQLiteHelperBasicInfo.TABLE_NAME, columns, columns[0] + " = " + name, null, null, null, null);
 		//return c.getInt(0);
-		
+
 	}
 }

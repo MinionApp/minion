@@ -7,32 +7,35 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SQLiteTestActivity" >
-    
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello_world"
         android:textAlignment="center" />
-    
-    <EditText android:id="@+id/add_character"
+
+    <EditText
+        android:id="@+id/add_character"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@android:id/list"
         android:hint="@string/edit_message" />
-     
-     <Button android:id="@+id/button_add"
+
+    <Button
+        android:id="@+id/button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_character"
-        android:text="@string/button_add_character"
-     	android:onClick="addCharacter" />
-     
-     <Button android:id="@+id/button_remove"
+        android:onClick="addCharacter"
+        android:text="@string/button_add_character" />
+
+    <Button
+        android:id="@+id/button_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/button_add"
-        android:text="@string/button_remove_character"
-     	android:onClick="removeCharacter" />
-     
+        android:onClick="removeCharacter"
+        android:text="@string/button_remove_character" />
+
 </RelativeLayout>

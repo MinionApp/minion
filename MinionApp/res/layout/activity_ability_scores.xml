@@ -17,7 +17,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/ab_name" />
-    
+
     <TextView
         android:id="@+id/ab_score_title"
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/ab_score" />
-    
+
     <TextView
         android:id="@+id/ab_mod_title"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/ab_mod" />
-    
+
     <TextView
         android:id="@+id/title_equals"
         android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/equals" />
-    
+
     <TextView
         android:id="@+id/base_title"
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/base" />
-    
+
     <TextView
         android:id="@+id/title_plus"
         android:layout_width="wrap_content"
@@ -57,14 +57,14 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/plus" />
-    
+
     <TextView
         android:id="@+id/temp_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
         android:text="@string/temp" />
-    
+
     <TextView
         android:id="@+id/str_title"
         android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/str" />
-	
+
     <TextView
         android:id="@+id/str_ab_score"
         android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/str_ab_mod"
         android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/str_equals"
         android:layout_width="wrap_content"
@@ -96,14 +96,14 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/equals" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/str_base"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-    
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
+
     <TextView
         android:id="@+id/str_plus"
         android:layout_width="wrap_content"
@@ -111,13 +111,13 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/plus" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/str_temp"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
 
     <TextView
         android:id="@+id/dex_title"
@@ -126,7 +126,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/dex" />
-	
+
     <TextView
         android:id="@+id/dex_ab_score"
         android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/dex_ab_mod"
         android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/dex_equals"
         android:layout_width="wrap_content"
@@ -150,29 +150,27 @@
         android:layout_gravity="fill_horizontal"
         android:gravity="left"
         android:text="@string/equals" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/dex_base"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-    
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
+
     <TextView
         android:id="@+id/dex_plus"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/plus" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/dex_temp"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-
-    
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
 
     <TextView
         android:id="@+id/con_title"
@@ -180,210 +178,203 @@
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/con" />
-	
-    <TextView 
+
+    <TextView
         android:id="@+id/con_ab_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/con_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/con_equals"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/equals" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/con_base"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-    
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
+
     <TextView
         android:id="@+id/con_plus"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/plus" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/con_temp"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
 
-
-    
     <TextView
         android:id="@+id/int_title"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/intel" />
-	
-    <TextView 
+
+    <TextView
         android:id="@+id/int_ab_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/int_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/int_equals"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/equals" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/int_base"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-    
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
+
     <TextView
         android:id="@+id/int_plus"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/plus" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/int_temp"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
 
-    
- 
     <TextView
         android:id="@+id/wis_title"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/wis" />
-	
-    <TextView 
+
+    <TextView
         android:id="@+id/wis_ab_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/wis_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/wis_equals"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/equals" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/wis_base"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-    
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
+
     <TextView
         android:id="@+id/wis_plus"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/plus" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/wis_temp"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-    
-    
-    
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
+
     <TextView
         android:id="@+id/cha_title"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/cha" />
-	
-    <TextView 
+
+    <TextView
         android:id="@+id/cha_ab_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/cha_ab_mod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:text="@string/zero" />
-    
+
     <TextView
         android:id="@+id/cha_equals"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/equals" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/cha_base"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-    
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
+
     <TextView
         android:id="@+id/cha_plus"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_gravity="fill_horizontal"
         android:text="@string/plus" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/cha_temp"
-        android:inputType="numberSigned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill_horizontal" />
-    
-    <Button 
+        android:layout_gravity="fill_horizontal"
+        android:inputType="numberSigned" />
+
+    <Button
         android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/h_w_hair_eyes_enter"
-        android:text="@string/save"
-     	android:onClick="abilityScores" />
-	    
+        android:onClick="abilityScores"
+        android:text="@string/save" />
+
 </GridLayout>
-    

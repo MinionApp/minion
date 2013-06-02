@@ -7,52 +7,58 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CharCreateMainActivity" >
-    
-    <Button android:id="@+id/basic_info"
+
+    <Button
+        android:id="@+id/basic_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/button_basic_info"
-     	android:onClick="gotoBasicInfo" />
-    
-    <Button android:id="@+id/ability_scores"
+        android:onClick="gotoBasicInfo"
+        android:text="@string/button_basic_info" />
+
+    <Button
+        android:id="@+id/ability_scores"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/basic_info"
-        android:text="@string/button_ability_scores"
-     	android:onClick="gotoAbilityScores" />
-    
-    <Button android:id="@+id/skills"
+        android:layout_centerHorizontal="true"
+        android:onClick="gotoAbilityScores"
+        android:text="@string/button_ability_scores" />
+
+    <Button
+        android:id="@+id/skills"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/ability_scores"
-        android:text="@string/button_skills"
-     	android:onClick="gotoSkills" />
-    
-    <Button android:id="@+id/combat"
+        android:layout_centerHorizontal="true"
+        android:onClick="gotoSkills"
+        android:text="@string/button_skills" />
+
+    <Button
+        android:id="@+id/combat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/skills"
-        android:text="@string/button_combat"
-     	android:onClick="gotoCombat" />
-    
-    <Button android:id="@+id/saving_throws"
+        android:layout_centerHorizontal="true"
+        android:onClick="gotoCombat"
+        android:text="@string/button_combat" />
+
+    <Button
+        android:id="@+id/saving_throws"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/combat"
-        android:text="@string/button_saving_throws"
-     	android:onClick="gotoSavingThrows" />
-    
-    <Button android:id="@+id/done_button"
+        android:layout_centerHorizontal="true"
+        android:onClick="gotoSavingThrows"
+        android:text="@string/button_saving_throws" />
+
+    <Button
+        android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/saving_throws"
-        android:text="@string/done"
-     	android:onClick="gotoCharacterList" />
+        android:layout_centerHorizontal="true"
+        android:onClick="gotoCharacterList"
+        android:text="@string/done" />
 
 </RelativeLayout>

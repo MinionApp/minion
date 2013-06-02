@@ -30,16 +30,16 @@ import android.os.Build;
 
 public class CharactersActivity extends Activity {
 	private static final String CHARACTER_ID = "cid";
-	
+
 	private CharacterDataSource datasource;
-	
+
 	// Declare the UI components
 	private ListView charListView;
-	
+
 	// Change this array's name and contents to be the character information
 	// received from the database
 	private static ArrayList<String> testArray;
-	
+
 	// Adapter for connecting the array above to the UI view
 	private ArrayAdapter<String> adapter;
 
@@ -49,22 +49,22 @@ public class CharactersActivity extends Activity {
 		setContentView(R.layout.activity_characters);
 		// Show the Up button in the action bar.
 		setupActionBar();
-        System.out.println("CREATING DATASOURCE");
-        datasource = new CharacterDataSource(this);
-        System.out.println("OPENING DATASOURCE");
-	    datasource.open();
+		System.out.println("CREATING DATASOURCE");
+		datasource = new CharacterDataSource(this);
+		System.out.println("OPENING DATASOURCE");
+		datasource.open();
 
-	    datasource.printTables();
-	    // To test reading from database:
-	    testArray = new ArrayList<String>();
-	    
-	    // Initialize the UI components
-        charListView = (ListView) findViewById(R.id.charListView);
+		datasource.printTables();
+		// To test reading from database:
+		testArray = new ArrayList<String>();
 
-        //GETS ALL CHAR
-        Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
-        		null, null, null, null, null);
-        if (cursor.moveToFirst()) {
+		// Initialize the UI components
+		charListView = (ListView) findViewById(R.id.charListView);
+
+		//GETS ALL CHAR
+		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+				null, null, null, null, null);
+		if (cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
 				String characterName = cursor.getString(0);
@@ -72,33 +72,33 @@ public class CharactersActivity extends Activity {
 				cursor.moveToNext();
 			}
 		}
-        cursor.close();
-        //testArray.add("test");
-        // Create an empty adapter we will use to display the loaded data.
-        // We pass null for the cursor, then update it in onLoadFinished()
-        adapter = new ArrayAdapter<String>(this, 
-        		android.R.layout.simple_list_item_1, testArray);
-        charListView.setAdapter(adapter);
-        charListView.setOnItemClickListener(new OnItemClickListener() {
+		cursor.close();
+		//testArray.add("test");
+		// Create an empty adapter we will use to display the loaded data.
+		// We pass null for the cursor, then update it in onLoadFinished()
+		adapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_1, testArray);
+		charListView.setAdapter(adapter);
+		charListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// When clicked, show a toast with the TextView text
-	            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
 				String charName = ((TextView) view).getText().toString();
-		        //GETS charID based on character name
-		        Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
-		        		SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
-		        long cid = 0;
-		        if (cursor2.moveToFirst()) {
-		        	cid = cursor2.getLong(0);
+				//GETS charID based on character name
+				Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
+						SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
+				long cid = 0;
+				if (cursor2.moveToFirst()) {
+					cid = cursor2.getLong(0);
 				}
-		        cursor2.close();
+				cursor2.close();
 				intent.putExtra(CHARACTER_ID, cid);
 				startActivity(intent);
 			}
-          });
+		});
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class CharactersActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/**
 	 * Updates the view if it is reached via back button presses.
 	 */
@@ -142,13 +142,13 @@ public class CharactersActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 		testArray = new ArrayList<String>();
-	    // Initialize the UI components
-        charListView = (ListView) findViewById(R.id.charListView);
+		// Initialize the UI components
+		charListView = (ListView) findViewById(R.id.charListView);
 
-        //GETS ALL CHAR
-        Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
-        		null, null, null, null, null);
-        if (cursor.moveToFirst()) {
+		//GETS ALL CHAR
+		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+				null, null, null, null, null);
+		if (cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
 				String characterName = cursor.getString(0);
@@ -156,41 +156,41 @@ public class CharactersActivity extends Activity {
 				cursor.moveToNext();
 			}
 		}
-        cursor.close();
-        //testArray.add("test");
-        // Create an empty adapter we will use to display the loaded data.
-        // We pass null for the cursor, then update it in onLoadFinished()
-        adapter = new ArrayAdapter<String>(this, 
-        		android.R.layout.simple_list_item_1, testArray);
-        charListView.setAdapter(adapter);
-        charListView.setOnItemClickListener(new OnItemClickListener() {
+		cursor.close();
+		//testArray.add("test");
+		// Create an empty adapter we will use to display the loaded data.
+		// We pass null for the cursor, then update it in onLoadFinished()
+		adapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_1, testArray);
+		charListView.setAdapter(adapter);
+		charListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// When clicked, show a toast with the TextView text
-	            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
 				String charName = ((TextView) view).getText().toString();
-		        //GETS charID based on character name
-		        Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
-		        		SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
-		        long cid = 0;
-		        if (cursor2.moveToFirst()) {
-		        	cid = cursor2.getLong(0);
+				//GETS charID based on character name
+				Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
+						SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
+				long cid = 0;
+				if (cursor2.moveToFirst()) {
+					cid = cursor2.getLong(0);
 				}
-		        cursor2.close();
+				cursor2.close();
 				intent.putExtra(CHARACTER_ID, cid);
 				startActivity(intent);
 			}
-          });
+		});
 	}
-	
+
 	public void addCharacter(View view) {
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		startActivity(intent);
 	}
-	 
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        // Do something when a list item is clicked
-    }
+
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		// Do something when a list item is clicked
+	}
 }
