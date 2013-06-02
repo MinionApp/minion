@@ -17,26 +17,26 @@ import android.os.Build;
 
 public class SQLiteTestActivity extends ListActivity {
 	private CharacterDataSource datasource;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sqlite_test);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		
+
 		datasource = new CharacterDataSource(this);
 		System.out.println("datasource opening");
-	    datasource.open();
-	    System.out.println("datasource opened");
+		datasource.open();
+		System.out.println("datasource opened");
 
-	    List<Character> values = datasource.getAllCharacters();
+		List<Character> values = datasource.getAllCharacters();
 
-	    // Use the SimpleCursorAdapter to show the
-	    // elements in a ListView
-	    ArrayAdapter<Character> adapter = new ArrayAdapter<Character>(this,
-	        android.R.layout.simple_list_item_1, values);
-	    setListAdapter(adapter);
+		// Use the SimpleCursorAdapter to show the
+		// elements in a ListView
+		ArrayAdapter<Character> adapter = new ArrayAdapter<Character>(this,
+				android.R.layout.simple_list_item_1, values);
+		setListAdapter(adapter);
 	}
 
 	/**
@@ -72,53 +72,53 @@ public class SQLiteTestActivity extends ListActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
- 	protected void onResume() {
+	protected void onResume() {
 		datasource.open();
 		super.onResume();
- 	}
+	}
 
- 	@Override
- 	protected void onPause() {
- 		datasource.close();
- 		super.onPause();
- 	}
-	
+	@Override
+	protected void onPause() {
+		datasource.close();
+		super.onPause();
+	}
+
 	public void addCharacter(View view) {
 		EditText editText = (EditText) findViewById(R.id.add_character);
-    	String cName = editText.getText().toString().trim();
-    	editText.setText("");
-    	
-    	if (!cName.equals("")) { // string is not empty
-	    	@SuppressWarnings("unchecked")
-	    	ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
-//	    	Character character = datasource.createCharacter(cName);
-//			adapter.add(character);
+		String cName = editText.getText().toString().trim();
+		editText.setText("");
+
+		if (!cName.equals("")) { // string is not empty
+			@SuppressWarnings("unchecked")
+			ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
+			//	    	Character character = datasource.createCharacter(cName);
+			//			adapter.add(character);
 			adapter.notifyDataSetChanged();
 			Intent intent = new Intent(this, CharCreateMainActivity.class);
 			startActivity(intent);
-    	}
-    }
-	
+		}
+	}
+
 	public void removeCharacter(View view) {
 		@SuppressWarnings("unchecked")
-    	ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
+		ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
 		if (!getListAdapter().isEmpty()) {
 			Character character = (Character)getListAdapter().getItem(0);
 			datasource.deleteCharacter(character);
 			adapter.remove(character);
 		}
-    }
-	
+	}
+
 	public void loadCharacters() {
 		List<Character> values = datasource.getAllCharacters();
 
-	    // Use the SimpleCursorAdapter to show the
-	    // elements in a ListView
-	    ArrayAdapter<Character> adapter = new ArrayAdapter<Character>(this,
-	        android.R.layout.simple_list_item_1, values);
-	    setListAdapter(adapter);
+		// Use the SimpleCursorAdapter to show the
+		// elements in a ListView
+		ArrayAdapter<Character> adapter = new ArrayAdapter<Character>(this,
+				android.R.layout.simple_list_item_1, values);
+		setListAdapter(adapter);
 	}
 
 }

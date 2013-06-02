@@ -41,7 +41,7 @@ public class ViewInvitesActivity extends ListActivity {
 	private static final String CHARACTER_ID = "cid";
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
-	
+
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getInvites.php";
 	private static final String PHP_ADDRESS2 = "http://homes.cs.washington.edu/~elefse/acceptInvite.php";
 	private static final String PHP_ADDRESS3 = "http://homes.cs.washington.edu/~elefse/declineInvite.php";
@@ -51,7 +51,7 @@ public class ViewInvitesActivity extends ListActivity {
 	private static Dialog dialog;
 	private static Dialog noCharactersAlert;
 	private CharacterDataSource datasource;
-	
+
 	/**
 	 * Declare the UI components
 	 */
@@ -68,7 +68,7 @@ public class ViewInvitesActivity extends ListActivity {
 	 * Adapter for connecting the array above to the UI view
 	 */
 	private SimpleAdapter adapter;
-	
+
 	/**
 	 * Displays the view invites page for the current user.
 	 */
@@ -120,7 +120,7 @@ public class ViewInvitesActivity extends ListActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/**
 	 * Updates the view if it is reached via back button presses.
 	 */
@@ -130,7 +130,7 @@ public class ViewInvitesActivity extends ListActivity {
 		GetInvitesTask task = new GetInvitesTask(this);
 		task.execute(username);
 	}
-	
+
 	/**
 	 * Responds to the accept invite button click by adding the user to the
 	 * group.
@@ -138,14 +138,14 @@ public class ViewInvitesActivity extends ListActivity {
 	 */
 	public void acceptInvite(View view) {
 		datasource = new CharacterDataSource(this);
-	    datasource.open();
+		datasource.open();
 		// To test reading from database:
-	    testArray2 = new ArrayList<String>();
-	    
-        //GETS ALL CHAR
-        Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
-        		null, null, null, null, null);
-        if (cursor.moveToFirst()) {
+		testArray2 = new ArrayList<String>();
+
+		//GETS ALL CHAR
+		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+				null, null, null, null, null);
+		if (cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
 				String characterName = cursor.getString(0);
@@ -153,47 +153,47 @@ public class ViewInvitesActivity extends ListActivity {
 				cursor.moveToNext();
 			}
 		}
-        cursor.close();
-        
-        if(testArray2.size() == 0) {
-        	AlertDialog.Builder noCharactersBuilder = new AlertDialog.Builder(this);
-        	noCharactersBuilder.setMessage("You have no character with which to play with! Please go create a character!");
-        	noCharactersBuilder.setTitle("No Characters Warning");
-        	noCharactersBuilder.setPositiveButton("Ok",
-        		    new DialogInterface.OnClickListener() {
-        		        public void onClick(DialogInterface dialog, int which) {
-        		        	noCharactersAlert.dismiss(); 
-        		        }
-        		    });
-        	noCharactersBuilder.setCancelable(true);
-        	noCharactersAlert = noCharactersBuilder.create();
-        	noCharactersAlert.show();
-        } else {
-		    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		    builder.setTitle("Pick a Character");
-	
-		    ListView modeList = new ListView(this);
-		    ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray2);
-		    modeList.setAdapter(modeAdapter);
-		    builder.setView(modeList);
-		    dialog = builder.create();
-	
-		    dialog.show();
-	        modeList.setOnItemClickListener(new OnItemClickListener() {
-	
+		cursor.close();
+
+		if(testArray2.size() == 0) {
+			AlertDialog.Builder noCharactersBuilder = new AlertDialog.Builder(this);
+			noCharactersBuilder.setMessage("You have no character with which to play with! Please go create a character!");
+			noCharactersBuilder.setTitle("No Characters Warning");
+			noCharactersBuilder.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					noCharactersAlert.dismiss(); 
+				}
+			});
+			noCharactersBuilder.setCancelable(true);
+			noCharactersAlert = noCharactersBuilder.create();
+			noCharactersAlert.show();
+		} else {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Pick a Character");
+
+			ListView modeList = new ListView(this);
+			ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray2);
+			modeList.setAdapter(modeAdapter);
+			builder.setView(modeList);
+			dialog = builder.create();
+
+			dialog.show();
+			modeList.setOnItemClickListener(new OnItemClickListener() {
+
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// When clicked, show a toast with the TextView text
 					character = ((TextView) view).getText().toString();
-		            dialog.dismiss();
-		    	    group = (String) getListView().getItemAtPosition(position);
-		    		acceptInviteTask task = new acceptInviteTask(view.getContext());
-		    		task.execute(username);
+					dialog.dismiss();
+					group = (String) getListView().getItemAtPosition(position);
+					acceptInviteTask task = new acceptInviteTask(view.getContext());
+					task.execute(username);
 				}
-	          });
-        }
+			});
+		}
 	}
-	
+
 	/**
 	 * Responds to the decline invite button click by removing any pending invites
 	 * the user has from the current group.
@@ -201,11 +201,11 @@ public class ViewInvitesActivity extends ListActivity {
 	 */
 	public void declineInvite(View view) {
 		int position = getListView().getPositionForView((View) view.getParent());
-	    group = (String) getListView().getItemAtPosition(position);
+		group = (String) getListView().getItemAtPosition(position);
 		declineInviteTask task = new declineInviteTask(this);
 		task.execute(username);
 	}
-	
+
 	/**
 	 * GetInvitesTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It gets all of the pending invites
@@ -213,7 +213,7 @@ public class ViewInvitesActivity extends ListActivity {
 	 */
 	private class GetInvitesTask extends AsyncTask<String, Void, ArrayList<HashMap<String, String>>> {
 		private Context context;
-		
+
 		/**
 		 * Constructs a new GetInvitesTask object.
 		 * @param context The current Activity's context.
@@ -221,76 +221,76 @@ public class ViewInvitesActivity extends ListActivity {
 		private GetInvitesTask (Context context) {
 			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("un", username));
-	        
-	        // Hashmap for ListView
-	        ArrayList<HashMap<String, String>> invitesArray = new ArrayList<HashMap<String, String>>();
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("un", username));
+
+			// Hashmap for ListView
+			ArrayList<HashMap<String, String>> invitesArray = new ArrayList<HashMap<String, String>>();
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();    
-	        	JSONObject results  = new JSONObject(res);
-	        	JSONArray groups = results.getJSONArray("items");
-	        	// looping through groups
-	            for(int i = 0; i < groups.length(); i++){
-	                JSONObject c = groups.getJSONObject(i);
-	                 
-	                // Storing each json item in variable
-	                String groupName = c.getString("groupname");
-	                String gm = c.getString("gm");
-	                
-	                // creating new HashMap
-	                HashMap<String, String> map = new HashMap<String, String>();
-	                map.put(GROUPNAME, groupName);
-	                map.put(GAME_MASTER, gm);
-	                // adding HashList to ArrayList
-	                invitesArray.add(map);
-	            }
-	        } catch (Exception e) {
-	        	res = e.toString();
-	        }
-	        return invitesArray;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
-	    	if(result.size() == 0) {
-	    		ListView list = (ListView) findViewById(android.R.id.list);
-	    		list.setVisibility(View.GONE);
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+				res = result.toString();    
+				JSONObject results  = new JSONObject(res);
+				JSONArray groups = results.getJSONArray("items");
+				// looping through groups
+				for(int i = 0; i < groups.length(); i++){
+					JSONObject c = groups.getJSONObject(i);
+
+					// Storing each json item in variable
+					String groupName = c.getString("groupname");
+					String gm = c.getString("gm");
+
+					// creating new HashMap
+					HashMap<String, String> map = new HashMap<String, String>();
+					map.put(GROUPNAME, groupName);
+					map.put(GAME_MASTER, gm);
+					// adding HashList to ArrayList
+					invitesArray.add(map);
+				}
+			} catch (Exception e) {
+				res = e.toString();
+			}
+			return invitesArray;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
+			if(result.size() == 0) {
+				ListView list = (ListView) findViewById(android.R.id.list);
+				list.setVisibility(View.GONE);
 				TextView noInvitesTextView = (TextView) findViewById(R.id.no_pending_invites);
 				noInvitesTextView.setVisibility(View.VISIBLE);
-	    	} else {	    		
-	    		testArray = result;
-		    	
-			    // Initialize the UI components
-		        invitesListView = (ListView) findViewById(android.R.id.list);
+			} else {	    		
+				testArray = result;
 
-		        // Create an empty adapter we will use to display the loaded data.
-		        // We pass null for the cursor, then update it in onLoadFinished()
-		        adapter = new SimpleAdapter(context, testArray, 
-		        		R.layout.custom_invite_list_item, new String[] { GROUPNAME, GAME_MASTER }, new int[] {
-		        		R.id.invite, R.id.gm_field });
+				// Initialize the UI components
+				invitesListView = (ListView) findViewById(android.R.id.list);
 
-		        invitesListView.setAdapter(adapter);
-		        
-		        invitesListView.setOnItemClickListener(new OnItemClickListener() {
+				// Create an empty adapter we will use to display the loaded data.
+				// We pass null for the cursor, then update it in onLoadFinished()
+				adapter = new SimpleAdapter(context, testArray, 
+						R.layout.custom_invite_list_item, new String[] { GROUPNAME, GAME_MASTER }, new int[] {
+						R.id.invite, R.id.gm_field });
+
+				invitesListView.setAdapter(adapter);
+
+				invitesListView.setOnItemClickListener(new OnItemClickListener() {
 
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 						// When clicked, show a toast with the TextView text
-			            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+						//Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(context, ViewGroupActivity.class);
 						TextView groupTextView = (TextView) view.findViewById(R.id.invite);
 						String groupname = groupTextView.getText().toString();
@@ -300,12 +300,12 @@ public class ViewInvitesActivity extends ListActivity {
 						intent.putExtra(GAME_MASTER, gm);
 						startActivity(intent);
 					}
-		          });
-	    	}
-	    }
-	 
+				});
+			}
+		}
+
 	}
-	
+
 	/**
 	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It updates the database to include the
@@ -313,7 +313,7 @@ public class ViewInvitesActivity extends ListActivity {
 	 */
 	private class acceptInviteTask extends AsyncTask<String, Void, String> {
 		private Context context;
-		
+
 		/**
 		 * Constructs a new GetNumberOfInvitesTask object.
 		 * @param context The current Activity's context.
@@ -321,42 +321,42 @@ public class ViewInvitesActivity extends ListActivity {
 		private acceptInviteTask (Context context) {
 			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("un", username));
-	        postParameters.add(new BasicNameValuePair("group", group));
-	        postParameters.add(new BasicNameValuePair("character", character));
-	        
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("un", username));
+			postParameters.add(new BasicNameValuePair("group", group));
+			postParameters.add(new BasicNameValuePair("character", character));
+
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS2, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	Intent intent = new Intent(context, ViewInvitesActivity.class);
-	    	startActivity(intent);
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS2, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			Intent intent = new Intent(context, ViewInvitesActivity.class);
+			startActivity(intent);
 			finish();
-	    }
-	 
+		}
+
 	}
-	
+
 	/**
 	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It updates the database to include the
@@ -364,7 +364,7 @@ public class ViewInvitesActivity extends ListActivity {
 	 */
 	private class declineInviteTask extends AsyncTask<String, Void, String> {
 		private Context context;
-		
+
 		/**
 		 * Constructs a new GetNumberOfInvitesTask object.
 		 * @param context The current Activity's context.
@@ -372,38 +372,38 @@ public class ViewInvitesActivity extends ListActivity {
 		private declineInviteTask (Context context) {
 			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("un", username));
-	        postParameters.add(new BasicNameValuePair("group", group));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("un", username));
+			postParameters.add(new BasicNameValuePair("group", group));
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS3, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	Intent intent = new Intent(context, ViewInvitesActivity.class);
-	    	startActivity(intent);
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS3, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			Intent intent = new Intent(context, ViewInvitesActivity.class);
+			startActivity(intent);
 			finish();
-	    }
-	 
+		}
+
 	}
 }

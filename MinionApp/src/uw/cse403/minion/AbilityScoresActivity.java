@@ -15,15 +15,15 @@ import android.os.Build;
 
 public class AbilityScoresActivity extends Activity {
 	private static final String CHARACTER_ID = "cid";
-	
+
 	private long charID;
 	private Ability[] abilities;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ability_scores);
-		
+
 		charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		abilities = new Ability[6];
 		abilities[0] = new Ability(charID, AbilityName.STRENGTH);
@@ -75,9 +75,9 @@ public class AbilityScoresActivity extends Activity {
 		int[] abModFields = { R.id.str_ab_mod, R.id.dex_ab_mod, R.id.con_ab_mod, 
 				R.id.int_ab_mod, R.id.wis_ab_mod, R.id.cha_ab_mod };
 		int[] baseFields = { R.id.str_base, R.id.dex_base, R.id.con_base, 
-						R.id.int_base, R.id.wis_base, R.id.cha_base };
+				R.id.int_base, R.id.wis_base, R.id.cha_base };
 		int[] tempFields = { R.id.str_temp, R.id.dex_temp, R.id.con_temp, 
-						R.id.int_temp, R.id.wis_temp, R.id.cha_temp };
+				R.id.int_temp, R.id.wis_temp, R.id.cha_temp };
 		for (int i = 0; i < abilities.length; i++) {
 			if (!abilities[i].isNew) {
 				System.out.println(i + "  " + abilities[i].getBase());
@@ -96,7 +96,7 @@ public class AbilityScoresActivity extends Activity {
 			}
 		}
 	}
-	
+
 	/**
 	 * On "done" button on ability scores screen get an ability
 	 * for each category and add them to an abilities array
@@ -105,7 +105,7 @@ public class AbilityScoresActivity extends Activity {
 	public void abilityScores(View view) {
 		//TODO: Replace values with ones loaded from db
 		int defaultScore = 10;
-		
+
 		Ability str = getStr(defaultScore);
 		Ability dex = getDex(defaultScore);
 		Ability con = getCon(defaultScore);
@@ -118,19 +118,19 @@ public class AbilityScoresActivity extends Activity {
 		abilities[3] = intel;
 		abilities[4] = wis;
 		abilities[5] = cha;
-		
+
 		// write to DB
 		for (int i = 0; i < abilities.length; i++) {
 			abilities[i].writeToDB();
 			System.out.println("Writing charID=" + charID + " abilityID=" + i + " base=" + abilities[i].getBase());
 		}
-		
+
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
-	
+
 	/**
 	 * 
 	 * Get the values for the strength ability and store them
@@ -156,10 +156,10 @@ public class AbilityScoresActivity extends Activity {
 			str.addTempModifier(Ability.SAMPLE_MODIFIER, strTemp);
 
 		}
-		
+
 		return str;
 	}
-	
+
 	/**
 	 * 
 	 * Get the values for the dexterity ability and store them
@@ -185,10 +185,10 @@ public class AbilityScoresActivity extends Activity {
 			dex.addTempModifier(Ability.SAMPLE_MODIFIER, dexTemp);
 
 		}
-		
+
 		return dex;
 	}
-	
+
 	/**
 	 * 
 	 * Get the values for the constitution ability and store them
@@ -214,10 +214,10 @@ public class AbilityScoresActivity extends Activity {
 			con.addTempModifier(Ability.SAMPLE_MODIFIER, conTemp);
 
 		}
-		
+
 		return con;
 	}
-	
+
 	/**
 	 * 
 	 * Get the values for the intelligence ability and store them
@@ -243,10 +243,10 @@ public class AbilityScoresActivity extends Activity {
 			intel.addTempModifier(Ability.SAMPLE_MODIFIER, intelTemp);
 
 		}
-		
+
 		return intel;
 	}
-	
+
 	/**
 	 * 
 	 * Get the values for the wisdom ability and store them
@@ -272,10 +272,10 @@ public class AbilityScoresActivity extends Activity {
 			wis.addTempModifier(Ability.SAMPLE_MODIFIER, wisTemp);
 
 		}
-		
+
 		return wis;
 	}
-	
+
 	/**
 	 * 
 	 * Get the values for the charisma ability and store them
@@ -301,7 +301,7 @@ public class AbilityScoresActivity extends Activity {
 			cha.addTempModifier(Ability.SAMPLE_MODIFIER, chaTemp);
 
 		}
-		
+
 		return cha;
 	}
 

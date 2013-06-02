@@ -77,7 +77,7 @@ public class SkillsActivity extends Activity {
 		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
 		abilities[4] = new Ability(charID, AbilityName.WISDOM);
 		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
-				
+
 		// map from skillID to ability score
 		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
 		// get skillIDs and associated ability score IDs
@@ -92,14 +92,14 @@ public class SkillsActivity extends Activity {
 			}
 		}
 		cursor1.close();
-		
+
 		// prefixes for the xml fields
 		String[] xmlField = { "", "acrobatics", "appraise", "bluff", "climb", "craft", "diplomacy", 
-			"disable_device", "disguise", "escape_artist", "fly", "handle_animal", "heal", "intimidate",
-			"knowledge_arcana", "knowledge_dungeoneering", "knowledge_engineering", "knowledge_geography",
-			"knowledge_history", "knowledge_local", "knowledge_nature", "knowledge_nobility",
-			"knowledge_planes", "knowledge_religion", "linguistics", "perception", "perform", "profession",
-			"ride", "sense_motive", "sleight_of_hand", "spellcraft", "stealth", "survival", "swim", "use_magic_device" };
+				"disable_device", "disguise", "escape_artist", "fly", "handle_animal", "heal", "intimidate",
+				"knowledge_arcana", "knowledge_dungeoneering", "knowledge_engineering", "knowledge_geography",
+				"knowledge_history", "knowledge_local", "knowledge_nature", "knowledge_nobility",
+				"knowledge_planes", "knowledge_religion", "linguistics", "perception", "perform", "profession",
+				"ride", "sense_motive", "sleight_of_hand", "spellcraft", "stealth", "survival", "swim", "use_magic_device" };
 
 		int crafts = 0;
 		int performs = 0;
@@ -116,29 +116,29 @@ public class SkillsActivity extends Activity {
 				int miscMod = cursor2.getInt(4);
 				Skill skill = new Skill(skillID, title, null, ranks, false);
 				skill.addModifier("skillMod", miscMod);
-//				String ranksEnter;
-//				String modEnter;
-//				if (skillID == 5)  { // craft
-//					crafts++;
-//					ranksEnter = xmlField[5] + crafts + "_ranks";
-//					modEnter = xmlField[5] + crafts + "_misc_mod";
-//				} else if (skillID == 26)  { // perform
-//					performs++;
-//					ranksEnter = xmlField[26] + performs + "_ranks";
-//					modEnter = xmlField[26] + performs + "_misc_mod";
-//				} else if (skillID == 27)  { // profession
-//					professions++;
-//					ranksEnter = xmlField[27] + professions + "_ranks";
-//					modEnter = xmlField[27] + professions + "_misc_mod";
-//				} else {
-//					ranksEnter = xmlField[skillID] + "_ranks";
-//					modEnter = xmlField[skillID] + "_misc_mod";
-//				}
-//				EditText ranksEnterField = (EditText) findViewById(R.id.acrobatics_ranks);
-//				ranksEnterField.setText(""+ranks);
-//				EditText modEnterField = (EditText) findViewById(R.id.acrobatics_misc_mod);
-//				modEnterField.setText(""+miscMod);
-				
+				//				String ranksEnter;
+				//				String modEnter;
+				//				if (skillID == 5)  { // craft
+				//					crafts++;
+				//					ranksEnter = xmlField[5] + crafts + "_ranks";
+				//					modEnter = xmlField[5] + crafts + "_misc_mod";
+				//				} else if (skillID == 26)  { // perform
+				//					performs++;
+				//					ranksEnter = xmlField[26] + performs + "_ranks";
+				//					modEnter = xmlField[26] + performs + "_misc_mod";
+				//				} else if (skillID == 27)  { // profession
+				//					professions++;
+				//					ranksEnter = xmlField[27] + professions + "_ranks";
+				//					modEnter = xmlField[27] + professions + "_misc_mod";
+				//				} else {
+				//					ranksEnter = xmlField[skillID] + "_ranks";
+				//					modEnter = xmlField[skillID] + "_misc_mod";
+				//				}
+				//				EditText ranksEnterField = (EditText) findViewById(R.id.acrobatics_ranks);
+				//				ranksEnterField.setText(""+ranks);
+				//				EditText modEnterField = (EditText) findViewById(R.id.acrobatics_misc_mod);
+				//				modEnterField.setText(""+miscMod);
+
 				int titleFieldID = 0;
 				int totalFieldID = 0;
 				int abModFieldID = 0;
@@ -168,8 +168,8 @@ public class SkillsActivity extends Activity {
 					modsFieldID = R.id.climb_misc_mod; break;
 				case 5: 
 					//if (crafts < 3)
-						crafts++;
-						arrayID = R.array.craft_array;
+					crafts++;
+					arrayID = R.array.craft_array;
 					if (crafts == 1) {
 						titleFieldID = R.id.craft1_spinner;
 						totalFieldID = R.id.craft1_total;
@@ -291,8 +291,8 @@ public class SkillsActivity extends Activity {
 					modsFieldID = R.id.perception_misc_mod; break;
 				case 26: 
 					//if (performs < 2)
-						performs++;
-						arrayID = R.array.perform_array;
+					performs++;
+					arrayID = R.array.perform_array;
 					if (performs == 1) {
 						titleFieldID = R.id.perform1_spinner;
 						totalFieldID = R.id.perform1_total;
@@ -308,8 +308,8 @@ public class SkillsActivity extends Activity {
 					} break;
 				case 27: 
 					//if (professions < 2)
-						professions++;
-						arrayID = R.array.profession_array;
+					professions++;
+					arrayID = R.array.profession_array;
 					if (professions == 1) {
 						titleFieldID = R.id.profession1_spinner;
 						totalFieldID = R.id.profession1_total;
@@ -366,26 +366,26 @@ public class SkillsActivity extends Activity {
 				}
 				// put data in UI
 				int abMod = skillToAbMod.get(skill.getID());
-				
+
 				TextView totalField = (TextView) findViewById(totalFieldID);
 				totalField.setText(""+(skill.getTotal() + abMod));
-				
+
 				TextView abModField = (TextView) findViewById(abModFieldID);
 				abModField.setText(""+abMod);
-				
+
 				if (skillID == 5 || skillID == 26 || skillID == 27) { // just for write-ins
 					Spinner spinner = (Spinner) findViewById(titleFieldID);
 					ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, arrayID,
-			                R.layout.smaller_multiline_spinner_dropdown_item);
+							R.layout.smaller_multiline_spinner_dropdown_item);
 					spinner.setAdapter(myAdap);
 					int spinnerPosition = myAdap.getPosition(title);
 					//set the default according to value
 					spinner.setSelection(spinnerPosition);
 				}
-				
+
 				EditText ranksEnterField = (EditText) findViewById(ranksFieldID);
 				ranksEnterField.setText(""+skill.getRank());
-				
+
 				EditText modEnterField = (EditText) findViewById(modsFieldID);
 				modEnterField.setText(""+skill.getModifier("skillMod"));
 
@@ -394,7 +394,7 @@ public class SkillsActivity extends Activity {
 		}
 		cursor2.close();
 	}
-	
+
 	// helper class for storing a string and int together
 	// mostly for making the following code readable
 	private class StrInt {
@@ -412,23 +412,23 @@ public class SkillsActivity extends Activity {
 		// TODO write method
 		//Skill sk = new Skill(null, null);
 		ArrayList<Skill> skills = new ArrayList<Skill>();
-		
-// this segment of code is for factoring the code so that it's not so redundant
-// however the priority is getting this to work, so we can finish this later
-//		// load skills from DB
-//		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
-//				SQLiteHelperRefTables.ALL_COLUMNS_S, null, null, null, null, null);
-//		Map<Integer, StrInt> skillsRef = new HashMap<Integer, StrInt>(); 
-//		// ^ this is essentially a map from skill id to skill name and ability score id
-//		if (cursor.moveToFirst()) {
-//			// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
-//			int id 		= cursor.getInt(0);
-//			String name = cursor.getString(1);
-//			int asID 	= cursor.getInt(2);
-//			skillsRef.put(id, new StrInt(name, asID));
-//		}
-//		cursor.close();
-		
+
+		// this segment of code is for factoring the code so that it's not so redundant
+		// however the priority is getting this to work, so we can finish this later
+		//		// load skills from DB
+		//		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
+		//				SQLiteHelperRefTables.ALL_COLUMNS_S, null, null, null, null, null);
+		//		Map<Integer, StrInt> skillsRef = new HashMap<Integer, StrInt>(); 
+		//		// ^ this is essentially a map from skill id to skill name and ability score id
+		//		if (cursor.moveToFirst()) {
+		//			// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
+		//			int id 		= cursor.getInt(0);
+		//			String name = cursor.getString(1);
+		//			int asID 	= cursor.getInt(2);
+		//			skillsRef.put(id, new StrInt(name, asID));
+		//		}
+		//		cursor.close();
+
 		// Acrobatics
 		EditText acrobaticsRanksEnter = (EditText) findViewById(R.id.acrobatics_ranks);
 		EditText acrobaticsMiscEnter = (EditText) findViewById(R.id.acrobatics_misc_mod);
@@ -437,11 +437,11 @@ public class SkillsActivity extends Activity {
 		if(acrobaticsRanks.matches("")) {
 			acrobaticsRanks = "0";
 		}
-		
+
 		if(acrobaticsMisc.matches("")) {
 			acrobaticsMisc = "0";
 		}
-		
+
 		if (!acrobaticsRanks.matches("")) {
 			int acrobaticsRank = Integer.parseInt(acrobaticsRanks);
 			Skill skill = new Skill(1, "Acrobatics", AbilityName.DEXTERITY, acrobaticsRank, false);
@@ -460,7 +460,7 @@ public class SkillsActivity extends Activity {
 		if(appraiseRanks.matches("")) {
 			appraiseRanks = "0";
 		}
-		
+
 		if(appraiseMisc.matches("")) {
 			appraiseMisc = "0";
 		}
@@ -482,7 +482,7 @@ public class SkillsActivity extends Activity {
 		if(bluffRanks.matches("")) {
 			bluffRanks = "0";
 		}
-		
+
 		if(bluffMisc.matches("")) {
 			bluffMisc = "0";
 		}
@@ -504,11 +504,11 @@ public class SkillsActivity extends Activity {
 		if(climbRanks.matches("")) {
 			climbRanks = "0";
 		}
-		
+
 		if(climbMisc.matches("")) {
 			climbMisc = "0";
 		}
-		
+
 		if (!climbRanks.matches("")) {
 			int climbRank = Integer.parseInt(climbRanks);
 			Skill skill = new Skill(4, "Climb", AbilityName.STRENGTH, climbRank, false);
@@ -523,7 +523,7 @@ public class SkillsActivity extends Activity {
 		Spinner craft1Spinner = (Spinner) findViewById(R.id.craft1_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String craft1 = craft1Spinner.getSelectedItem().toString();
-		
+
 		EditText craft1RanksEnter = (EditText) findViewById(R.id.craft1_ranks);
 		EditText craft1MiscEnter = (EditText) findViewById(R.id.craft1_misc_mod);
 		String craft1Ranks = craft1RanksEnter.getText().toString().trim();
@@ -531,7 +531,7 @@ public class SkillsActivity extends Activity {
 		if(craft1Ranks.matches("")) {
 			craft1Ranks = "0";
 		}
-		
+
 		if(craft1Misc.matches("")) {
 			craft1Misc = "0";
 		}
@@ -549,7 +549,7 @@ public class SkillsActivity extends Activity {
 		Spinner craft2Spinner = (Spinner) findViewById(R.id.craft2_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String craft2 = craft2Spinner.getSelectedItem().toString();
-		
+
 		EditText craft2RanksEnter = (EditText) findViewById(R.id.craft2_ranks);
 		EditText craft2MiscEnter = (EditText) findViewById(R.id.craft2_misc_mod);
 		String craft2Ranks = craft2RanksEnter.getText().toString().trim();
@@ -557,7 +557,7 @@ public class SkillsActivity extends Activity {
 		if(craft2Ranks.matches("")) {
 			craft2Ranks = "0";
 		}
-		
+
 		if(craft2Misc.matches("")) {
 			craft2Misc = "0";
 		}
@@ -576,7 +576,7 @@ public class SkillsActivity extends Activity {
 		Spinner craft3Spinner = (Spinner) findViewById(R.id.craft3_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String craft3 = craft3Spinner.getSelectedItem().toString();
-		
+
 		EditText craft3RanksEnter = (EditText) findViewById(R.id.craft3_ranks);
 		EditText craft3MiscEnter = (EditText) findViewById(R.id.craft3_misc_mod);
 		String craft3Ranks = craft3RanksEnter.getText().toString().trim();
@@ -584,7 +584,7 @@ public class SkillsActivity extends Activity {
 		if(craft3Ranks.matches("")) {
 			craft3Ranks = "0";
 		}
-		
+
 		if(craft3Misc.matches("")) {
 			craft3Misc = "0";
 		}
@@ -607,7 +607,7 @@ public class SkillsActivity extends Activity {
 		if(diplomacyRanks.matches("")) {
 			diplomacyRanks = "0";
 		}
-		
+
 		if(diplomacyMisc.matches("")) {
 			diplomacyMisc = "0";
 		}
@@ -629,7 +629,7 @@ public class SkillsActivity extends Activity {
 		if(disableDeviceRanks.matches("")) {
 			disableDeviceRanks = "0";
 		}
-		
+
 		if(disableDeviceMisc.matches("")) {
 			disableDeviceMisc = "0";
 		}
@@ -651,7 +651,7 @@ public class SkillsActivity extends Activity {
 		if(disguiseRanks.matches("")) {
 			disguiseRanks = "0";
 		}
-		
+
 		if(disguiseMisc.matches("")) {
 			disguiseMisc = "0";
 		}
@@ -673,7 +673,7 @@ public class SkillsActivity extends Activity {
 		if(escapeArtistRanks.matches("")) {
 			escapeArtistRanks = "0";
 		}
-		
+
 		if(escapeArtistMisc.matches("")) {
 			escapeArtistMisc = "0";
 		}
@@ -695,7 +695,7 @@ public class SkillsActivity extends Activity {
 		if(flyRanks.matches("")) {
 			flyRanks = "0";
 		}
-		
+
 		if(flyMisc.matches("")) {
 			flyMisc = "0";
 		}
@@ -717,7 +717,7 @@ public class SkillsActivity extends Activity {
 		if(handleAnimalRanks.matches("")) {
 			handleAnimalRanks = "0";
 		}
-		
+
 		if(handleAnimalMisc.matches("")) {
 			handleAnimalMisc = "0";
 		}
@@ -739,7 +739,7 @@ public class SkillsActivity extends Activity {
 		if(healRanks.matches("")) {
 			healRanks = "0";
 		}
-		
+
 		if(healMisc.matches("")) {
 			healMisc = "0";
 		}
@@ -761,7 +761,7 @@ public class SkillsActivity extends Activity {
 		if(intimidateRanks.matches("")) {
 			intimidateRanks = "0";
 		}
-		
+
 		if(intimidateMisc.matches("")) {
 			intimidateMisc = "0";
 		}
@@ -783,7 +783,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeArcanaRanks.matches("")) {
 			knowledgeArcanaRanks = "0";
 		}
-		
+
 		if(knowledgeArcanaMisc.matches("")) {
 			knowledgeArcanaMisc = "0";
 		}
@@ -805,7 +805,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeDungeoneeringRanks.matches("")) {
 			knowledgeDungeoneeringRanks = "0";
 		}
-		
+
 		if(knowledgeDungeoneeringMisc.matches("")) {
 			knowledgeDungeoneeringMisc = "0";
 		}
@@ -827,7 +827,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeEngineeringRanks.matches("")) {
 			knowledgeEngineeringRanks = "0";
 		}
-		
+
 		if(knowledgeEngineeringMisc.matches("")) {
 			knowledgeEngineeringMisc = "0";
 		}
@@ -849,7 +849,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeGeographyRanks.matches("")) {
 			knowledgeGeographyRanks = "0";
 		}
-		
+
 		if(knowledgeGeographyMisc.matches("")) {
 			knowledgeGeographyMisc = "0";
 		}
@@ -871,7 +871,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeHistoryRanks.matches("")) {
 			knowledgeHistoryRanks = "0";
 		}
-		
+
 		if(knowledgeHistoryMisc.matches("")) {
 			knowledgeHistoryMisc = "0";
 		}
@@ -893,7 +893,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeLocalRanks.matches("")) {
 			knowledgeLocalRanks = "0";
 		}
-		
+
 		if(knowledgeLocalMisc.matches("")) {
 			knowledgeLocalMisc = "0";
 		}
@@ -915,7 +915,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeNatureRanks.matches("")) {
 			knowledgeNatureRanks = "0";
 		}
-		
+
 		if(knowledgeNatureMisc.matches("")) {
 			knowledgeNatureMisc = "0";
 		}
@@ -937,7 +937,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeNobilityRanks.matches("")) {
 			knowledgeNobilityRanks = "0";
 		}
-		
+
 		if(knowledgeNobilityMisc.matches("")) {
 			knowledgeNobilityMisc = "0";
 		}
@@ -959,7 +959,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgePlanesRanks.matches("")) {
 			knowledgePlanesRanks = "0";
 		}
-		
+
 		if(knowledgePlanesMisc.matches("")) {
 			knowledgePlanesMisc = "0";
 		}
@@ -981,7 +981,7 @@ public class SkillsActivity extends Activity {
 		if(knowledgeReligionRanks.matches("")) {
 			knowledgeReligionRanks = "0";
 		}
-		
+
 		if(knowledgeReligionMisc.matches("")) {
 			knowledgeReligionMisc = "0";
 		}
@@ -1003,7 +1003,7 @@ public class SkillsActivity extends Activity {
 		if(linguisticsRanks.matches("")) {
 			linguisticsRanks = "0";
 		}
-		
+
 		if(linguisticsMisc.matches("")) {
 			linguisticsMisc = "0";
 		}
@@ -1025,7 +1025,7 @@ public class SkillsActivity extends Activity {
 		if(perceptionRanks.matches("")) {
 			perceptionRanks = "0";
 		}
-		
+
 		if(perceptionMisc.matches("")) {
 			perceptionMisc = "0";
 		}
@@ -1045,7 +1045,7 @@ public class SkillsActivity extends Activity {
 		Spinner perform1Spinner = (Spinner) findViewById(R.id.perform1_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String perform1 = perform1Spinner.getSelectedItem().toString();
-		
+
 		EditText perform1RanksEnter = (EditText) findViewById(R.id.perform1_ranks);
 		EditText perform1MiscEnter = (EditText) findViewById(R.id.perform1_misc_mod);
 		String perform1Ranks = perform1RanksEnter.getText().toString().trim();
@@ -1053,7 +1053,7 @@ public class SkillsActivity extends Activity {
 		if(perform1Ranks.matches("")) {
 			perform1Ranks = "0";
 		}
-		
+
 		if(perform1Misc.matches("")) {
 			perform1Misc = "0";
 		}
@@ -1071,7 +1071,7 @@ public class SkillsActivity extends Activity {
 		Spinner perform2Spinner = (Spinner) findViewById(R.id.perform2_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String perform2 = perform2Spinner.getSelectedItem().toString();
-		
+
 		EditText perform2RanksEnter = (EditText) findViewById(R.id.perform2_ranks);
 		EditText perform2MiscEnter = (EditText) findViewById(R.id.perform2_misc_mod);
 		String perform2Ranks = perform2RanksEnter.getText().toString().trim();
@@ -1079,7 +1079,7 @@ public class SkillsActivity extends Activity {
 		if(perform2Ranks.matches("")) {
 			perform2Ranks = "0";
 		}
-		
+
 		if(perform2Misc.matches("")) {
 			perform2Misc = "0";
 		}
@@ -1104,7 +1104,7 @@ public class SkillsActivity extends Activity {
 		if(profession1Ranks.matches("")) {
 			profession1Ranks = "0";
 		}
-		
+
 		if(profession1Misc.matches("")) {
 			profession1Misc = "0";
 		}
@@ -1129,7 +1129,7 @@ public class SkillsActivity extends Activity {
 		if(profession2Ranks.matches("")) {
 			profession2Ranks = "0";
 		}
-		
+
 		if(profession2Misc.matches("")) {
 			profession2Misc = "0";
 		}
@@ -1151,7 +1151,7 @@ public class SkillsActivity extends Activity {
 		if(rideRanks.matches("")) {
 			rideRanks = "0";
 		}
-		
+
 		if(rideMisc.matches("")) {
 			rideMisc = "0";
 		}
@@ -1173,7 +1173,7 @@ public class SkillsActivity extends Activity {
 		if(senseMotiveRanks.matches("")) {
 			senseMotiveRanks = "0";
 		}
-		
+
 		if(senseMotiveMisc.matches("")) {
 			senseMotiveMisc = "0";
 		}
@@ -1195,7 +1195,7 @@ public class SkillsActivity extends Activity {
 		if(sleightOfHandRanks.matches("")) {
 			sleightOfHandRanks = "0";
 		}
-		
+
 		if(sleightOfHandMisc.matches("")) {
 			sleightOfHandMisc = "0";
 		}
@@ -1217,7 +1217,7 @@ public class SkillsActivity extends Activity {
 		if(spellcraftRanks.matches("")) {
 			spellcraftRanks = "0";
 		}
-		
+
 		if(spellcraftMisc.matches("")) {
 			spellcraftMisc = "0";
 		}
@@ -1239,7 +1239,7 @@ public class SkillsActivity extends Activity {
 		if(stealthRanks.matches("")) {
 			stealthRanks = "0";
 		}
-		
+
 		if(stealthMisc.matches("")) {
 			stealthMisc = "0";
 		}
@@ -1261,7 +1261,7 @@ public class SkillsActivity extends Activity {
 		if(survivalRanks.matches("")) {
 			survivalRanks = "0";
 		}
-		
+
 		if(survivalMisc.matches("")) {
 			survivalMisc = "0";
 		}
@@ -1283,7 +1283,7 @@ public class SkillsActivity extends Activity {
 		if(swimRanks.matches("")) {
 			swimRanks = "0";
 		}
-		
+
 		if(swimMisc.matches("")) {
 			swimMisc = "0";
 		}
@@ -1305,7 +1305,7 @@ public class SkillsActivity extends Activity {
 		if(useMagicDeviceRanks.matches("")) {
 			useMagicDeviceRanks = "0";
 		}
-		
+
 		if(useMagicDeviceMisc.matches("")) {
 			useMagicDeviceMisc = "0";
 		}
@@ -1322,13 +1322,13 @@ public class SkillsActivity extends Activity {
 		// clear old data from DB
 		SQLiteHelperSkills.db.delete(SQLiteHelperSkills.TABLE_NAME,
 				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null);
-		
+
 		// write all data to DB
 		for (Skill s : skills) {
 			s.writeToDB(charID);
 		}
 
-		
+
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra("cid", charID);
@@ -1336,5 +1336,5 @@ public class SkillsActivity extends Activity {
 
 
 	}
-	
+
 }

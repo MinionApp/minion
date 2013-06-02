@@ -13,9 +13,9 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class Skill {
 	private static final int CLASS_BONUS = 3;
-	
+
 	private int charID;
-	
+
 	private int skillID; // get skill ID from ref db
 	private String name;
 	private String title; // write-in fields for Craft, Perform, Profession
@@ -24,35 +24,35 @@ public class Skill {
 	private Map<String,Integer> modifiers;
 	private AbilityName assocAbility;
 	private int abMod;
-	
-//	/** not needed
-//	 * Initializes a new skill with the given name and it's associated ability.
-//	 * Initializes skill with no ranks, as not a class skill and no miscellaneous modifiers.
-//	 * 
-//	 * @param name		String name of new skill
-//	 * @param attribute	an AbilityName of which attribute is associated with this skill
-//	 */
-//	public Skill(String name, AbilityName attribute){
-//		this.name = name;
-//		ranks = 0;
-//		classSkill = false;
-//		modifiers = new HashMap<String,Integer>();
-//		assocAbility = attribute;
-//		abMod = -1;
-//		
-//	}
-	
-//	public Skill(int charID, int skillID) {
-//		this.charID = charID;
-//		this.skillID = skillID;
-//		
-//		//loadFromDB();
-//	}
-	
+
+	//	/** not needed
+	//	 * Initializes a new skill with the given name and it's associated ability.
+	//	 * Initializes skill with no ranks, as not a class skill and no miscellaneous modifiers.
+	//	 * 
+	//	 * @param name		String name of new skill
+	//	 * @param attribute	an AbilityName of which attribute is associated with this skill
+	//	 */
+	//	public Skill(String name, AbilityName attribute){
+	//		this.name = name;
+	//		ranks = 0;
+	//		classSkill = false;
+	//		modifiers = new HashMap<String,Integer>();
+	//		assocAbility = attribute;
+	//		abMod = -1;
+	//		
+	//	}
+
+	//	public Skill(int charID, int skillID) {
+	//		this.charID = charID;
+	//		this.skillID = skillID;
+	//		
+	//		//loadFromDB();
+	//	}
+
 	public Skill(int skillID, String name, AbilityName attribute, int rank, boolean classSkill){
 		this(skillID, name, null, attribute, rank, classSkill);
 	}
-	
+
 	/**
 	 * Initializes a new skill with almost all necessary information. Sets values for
 	 * given name, associated ability, rank and whether or not it is a class skill.
@@ -78,7 +78,7 @@ public class Skill {
 		assocAbility = attribute;
 		abMod = -1;
 	}
-	
+
 	/**
 	 * Returns the name of the skill
 	 * 
@@ -87,7 +87,7 @@ public class Skill {
 	public int getID(){
 		return skillID;
 	}
-	
+
 	/**
 	 * Returns the name of the skill
 	 * 
@@ -96,7 +96,7 @@ public class Skill {
 	public String getName(){
 		return name;
 	}
-	
+
 	/**
 	 * Returns the title of the skill
 	 * 
@@ -105,7 +105,7 @@ public class Skill {
 	public String getTitle(){
 		return title;
 	}
-	
+
 	/**
 	 * Add given value (or subtract if negative) from the current
 	 * rank of the skill. Will not set rank lower than 0.
@@ -119,7 +119,7 @@ public class Skill {
 			ranks += modifier;
 		}
 	}
-	
+
 	/**
 	 * Get raw skill ranks
 	 * 
@@ -128,7 +128,7 @@ public class Skill {
 	public int getRank() {
 		return ranks;
 	}
-	
+
 	/**
 	 * Returns the modifier under the given name. Can return both negative
 	 * and positive modifiers. These modifiers represent values that will be
@@ -143,10 +143,10 @@ public class Skill {
 		if (modifiers.containsKey(name)) {
 			return modifiers.get(name);
 		}
-		
+
 		return 0;
 	}
-	
+
 	/**
 	 * Removes the modifier under the given name as well as the record of that name.
 	 * 
@@ -158,7 +158,7 @@ public class Skill {
 			modifiers.remove(name);
 		}
 	}
-	
+
 	/**
 	 * Adds a new modifier with the given name and value
 	 * 
@@ -170,7 +170,7 @@ public class Skill {
 		//TODO: Consider already existing values
 		modifiers.put(name, value);
 	}
-	
+
 	/**
 	 * Returns the total bonus of the skill accounting for ranks, class bonus,
 	 * and miscellaneous modifiers.
@@ -183,23 +183,23 @@ public class Skill {
 		if (mod.getName() != assocAbility) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		//Add rank and class modifier (if appropriate)
 		int bonus = ranks;
 		if (classSkill && ranks > 0) {
 			bonus += CLASS_BONUS;
 		}
-		
+
 		//Add associated ability modifier to bonus
 		bonus += mod.getMod();
-		
+
 		//Add miscellaneous modifiers to bonus
 		Collection<Integer> mods = modifiers.values();
 		Iterator<Integer> it = mods.iterator();
 		while (it.hasNext()) {
 			bonus += it.next();
 		}
-		
+
 		return bonus;
 	}
 	public int getAbMod() {
@@ -209,7 +209,7 @@ public class Skill {
 		int mod = modifiers.get(modifiers.keySet().iterator().next());
 		return ranks + mod;
 	}
-	
+
 	/** 
 	 * Writes Skill to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
@@ -217,7 +217,7 @@ public class Skill {
 	 */
 	public void writeToDB(long id) {
 		// TODO implement
-		
+
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, id);
 		values.put(SQLiteHelperSkills.COLUMN_REF_S_ID, skillID);
@@ -229,8 +229,8 @@ public class Skill {
 			int mod = modifiers.get(modifiers.keySet().iterator().next());
 			values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, mod);
 		}
-		
+
 		SQLiteHelperSkills.db.insert(SQLiteHelperSkills.TABLE_NAME, null, values);
 	}
-	
+
 }

@@ -1,8 +1,10 @@
-<!-- Until I can be sure that the name of the ListView in this file and in the
+<!--
+ Until I can be sure that the name of the ListView in this file and in the
 corresponding Java file don't have to match, I'm leaving them with the same name.
 This means that the id of the ListView in this file violates our style guide (it is
 camel-cased) by necessity.
-@author Caitlin Harding -->
+@author Caitlin Harding
+-->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,33 +20,33 @@ camel-cased) by necessity.
         android:id="@+id/welcome_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/welcome" />
-    
-    <Button 
+        android:text="@string/welcome"
+        android:textSize="16sp" />
+
+    <Button
         android:id="@+id/button_add_char"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/welcome_title"
-        android:text="@string/button_add_character"
-     	android:onClick="addCharacter" />
-    
+        android:layout_centerHorizontal="true"
+        android:onClick="addCharacter"
+        android:text="@string/button_add_character" />
+
     <ListView
         android:id="@+id/charListView"
-        android:layout_below="@+id/button_add_char"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/button_add_char" >
     </ListView>
-    
+
     <TextView
         android:id="@+id/success_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible"
+        android:text="@string/char_creation_success"
         android:textSize="20sp"
-        android:text="@string/char_creation_success" />
+        android:visibility="invisible" />
 
 </RelativeLayout>

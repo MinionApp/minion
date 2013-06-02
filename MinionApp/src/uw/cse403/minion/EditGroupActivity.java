@@ -38,22 +38,22 @@ public class EditGroupActivity extends ListActivity {
 	private static final String CHARACTER_NAME = "characterName";
 	private static final String PLAYER_NAME = "playerName";
 	private static final String PLAYERS = "players";
-	
+
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/updateGroupInfo.php";
 	private static final String PHP_ADDRESS2 = "http://homes.cs.washington.edu/~elefse/removePlayer.php";
 	private static final String PHP_ADDRESS3 = "http://homes.cs.washington.edu/~elefse/makeGM.php";
-	
-	
+
+
 	/**
 	 * Change this array's name and contents to be the character information
 	 * received from the database
 	 */
 	private ArrayList<String> playersList;
-	
+
 	private String username;
 	private String groupName;
 	private String gm;
-	
+
 	/**
 	 * Displays the edit group page for the selected group.
 	 */
@@ -68,64 +68,64 @@ public class EditGroupActivity extends ListActivity {
 		groupName = i.getExtras().getString(GROUPNAME);
 		gm = i.getExtras().getString(GAME_MASTER);
 		playersList = i.getStringArrayListExtra(PLAYERS);
-		
+
 		EditText groupTitle = (EditText) findViewById(R.id.group_name);
 		groupTitle.setText(groupName);
 		TextView gameMasterText = (TextView) findViewById(R.id.game_master_name);
 		gameMasterText.setText(gm);
-		
+
 		setListAdapter(new IconicAdapter());
-        
+
 	}
-	
+
 	public static class ViewHolder {
 		Button removeButton = null;
-	    Button makeGMButton = null;
-	    TextView currentGM = null;
-		
+		Button makeGMButton = null;
+		TextView currentGM = null;
+
 		ViewHolder(View row) {
 			this.removeButton = (Button) row.findViewById(R.id.remove_button);
-		    this.makeGMButton = (Button) row.findViewById(R.id.gm_button);
-		    this.currentGM = (TextView) row.findViewById(R.id.current_gm);
+			this.makeGMButton = (Button) row.findViewById(R.id.gm_button);
+			this.currentGM = (TextView) row.findViewById(R.id.current_gm);
 		}
 	}
-	
+
 	class IconicAdapter extends ArrayAdapter<String> {
 		IconicAdapter() {
 			super(EditGroupActivity.this, R.layout.custom_player_list_item, R.id.player, playersList);
 		}
-		
+
 		@Override
 		public int getViewTypeCount() {                 
-		    return getCount();
+			return getCount();
 		}
 
 		@Override
 		public int getItemViewType(int position) {
-		    return position;
+			return position;
 		}
-		
+
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			
+
 			View row = super.getView(position, convertView, parent);
 			ViewHolder holder = (ViewHolder) row.getTag();
-			
+
 			if (holder == null) {
 				holder = new ViewHolder(row);
 				row.setTag(holder);
 			}
-				
+
 			if (playersList.get(position).equals(gm)) {
 				holder.removeButton.setVisibility(View.GONE);
 				holder.makeGMButton.setVisibility(View.GONE);
-			    holder.currentGM.setVisibility(View.VISIBLE);
+				holder.currentGM.setVisibility(View.VISIBLE);
 			}
-			
+
 			return(row);
 		}
 	}
-	
+
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */
@@ -135,7 +135,7 @@ public class EditGroupActivity extends ListActivity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-	
+
 	/**
 	 * Creates Options Menu
 	 */
@@ -145,7 +145,7 @@ public class EditGroupActivity extends ListActivity {
 		getMenuInflater().inflate(R.menu.groups, menu);
 		return true;
 	}
-	
+
 	/**
 	 * Sets up the Up button
 	 */
@@ -165,7 +165,7 @@ public class EditGroupActivity extends ListActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/**
 	 * Responds to the finish editing button click by saving any changes made
 	 * and then returning to the ViewGroupActivity.
@@ -177,14 +177,14 @@ public class EditGroupActivity extends ListActivity {
 		UpdateGroupInfoTask task = new UpdateGroupInfoTask(this, newGroupName);
 		task.execute(username);
 	}
-	
+
 	public void makePlayerGM(View view) {
 		int position = getListView().getPositionForView((View) view.getParent());
-	    String player = (String) getListView().getItemAtPosition(position);
+		String player = (String) getListView().getItemAtPosition(position);
 		MakeGMTask task = new MakeGMTask(this, player);
 		task.execute(username);
 	}
-	
+
 	/**
 	 * Responds to the invite new players button click by directing the user
 	 * to the invite players page.
@@ -202,7 +202,7 @@ public class EditGroupActivity extends ListActivity {
 		intent.putStringArrayListExtra(PLAYERS, playersList);
 		startActivity(intent);
 	}
-	
+
 	/**
 	 * Responds to the remove player button click by removing the selected player
 	 * from the group.
@@ -210,7 +210,7 @@ public class EditGroupActivity extends ListActivity {
 	 */
 	public void removePlayerFromGroup(View view) {
 		int position = getListView().getPositionForView((View) view.getParent());
-	    String player = (String) getListView().getItemAtPosition(position);
+		String player = (String) getListView().getItemAtPosition(position);
 		RemovePlayerTask task = new RemovePlayerTask(this, player);
 		task.execute(username);
 	}
@@ -223,7 +223,7 @@ public class EditGroupActivity extends ListActivity {
 	private class UpdateGroupInfoTask extends AsyncTask<String, Void, String> {
 		private Context context;
 		private String newGroupName;
-		
+
 		/**
 		 * Constructs a new UpdateGroupInfoTask object.
 		 * @param context The current Activity's context
@@ -232,34 +232,34 @@ public class EditGroupActivity extends ListActivity {
 			this.context = context;
 			this.newGroupName = newGroupName;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("newGroupName", newGroupName));
-	        postParameters.add(new BasicNameValuePair("groupName", groupName));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("newGroupName", newGroupName));
+			postParameters.add(new BasicNameValuePair("groupName", groupName));
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, ViewGroupActivity.class);
 			EditText groupNameEditText = (EditText) findViewById(R.id.group_name);
 			groupName = groupNameEditText.getText().toString().trim();
@@ -270,9 +270,9 @@ public class EditGroupActivity extends ListActivity {
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			finish();
-	    }
+		}
 	}
-	
+
 	/**
 	 * RemovePlayerTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. Removes the players specified by the user
@@ -281,7 +281,7 @@ public class EditGroupActivity extends ListActivity {
 	private class RemovePlayerTask extends AsyncTask<String, Void, String> {
 		private Context context;
 		private String player;
-		
+
 		/**
 		 * Constructs a new RemovePlayerTask object.
 		 * @param context The current Activity's context
@@ -290,38 +290,38 @@ public class EditGroupActivity extends ListActivity {
 			this.context = context;
 			this.player = player;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("groupName", groupName));
-	        postParameters.add(new BasicNameValuePair("player", player));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("groupName", groupName));
+			postParameters.add(new BasicNameValuePair("player", player));
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS2, postParameters);
-	        	Set<String> players = new TreeSet<String>(playersList);
-	        	players.remove(player);
-	        	playersList = new ArrayList<String>(players);
-	        	res = result.toString(); 
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	Intent intent = new Intent(context, EditGroupActivity.class);
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS2, postParameters);
+				Set<String> players = new TreeSet<String>(playersList);
+				players.remove(player);
+				playersList = new ArrayList<String>(players);
+				res = result.toString(); 
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			Intent intent = new Intent(context, EditGroupActivity.class);
 			EditText groupNameEditText = (EditText) findViewById(R.id.group_name);
 			groupName = groupNameEditText.getText().toString().trim();
 			intent.putExtra(GROUPNAME, groupName);
@@ -329,15 +329,15 @@ public class EditGroupActivity extends ListActivity {
 			gm = gameMasterName.getText().toString();
 			intent.putExtra(GAME_MASTER, gm);
 			intent.putStringArrayListExtra(PLAYERS, playersList);
-	    	startActivity(intent);
+			startActivity(intent);
 			finish();
-	    }
+		}
 	}
-	
+
 	private class MakeGMTask extends AsyncTask<String, Void, String> {
 		private Context context;
 		private String player;
-		
+
 		/**
 		 * Constructs a new MakeGMTask object.
 		 * @param context The current Activity's context
@@ -346,43 +346,43 @@ public class EditGroupActivity extends ListActivity {
 			this.context = context;
 			this.player = player;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	    	//the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("groupName", groupName));
-	        postParameters.add(new BasicNameValuePair("player", player));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("groupName", groupName));
+			postParameters.add(new BasicNameValuePair("player", player));
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS3, postParameters);
-	        	res = result.toString(); 
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	Intent intent = new Intent(context, EditGroupActivity.class);
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS3, postParameters);
+				res = result.toString(); 
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			Intent intent = new Intent(context, EditGroupActivity.class);
 			EditText groupNameEditText = (EditText) findViewById(R.id.group_name);
 			groupName = groupNameEditText.getText().toString().trim();
 			intent.putExtra(GROUPNAME, groupName);
 			intent.putExtra(GAME_MASTER, player);
 			intent.putStringArrayListExtra(PLAYERS, playersList);
-	    	startActivity(intent);
+			startActivity(intent);
 			finish();
-	    }
-	 
+		}
+
 	}
 }

@@ -40,18 +40,18 @@ public class GroupCreateActivity extends Activity {
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
 	private static final String PLAYERS = "players";
-	
+
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/sendInvites.php";
 	private String username;
 	private LinearLayout.LayoutParams layoutParams;
-    private LinearLayout ll;
-    private int numberOfPlayers;
-    private List<EditText> editTexts;
-    private boolean cameFromEditGroup;
+	private LinearLayout ll;
+	private int numberOfPlayers;
+	private List<EditText> editTexts;
+	private boolean cameFromEditGroup;
 	private String groupName;
 	private String gm;
 	private ArrayList<String> playersList;
-	
+
 	/**
 	 * Displays the new group creation page.
 	 */
@@ -61,51 +61,51 @@ public class GroupCreateActivity extends Activity {
 		setContentView(R.layout.activity_group_create);
 		username = SaveSharedPreference.getPersistentUserName(GroupCreateActivity.this);
 		Button b = (Button) findViewById(R.id.add_user_button);
-        ll = (LinearLayout) findViewById(R.id.users);
-        layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        
-        editTexts = new ArrayList<EditText>();
-        
-        b.setOnClickListener(new OnClickListener(){
+		ll = (LinearLayout) findViewById(R.id.users);
+		layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-            @Override
-            public void onClick(View v) {
-            	numberOfPlayers++;
-            	LinearLayout l1 = new LinearLayout(GroupCreateActivity.this);
-            	
-            	TextView user = new TextView(GroupCreateActivity.this);             
-                user.setText("Enter User " + numberOfPlayers);
-                user.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
-                user.setPadding(0, 8, 0, 0);
-            	EditText userEditText = new EditText(GroupCreateActivity.this);
-            	userEditText.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 2f));
-            	userEditText.setHint("User Name");
-            	// sets the id so we can gets values from this editText element later
-            	//userEditText.setId(numberOfPlayers);
-            	editTexts.add(userEditText);
-            	
-                l1.setOrientation(LinearLayout.HORIZONTAL);
-                l1.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-                l1.addView(user); 
-                l1.addView(userEditText);
-                
-                ll.addView(l1, layoutParams);
+		editTexts = new ArrayList<EditText>();
 
-            }});
-        
-        Intent i = getIntent();
+		b.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				numberOfPlayers++;
+				LinearLayout l1 = new LinearLayout(GroupCreateActivity.this);
+
+				TextView user = new TextView(GroupCreateActivity.this);             
+				user.setText("Enter User " + numberOfPlayers);
+				user.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
+				user.setPadding(0, 8, 0, 0);
+				EditText userEditText = new EditText(GroupCreateActivity.this);
+				userEditText.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 2f));
+				userEditText.setHint("User Name");
+				// sets the id so we can gets values from this editText element later
+				//userEditText.setId(numberOfPlayers);
+				editTexts.add(userEditText);
+
+				l1.setOrientation(LinearLayout.HORIZONTAL);
+				l1.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				l1.addView(user); 
+				l1.addView(userEditText);
+
+				ll.addView(l1, layoutParams);
+
+			}});
+
+		Intent i = getIntent();
 		cameFromEditGroup = i.getBooleanExtra("sentFromEditGroup", false);;
-        if(cameFromEditGroup) {
-        	LinearLayout l2 = (LinearLayout) findViewById(R.id.group_name);
-        	l2.setVisibility(View.GONE);
-        	groupName = i.getExtras().getString(GROUPNAME);
-    		gm = i.getExtras().getString(GAME_MASTER);
-    		playersList = i.getStringArrayListExtra(PLAYERS);
-    		Log.i("playersList", playersList.toString());
-        	TextView inviteNewPlayers = (TextView) findViewById(R.id.invite_new_players);
-        	inviteNewPlayers.setText("Send New Invites For " + groupName);
-        	inviteNewPlayers.setVisibility(View.VISIBLE);
-        }
+		if(cameFromEditGroup) {
+			LinearLayout l2 = (LinearLayout) findViewById(R.id.group_name);
+			l2.setVisibility(View.GONE);
+			groupName = i.getExtras().getString(GROUPNAME);
+			gm = i.getExtras().getString(GAME_MASTER);
+			playersList = i.getStringArrayListExtra(PLAYERS);
+			Log.i("playersList", playersList.toString());
+			TextView inviteNewPlayers = (TextView) findViewById(R.id.invite_new_players);
+			inviteNewPlayers.setText("Send New Invites For " + groupName);
+			inviteNewPlayers.setVisibility(View.VISIBLE);
+		}
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
@@ -157,21 +157,21 @@ public class GroupCreateActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void sendInvites(View view) {
-	    if (ConnectionChecker.hasConnection(this)) {
+		if (ConnectionChecker.hasConnection(this)) {
 			// Get user invites.
-	    	EditText groupNameEditText = (EditText) findViewById(R.id.group_name_input);
-	    	
-	    	HashSet<String> users = new HashSet<String>();
-	    	for(int i = 0; i < editTexts.size(); i++) {
-	    		EditText userEditText = (EditText) editTexts.get(i);
-	    		String user = userEditText.getText().toString().trim();
-	    		users.add(user);
-	    	}
-			
-	    	if(!cameFromEditGroup) {
-	    		groupName = groupNameEditText.getText().toString().trim();
-	    	}
-			
+			EditText groupNameEditText = (EditText) findViewById(R.id.group_name_input);
+
+			HashSet<String> users = new HashSet<String>();
+			for(int i = 0; i < editTexts.size(); i++) {
+				EditText userEditText = (EditText) editTexts.get(i);
+				String user = userEditText.getText().toString().trim();
+				users.add(user);
+			}
+
+			if(!cameFromEditGroup) {
+				groupName = groupNameEditText.getText().toString().trim();
+			}
+
 			//Create a set of all the users entered
 			TextView warning = (TextView) findViewById(R.id.warning);
 
@@ -179,11 +179,11 @@ public class GroupCreateActivity extends Activity {
 			if(groupName.equals("")) {
 				warning.setText("Enter a valid group name");
 				warning.setVisibility(0);
-			//checks that user isn't adding self to group
-	    	} else if(users.contains(username) && !cameFromEditGroup) {
+				//checks that user isn't adding self to group
+			} else if(users.contains(username) && !cameFromEditGroup) {
 				warning.setText("Cannot add yourself to a group");
 				warning.setVisibility(0);
-			//checks that all fields had been set
+				//checks that all fields had been set
 			} else if(users.contains("")) {
 				warning.setText("Must input usernames for all fields");
 				warning.setVisibility(0);
@@ -191,12 +191,12 @@ public class GroupCreateActivity extends Activity {
 				SendInvitesTask task = new SendInvitesTask(groupName, users, this);
 				task.execute(groupName);
 			}
-    	} else {
-    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-    	}
+		} else {
+			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+		}
 	}
-	
-	
+
+
 	/**
 	 * SendInvitesTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It updates the database to include the
@@ -206,7 +206,7 @@ public class GroupCreateActivity extends Activity {
 		private String groupName;
 		private HashSet<String> users;
 		private Context context;
-		
+
 		/**
 		 * Constructs a new SendInvitesTask object.
 		 * @param groupName The given group name.
@@ -218,65 +218,65 @@ public class GroupCreateActivity extends Activity {
 			this.users = users;
 			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	    	JSONObject playersObject = new JSONObject();
-	    	JSONArray players = new JSONArray();
-	    	try {
-	    		for(String s : users) {
-			    	JSONObject player = new JSONObject();
-			    	player.put("player", s);
-			    	players.put(player);
-	    		}
-	    		playersObject.put("players", players);
-	    		playersObject.put("fromEdit", cameFromEditGroup);
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			JSONObject playersObject = new JSONObject();
+			JSONArray players = new JSONArray();
+			try {
+				for(String s : users) {
+					JSONObject player = new JSONObject();
+					player.put("player", s);
+					players.put(player);
+				}
+				playersObject.put("players", players);
+				playersObject.put("fromEdit", cameFromEditGroup);
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	    	
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("group", groupName));
-	        postParameters.add(new BasicNameValuePair("players", playersObject.toString()));
-	        postParameters.add(new BasicNameValuePair("gm", username));
-	        
+
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("group", groupName));
+			postParameters.add(new BasicNameValuePair("players", playersObject.toString()));
+			postParameters.add(new BasicNameValuePair("gm", username));
+
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	Intent intent;
-	    	if(cameFromEditGroup) {
-	    		intent = new Intent(context, EditGroupActivity.class);
-	    		intent.putExtra(GROUPNAME, groupName);
-	    		intent.putExtra(GAME_MASTER, gm);
-	    		Log.i("playersListBeforeReturn", playersList.toString());
-	    		intent.putStringArrayListExtra(PLAYERS, playersList);
-	    	} else {
-	    		intent = new Intent(context, GroupsActivity.class);
-	    	}
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			Intent intent;
+			if(cameFromEditGroup) {
+				intent = new Intent(context, EditGroupActivity.class);
+				intent.putExtra(GROUPNAME, groupName);
+				intent.putExtra(GAME_MASTER, gm);
+				Log.i("playersListBeforeReturn", playersList.toString());
+				intent.putStringArrayListExtra(PLAYERS, playersList);
+			} else {
+				intent = new Intent(context, GroupsActivity.class);
+			}
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
-        	finish();
-	    }
-	 
+			finish();
+		}
+
 	}
 }
