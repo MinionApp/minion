@@ -24,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/username"
         android:layout_centerHorizontal="true"
-        android:ems="10" 
+        android:ems="10"
         android:inputType="text" />
-    
+
     <TextView
         android:id="@+id/password"
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/password_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
+
     <EditText
         android:id="@+id/password_input"
         android:layout_width="wrap_content"
@@ -45,72 +45,74 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textPassword" />
-    
+
     <TextView
         android:id="@+id/error"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password_input"
         android:text="@string/invalid_login"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#FF0000"
-        android:visibility="gone"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    <CheckBox android:id="@+id/keepLoggedIn"
+        android:visibility="gone" />
+
+    <CheckBox
+        android:id="@+id/keepLoggedIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_below="@+id/error"
         android:layout_alignLeft="@+id/password_input"
-        android:text="@string/keep_logged_in"
-        android:onClick="keepLoggedIn"/>
-    
+        android:layout_below="@+id/error"
+        android:layout_marginTop="8dp"
+        android:onClick="keepLoggedIn"
+        android:text="@string/keep_logged_in" />
+
     <Button
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/password_input"
         android:layout_below="@+id/error"
-        android:text="@string/login_button" 
-        android:onClick="gotoHomepage"/>
-    
+        android:onClick="gotoHomepage"
+        android:text="@string/login_button" />
+
     <CheckedTextView
         android:id="@+id/forgot_password_clickable_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_below="@+id/login_button"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         android:onClick="gotoPasswordRecovery"
         android:text="@string/forgot_password_clickable_text"
         android:textColor="#0000FF" />
 
     <LinearLayout
-	    android:id="@+id/signup_text"
-		android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@+id/forgot_password_clickable_text"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginTop="20dp"
-	    android:orientation="horizontal">
-	    <TextView
-	        android:id="@+id/first_time_signup"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/signup_text"
-	        android:textAppearance="?android:attr/textAppearanceSmall" />
-	    
-	    <CheckedTextView
-	        android:id="@+id/signup_clickable_text"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="10dp"
-	        android:text="@string/signup_clickable_text"
-	        android:onClick="gotoSignup"
-			android:clickable="true"
-	        android:textAppearance="?android:attr/textAppearanceSmall"
-	        android:textColor="#0000FF" />
-	</LinearLayout>
-    
+        android:id="@+id/signup_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/forgot_password_clickable_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/first_time_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signup_text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <CheckedTextView
+            android:id="@+id/signup_clickable_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:clickable="true"
+            android:onClick="gotoSignup"
+            android:text="@string/signup_clickable_text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#0000FF" />
+    </LinearLayout>
+
 </RelativeLayout>

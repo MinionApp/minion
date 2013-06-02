@@ -13,31 +13,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="16sp"
-        android:text="@string/welcome_group" />
-    
-	<ListView
+        android:text="@string/welcome_group"
+        android:textSize="16sp" />
+
+    <ListView
         android:id="@+id/groupsListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/welcome_title"
-        android:layout_above="@+id/button_create_group" >
+        android:layout_above="@+id/button_create_group"
+        android:layout_below="@+id/welcome_title" >
     </ListView>
-    
-    <Button android:id="@+id/button_create_group"
+
+    <Button
+        android:id="@+id/button_create_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/button_pending_invites"
-        android:text="@string/create_new_group"
-     	android:onClick="gotoCreateGroup" />
-    
-	<Button android:id="@+id/button_pending_invites"
+        android:layout_centerHorizontal="true"
+        android:onClick="gotoCreateGroup"
+        android:text="@string/create_new_group" />
+
+    <Button
+        android:id="@+id/button_pending_invites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/pending_invites"
-     	android:onClick="gotoPendingInvites" />
+        android:onClick="gotoPendingInvites"
+        android:text="@string/pending_invites" />
 
 </RelativeLayout>

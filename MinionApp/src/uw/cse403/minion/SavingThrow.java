@@ -2,6 +2,8 @@ package uw.cse403.minion;
 
 import java.util.*;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -10,15 +12,23 @@ import android.database.sqlite.SQLiteDatabase;
  *
  */
 public class SavingThrow {
+	public static final String MAGIC_MOD_STRING = "magic";
+	public static final String MISC_MOD_STRING = "misc";
+	public static final String TEMP_MOD_STRING = "temp";
+
+	public long charID;
+	public boolean isNew;
+
 	private AbilityName assocAbility;
 	private int baseSave;
 	private Map<String,Integer> modifiers;
-	
+	public int abMod;
+
 	/**
 	 * Initialize a saving throw.
 	 * 
 	 * @param 			attribute	the associated attribute for the saving throw,
-	 * 					throws IllegalArgumentException if not WISDOME, DEXTERITY or
+	 * 					throws IllegalArgumentException if not WISDOM, DEXTERITY or
 	 * 					CONSTITUTION
 	 */
 	public SavingThrow(AbilityName attribute){
@@ -29,8 +39,19 @@ public class SavingThrow {
 		assocAbility = attribute;
 		baseSave = 0;
 		modifiers = new HashMap<String,Integer>();
+
+		loadFromDB();
 	}
-	
+
+	/**
+	 * Return base save
+	 * 
+	 * @return int base save
+	 */
+	public int getBaseSave(){
+		return baseSave;
+	}
+
 	/**
 	 * Set base save to given value
 	 * 
@@ -40,10 +61,10 @@ public class SavingThrow {
 		if (save < 0) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		baseSave = save;
 	}
-	
+
 	/**
 	 * Returns the modifier under the given name. Can return both negative
 	 * and positive modifiers. These modifiers represent values that will be
@@ -61,7 +82,7 @@ public class SavingThrow {
 		}
 		return retVal;
 	}
-	
+
 	/**
 	 * Removes the modifier under the given name as well as the record of that name.
 	 * 
@@ -72,7 +93,7 @@ public class SavingThrow {
 		// remove checks if modifiers contains name
 		modifiers.remove(name);
 	}
-	
+
 	/**
 	 * Adds a new modifier with the given name and value
 	 * 
@@ -87,45 +108,99 @@ public class SavingThrow {
 		if (name == null) {
 			throw new IllegalArgumentException("no null modifier names allowed");
 		} else if (value == 0) {
-			throw new IllegalArgumentException("no zero modifiers allowed");
+			// We don't want the program to break. Let's try just not saving it
+			// throw new IllegalArgumentException("no zero modifiers allowed");
 		}
-		
-		Integer prev = modifiers.put(name, value);
-		if (prev == null) {
-			return 0;
+		if (value != 0) {
+			Integer prev = modifiers.put(name, value);
+			if (prev == null) {
+				return 0;
+			}
+			return prev;
 		}
-		return prev;
+		return 1;
 	}
-	
+
 	/**
 	 * 
 	 * @param mod
 	 * @return
 	 */
-	public int getTotal(Ability mod){
-		if (mod.getName() != assocAbility) {
-			throw new IllegalArgumentException();
-		}
-		
-		int total = baseSave;
-		total += mod.getMod();
-		
+	//public int getTotal(Ability mod){ // not sure this is necessary -K
+	public int getTotal() {
+		//		if (mod.getName() != assocAbility) {
+		//			throw new IllegalArgumentException();
+		//		}
+
+		int total = baseSave + abMod;
+		//total += mod.getMod(); // not currently supported
+
 		Collection<Integer> mods = modifiers.values();
 		Iterator<Integer> it = mods.iterator();
 		while (it.hasNext()) {
 			total += it.next();
 		}
-		
+
 		return total;
 	}
-	
-	
+
+	/**
+	 * Populate fields with values from DB
+	 */
+	private void loadFromDB() {
+		isNew = true;
+		// attempt to load from DB
+		int stID = 0;
+		if (assocAbility == AbilityName.CONSTITUTION)
+			stID = 1;
+		if (assocAbility == AbilityName.DEXTERITY)
+			stID = 2;
+		if (assocAbility == AbilityName.WISDOM)
+			stID = 3;
+
+		Cursor cursor = SQLiteHelperSavingThrows.db.query(SQLiteHelperSavingThrows.TABLE_NAME, 
+				SQLiteHelperSavingThrows.ALL_COLUMNS, SQLiteHelperSavingThrows.COLUMN_CHAR_ID 
+				+ " = " + charID + " AND " + SQLiteHelperSavingThrows.COLUMN_REF_ST_ID
+				+ " = " + stID, null, null, null, null);
+
+		if (cursor.moveToFirst()) {
+			isNew = false;
+			// Columns: COLUMN_CHAR_ID, COLUMN_REF_ST_ID, COLUMN_BASE_SAVE, COLUMN_MAGIC_MOD,
+			// COLUMN_MISC_MOD, COLUMN_TEMP_MOD
+			baseSave = cursor.getInt(2);
+			modifiers.put(MAGIC_MOD_STRING, cursor.getInt(3));
+			modifiers.put(MISC_MOD_STRING, cursor.getInt(4));
+			modifiers.put(TEMP_MOD_STRING, cursor.getInt(5));
+		}
+		cursor.close();
+	}
+
 	/** 
 	 * Writes Saving Throw to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
 	 * @param db database to write into
 	 */
-	public void writeToDB(long id, SQLiteDatabase db) {
-		// TODO implement
+	public void writeToDB(long charID) {
+		int stID = 0; //saving throw ID 
+		if (assocAbility == AbilityName.CONSTITUTION)
+			stID = 1;
+		if (assocAbility == AbilityName.DEXTERITY)
+			stID = 2;
+		if (assocAbility == AbilityName.WISDOM)
+			stID = 3;
+		// remove old data
+		SQLiteHelperSavingThrows.db.delete(SQLiteHelperSavingThrows.TABLE_NAME, 
+				SQLiteHelperSavingThrows.COLUMN_CHAR_ID + " = " + charID + " AND " 
+						+ SQLiteHelperSavingThrows.COLUMN_REF_ST_ID + " = " + stID, null);
+		// prepare new insert
+		ContentValues values = new ContentValues();
+		values.put(SQLiteHelperSavingThrows.COLUMN_CHAR_ID, charID);
+		values.put(SQLiteHelperSavingThrows.COLUMN_REF_ST_ID, stID);
+		values.put(SQLiteHelperSavingThrows.COLUMN_BASE_SAVE, baseSave);
+		values.put(SQLiteHelperSavingThrows.COLUMN_MAGIC_MOD, modifiers.get(MAGIC_MOD_STRING));
+		values.put(SQLiteHelperSavingThrows.COLUMN_MISC_MOD, modifiers.get(MISC_MOD_STRING));
+		values.put(SQLiteHelperSavingThrows.COLUMN_TEMP_MOD, modifiers.get(TEMP_MOD_STRING));
+
+		SQLiteHelperSavingThrows.db.insert(SQLiteHelperSavingThrows.TABLE_NAME, null, values);
 	}
 }

@@ -10,31 +10,33 @@ import android.util.Log;
  *
  */
 public class SQLiteHelperAbilityScores extends SQLiteOpenHelper 
-		implements SQLiteHelperInterface{
+implements SQLiteHelperInterface{
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
-	 static SQLiteDatabase db;
-	
+	static SQLiteDatabase db;
+
 	// columns
 	public static final String TABLE_NAME = "ability_scores";
 	public static final String COLUMN_CHAR_ID 	= "char_id";
 	public static final String COLUMN_REF_AS_ID = "ref_as_id";
-	public static final String COLUMN_SCORE 	= "score";
+	public static final String COLUMN_BASE 	= "base";
+	public static final String COLUMN_TEMP 	= "temp";
 	public static final String[] ALL_COLUMNS = 
-		{ COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_SCORE };
+		{ COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_BASE, COLUMN_TEMP };
 
 	// table creation SQL statement
 	private static final String CREATE_TABLE_STATEMENT = "CREATE TABLE "
-	    + TABLE_NAME 	+ "(" 
-		+ COLUMN_CHAR_ID 		+ " INTEGER, " 
-		+ COLUMN_REF_AS_ID 		+ " INTEGER, " 
-		+ COLUMN_SCORE 			+ " INTEGER, "
-		// references Basic Info _id
-		+ " FOREIGN KEY(" + COLUMN_CHAR_ID + ") REFERENCES " 
+			+ TABLE_NAME 	+ "(" 
+			+ COLUMN_CHAR_ID 		+ " INTEGER, " 
+			+ COLUMN_REF_AS_ID 		+ " INTEGER, " 
+			+ COLUMN_BASE 			+ " INTEGER, "
+			+ COLUMN_TEMP 			+ " INTEGER, "
+			// references Basic Info _id
+			+ " FOREIGN KEY(" + COLUMN_CHAR_ID + ") REFERENCES " 
 			+ SQLiteHelperBasicInfo.TABLE_NAME + "(" 
 			+ SQLiteHelperBasicInfo.COLUMN_ID + "), "
-		// references Ref Ability Scores _id
-		+ " FOREIGN KEY(" + COLUMN_REF_AS_ID + ") REFERENCES " 
+			// references Ref Ability Scores _id
+			+ " FOREIGN KEY(" + COLUMN_REF_AS_ID + ") REFERENCES " 
 			+ SQLiteHelperRefTables.TABLE_REF_ABILITY_SCORES + "(" 
 			+ SQLiteHelperRefTables.COLUMN_AS_ID + ")) ";
 
@@ -52,8 +54,8 @@ public class SQLiteHelperAbilityScores extends SQLiteOpenHelper
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
 		Log.w(SQLiteHelperAbilityScores.class.getName(),
-			   "Upgrading database from version " + oldVer + " to "
-		           + newVer + ", which will destroy all old data");
+				"Upgrading database from version " + oldVer + " to "
+						+ newVer + ", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 		onCreate(db);
 	}
@@ -61,7 +63,7 @@ public class SQLiteHelperAbilityScores extends SQLiteOpenHelper
 	@Override
 	public void printContents(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

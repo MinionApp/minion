@@ -36,29 +36,25 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 	
 	public void testEnterMajorAlphaText() {
 		EditText name = (EditText) solo.getView(uw.cse403.minion.R.id.char_name_enter); 
-		EditText align = (EditText) solo.getView(uw.cse403.minion.R.id.alignment_enter);
-		EditText player = (EditText) solo.getView(uw.cse403.minion.R.id.player_enter);
+//		EditText align = (EditText) solo.getView(uw.cse403.minion.R.id.alignment_enter);
 		EditText level = (EditText) solo.getView(uw.cse403.minion.R.id.char_level_enter);
 		EditText deity = (EditText) solo.getView(uw.cse403.minion.R.id.deity_enter);
 		EditText homeland = (EditText) solo.getView(uw.cse403.minion.R.id.homeland_enter);
 		
 		solo.typeText(name, FILLER_ALPHA);
-		solo.typeText(align, FILLER_ALPHA);
-		solo.typeText(player, FILLER_ALPHA);
+//		solo.typeText(align, FILLER_ALPHA);
 		solo.typeText(level, FILLER_ALPHA);
 		solo.typeText(deity, FILLER_ALPHA);
 		solo.typeText(homeland, FILLER_ALPHA);
 		
 		String nameStr = name.getText().toString();
-		String alignStr = align.getText().toString();
-		String playerStr = player.getText().toString();
+//		String alignStr = align.getText().toString();
 		String levelStr = level.getText().toString();
 		String deityStr = deity.getText().toString();
 		String homelandStr = homeland.getText().toString();
 		
 		assertTrue(FILLER_ALPHA.equals(nameStr));
-		assertTrue(FILLER_ALPHA.equals(alignStr));
-		assertTrue(FILLER_ALPHA.equals(playerStr));
+//		assertTrue(FILLER_ALPHA.equals(alignStr));
 		assertTrue(FILLER_ALPHA.equals(levelStr));
 		assertTrue(FILLER_ALPHA.equals(deityStr));
 		assertTrue(FILLER_ALPHA.equals(homelandStr));
@@ -66,29 +62,25 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 	
 	public void testEnterMajorNumberText() {
 		EditText name = (EditText) solo.getView(uw.cse403.minion.R.id.char_name_enter); 
-		EditText align = (EditText) solo.getView(uw.cse403.minion.R.id.alignment_enter);
-		EditText player = (EditText) solo.getView(uw.cse403.minion.R.id.player_enter);
+//		EditText align = (EditText) solo.getView(uw.cse403.minion.R.id.alignment_enter);
 		EditText level = (EditText) solo.getView(uw.cse403.minion.R.id.char_level_enter);
 		EditText deity = (EditText) solo.getView(uw.cse403.minion.R.id.deity_enter);
 		EditText homeland = (EditText) solo.getView(uw.cse403.minion.R.id.homeland_enter);
 		
 		solo.typeText(name, FILLER_NUMBER);
-		solo.typeText(align, FILLER_NUMBER);
-		solo.typeText(player, FILLER_NUMBER);
+//		solo.typeText(align, FILLER_NUMBER);
 		solo.typeText(level, FILLER_NUMBER);
 		solo.typeText(deity, FILLER_NUMBER);
 		solo.typeText(homeland, FILLER_NUMBER);
 		
 		String nameStr = name.getText().toString();
-		String alignStr = align.getText().toString();
-		String playerStr = player.getText().toString();
+//		String alignStr = align.getText().toString();
 		String levelStr = level.getText().toString();
 		String deityStr = deity.getText().toString();
 		String homelandStr = homeland.getText().toString();
 		
 		assertTrue(FILLER_NUMBER.equals(nameStr));
-		assertTrue(FILLER_NUMBER.equals(alignStr));
-		assertTrue(FILLER_NUMBER.equals(playerStr));
+//		assertTrue(FILLER_NUMBER.equals(alignStr));
 		assertTrue(FILLER_NUMBER.equals(levelStr));
 		assertTrue(FILLER_NUMBER.equals(deityStr));
 		assertTrue(FILLER_NUMBER.equals(homelandStr));
@@ -96,7 +88,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 	
 	public void testEnterMinorAlphaText() {
 		EditText race = (EditText) solo.getView(uw.cse403.minion.R.id.race_enter); 
-		EditText size = (EditText) solo.getView(uw.cse403.minion.R.id.size_enter);
+//		EditText size = (EditText) solo.getView(uw.cse403.minion.R.id.size_enter);
 		EditText gender = (EditText) solo.getView(uw.cse403.minion.R.id.gender_enter);
 		EditText age = (EditText) solo.getView(uw.cse403.minion.R.id.age_enter);
 		EditText height = (EditText) solo.getView(uw.cse403.minion.R.id.height_enter);
@@ -105,7 +97,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		EditText eyes = (EditText) solo.getView(uw.cse403.minion.R.id.eyes_enter);
 		
 		solo.typeText(race, FILLER_ALPHA);
-		solo.typeText(size, FILLER_ALPHA);
+//		solo.typeText(size, FILLER_ALPHA);
 		solo.typeText(gender, FILLER_ALPHA);
 		solo.typeText(age, FILLER_ALPHA);
 		solo.typeText(height, FILLER_ALPHA);
@@ -114,7 +106,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		solo.typeText(eyes, FILLER_ALPHA);
 		
 		String raceStr = race.getText().toString();
-		String sizeStr = size.getText().toString();
+//		String sizeStr = size.getText().toString();
 		String genderStr = gender.getText().toString();
 		String ageStr = age.getText().toString();
 		String heightStr = height.getText().toString();
@@ -123,7 +115,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		String eyesStr = eyes.getText().toString();
 		
 		assertTrue(FILLER_ALPHA.equals(raceStr));
-		assertTrue(FILLER_ALPHA.equals(sizeStr));
+//		assertTrue(FILLER_ALPHA.equals(sizeStr));
 		assertTrue(FILLER_ALPHA.equals(genderStr));
 		assertTrue(FILLER_ALPHA.equals(ageStr));
 		assertTrue(FILLER_ALPHA.equals(heightStr));
@@ -134,7 +126,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 	
 	public void testEnterMinorNumberText() {
 		EditText race = (EditText) solo.getView(uw.cse403.minion.R.id.race_enter); 
-		EditText size = (EditText) solo.getView(uw.cse403.minion.R.id.size_enter);
+//		EditText size = (EditText) solo.getView(uw.cse403.minion.R.id.size_enter);
 		EditText gender = (EditText) solo.getView(uw.cse403.minion.R.id.gender_enter);
 		EditText age = (EditText) solo.getView(uw.cse403.minion.R.id.age_enter);
 		EditText height = (EditText) solo.getView(uw.cse403.minion.R.id.height_enter);
@@ -143,7 +135,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		EditText eyes = (EditText) solo.getView(uw.cse403.minion.R.id.eyes_enter);
 		
 		solo.typeText(race, FILLER_NUMBER);
-		solo.typeText(size, FILLER_NUMBER);
+//		solo.typeText(size, FILLER_NUMBER);
 		solo.typeText(gender, FILLER_NUMBER);
 		solo.typeText(age, FILLER_NUMBER);
 		solo.typeText(height, FILLER_NUMBER);
@@ -152,7 +144,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		solo.typeText(eyes, FILLER_NUMBER);
 		
 		String raceStr = race.getText().toString();
-		String sizeStr = size.getText().toString();
+//		String sizeStr = size.getText().toString();
 		String genderStr = gender.getText().toString();
 		String ageStr = age.getText().toString();
 		String heightStr = height.getText().toString();
@@ -161,7 +153,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		String eyesStr = eyes.getText().toString();
 		
 		assertTrue(FILLER_NUMBER.equals(raceStr));
-		assertTrue(FILLER_NUMBER.equals(sizeStr));
+//		assertTrue(FILLER_NUMBER.equals(sizeStr));
 		assertTrue(FILLER_NUMBER.equals(genderStr));
 		assertTrue(FILLER_NUMBER.equals(ageStr));
 		assertTrue(FILLER_NUMBER.equals(heightStr));
@@ -192,13 +184,12 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 	
 	public void testSubmitCompletelyFilledPage() {
 		EditText name = (EditText) solo.getView(uw.cse403.minion.R.id.char_name_enter); 
-		EditText align = (EditText) solo.getView(uw.cse403.minion.R.id.alignment_enter);
-		EditText player = (EditText) solo.getView(uw.cse403.minion.R.id.player_enter);
+//		EditText align = (EditText) solo.getView(uw.cse403.minion.R.id.alignment_enter);
 		EditText level = (EditText) solo.getView(uw.cse403.minion.R.id.char_level_enter);
 		EditText deity = (EditText) solo.getView(uw.cse403.minion.R.id.deity_enter);
 		EditText homeland = (EditText) solo.getView(uw.cse403.minion.R.id.homeland_enter);
 		EditText race = (EditText) solo.getView(uw.cse403.minion.R.id.race_enter); 
-		EditText size = (EditText) solo.getView(uw.cse403.minion.R.id.size_enter);
+//		EditText size = (EditText) solo.getView(uw.cse403.minion.R.id.size_enter);
 		EditText gender = (EditText) solo.getView(uw.cse403.minion.R.id.gender_enter);
 		EditText age = (EditText) solo.getView(uw.cse403.minion.R.id.age_enter);
 		EditText height = (EditText) solo.getView(uw.cse403.minion.R.id.height_enter);
@@ -207,13 +198,12 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		EditText eyes = (EditText) solo.getView(uw.cse403.minion.R.id.eyes_enter);
 		
 		solo.typeText(name, FILLER_ALPHA);
-		solo.typeText(align, FILLER_ALPHA);
-		solo.typeText(player, FILLER_ALPHA);
+//		solo.typeText(align, FILLER_ALPHA);
 		solo.typeText(level, FILLER_NUMBER);
 		solo.typeText(deity, FILLER_ALPHA);
 		solo.typeText(homeland, FILLER_ALPHA);
 		solo.typeText(race, FILLER_ALPHA);
-		solo.typeText(size, FILLER_ALPHA);
+//		solo.typeText(size, FILLER_ALPHA);
 		solo.typeText(gender, FILLER_ALPHA);
 		solo.typeText(age, FILLER_NUMBER);
 		solo.typeText(height, FILLER_NUMBER);

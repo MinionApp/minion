@@ -8,225 +8,244 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CombatActivity" >
 
-   <LinearLayout
-		android:id="@+id/hit_points"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_marginTop="5dp"
-		android:orientation="horizontal">
-    
-    	<TextView
-    	    android:id="@+id/hit_points_title"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:text="@string/hit_points" />
-    	
-    	<EditText android:id="@+id/hit_point_total_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:hint="@string/hit_points_total" />
-    
-        	
-    	<EditText android:id="@+id/hit_point_dr_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:hint="@string/hit_points_dr" />
+    <LinearLayout
+        android:id="@+id/hit_points"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
 
+        <TextView
+            android:id="@+id/hit_points_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hit_points" />
+
+        <EditText
+            android:id="@+id/hit_point_total_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/hit_points_total"
+            android:inputType="numberSigned" />
+
+        <EditText
+            android:id="@+id/hit_point_dr_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/hit_points_dr"
+            android:inputType="numberSigned" />
     </LinearLayout>
 
-   <LinearLayout
-		android:id="@+id/speed"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/hit_points"
-		android:layout_marginTop="5dp"
-		android:orientation="horizontal">
-    
-    	<TextView
-    	    android:id="@+id/speed_title"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:text="@string/speed" />
-    	
-    	<EditText android:id="@+id/speed_base_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:hint="@string/speed_base" />
-    
-        	
-    	<EditText android:id="@+id/speed_armor_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:hint="@string/speed_armor" />
+    <LinearLayout
+        android:id="@+id/speed"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hit_points"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
 
-    </LinearLayout>
-    
-   <LinearLayout
-		android:id="@+id/initiative"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/speed"
-		android:layout_marginTop="5dp"
-		android:orientation="horizontal">
-    
-    	<TextView
-    	    android:id="@+id/intiative_title"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_weight="1"
-        	android:text="@string/initiative" />
-    	
-    	<EditText
-    	    android:id="@+id/initiative_total_enter"
-    	    android:inputType="numberSigned"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:hint="@string/initiative_total" />
-        	
-    	<EditText android:id="@+id/initiative_dex_modifier_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:hint="@string/initiative_dex" />
-    	
-    	<EditText android:id="@+id/initiative_misc_modifier_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:hint="@string/initiative_misc" />
+        <TextView
+            android:id="@+id/speed_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speed" />
 
-    </LinearLayout>
-    
-   <LinearLayout
-		android:id="@+id/armor_class_1"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/initiative"
-		android:layout_marginTop="5dp"
-		android:orientation="horizontal">
-    
-    	<TextView
-    	    android:id="@+id/armor_title"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_weight="1"
-        	android:text="@string/armor_class" />
-    	
-    	<EditText
-    	    android:id="@+id/armor_total_enter"
-    	    android:inputType="numberSigned"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:hint="@string/armor_total" />
-        	
-    	<TextView
-    	    android:id="@+id/armor_constant"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_weight="1"
-        	android:text="@string/armor_constant" />
-    	
-    	<EditText android:id="@+id/armor_bonus_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:hint="@string/armor_bonus" />
+        <EditText
+            android:id="@+id/speed_base_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/speed_base"
+            android:inputType="numberSigned" />
 
+        <EditText
+            android:id="@+id/speed_armor_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/speed_armor"
+            android:inputType="numberSigned" />
     </LinearLayout>
-    
-   <LinearLayout
-		android:id="@+id/armor_class_2"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/armor_class_1"
-		android:layout_marginTop="5dp"
-		android:orientation="horizontal">
-    	
-    	<EditText
-    	    android:id="@+id/armor_shield_enter"
-    	    android:inputType="numberSigned"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:hint="@string/armor_shield" />
-        	
-    	<EditText
-    	    android:id="@+id/armor_dex_enter"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_weight="1"
-        	android:hint="@string/armor_dex" />
-    	
-    	<EditText android:id="@+id/armor_size_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:hint="@string/armor_size" />
-    	
-    	<EditText android:id="@+id/armor_natural_enter"
-    	    android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:hint="@string/armor_natural" />
 
-    </LinearLayout>
-    
-   <LinearLayout
-		android:id="@+id/armor_class_3"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/armor_class_2"
-		android:layout_marginTop="5dp"
-		android:orientation="horizontal">
-    	
-       	 <EditText android:id="@+id/armor_deflection_enter"
-       	     android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:hint="@string/armor_deflection" />
-       	 
-       	 <EditText android:id="@+id/armor_misc_enter"
-       	     android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:hint="@string/armor_misc" />
+    <LinearLayout
+        android:id="@+id/initiative"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/speed"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
 
+        <TextView
+            android:id="@+id/intiative_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/initiative" />
+
+        <TextView
+            android:id="@+id/initiative_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/total" />
+
+        <TextView
+            android:id="@+id/initiative_equals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/equals" />
+
+        <TextView
+            android:id="@+id/initiative_dex_modifier_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/initiative_dex" />
+
+        <TextView
+            android:id="@+id/initiative_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/plus" />
+
+        <EditText
+            android:id="@+id/initiative_misc_modifier_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/initiative_misc"
+            android:inputType="numberSigned" />
     </LinearLayout>
-    
-   	<TextView
-    	    android:id="@+id/attack_bonus"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_below="@id/armor_class_3"
-        	android:text="@string/attack_bonus" />
-   	
-   	 <EditText android:id="@+id/attack_bonus_enter"
-   	     	android:inputType="numberSigned"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_toRightOf="@id/attack_bonus"
-       		android:layout_below="@id/armor_class_3"
-       		android:hint="@string/enter_text" />
-   	 
-   	 <Button android:id="@+id/button_done"
+
+    <LinearLayout
+        android:id="@+id/armor_class_1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/initiative"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/armor_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/armor_class" />
+
+        <TextView
+            android:id="@+id/armor_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/total" />
+
+        <TextView
+            android:id="@+id/armor_equals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/equals" />
+
+        <TextView
+            android:id="@+id/armor_constant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/armor_constant" />
+
+        <EditText
+            android:id="@+id/armor_bonus_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/armor_bonus"
+            android:inputType="numberSigned" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/armor_class_2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/armor_class_1"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/armor_shield_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/armor_shield"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/armor_dex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/armor_dex" />
+
+        <TextView
+            android:id="@+id/armor_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/armor_size" />
+
+        <EditText
+            android:id="@+id/armor_natural_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/armor_natural"
+            android:inputType="numberSigned" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/armor_class_3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/armor_class_2"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/armor_deflection_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/armor_deflection"
+            android:inputType="numberSigned" />
+
+        <EditText
+            android:id="@+id/armor_misc_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/armor_misc"
+            android:inputType="numberSigned" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/attack_bonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/armor_class_3"
+        android:text="@string/attack_bonus" />
+
+    <EditText
+        android:id="@+id/attack_bonus_enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/armor_class_3"
+        android:layout_toRightOf="@id/attack_bonus"
+        android:hint="@string/bab"
+        android:inputType="numberSigned" />
+
+    <Button
+        android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/attack_bonus_enter"
-        android:text="@string/save"
-     	android:onClick="combatScores" />
+        android:onClick="combatScores"
+        android:text="@string/save" />
 
 </RelativeLayout>

@@ -10,7 +10,10 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -26,8 +29,6 @@ public class SkillsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_skills);
 		charID = this.getIntent().getExtras().getLong("cid");
-		// Show the Up button in the action bar.
-		setupActionBar();
 
 		loadData();
 	}
@@ -67,194 +68,333 @@ public class SkillsActivity extends Activity {
 	}
 
 	public void loadData() {
+		// get ability scores
+		Ability[] abilities = new Ability[6];
+		// these should auto load from DB
+		abilities[0] = new Ability(charID, AbilityName.STRENGTH);
+		abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
+		abilities[2] = new Ability(charID, AbilityName.CONSTITUTION);
+		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
+		abilities[4] = new Ability(charID, AbilityName.WISDOM);
+		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
+
+		// map from skillID to ability score
+		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
+		// get skillIDs and associated ability score IDs
+		Cursor cursor1 = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
+				null, null, null, null, null, null);
+		// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
+		if (cursor1.moveToFirst()) {
+			while (!cursor1.isAfterLast()) {
+				int abScoreID = cursor1.getInt(2);
+				skillToAbMod.put(cursor1.getInt(0), abilities[abScoreID].getMod());
+				cursor1.moveToNext();
+			}
+		}
+		cursor1.close();
+
 		// prefixes for the xml fields
 		String[] xmlField = { "", "acrobatics", "appraise", "bluff", "climb", "craft", "diplomacy", 
-			"disable_device", "disguise", "escape_artist", "fly", "handle_animal", "heal", "intimidate",
-			"knowledge_arcana", "knowledge_dungeoneering", "knowledge_engineering", "knowledge_geography",
-			"knowledge_history", "knowledge_local", "knowledge_nature", "knowledge_nobility",
-			"knowledge_planes", "knowledge_religion", "linguistics", "perception", "perform", "profession",
-			"ride", "sense_motive", "sleight_of_hand", "spellcraft", "stealth", "survival", "swim", "use_magic_device" };
+				"disable_device", "disguise", "escape_artist", "fly", "handle_animal", "heal", "intimidate",
+				"knowledge_arcana", "knowledge_dungeoneering", "knowledge_engineering", "knowledge_geography",
+				"knowledge_history", "knowledge_local", "knowledge_nature", "knowledge_nobility",
+				"knowledge_planes", "knowledge_religion", "linguistics", "perception", "perform", "profession",
+				"ride", "sense_motive", "sleight_of_hand", "spellcraft", "stealth", "survival", "swim", "use_magic_device" };
 
 		int crafts = 0;
 		int performs = 0;
 		int professions = 0;
-
-		Cursor cursor = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
+		// get skills from DB
+		Cursor cursor2 = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
 				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
-		if (cursor.moveToFirst()) {
-			while (!cursor.isAfterLast()) { 
-				// Columns: COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_RANKS, COLUMN_MISC_MOD
-				int skillID = cursor.getInt(1);
-				int ranks = cursor.getInt(2);
-				int miscMod = cursor.getInt(3);
-//				String ranksEnter;
-//				String modEnter;
-//				if (skillID == 5)  { // craft
-//					crafts++;
-//					ranksEnter = xmlField[5] + crafts + "_ranks";
-//					modEnter = xmlField[5] + crafts + "_misc_mod";
-//				} else if (skillID == 26)  { // perform
-//					performs++;
-//					ranksEnter = xmlField[26] + performs + "_ranks";
-//					modEnter = xmlField[26] + performs + "_misc_mod";
-//				} else if (skillID == 27)  { // profession
-//					professions++;
-//					ranksEnter = xmlField[27] + professions + "_ranks";
-//					modEnter = xmlField[27] + professions + "_misc_mod";
-//				} else {
-//					ranksEnter = xmlField[skillID] + "_ranks";
-//					modEnter = xmlField[skillID] + "_misc_mod";
-//				}
-//				EditText ranksEnterField = (EditText) findViewById(R.id.acrobatics_ranks);
-//				ranksEnterField.setText(""+ranks);
-//				EditText modEnterField = (EditText) findViewById(R.id.acrobatics_misc_mod);
-//				modEnterField.setText(""+miscMod);
-				
+		if (cursor2.moveToFirst()) {
+			while (!cursor2.isAfterLast()) { 
+				// Columns: COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_TITLE, COLUMN_RANKS, COLUMN_MISC_MOD
+				int skillID = cursor2.getInt(1);
+				String title = cursor2.getString(2);
+				int ranks = cursor2.getInt(3);
+				int miscMod = cursor2.getInt(4);
+				Skill skill = new Skill(skillID, title, null, ranks, false);
+				skill.addModifier("skillMod", miscMod);
+				//				String ranksEnter;
+				//				String modEnter;
+				//				if (skillID == 5)  { // craft
+				//					crafts++;
+				//					ranksEnter = xmlField[5] + crafts + "_ranks";
+				//					modEnter = xmlField[5] + crafts + "_misc_mod";
+				//				} else if (skillID == 26)  { // perform
+				//					performs++;
+				//					ranksEnter = xmlField[26] + performs + "_ranks";
+				//					modEnter = xmlField[26] + performs + "_misc_mod";
+				//				} else if (skillID == 27)  { // profession
+				//					professions++;
+				//					ranksEnter = xmlField[27] + professions + "_ranks";
+				//					modEnter = xmlField[27] + professions + "_misc_mod";
+				//				} else {
+				//					ranksEnter = xmlField[skillID] + "_ranks";
+				//					modEnter = xmlField[skillID] + "_misc_mod";
+				//				}
+				//				EditText ranksEnterField = (EditText) findViewById(R.id.acrobatics_ranks);
+				//				ranksEnterField.setText(""+ranks);
+				//				EditText modEnterField = (EditText) findViewById(R.id.acrobatics_misc_mod);
+				//				modEnterField.setText(""+miscMod);
+
+				int titleFieldID = 0;
+				int totalFieldID = 0;
+				int abModFieldID = 0;
 				int ranksFieldID = 0;
 				int modsFieldID = 0;
+				int arrayID = 0;
 				switch (skillID) {
 				case 1: 
+					totalFieldID = R.id.acrobatics_total;
+					abModFieldID = R.id.acrobatics_ab_mod;
 					ranksFieldID = R.id.acrobatics_ranks;
 					modsFieldID = R.id.acrobatics_misc_mod; break;
 				case 2: 
+					totalFieldID = R.id.appraise_total;
+					abModFieldID = R.id.appraise_ab_mod;
 					ranksFieldID = R.id.appraise_ranks;
 					modsFieldID = R.id.appraise_misc_mod; break;
 				case 3: 
+					totalFieldID = R.id.bluff_total;
+					abModFieldID = R.id.bluff_ab_mod;
 					ranksFieldID = R.id.bluff_ranks;
 					modsFieldID = R.id.bluff_misc_mod; break;
 				case 4: 
+					totalFieldID = R.id.climb_total;
+					abModFieldID = R.id.climb_ab_mod;
 					ranksFieldID = R.id.climb_ranks;
 					modsFieldID = R.id.climb_misc_mod; break;
 				case 5: 
 					//if (crafts < 3)
-						crafts++;
+					crafts++;
+					arrayID = R.array.craft_array;
 					if (crafts == 1) {
+						titleFieldID = R.id.craft1_spinner;
+						totalFieldID = R.id.craft1_total;
+						abModFieldID = R.id.craft1_ab_mod;
 						ranksFieldID = R.id.craft1_ranks;
 						modsFieldID = R.id.craft1_misc_mod;
 					} else if (crafts == 2) {
+						titleFieldID = R.id.craft2_spinner;
+						totalFieldID = R.id.craft2_total;
+						abModFieldID = R.id.craft2_ab_mod;
 						ranksFieldID = R.id.craft2_ranks;
 						modsFieldID = R.id.craft2_misc_mod;
 					} else if (crafts == 3) {
+						titleFieldID = R.id.craft3_spinner;
+						totalFieldID = R.id.craft3_total;
+						abModFieldID = R.id.craft3_ab_mod;
 						ranksFieldID = R.id.craft3_ranks;
 						modsFieldID = R.id.craft3_misc_mod;
 					} break;
 				case 6: 
+					totalFieldID = R.id.diplomacy_total;
+					abModFieldID = R.id.diplomacy_ab_mod;
 					ranksFieldID = R.id.diplomacy_ranks;
 					modsFieldID = R.id.diplomacy_misc_mod; break;
 				case 7: 
+					totalFieldID = R.id.disable_device_total;
+					abModFieldID = R.id.disable_device_ab_mod;
 					ranksFieldID = R.id.disable_device_ranks;
 					modsFieldID = R.id.disable_device_misc_mod; break;
 				case 8: 
+					totalFieldID = R.id.disguise_total;
+					abModFieldID = R.id.disguise_ab_mod;
 					ranksFieldID = R.id.disguise_ranks;
 					modsFieldID = R.id.disguise_misc_mod; break;
 				case 9: 
+					totalFieldID = R.id.escape_artist_total;
+					abModFieldID = R.id.escape_artist_ab_mod;
 					ranksFieldID = R.id.escape_artist_ranks;
 					modsFieldID = R.id.escape_artist_misc_mod; break;
 				case 10: 
+					totalFieldID = R.id.fly_total;
+					abModFieldID = R.id.fly_ab_mod;
 					ranksFieldID = R.id.fly_ranks;
 					modsFieldID = R.id.fly_misc_mod; break;
 				case 11: 
+					totalFieldID = R.id.handle_animal_total;
+					abModFieldID = R.id.handle_animal_ab_mod;
 					ranksFieldID = R.id.handle_animal_ranks;
 					modsFieldID = R.id.handle_animal_misc_mod; break;
 				case 12: 
+					totalFieldID = R.id.heal_total;
+					abModFieldID = R.id.heal_ab_mod;
 					ranksFieldID = R.id.heal_ranks;
 					modsFieldID = R.id.heal_misc_mod; break;
 				case 13: 
+					totalFieldID = R.id.intimidate_total;
+					abModFieldID = R.id.intimidate_ab_mod;
 					ranksFieldID = R.id.intimidate_ranks;
 					modsFieldID = R.id.intimidate_misc_mod; break;
 				case 14: 
+					totalFieldID = R.id.knowledge_arcana_total;
+					abModFieldID = R.id.knowledge_arcana_ab_mod;
 					ranksFieldID = R.id.knowledge_arcana_ranks;
 					modsFieldID = R.id.knowledge_arcana_misc_mod; break;
 				case 15: 
+					totalFieldID = R.id.knowledge_dungeoneering_total;
+					abModFieldID = R.id.knowledge_dungeoneering_ab_mod;
 					ranksFieldID = R.id.knowledge_dungeoneering_ranks;
 					modsFieldID = R.id.knowledge_dungeoneering_misc_mod; break;
 				case 16: 
+					totalFieldID = R.id.knowledge_engineering_total;
+					abModFieldID = R.id.knowledge_engineering_ab_mod;
 					ranksFieldID = R.id.knowledge_engineering_ranks;
 					modsFieldID = R.id.knowledge_engineering_misc_mod; break;
 				case 17: 
+					totalFieldID = R.id.knowledge_geography_total;
+					abModFieldID = R.id.knowledge_geography_ab_mod;
 					ranksFieldID = R.id.knowledge_geography_ranks;
 					modsFieldID = R.id.knowledge_geography_misc_mod; break;
 				case 18: 
+					totalFieldID = R.id.knowledge_history_total;
+					abModFieldID = R.id.knowledge_history_ab_mod;
 					ranksFieldID = R.id.knowledge_history_ranks;
 					modsFieldID = R.id.knowledge_history_misc_mod; break;
 				case 19: 
+					totalFieldID = R.id.knowledge_local_total;
+					abModFieldID = R.id.knowledge_local_ab_mod;
 					ranksFieldID = R.id.knowledge_local_ranks;
 					modsFieldID = R.id.knowledge_local_misc_mod; break;
 				case 20: 
+					totalFieldID = R.id.knowledge_nature_total;
+					abModFieldID = R.id.knowledge_nature_ab_mod;
 					ranksFieldID = R.id.knowledge_nature_ranks;
 					modsFieldID = R.id.knowledge_nature_misc_mod; break;
 				case 21: 
+					totalFieldID = R.id.knowledge_nobility_total;
+					abModFieldID = R.id.knowledge_nobility_ab_mod;
 					ranksFieldID = R.id.knowledge_nobility_ranks;
 					modsFieldID = R.id.knowledge_nobility_misc_mod; break;
 				case 22: 
+					totalFieldID = R.id.knowledge_planes_total;
+					abModFieldID = R.id.knowledge_planes_ab_mod;
 					ranksFieldID = R.id.knowledge_planes_ranks;
 					modsFieldID = R.id.knowledge_planes_misc_mod; break;
 				case 23: 
+					totalFieldID = R.id.knowledge_religion_total;
+					abModFieldID = R.id.knowledge_religion_ab_mod;
 					ranksFieldID = R.id.knowledge_religion_ranks;
 					modsFieldID = R.id.knowledge_religion_misc_mod; break;
 				case 24: 
+					totalFieldID = R.id.linguistics_total;
+					abModFieldID = R.id.linguistics_ab_mod;
 					ranksFieldID = R.id.linguistics_ranks;
 					modsFieldID = R.id.linguistics_misc_mod; break;
 				case 25: 
+					totalFieldID = R.id.perception_total;
+					abModFieldID = R.id.perception_ab_mod;
 					ranksFieldID = R.id.perception_ranks;
 					modsFieldID = R.id.perception_misc_mod; break;
 				case 26: 
 					//if (performs < 2)
-						performs++;
+					performs++;
+					arrayID = R.array.perform_array;
 					if (performs == 1) {
+						titleFieldID = R.id.perform1_spinner;
+						totalFieldID = R.id.perform1_total;
+						abModFieldID = R.id.perform1_ab_mod;
 						ranksFieldID = R.id.perform1_ranks;
 						modsFieldID = R.id.perform1_misc_mod;
 					} else if (performs == 2) {
+						titleFieldID = R.id.perform2_spinner;
+						totalFieldID = R.id.perform2_total;
+						abModFieldID = R.id.perform2_ab_mod;
 						ranksFieldID = R.id.perform2_ranks;
 						modsFieldID = R.id.perform2_misc_mod;
 					} break;
 				case 27: 
 					//if (professions < 2)
-						professions++;
+					professions++;
+					arrayID = R.array.profession_array;
 					if (professions == 1) {
+						titleFieldID = R.id.profession1_spinner;
+						totalFieldID = R.id.profession1_total;
+						abModFieldID = R.id.profession1_ab_mod;
 						ranksFieldID = R.id.profession1_ranks;
 						modsFieldID = R.id.profession1_misc_mod;
 					} else if (professions == 2) {
+						titleFieldID = R.id.profession2_spinner;
+						totalFieldID = R.id.profession2_total;
+						abModFieldID = R.id.profession2_ab_mod;
 						ranksFieldID = R.id.profession2_ranks;
 						modsFieldID = R.id.profession2_misc_mod;
 					} break;
 				case 28: 
+					totalFieldID = R.id.ride_total;
+					abModFieldID = R.id.ride_ab_mod;
 					ranksFieldID = R.id.ride_ranks;
 					modsFieldID = R.id.ride_misc_mod; break;
 				case 29: 
+					totalFieldID = R.id.sense_motive_total;
+					abModFieldID = R.id.sense_motive_ab_mod;
 					ranksFieldID = R.id.sense_motive_ranks;
 					modsFieldID = R.id.sense_motive_misc_mod; break;
 				case 30: 
+					totalFieldID = R.id.sleight_of_hand_total;
+					abModFieldID = R.id.sleight_of_hand_ab_mod;
 					ranksFieldID = R.id.sleight_of_hand_ranks;
 					modsFieldID = R.id.sleight_of_hand_misc_mod; break;
 				case 31: 
+					totalFieldID = R.id.spellcraft_total;
+					abModFieldID = R.id.spellcraft_ab_mod;
 					ranksFieldID = R.id.spellcraft_ranks;
 					modsFieldID = R.id.spellcraft_misc_mod; break;
 				case 32: 
+					totalFieldID = R.id.stealth_total;
+					abModFieldID = R.id.stealth_ab_mod;
 					ranksFieldID = R.id.stealth_ranks;
 					modsFieldID = R.id.stealth_misc_mod; break;
 				case 33: 
+					totalFieldID = R.id.survival_total;
+					abModFieldID = R.id.survival_ab_mod;
 					ranksFieldID = R.id.survival_ranks;
 					modsFieldID = R.id.survival_misc_mod; break;
 				case 34: 
+					totalFieldID = R.id.swim_total;
+					abModFieldID = R.id.swim_ab_mod;
 					ranksFieldID = R.id.swim_ranks;
 					modsFieldID = R.id.swim_misc_mod; break;
 				case 35: 
+					totalFieldID = R.id.use_magic_device_total;
+					abModFieldID = R.id.use_magic_device_ab_mod;
 					ranksFieldID = R.id.use_magic_device_ranks;
 					modsFieldID = R.id.use_magic_device_misc_mod; break;
 				}
-				
-				EditText ranksEnterField = (EditText) findViewById(ranksFieldID);
-				ranksEnterField.setText(""+ranks);
-				EditText modEnterField = (EditText) findViewById(modsFieldID);
-				modEnterField.setText(""+miscMod);
+				// put data in UI
+				int abMod = skillToAbMod.get(skill.getID());
 
-				cursor.moveToNext();
+				TextView totalField = (TextView) findViewById(totalFieldID);
+				totalField.setText(""+(skill.getTotal() + abMod));
+
+				TextView abModField = (TextView) findViewById(abModFieldID);
+				abModField.setText(""+abMod);
+
+				if (skillID == 5 || skillID == 26 || skillID == 27) { // just for write-ins
+					Spinner spinner = (Spinner) findViewById(titleFieldID);
+					ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, arrayID,
+							R.layout.smaller_multiline_spinner_dropdown_item);
+					spinner.setAdapter(myAdap);
+					int spinnerPosition = myAdap.getPosition(title);
+					//set the default according to value
+					spinner.setSelection(spinnerPosition);
+				}
+
+				EditText ranksEnterField = (EditText) findViewById(ranksFieldID);
+				ranksEnterField.setText(""+skill.getRank());
+
+				EditText modEnterField = (EditText) findViewById(modsFieldID);
+				modEnterField.setText(""+skill.getModifier("skillMod"));
+
+				cursor2.moveToNext();
 			}
 		}
-		cursor.close();
+		cursor2.close();
 	}
-	
+
 	// helper class for storing a string and int together
 	// mostly for making the following code readable
 	private class StrInt {
@@ -272,28 +412,36 @@ public class SkillsActivity extends Activity {
 		// TODO write method
 		//Skill sk = new Skill(null, null);
 		ArrayList<Skill> skills = new ArrayList<Skill>();
-		
-// this segment of code is for factoring the code so that it's not so redundant
-// however the priority is getting this to work, so we can finish this later
-//		// load skills from DB
-//		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
-//				SQLiteHelperRefTables.ALL_COLUMNS_S, null, null, null, null, null);
-//		Map<Integer, StrInt> skillsRef = new HashMap<Integer, StrInt>(); 
-//		// ^ this is essentially a map from skill id to skill name and ability score id
-//		if (cursor.moveToFirst()) {
-//			// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
-//			int id 		= cursor.getInt(0);
-//			String name = cursor.getString(1);
-//			int asID 	= cursor.getInt(2);
-//			skillsRef.put(id, new StrInt(name, asID));
-//		}
-//		cursor.close();
-		
+
+		// this segment of code is for factoring the code so that it's not so redundant
+		// however the priority is getting this to work, so we can finish this later
+		//		// load skills from DB
+		//		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
+		//				SQLiteHelperRefTables.ALL_COLUMNS_S, null, null, null, null, null);
+		//		Map<Integer, StrInt> skillsRef = new HashMap<Integer, StrInt>(); 
+		//		// ^ this is essentially a map from skill id to skill name and ability score id
+		//		if (cursor.moveToFirst()) {
+		//			// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
+		//			int id 		= cursor.getInt(0);
+		//			String name = cursor.getString(1);
+		//			int asID 	= cursor.getInt(2);
+		//			skillsRef.put(id, new StrInt(name, asID));
+		//		}
+		//		cursor.close();
+
 		// Acrobatics
 		EditText acrobaticsRanksEnter = (EditText) findViewById(R.id.acrobatics_ranks);
 		EditText acrobaticsMiscEnter = (EditText) findViewById(R.id.acrobatics_misc_mod);
 		String acrobaticsRanks = acrobaticsRanksEnter.getText().toString().trim();
 		String acrobaticsMisc = acrobaticsMiscEnter.getText().toString().trim();
+		if(acrobaticsRanks.matches("")) {
+			acrobaticsRanks = "0";
+		}
+
+		if(acrobaticsMisc.matches("")) {
+			acrobaticsMisc = "0";
+		}
+
 		if (!acrobaticsRanks.matches("")) {
 			int acrobaticsRank = Integer.parseInt(acrobaticsRanks);
 			Skill skill = new Skill(1, "Acrobatics", AbilityName.DEXTERITY, acrobaticsRank, false);
@@ -309,6 +457,13 @@ public class SkillsActivity extends Activity {
 		EditText appraiseMiscEnter = (EditText) findViewById(R.id.appraise_misc_mod);
 		String appraiseRanks = appraiseRanksEnter.getText().toString().trim();
 		String appraiseMisc = appraiseMiscEnter.getText().toString().trim();
+		if(appraiseRanks.matches("")) {
+			appraiseRanks = "0";
+		}
+
+		if(appraiseMisc.matches("")) {
+			appraiseMisc = "0";
+		}
 		if (!appraiseRanks.matches("")) {
 			int appraiseRank = Integer.parseInt(appraiseRanks);
 			Skill skill = new Skill(2, "Appraise", AbilityName.INTELLIGENCE, appraiseRank, false);
@@ -324,6 +479,13 @@ public class SkillsActivity extends Activity {
 		EditText bluffMiscEnter = (EditText) findViewById(R.id.bluff_misc_mod);
 		String bluffRanks = bluffRanksEnter.getText().toString().trim();
 		String bluffMisc = bluffMiscEnter.getText().toString().trim();
+		if(bluffRanks.matches("")) {
+			bluffRanks = "0";
+		}
+
+		if(bluffMisc.matches("")) {
+			bluffMisc = "0";
+		}
 		if (!bluffRanks.matches("")) {
 			int bluffRank = Integer.parseInt(bluffRanks);
 			Skill skill = new Skill(3, "Bluff", AbilityName.CHARISMA, bluffRank, false);
@@ -339,6 +501,14 @@ public class SkillsActivity extends Activity {
 		EditText climbMiscEnter = (EditText) findViewById(R.id.climb_misc_mod);
 		String climbRanks = climbRanksEnter.getText().toString().trim();
 		String climbMisc = climbMiscEnter.getText().toString().trim();
+		if(climbRanks.matches("")) {
+			climbRanks = "0";
+		}
+
+		if(climbMisc.matches("")) {
+			climbMisc = "0";
+		}
+
 		if (!climbRanks.matches("")) {
 			int climbRank = Integer.parseInt(climbRanks);
 			Skill skill = new Skill(4, "Climb", AbilityName.STRENGTH, climbRank, false);
@@ -350,15 +520,24 @@ public class SkillsActivity extends Activity {
 		}
 
 		// Craft1
-		EditText craft1NameEnter = (EditText) findViewById(R.id.craft1_enter);
+		Spinner craft1Spinner = (Spinner) findViewById(R.id.craft1_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String craft1 = craft1Spinner.getSelectedItem().toString();
+
 		EditText craft1RanksEnter = (EditText) findViewById(R.id.craft1_ranks);
 		EditText craft1MiscEnter = (EditText) findViewById(R.id.craft1_misc_mod);
-		String craft1Name = craft1NameEnter.getText().toString().trim();
 		String craft1Ranks = craft1RanksEnter.getText().toString().trim();
 		String craft1Misc = craft1MiscEnter.getText().toString().trim();
-		if (!craft1Name.matches("") && !craft1Ranks.matches("")) {
+		if(craft1Ranks.matches("")) {
+			craft1Ranks = "0";
+		}
+
+		if(craft1Misc.matches("")) {
+			craft1Misc = "0";
+		}
+		if (!craft1Ranks.matches("")) {
 			int craft1Rank = Integer.parseInt(craft1Ranks);
-			Skill skill = new Skill(5, "Craft1", AbilityName.INTELLIGENCE, craft1Rank, false);
+			Skill skill = new Skill(5, "Craft1", craft1, AbilityName.INTELLIGENCE, craft1Rank, false);
 			if (!craft1Misc.matches("")) {
 				int craft1Mod = Integer.parseInt(craft1Misc);
 				skill.addModifier("craft1Mod", craft1Mod);
@@ -367,15 +546,24 @@ public class SkillsActivity extends Activity {
 		}
 
 		// Craft2
-		EditText craft2NameEnter = (EditText) findViewById(R.id.craft2_enter);
+		Spinner craft2Spinner = (Spinner) findViewById(R.id.craft2_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String craft2 = craft2Spinner.getSelectedItem().toString();
+
 		EditText craft2RanksEnter = (EditText) findViewById(R.id.craft2_ranks);
 		EditText craft2MiscEnter = (EditText) findViewById(R.id.craft2_misc_mod);
-		String craft2Name = craft2NameEnter.getText().toString().trim();
 		String craft2Ranks = craft2RanksEnter.getText().toString().trim();
 		String craft2Misc = craft2MiscEnter.getText().toString().trim();
-		if (!craft2Name.matches("") && !craft2Ranks.matches("")) {
+		if(craft2Ranks.matches("")) {
+			craft2Ranks = "0";
+		}
+
+		if(craft2Misc.matches("")) {
+			craft2Misc = "0";
+		}
+		if (!craft2Ranks.matches("")) {
 			int craft2Rank = Integer.parseInt(craft2Ranks);
-			Skill skill = new Skill(5, "Craft2", AbilityName.INTELLIGENCE, craft2Rank, false);
+			Skill skill = new Skill(5, "Craft2", craft2, AbilityName.INTELLIGENCE, craft2Rank, false);
 			if (!craft2Misc.matches("")) {
 				int craft2Mod = Integer.parseInt(craft2Misc);
 				skill.addModifier("craft2Mod", craft2Mod);
@@ -385,15 +573,24 @@ public class SkillsActivity extends Activity {
 
 
 		// Craft3
-		EditText craft3NameEnter = (EditText) findViewById(R.id.craft3_enter);
+		Spinner craft3Spinner = (Spinner) findViewById(R.id.craft3_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String craft3 = craft3Spinner.getSelectedItem().toString();
+
 		EditText craft3RanksEnter = (EditText) findViewById(R.id.craft3_ranks);
 		EditText craft3MiscEnter = (EditText) findViewById(R.id.craft3_misc_mod);
-		String craft3Name = craft3NameEnter.getText().toString().trim();
 		String craft3Ranks = craft3RanksEnter.getText().toString().trim();
 		String craft3Misc = craft3MiscEnter.getText().toString().trim();
-		if (!craft3Name.matches("") && !craft3Ranks.matches("")) {
+		if(craft3Ranks.matches("")) {
+			craft3Ranks = "0";
+		}
+
+		if(craft3Misc.matches("")) {
+			craft3Misc = "0";
+		}
+		if (!craft3Ranks.matches("")) {
 			int craft3Rank = Integer.parseInt(craft3Ranks);
-			Skill skill = new Skill(5, "Craft3", AbilityName.INTELLIGENCE, craft3Rank, false);
+			Skill skill = new Skill(5, "Craft3", craft3, AbilityName.INTELLIGENCE, craft3Rank, false);
 			if (!craft3Misc.matches("")) {
 				int craft3Mod = Integer.parseInt(craft3Misc);
 				skill.addModifier("craft3Mod", craft3Mod);
@@ -407,6 +604,13 @@ public class SkillsActivity extends Activity {
 		EditText diplomacyMiscEnter = (EditText) findViewById(R.id.diplomacy_misc_mod);
 		String diplomacyRanks = diplomacyRanksEnter.getText().toString().trim();
 		String diplomacyMisc = diplomacyMiscEnter.getText().toString().trim();
+		if(diplomacyRanks.matches("")) {
+			diplomacyRanks = "0";
+		}
+
+		if(diplomacyMisc.matches("")) {
+			diplomacyMisc = "0";
+		}
 		if (!diplomacyRanks.matches("")) {
 			int diplomacyRank = Integer.parseInt(diplomacyRanks);
 			Skill skill = new Skill(6, "Diplomacy", AbilityName.CHARISMA, diplomacyRank, false);
@@ -422,6 +626,13 @@ public class SkillsActivity extends Activity {
 		EditText disableDeviceMiscEnter = (EditText) findViewById(R.id.disable_device_misc_mod);
 		String disableDeviceRanks = disableDeviceRanksEnter.getText().toString().trim();
 		String disableDeviceMisc = disableDeviceMiscEnter.getText().toString().trim();
+		if(disableDeviceRanks.matches("")) {
+			disableDeviceRanks = "0";
+		}
+
+		if(disableDeviceMisc.matches("")) {
+			disableDeviceMisc = "0";
+		}
 		if (!disableDeviceRanks.matches("")) {
 			int disableDeviceRank = Integer.parseInt(disableDeviceRanks);
 			Skill skill = new Skill(7, "Disable Device", AbilityName.DEXTERITY, disableDeviceRank, false);
@@ -437,6 +648,13 @@ public class SkillsActivity extends Activity {
 		EditText disguiseMiscEnter = (EditText) findViewById(R.id.disguise_misc_mod);
 		String disguiseRanks = disguiseRanksEnter.getText().toString().trim();
 		String disguiseMisc = disguiseMiscEnter.getText().toString().trim();
+		if(disguiseRanks.matches("")) {
+			disguiseRanks = "0";
+		}
+
+		if(disguiseMisc.matches("")) {
+			disguiseMisc = "0";
+		}
 		if (!disguiseRanks.matches("")) {
 			int disguiseRank = Integer.parseInt(disguiseRanks);
 			Skill skill = new Skill(8, "Disguise", AbilityName.CHARISMA, disguiseRank, false);
@@ -452,6 +670,13 @@ public class SkillsActivity extends Activity {
 		EditText escapeArtistMiscEnter = (EditText) findViewById(R.id.escape_artist_misc_mod);
 		String escapeArtistRanks = escapeArtistRanksEnter.getText().toString().trim();
 		String escapeArtistMisc = escapeArtistMiscEnter.getText().toString().trim();
+		if(escapeArtistRanks.matches("")) {
+			escapeArtistRanks = "0";
+		}
+
+		if(escapeArtistMisc.matches("")) {
+			escapeArtistMisc = "0";
+		}
 		if (!escapeArtistRanks.matches("")) {
 			int escapeArtistRank = Integer.parseInt(escapeArtistRanks);
 			Skill skill = new Skill(9, "Escape Artist", AbilityName.DEXTERITY, escapeArtistRank, false);
@@ -467,6 +692,13 @@ public class SkillsActivity extends Activity {
 		EditText flyMiscEnter = (EditText) findViewById(R.id.fly_misc_mod);
 		String flyRanks = flyRanksEnter.getText().toString().trim();
 		String flyMisc = flyMiscEnter.getText().toString().trim();
+		if(flyRanks.matches("")) {
+			flyRanks = "0";
+		}
+
+		if(flyMisc.matches("")) {
+			flyMisc = "0";
+		}
 		if (!flyRanks.matches("")) {
 			int flyRank = Integer.parseInt(flyRanks);
 			Skill skill = new Skill(10, "Fly", AbilityName.DEXTERITY, flyRank, false);
@@ -482,6 +714,13 @@ public class SkillsActivity extends Activity {
 		EditText handleAnimalMiscEnter = (EditText) findViewById(R.id.handle_animal_misc_mod);
 		String handleAnimalRanks = handleAnimalRanksEnter.getText().toString().trim();
 		String handleAnimalMisc = handleAnimalMiscEnter.getText().toString().trim();
+		if(handleAnimalRanks.matches("")) {
+			handleAnimalRanks = "0";
+		}
+
+		if(handleAnimalMisc.matches("")) {
+			handleAnimalMisc = "0";
+		}
 		if (!handleAnimalRanks.matches("")) {
 			int handleAnimalRank = Integer.parseInt(handleAnimalRanks);
 			Skill skill = new Skill(11, "Handle Animal", AbilityName.CHARISMA, handleAnimalRank, false);
@@ -497,6 +736,13 @@ public class SkillsActivity extends Activity {
 		EditText healMiscEnter = (EditText) findViewById(R.id.heal_misc_mod);
 		String healRanks = healRanksEnter.getText().toString().trim();
 		String healMisc = healMiscEnter.getText().toString().trim();
+		if(healRanks.matches("")) {
+			healRanks = "0";
+		}
+
+		if(healMisc.matches("")) {
+			healMisc = "0";
+		}
 		if (!healRanks.matches("")) {
 			int healRank = Integer.parseInt(healRanks);
 			Skill skill = new Skill(12, "Heal", AbilityName.WISDOM, healRank, false);
@@ -512,6 +758,13 @@ public class SkillsActivity extends Activity {
 		EditText intimidateMiscEnter = (EditText) findViewById(R.id.intimidate_misc_mod);
 		String intimidateRanks = intimidateRanksEnter.getText().toString().trim();
 		String intimidateMisc = intimidateMiscEnter.getText().toString().trim();
+		if(intimidateRanks.matches("")) {
+			intimidateRanks = "0";
+		}
+
+		if(intimidateMisc.matches("")) {
+			intimidateMisc = "0";
+		}
 		if (!intimidateRanks.matches("")) {
 			int intimidateRank = Integer.parseInt(intimidateRanks);
 			Skill skill = new Skill(13, "Intimidate", AbilityName.CHARISMA, intimidateRank, false);
@@ -527,6 +780,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeArcanaMiscEnter = (EditText) findViewById(R.id.knowledge_arcana_misc_mod);
 		String knowledgeArcanaRanks = knowledgeArcanaRanksEnter.getText().toString().trim();
 		String knowledgeArcanaMisc = knowledgeArcanaMiscEnter.getText().toString().trim();
+		if(knowledgeArcanaRanks.matches("")) {
+			knowledgeArcanaRanks = "0";
+		}
+
+		if(knowledgeArcanaMisc.matches("")) {
+			knowledgeArcanaMisc = "0";
+		}
 		if (!knowledgeArcanaRanks.matches("")) {
 			int knowledgeArcanaRank = Integer.parseInt(knowledgeArcanaRanks);
 			Skill skill = new Skill(14, "Knowledge (Arcana)", AbilityName.INTELLIGENCE, knowledgeArcanaRank, false);
@@ -542,6 +802,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeDungeoneeringMiscEnter = (EditText) findViewById(R.id.knowledge_dungeoneering_misc_mod);
 		String knowledgeDungeoneeringRanks = knowledgeDungeoneeringRanksEnter.getText().toString().trim();
 		String knowledgeDungeoneeringMisc = knowledgeDungeoneeringMiscEnter.getText().toString().trim();
+		if(knowledgeDungeoneeringRanks.matches("")) {
+			knowledgeDungeoneeringRanks = "0";
+		}
+
+		if(knowledgeDungeoneeringMisc.matches("")) {
+			knowledgeDungeoneeringMisc = "0";
+		}
 		if (!knowledgeDungeoneeringRanks.matches("")) {
 			int knowledgeDungeoneeringRank = Integer.parseInt(knowledgeDungeoneeringRanks);
 			Skill skill = new Skill(15, "Knowledge (Dungeoneering)", AbilityName.INTELLIGENCE, knowledgeDungeoneeringRank, false);
@@ -557,6 +824,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeEngineeringMiscEnter = (EditText) findViewById(R.id.knowledge_engineering_misc_mod);
 		String knowledgeEngineeringRanks = knowledgeEngineeringRanksEnter.getText().toString().trim();
 		String knowledgeEngineeringMisc = knowledgeEngineeringMiscEnter.getText().toString().trim();
+		if(knowledgeEngineeringRanks.matches("")) {
+			knowledgeEngineeringRanks = "0";
+		}
+
+		if(knowledgeEngineeringMisc.matches("")) {
+			knowledgeEngineeringMisc = "0";
+		}
 		if (!knowledgeEngineeringRanks.matches("")) {
 			int knowledgeEngineeringRank = Integer.parseInt(knowledgeEngineeringRanks);
 			Skill skill = new Skill(16, "Knowledge (Engineering)", AbilityName.INTELLIGENCE, knowledgeEngineeringRank, false);
@@ -572,6 +846,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeGeographyMiscEnter = (EditText) findViewById(R.id.knowledge_geography_misc_mod);
 		String knowledgeGeographyRanks = knowledgeGeographyRanksEnter.getText().toString().trim();
 		String knowledgeGeographyMisc = knowledgeGeographyMiscEnter.getText().toString().trim();
+		if(knowledgeGeographyRanks.matches("")) {
+			knowledgeGeographyRanks = "0";
+		}
+
+		if(knowledgeGeographyMisc.matches("")) {
+			knowledgeGeographyMisc = "0";
+		}
 		if (!knowledgeGeographyRanks.matches("")) {
 			int knowledgeGeographyRank = Integer.parseInt(knowledgeGeographyRanks);
 			Skill skill = new Skill(17, "Knowledge (Geography)", AbilityName.INTELLIGENCE, knowledgeGeographyRank, false);
@@ -587,6 +868,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeHistoryMiscEnter = (EditText) findViewById(R.id.knowledge_history_misc_mod);
 		String knowledgeHistoryRanks = knowledgeHistoryRanksEnter.getText().toString().trim();
 		String knowledgeHistoryMisc = knowledgeHistoryMiscEnter.getText().toString().trim();
+		if(knowledgeHistoryRanks.matches("")) {
+			knowledgeHistoryRanks = "0";
+		}
+
+		if(knowledgeHistoryMisc.matches("")) {
+			knowledgeHistoryMisc = "0";
+		}
 		if (!knowledgeHistoryRanks.matches("")) {
 			int knowledgeHistoryRank = Integer.parseInt(knowledgeHistoryRanks);
 			Skill skill = new Skill(18, "Knowledge (History)", AbilityName.INTELLIGENCE, knowledgeHistoryRank, false);
@@ -602,6 +890,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeLocalMiscEnter = (EditText) findViewById(R.id.knowledge_local_misc_mod);
 		String knowledgeLocalRanks = knowledgeLocalRanksEnter.getText().toString().trim();
 		String knowledgeLocalMisc = knowledgeLocalMiscEnter.getText().toString().trim();
+		if(knowledgeLocalRanks.matches("")) {
+			knowledgeLocalRanks = "0";
+		}
+
+		if(knowledgeLocalMisc.matches("")) {
+			knowledgeLocalMisc = "0";
+		}
 		if (!knowledgeLocalRanks.matches("")) {
 			int knowledgeLocalRank = Integer.parseInt(knowledgeLocalRanks);
 			Skill skill = new Skill(19, "Knowledge (Local)", AbilityName.INTELLIGENCE, knowledgeLocalRank, false);
@@ -617,6 +912,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeNatureMiscEnter = (EditText) findViewById(R.id.knowledge_nature_misc_mod);
 		String knowledgeNatureRanks = knowledgeNatureRanksEnter.getText().toString().trim();
 		String knowledgeNatureMisc = knowledgeNatureMiscEnter.getText().toString().trim();
+		if(knowledgeNatureRanks.matches("")) {
+			knowledgeNatureRanks = "0";
+		}
+
+		if(knowledgeNatureMisc.matches("")) {
+			knowledgeNatureMisc = "0";
+		}
 		if (!knowledgeNatureRanks.matches("")) {
 			int knowledgeNatureRank = Integer.parseInt(knowledgeNatureRanks);
 			Skill skill = new Skill(20, "Knowledge (Nature)", AbilityName.INTELLIGENCE, knowledgeNatureRank, false);
@@ -632,6 +934,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeNobilityMiscEnter = (EditText) findViewById(R.id.knowledge_nobility_misc_mod);
 		String knowledgeNobilityRanks = knowledgeNobilityRanksEnter.getText().toString().trim();
 		String knowledgeNobilityMisc = knowledgeNobilityMiscEnter.getText().toString().trim();
+		if(knowledgeNobilityRanks.matches("")) {
+			knowledgeNobilityRanks = "0";
+		}
+
+		if(knowledgeNobilityMisc.matches("")) {
+			knowledgeNobilityMisc = "0";
+		}
 		if (!knowledgeNobilityRanks.matches("")) {
 			int knowledgeNobilityRank = Integer.parseInt(knowledgeNobilityRanks);
 			Skill skill = new Skill(21, "Knowledge (Nobility)", AbilityName.INTELLIGENCE, knowledgeNobilityRank, false);
@@ -647,6 +956,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgePlanesMiscEnter = (EditText) findViewById(R.id.knowledge_planes_misc_mod);
 		String knowledgePlanesRanks = knowledgePlanesRanksEnter.getText().toString().trim();
 		String knowledgePlanesMisc = knowledgePlanesMiscEnter.getText().toString().trim();
+		if(knowledgePlanesRanks.matches("")) {
+			knowledgePlanesRanks = "0";
+		}
+
+		if(knowledgePlanesMisc.matches("")) {
+			knowledgePlanesMisc = "0";
+		}
 		if (!knowledgePlanesRanks.matches("")) {
 			int knowledgePlanesRank = Integer.parseInt(knowledgePlanesRanks);
 			Skill skill = new Skill(22, "Knowledge (Planes)", AbilityName.INTELLIGENCE, knowledgePlanesRank, false);
@@ -662,6 +978,13 @@ public class SkillsActivity extends Activity {
 		EditText knowledgeReligionMiscEnter = (EditText) findViewById(R.id.knowledge_religion_misc_mod);
 		String knowledgeReligionRanks = knowledgeReligionRanksEnter.getText().toString().trim();
 		String knowledgeReligionMisc = knowledgeReligionMiscEnter.getText().toString().trim();
+		if(knowledgeReligionRanks.matches("")) {
+			knowledgeReligionRanks = "0";
+		}
+
+		if(knowledgeReligionMisc.matches("")) {
+			knowledgeReligionMisc = "0";
+		}
 		if (!knowledgeReligionRanks.matches("")) {
 			int knowledgeReligionRank = Integer.parseInt(knowledgeReligionRanks);
 			Skill skill = new Skill(23, "Knowledge (Religion)", AbilityName.INTELLIGENCE, knowledgeReligionRank, false);
@@ -677,6 +1000,13 @@ public class SkillsActivity extends Activity {
 		EditText linguisticsMiscEnter = (EditText) findViewById(R.id.linguistics_misc_mod);
 		String linguisticsRanks = linguisticsRanksEnter.getText().toString().trim();
 		String linguisticsMisc = linguisticsMiscEnter.getText().toString().trim();
+		if(linguisticsRanks.matches("")) {
+			linguisticsRanks = "0";
+		}
+
+		if(linguisticsMisc.matches("")) {
+			linguisticsMisc = "0";
+		}
 		if (!linguisticsRanks.matches("")) {
 			int linguisticsRank = Integer.parseInt(linguisticsRanks);
 			Skill skill = new Skill(24, "Linguistics", AbilityName.INTELLIGENCE, linguisticsRank, false);
@@ -692,6 +1022,13 @@ public class SkillsActivity extends Activity {
 		EditText perceptionMiscEnter = (EditText) findViewById(R.id.perception_misc_mod);
 		String perceptionRanks = perceptionRanksEnter.getText().toString().trim();
 		String perceptionMisc = perceptionMiscEnter.getText().toString().trim();
+		if(perceptionRanks.matches("")) {
+			perceptionRanks = "0";
+		}
+
+		if(perceptionMisc.matches("")) {
+			perceptionMisc = "0";
+		}
 		if (!perceptionRanks.matches("")) {
 			int perceptionRank = Integer.parseInt(perceptionRanks);
 			Skill skill = new Skill(25, "Perception", AbilityName.WISDOM, perceptionRank, false);
@@ -705,15 +1042,24 @@ public class SkillsActivity extends Activity {
 		// ... seriously I'm going to refactor this because there is a stupid amount of redundancy
 
 		// Perform1
-		EditText perform1NameEnter = (EditText) findViewById(R.id.perform1_enter);
+		Spinner perform1Spinner = (Spinner) findViewById(R.id.perform1_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String perform1 = perform1Spinner.getSelectedItem().toString();
+
 		EditText perform1RanksEnter = (EditText) findViewById(R.id.perform1_ranks);
 		EditText perform1MiscEnter = (EditText) findViewById(R.id.perform1_misc_mod);
-		String perform1Name = perform1NameEnter.getText().toString().trim();
 		String perform1Ranks = perform1RanksEnter.getText().toString().trim();
 		String perform1Misc = perform1MiscEnter.getText().toString().trim();
-		if (!perform1Name.matches("") && !perform1Ranks.matches("")) {
+		if(perform1Ranks.matches("")) {
+			perform1Ranks = "0";
+		}
+
+		if(perform1Misc.matches("")) {
+			perform1Misc = "0";
+		}
+		if (!perform1Ranks.matches("")) {
 			int perform1Rank = Integer.parseInt(perform1Ranks);
-			Skill skill = new Skill(26, "Perform1", AbilityName.CHARISMA, perform1Rank, false);
+			Skill skill = new Skill(26, "Perform1", perform1, AbilityName.CHARISMA, perform1Rank, false);
 			if (!perform1Misc.matches("")) {
 				int perform1Mod = Integer.parseInt(perform1Misc);
 				skill.addModifier("perform1Mod", perform1Mod);
@@ -722,15 +1068,24 @@ public class SkillsActivity extends Activity {
 		}
 
 		// Perform2
-		EditText perform2NameEnter = (EditText) findViewById(R.id.perform2_enter);
+		Spinner perform2Spinner = (Spinner) findViewById(R.id.perform2_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String perform2 = perform2Spinner.getSelectedItem().toString();
+
 		EditText perform2RanksEnter = (EditText) findViewById(R.id.perform2_ranks);
 		EditText perform2MiscEnter = (EditText) findViewById(R.id.perform2_misc_mod);
-		String perform2Name = perform2NameEnter.getText().toString().trim();
 		String perform2Ranks = perform2RanksEnter.getText().toString().trim();
 		String perform2Misc = perform2MiscEnter.getText().toString().trim();
-		if (!perform2Name.matches("") && !perform2Ranks.matches("")) {
+		if(perform2Ranks.matches("")) {
+			perform2Ranks = "0";
+		}
+
+		if(perform2Misc.matches("")) {
+			perform2Misc = "0";
+		}
+		if (!perform2Ranks.matches("")) {
 			int perform2Rank = Integer.parseInt(perform2Ranks);
-			Skill skill = new Skill(26, "Perform2", AbilityName.CHARISMA, perform2Rank, false);
+			Skill skill = new Skill(26, "Perform2", perform2, AbilityName.CHARISMA, perform2Rank, false);
 			if (!perform2Misc.matches("")) {
 				int perform2Mod = Integer.parseInt(perform2Misc);
 				skill.addModifier("perform2Mod", perform2Mod);
@@ -739,15 +1094,23 @@ public class SkillsActivity extends Activity {
 		}
 
 		// Profession1
-		EditText profession1NameEnter = (EditText) findViewById(R.id.profession1_enter);
+		Spinner profession1Spinner = (Spinner) findViewById(R.id.profession1_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String profession1 = profession1Spinner.getSelectedItem().toString();
 		EditText profession1RanksEnter = (EditText) findViewById(R.id.profession1_ranks);
 		EditText profession1MiscEnter = (EditText) findViewById(R.id.profession1_misc_mod);
-		String profession1Name = profession1NameEnter.getText().toString().trim();
 		String profession1Ranks = profession1RanksEnter.getText().toString().trim();
 		String profession1Misc = profession1MiscEnter.getText().toString().trim();
-		if (!profession1Name.matches("") && !profession1Ranks.matches("")) {
+		if(profession1Ranks.matches("")) {
+			profession1Ranks = "0";
+		}
+
+		if(profession1Misc.matches("")) {
+			profession1Misc = "0";
+		}
+		if (!profession1Ranks.matches("")) {
 			int profession1Rank = Integer.parseInt(profession1Ranks);
-			Skill skill = new Skill(27, "Profession1", AbilityName.WISDOM, profession1Rank, false);
+			Skill skill = new Skill(27, "Profession1", profession1, AbilityName.WISDOM, profession1Rank, false);
 			if (!profession1Misc.matches("")) {
 				int profession1Mod = Integer.parseInt(profession1Misc);
 				skill.addModifier("profession1Mod", profession1Mod);
@@ -756,15 +1119,23 @@ public class SkillsActivity extends Activity {
 		}
 
 		// Profession2
-		EditText profession2NameEnter = (EditText) findViewById(R.id.profession2_enter);
+		Spinner profession2Spinner = (Spinner) findViewById(R.id.profession2_spinner);
+		// Gives a string representation of whatever item is selected in the spinner
+		String profession2 = profession2Spinner.getSelectedItem().toString();
 		EditText profession2RanksEnter = (EditText) findViewById(R.id.profession2_ranks);
 		EditText profession2MiscEnter = (EditText) findViewById(R.id.profession2_misc_mod);
-		String profession2Name = profession2NameEnter.getText().toString().trim();
 		String profession2Ranks = profession2RanksEnter.getText().toString().trim();
 		String profession2Misc = profession2MiscEnter.getText().toString().trim();
-		if (!profession2Name.matches("") && !profession2Ranks.matches("")) {
+		if(profession2Ranks.matches("")) {
+			profession2Ranks = "0";
+		}
+
+		if(profession2Misc.matches("")) {
+			profession2Misc = "0";
+		}
+		if (!profession2Ranks.matches("")) {
 			int profession2Rank = Integer.parseInt(profession2Ranks);
-			Skill skill = new Skill(27, "Profession2", AbilityName.WISDOM, profession2Rank, false);
+			Skill skill = new Skill(27, "Profession2", profession2, AbilityName.WISDOM, profession2Rank, false);
 			if (!profession2Misc.matches("")) {
 				int profession2Mod = Integer.parseInt(profession2Misc);
 				skill.addModifier("profession2Mod", profession2Mod);
@@ -777,6 +1148,13 @@ public class SkillsActivity extends Activity {
 		EditText rideMiscEnter = (EditText) findViewById(R.id.ride_misc_mod);
 		String rideRanks = rideRanksEnter.getText().toString().trim();
 		String rideMisc = rideMiscEnter.getText().toString().trim();
+		if(rideRanks.matches("")) {
+			rideRanks = "0";
+		}
+
+		if(rideMisc.matches("")) {
+			rideMisc = "0";
+		}
 		if (!rideRanks.matches("")) {
 			int rideRank = Integer.parseInt(rideRanks);
 			Skill skill = new Skill(28, "Ride", AbilityName.DEXTERITY, rideRank, false);
@@ -792,6 +1170,13 @@ public class SkillsActivity extends Activity {
 		EditText senseMotiveMiscEnter = (EditText) findViewById(R.id.sense_motive_misc_mod);
 		String senseMotiveRanks = senseMotiveRanksEnter.getText().toString().trim();
 		String senseMotiveMisc = senseMotiveMiscEnter.getText().toString().trim();
+		if(senseMotiveRanks.matches("")) {
+			senseMotiveRanks = "0";
+		}
+
+		if(senseMotiveMisc.matches("")) {
+			senseMotiveMisc = "0";
+		}
 		if (!senseMotiveRanks.matches("")) {
 			int senseMotiveRank = Integer.parseInt(senseMotiveRanks);
 			Skill skill = new Skill(29, "Sense Motive", AbilityName.WISDOM, senseMotiveRank, false);
@@ -807,6 +1192,13 @@ public class SkillsActivity extends Activity {
 		EditText sleightOfHandMiscEnter = (EditText) findViewById(R.id.sleight_of_hand_misc_mod);
 		String sleightOfHandRanks = sleightOfHandRanksEnter.getText().toString().trim();
 		String sleightOfHandMisc = sleightOfHandMiscEnter.getText().toString().trim();
+		if(sleightOfHandRanks.matches("")) {
+			sleightOfHandRanks = "0";
+		}
+
+		if(sleightOfHandMisc.matches("")) {
+			sleightOfHandMisc = "0";
+		}
 		if (!sleightOfHandRanks.matches("")) {
 			int sleightOfHandRank = Integer.parseInt(sleightOfHandRanks);
 			Skill skill = new Skill(30, "Sleight of Hand", AbilityName.DEXTERITY, sleightOfHandRank, false);
@@ -822,6 +1214,13 @@ public class SkillsActivity extends Activity {
 		EditText spellcraftMiscEnter = (EditText) findViewById(R.id.spellcraft_misc_mod);
 		String spellcraftRanks = spellcraftRanksEnter.getText().toString().trim();
 		String spellcraftMisc = spellcraftMiscEnter.getText().toString().trim();
+		if(spellcraftRanks.matches("")) {
+			spellcraftRanks = "0";
+		}
+
+		if(spellcraftMisc.matches("")) {
+			spellcraftMisc = "0";
+		}
 		if (!spellcraftRanks.matches("")) {
 			int spellcraftRank = Integer.parseInt(spellcraftRanks);
 			Skill skill = new Skill(31, "Spellcraft", AbilityName.INTELLIGENCE, spellcraftRank, false);
@@ -837,6 +1236,13 @@ public class SkillsActivity extends Activity {
 		EditText stealthMiscEnter = (EditText) findViewById(R.id.stealth_misc_mod);
 		String stealthRanks = stealthRanksEnter.getText().toString().trim();
 		String stealthMisc = stealthMiscEnter.getText().toString().trim();
+		if(stealthRanks.matches("")) {
+			stealthRanks = "0";
+		}
+
+		if(stealthMisc.matches("")) {
+			stealthMisc = "0";
+		}
 		if (!stealthRanks.matches("")) {
 			int stealthRank = Integer.parseInt(stealthRanks);
 			Skill skill = new Skill(32, "Stealth", AbilityName.DEXTERITY, stealthRank, false);
@@ -852,6 +1258,13 @@ public class SkillsActivity extends Activity {
 		EditText survivalMiscEnter = (EditText) findViewById(R.id.survival_misc_mod);
 		String survivalRanks = survivalRanksEnter.getText().toString().trim();
 		String survivalMisc = survivalMiscEnter.getText().toString().trim();
+		if(survivalRanks.matches("")) {
+			survivalRanks = "0";
+		}
+
+		if(survivalMisc.matches("")) {
+			survivalMisc = "0";
+		}
 		if (!survivalRanks.matches("")) {
 			int survivalRank = Integer.parseInt(survivalRanks);
 			Skill skill = new Skill(33, "Survival", AbilityName.WISDOM, survivalRank, false);
@@ -867,6 +1280,13 @@ public class SkillsActivity extends Activity {
 		EditText swimMiscEnter = (EditText) findViewById(R.id.swim_misc_mod);
 		String swimRanks = swimRanksEnter.getText().toString().trim();
 		String swimMisc = swimMiscEnter.getText().toString().trim();
+		if(swimRanks.matches("")) {
+			swimRanks = "0";
+		}
+
+		if(swimMisc.matches("")) {
+			swimMisc = "0";
+		}
 		if (!swimRanks.matches("")) {
 			int swimRank = Integer.parseInt(swimRanks);
 			Skill skill = new Skill(34, "Swim", AbilityName.STRENGTH, swimRank, false);
@@ -882,6 +1302,13 @@ public class SkillsActivity extends Activity {
 		EditText useMagicDeviceMiscEnter = (EditText) findViewById(R.id.use_magic_device_misc_mod);
 		String useMagicDeviceRanks = useMagicDeviceRanksEnter.getText().toString().trim();
 		String useMagicDeviceMisc = useMagicDeviceMiscEnter.getText().toString().trim();
+		if(useMagicDeviceRanks.matches("")) {
+			useMagicDeviceRanks = "0";
+		}
+
+		if(useMagicDeviceMisc.matches("")) {
+			useMagicDeviceMisc = "0";
+		}
 		if (!useMagicDeviceRanks.matches("")) {
 			int useMagicDeviceRank = Integer.parseInt(useMagicDeviceRanks);
 			Skill skill = new Skill(35, "Use Magic Device", AbilityName.CHARISMA, useMagicDeviceRank, false);
@@ -892,11 +1319,16 @@ public class SkillsActivity extends Activity {
 			skills.add(skill);
 		}
 
+		// clear old data from DB
+		SQLiteHelperSkills.db.delete(SQLiteHelperSkills.TABLE_NAME,
+				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null);
+
+		// write all data to DB
 		for (Skill s : skills) {
 			s.writeToDB(charID);
 		}
 
-		
+
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra("cid", charID);
@@ -904,6 +1336,5 @@ public class SkillsActivity extends Activity {
 
 
 	}
-	
+
 }
-	

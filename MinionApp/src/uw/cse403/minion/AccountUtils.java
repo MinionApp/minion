@@ -34,8 +34,8 @@ public class AccountUtils {
 	private static final String PHP_ADDRESS_CHECK_ANSWER = 
 			"http://homes.cs.washington.edu/~elefse/checkAnswer.php";
 
-	
-	
+
+
 	/**
 	 *  The regex that will only allow string with the following qualities:
 	 *  	1.) Must be at least 8 characters long
@@ -46,7 +46,7 @@ public class AccountUtils {
 	 *  	6.) Must contain no spaces
 	 */
 	private static final String PASSWORD_PATTERN = 
-            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+			"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 
 	/**
 	 * Checks that the given password is a valid password.
@@ -57,7 +57,7 @@ public class AccountUtils {
 		Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
 		return pattern.matcher(password).matches();
 	}
-	
+
 	/**
 	 * Checks that the given password and the given confirmation password match one another.
 	 * @param password The password the user input
@@ -67,7 +67,11 @@ public class AccountUtils {
 	public boolean matchingPasswords(String password, String passwordConfirmation) {
 		return password.equals(passwordConfirmation);
 	}
-	
+
+	public boolean validUsername(String username) {
+		return !username.trim().equals("");
+	}
+
 	/**
 	 * A wrapper method for the SignUpTask AsyncTask
 	 * @param username The user's chosen username
@@ -80,7 +84,7 @@ public class AccountUtils {
 	public boolean startSignupTask(String username, String password, String passwordConfirmation, String question, 
 			String answer) {
 		SignupTask task = new SignupTask(username, password, passwordConfirmation, question, answer);
-	    try {
+		try {
 			String returnVal = task.execute(username).get();
 			return returnVal.equals("1");
 		} catch (InterruptedException e) {
@@ -90,13 +94,13 @@ public class AccountUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    return false;
+		return false;
 	}
-		
+
 	/**
 	 * 
-	 * @param username the inputted username
-	 * @param password the inputted password
+	 * @param username the inputed username
+	 * @param password the inputed password
 	 * @return a boolean representing a successful login
 	 */
 	public boolean checkLogin(String username, String password) {
@@ -113,7 +117,7 @@ public class AccountUtils {
 		}
 		return false;
 	}
-		
+
 	public boolean deleteUser(String username) {
 		DeleteTask task = new DeleteTask(username);
 		try {
@@ -128,7 +132,7 @@ public class AccountUtils {
 		}
 		return false;
 	}
-	
+
 	public String getSecurityQuestion(String username) {
 		GetSecurityQuestionTask task = new GetSecurityQuestionTask(username);
 		String retVal;
@@ -144,7 +148,7 @@ public class AccountUtils {
 		}
 		return null;
 	}
-	
+
 	public boolean resetPassword(String username, String password) {
 		ResetPasswordTask task = new ResetPasswordTask(username, password);
 		try {
@@ -159,7 +163,7 @@ public class AccountUtils {
 		}
 		return false;
 	}
-	
+
 	public boolean checkAnswer(String username, String question, String answer) {
 		CheckAnswerTask task = new CheckAnswerTask(username, question, answer);
 		String res;
@@ -174,9 +178,9 @@ public class AccountUtils {
 			e.printStackTrace();
 		}
 		return false;
-		
+
 	}
-	
+
 	/**
 	 * SignupTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It uploads the data given by the
@@ -190,7 +194,7 @@ public class AccountUtils {
 		private String question;
 		private String answer;
 		private Context context;
-		
+
 		/**
 		 * Constructs a new SignupTask object.
 		 * @param username The user given username
@@ -208,66 +212,66 @@ public class AccountUtils {
 			this.answer = answer;
 			//this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
-	        postParameters.add(new BasicNameValuePair("password", pw));
-	        postParameters.add(new BasicNameValuePair("question", question));
-	        postParameters.add(new BasicNameValuePair("answer", answer));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("username", un));
+			postParameters.add(new BasicNameValuePair("password", pw));
+			postParameters.add(new BasicNameValuePair("question", question));
+			postParameters.add(new BasicNameValuePair("answer", answer));
 
 			String result = null;
-	        
-	        //http post
-			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_SIGNUP, postParameters);
-	        	res = result.toString();    
-	        	res = res.replaceAll("\\s+", "");   
-	        } catch (Exception e) {   
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
 
-	    
-	 
+			//http post
+			String res;
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_SIGNUP, postParameters);
+				res = result.toString();    
+				res = res.replaceAll("\\s+", "");   
+			} catch (Exception e) {   
+				res = e.toString();
+			}
+			return res;
+		}
+
+
+
 	}
 	private class DeleteTask extends AsyncTask<String, Void, String> {
 		private String un;
-	private DeleteTask (String username) {
-		this.un = username;
+		private DeleteTask (String username) {
+			this.un = username;
+		}
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("username", un));
+			String result = null;
+
+			//http post
+			String res;
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_DELETE, postParameters);
+				res = result.toString();    
+				res = res.replaceAll("\\s+", "");   
+			} catch (Exception e) {   
+				res = e.toString();
+			}
+			return res;
+		}
+
+
+
 	}
-	
-    /**
-     * Makes the HTTP request and returns the result as a String.
-     */
-    protected String doInBackground(String... args) {
-        //the data to send
-        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-        postParameters.add(new BasicNameValuePair("username", un));
-		String result = null;
-        
-        //http post
-		String res;
-        try{
-        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_DELETE, postParameters);
-        	res = result.toString();    
-        	res = res.replaceAll("\\s+", "");   
-        } catch (Exception e) {   
-        	res = e.toString();
-        }
-        return res;
-    }
-	
-    
- 
-}
-	
+
 	/**
 	 * CheckLoginTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It checks if the user provided 
@@ -278,7 +282,7 @@ public class AccountUtils {
 		private String un;
 		private String pw;
 
-		
+
 		/**
 		 * Constructs a new CheckLoginTask object.
 		 * @param username The user given username
@@ -290,32 +294,32 @@ public class AccountUtils {
 			this.un = username;
 			this.pw = password;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
-	        postParameters.add(new BasicNameValuePair("password", pw));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("username", un));
+			postParameters.add(new BasicNameValuePair("password", pw));
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_CHECK, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_CHECK, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
 	}
-	
+
 	/**
 	 * GetSecurityQuestionTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It takes the given username and retrieves the
@@ -324,8 +328,8 @@ public class AccountUtils {
 	 */
 	private class GetSecurityQuestionTask extends AsyncTask<String, Void, String> {
 		private String un;
-		
-		
+
+
 		/**
 		 * Constructs a new GetSecurityQuestionTask object.
 		 * @param username The user given username
@@ -333,31 +337,31 @@ public class AccountUtils {
 		 */
 		private GetSecurityQuestionTask (String username) {
 			this.un = username;
-			
+
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("username", un));
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_SECURITY_QUESTION, postParameters);
-	        	res = result.toString();  
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_SECURITY_QUESTION, postParameters);
+				res = result.toString();  
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
 	}
 	/**
 	 * ResetPasswordTask is a private inner class that allows requests to be made to the remote
@@ -369,7 +373,7 @@ public class AccountUtils {
 		private String un;
 		private String pw;
 
-		
+
 		/**
 		 * Constructs a new ResetPasswordTask object.
 		 * @param username The user given username
@@ -380,35 +384,35 @@ public class AccountUtils {
 		private ResetPasswordTask (String username, String password) {
 			this.un = username;
 			this.pw = password;
-			
+
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
-	        postParameters.add(new BasicNameValuePair("password", pw));
-	
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("username", un));
+			postParameters.add(new BasicNameValuePair("password", pw));
+
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_RESET, postParameters);
-	        	res = result.toString();    
-	        	res = res.replaceAll("\\s+", "");   
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	   
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_RESET, postParameters);
+				res = result.toString();    
+				res = res.replaceAll("\\s+", "");   
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+
 	}
-	
+
 	/**
 	 * CheckAnswerTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It takes the given username and answer
@@ -420,7 +424,7 @@ public class AccountUtils {
 		private String un;
 		private String question;
 		private String answer;
-		
+
 		/**
 		 * Constructs a new CheckAnswerTask object.
 		 * @param username The user given username
@@ -434,32 +438,32 @@ public class AccountUtils {
 			this.question = question;
 			this.answer = answer;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
-	        postParameters.add(new BasicNameValuePair("question", question));
-	        postParameters.add(new BasicNameValuePair("answer", answer));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("username", un));
+			postParameters.add(new BasicNameValuePair("question", question));
+			postParameters.add(new BasicNameValuePair("answer", answer));
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_CHECK_ANSWER, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {   
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	 
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS_CHECK_ANSWER, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {   
+				res = e.toString();
+			}
+			return res;
+		}
+
+
 	}
-	
+
 }

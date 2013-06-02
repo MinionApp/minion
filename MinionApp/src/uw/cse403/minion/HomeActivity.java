@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * HomeActivity is the activity that provides the user with the home page for the application.
@@ -29,7 +30,7 @@ import android.widget.Button;
 public class HomeActivity extends Activity {
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getNumberOfInvites.php";
 	private String username;
-	
+
 	/**
 	 * Displays the home page.
 	 */
@@ -38,8 +39,12 @@ public class HomeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
-		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
-		task.execute(username);
+		if (ConnectionChecker.hasConnection(this)) {
+			GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
+			task.execute(username);
+		} else {
+			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+		}
 		// Show the Up button in the action bar.
 		//setupActionBar();
 	}
@@ -83,13 +88,15 @@ public class HomeActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/**
 	 * Updates the view if it is reached via back button presses.
 	 */
 	@Override
 	public void onResume() {
 		super.onResume();
+		Button goToGroupsButton = (Button) findViewById(R.id.button2);
+		goToGroupsButton.setText("Manage Groups");
 		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
 		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
 		task.execute(username);
@@ -104,7 +111,7 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, CharactersActivity.class);
 		startActivity(intent);
 	}
-	
+
 	/**
 	 * Responds to the logout button click, logs the user out, and goes to the login page.
 	 * @param view The current view
@@ -116,7 +123,7 @@ public class HomeActivity extends Activity {
 		startActivity(intent);
 		finish();
 	}
-	
+
 	/**
 	 * Responds to the manage groups button click and goes to the manage
 	 * groups page. 
@@ -126,7 +133,7 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, GroupsActivity.class);
 		startActivity(intent);
 	}
-	
+
 	/**
 	 * GetNumberOfInvitesTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It gets the number of pending invites for the
@@ -134,7 +141,7 @@ public class HomeActivity extends Activity {
 	 */
 	private class GetNumberOfInvitesTask extends AsyncTask<String, Void, String> {
 		private Context context;
-		
+
 		/**
 		 * Constructs a new GetNumberOfInvitesTask object.
 		 * @param context The current Activity's context.
@@ -142,40 +149,45 @@ public class HomeActivity extends Activity {
 		private GetNumberOfInvitesTask (Context context) {
 			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("un", username));
-	        
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("un", username));
+
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	if(!result.equals("0")) {
-	    		Button goToGroupsButton = (Button) findViewById(R.id.button2);
-		    	goToGroupsButton.setText("Manage Groups (" + result + ")");
-	    	}
-	    }
-	 
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			try {
+				int resultAsNumber = Integer.parseInt(result);
+				if(resultAsNumber > 0) {
+					Button goToGroupsButton = (Button) findViewById(R.id.button2);
+					goToGroupsButton.setText("Manage Groups (" + result + ")");
+				}
+			} catch (Exception e) {
+
+			}
+		}
+
 	}
 
 }
