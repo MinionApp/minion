@@ -79,7 +79,8 @@ public class CombatActivity extends Activity {
 		
 		String size = "";
 		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, 
-				new String[] {SQLiteHelperBasicInfo.COLUMN_SIZE}, null, null, null, null, null);
+				new String[] {SQLiteHelperBasicInfo.COLUMN_SIZE}, 
+				SQLiteHelperBasicInfo.COLUMN_ID + " = " + charID, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			size = cursor.getString(0);
 		}

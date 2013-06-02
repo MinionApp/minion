@@ -22,6 +22,7 @@ public class SavingThrow {
 	private AbilityName assocAbility;
 	private int baseSave;
 	private Map<String,Integer> modifiers;
+	public int abMod;
 	
 	/**
 	 * Initialize a saving throw.
@@ -131,7 +132,7 @@ public class SavingThrow {
 //			throw new IllegalArgumentException();
 //		}
 		
-		int total = baseSave;
+		int total = baseSave + abMod;
 		//total += mod.getMod(); // not currently supported
 		
 		Collection<Integer> mods = modifiers.values();

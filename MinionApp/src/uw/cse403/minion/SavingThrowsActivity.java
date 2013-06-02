@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 
 public class SavingThrowsActivity extends Activity {
@@ -69,13 +70,23 @@ public class SavingThrowsActivity extends Activity {
 	}
 	
 	private void loadData() {
-		// TODO Auto-generated method stub
+		// get relevant ability scores
+		Ability constitution = new Ability(charID, AbilityName.CONSTITUTION);
+		Ability dexterity = new Ability(charID, AbilityName.DEXTERITY);
+		Ability wisdom = new Ability(charID, AbilityName.WISDOM);
+		fortitude.abMod = constitution.getMod();
+		reflex.abMod = dexterity.getMod();
+		will.abMod = wisdom.getMod();
+		
 		if (!fortitude.isNew) {
 			TextView fortTotalField = (TextView) findViewById(R.id.fortitude_total);
 			fortTotalField.setText(""+fortitude.getTotal());
 			
 			EditText fortBaseEnter = (EditText) findViewById(R.id.fortitude_base);
 			fortBaseEnter.setText(""+fortitude.getBaseSave());
+			
+			TextView fortAbModField = (TextView) findViewById(R.id.fortitude_ability);
+			fortAbModField.setText(""+fortitude.abMod);
 			
 			EditText fortMagicEnter = (EditText) findViewById(R.id.fortitude_magic);
 			fortMagicEnter.setText(""+fortitude.getModifier(SavingThrow.MAGIC_MOD_STRING));
@@ -94,6 +105,9 @@ public class SavingThrowsActivity extends Activity {
 			EditText reflexBaseEnter = (EditText) findViewById(R.id.reflex_base);
 			reflexBaseEnter.setText(""+reflex.getBaseSave());
 			
+			TextView reflexAbModField = (TextView) findViewById(R.id.reflex_ability);
+			reflexAbModField.setText(""+reflex.abMod);
+			
 			EditText reflexMagicEnter = (EditText) findViewById(R.id.reflex_magic);
 			reflexMagicEnter.setText(""+reflex.getModifier(SavingThrow.MAGIC_MOD_STRING));
 			
@@ -110,6 +124,9 @@ public class SavingThrowsActivity extends Activity {
 
 			EditText willBaseEnter = (EditText) findViewById(R.id.will_base);
 			willBaseEnter.setText(""+will.getBaseSave());
+			
+			TextView willAbModField = (TextView) findViewById(R.id.will_ability);
+			willAbModField.setText(""+will.abMod);
 			
 			EditText willMagicEnter = (EditText) findViewById(R.id.will_magic);
 			willMagicEnter.setText(""+will.getModifier(SavingThrow.MAGIC_MOD_STRING));
