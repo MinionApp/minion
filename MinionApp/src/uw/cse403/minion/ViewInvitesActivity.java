@@ -10,9 +10,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +32,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * @author Elijah Elefson (elefse)
  */
 public class ViewInvitesActivity extends ListActivity {
+	private static final String CHARACTER_ID = "cid";
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
 	
@@ -37,6 +41,8 @@ public class ViewInvitesActivity extends ListActivity {
 	private static final String PHP_ADDRESS3 = "http://homes.cs.washington.edu/~elefse/declineInvite.php";
 	private String username;
 	private String group;
+	private String character;
+	private static Dialog dialog;
 	
 	/**
 	 * Declare the UI components
@@ -48,6 +54,7 @@ public class ViewInvitesActivity extends ListActivity {
 	 * received from the database
 	 */
 	private static ArrayList<String> testArray;
+	private static ArrayList<String> testArray2;
 
 	/**
 	 * Adapter for connecting the array above to the UI view
@@ -122,6 +129,45 @@ public class ViewInvitesActivity extends ListActivity {
 	 * @param view The current view
 	 */
 	public void acceptInvite(View view) {
+		// To test reading from database:
+	    testArray2 = new ArrayList<String>();
+	    
+        //GETS ALL CHAR
+        Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+        		null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) { 
+				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
+				String characterName = cursor.getString(0);
+				testArray2.add(characterName);
+				cursor.moveToNext();
+			}
+		}
+        cursor.close();
+	    
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setTitle("Pick a Character");
+
+	    ListView modeList = new ListView(this);
+	    ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray2);
+	    modeList.setAdapter(modeAdapter);
+        modeList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// When clicked, show a toast with the TextView text
+				TextView text1 = (TextView) view.findViewById(R.id.text1);
+				String characterName = text1.getText().toString();
+	            character = characterName;
+	            dialog.dismiss();
+			}
+          });
+	    
+	    builder.setView(modeList);
+	    dialog = builder.create();
+
+	    dialog.show();
+ 	
 		int position = getListView().getPositionForView((View) view.getParent());
 	    group = (String) getListView().getItemAtPosition(position);
 		acceptInviteTask task = new acceptInviteTask(this);
@@ -253,6 +299,7 @@ public class ViewInvitesActivity extends ListActivity {
 	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	        postParameters.add(new BasicNameValuePair("un", username));
 	        postParameters.add(new BasicNameValuePair("group", group));
+	        postParameters.add(new BasicNameValuePair("character", character));
 	        
 			String result = null;
 	        
