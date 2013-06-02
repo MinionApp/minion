@@ -83,16 +83,16 @@ public class AbilityScoresActivity extends Activity {
 				System.out.println(i + "  " + abilities[i].getBase());
 
 				TextView abScoreView = (TextView) findViewById(abScoreFields[i]);
-				abScoreView.setText(""+abilities[i].getScore());
+				abScoreView.setText("" + abilities[i].getScore());
 
 				TextView abModView = (TextView) findViewById(abModFields[i]);
-				abModView.setText(""+abilities[i].getMod());
+				abModView.setText("" + abilities[i].getMod());
 
 				EditText baseEnter = (EditText) findViewById(baseFields[i]);
-				baseEnter.setText(""+abilities[i].getBase());
+				baseEnter.setText("" + abilities[i].getBase());
 
 				EditText tempEnter = (EditText) findViewById(tempFields[i]);
-				tempEnter.setText(""+abilities[i].getTempModifier(Ability.SAMPLE_MODIFIER));
+				tempEnter.setText("" + abilities[i].getTempModifier(Ability.SAMPLE_MODIFIER));
 			}
 		}
 	}

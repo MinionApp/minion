@@ -85,7 +85,7 @@ public class BasicInfoActivity extends Activity {
 			
 			//Level
 			EditText levelEnter = (EditText) findViewById(R.id.char_level_enter);
-			levelEnter.setText(""+baseInfo.level);
+			levelEnter.setText("" + baseInfo.level);
 			
 			//Deity
 			EditText deityEnter = (EditText) findViewById(R.id.deity_enter);
@@ -114,15 +114,15 @@ public class BasicInfoActivity extends Activity {
 			
 			//Age
 			EditText ageEnter = (EditText) findViewById(R.id.age_enter);
-			ageEnter.setText(""+baseInfo.age);
+			ageEnter.setText("" + baseInfo.age);
 			
 			//Height
 			EditText heightEnter = (EditText) findViewById(R.id.height_enter);
-			heightEnter.setText(""+baseInfo.height);
+			heightEnter.setText("" + baseInfo.height);
 			
 			//Weight
 			EditText weightEnter = (EditText) findViewById(R.id.weight_enter);
-			weightEnter.setText(""+baseInfo.weight);
+			weightEnter.setText("" + baseInfo.weight);
 			
 			//Hair
 			EditText hairEnter = (EditText) findViewById(R.id.hair_enter);

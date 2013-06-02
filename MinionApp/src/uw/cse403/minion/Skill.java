@@ -13,7 +13,43 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class Skill {
 	private static final int CLASS_BONUS = 3;
-	
+
+	public static final int ACROBATICS_ID 				= 1;
+	public static final int APPRAISE_ID 				= 2;
+	public static final int BLUFF_ID 					= 3;
+	public static final int CLIMB_ID 					= 4;
+	public static final int CRAFT_ID 					= 5;
+	public static final int DIPLOMACY_ID 				= 6;
+	public static final int DISABLE_DEVICE_ID 			= 7;
+	public static final int DISGUISE_ID 				= 8;
+	public static final int ESCAPE_ARTIST_ID 			= 9;
+	public static final int FLY_ID 						= 10;
+	public static final int HANDLE_ANIMAL_ID 			= 11;
+	public static final int HEAL_ID 					= 12;
+	public static final int INTIMIDATE_ID 				= 13;
+	public static final int KNOWLEDGE_ARCANA_ID 		= 14;
+	public static final int KNOWLEDGE_DUNGEONEERING_ID 	= 15;
+	public static final int KNOWLEDGE_ENGINEERING_ID 	= 16;
+	public static final int KNOWLEDGE_GEOGRAPHY_ID 		= 17;
+	public static final int KNOWLEDGE_HISTORY_ID 		= 18;
+	public static final int KNOWLEDGE_LOCAL_ID 			= 19;
+	public static final int KNOWLEDGE_NATURE_ID 		= 20;
+	public static final int KNOWLEDGE_NOBILITY_ID 		= 21;
+	public static final int KNOWLEDGE_PLANES_ID 		= 22;
+	public static final int KNOWLEDGE_RELIGION_ID 		= 23;
+	public static final int LINGUISTICS_ID 				= 24;
+	public static final int PERCEPTION_ID 				= 25;
+	public static final int PERFORM_ID 					= 26;
+	public static final int PROFESSION_ID 				= 27;
+	public static final int RIDE_ID 					= 28;
+	public static final int SENSE_MOTIVE_ID 			= 29;
+	public static final int SLEIGHT_OF_HAND_ID 			= 30;
+	public static final int SPELLCRAFT_ID 				= 31;
+	public static final int STEALTH_ID 					= 32;
+	public static final int SURVIVAL_ID 				= 33;
+	public static final int SWIM_ID 					= 34;
+	public static final int USE_MAGIC_DEVICE_ID 		= 35;
+
 	private int charID;
 	
 	private int skillID; // get skill ID from ref db

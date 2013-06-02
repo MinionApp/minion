@@ -47,11 +47,16 @@ public class CharCreateMainActivity extends Activity {
 		} catch (Exception e) {
 			charID = CharacterDataSource.getNewID();
 			// disable buttons until Basic Info is completed.
-			Button b1 = (Button)findViewById(R.id.ability_scores); b1.setEnabled(false);
-			Button b2 = (Button)findViewById(R.id.skills); b2.setEnabled(false);
-			Button b3 = (Button)findViewById(R.id.combat); b3.setEnabled(false);
-			Button b4 = (Button)findViewById(R.id.saving_throws); b4.setEnabled(false);
-			Button b5 = (Button)findViewById(R.id.done_button); b5.setEnabled(false);
+			Button b1 = (Button)findViewById(R.id.ability_scores); 
+			Button b2 = (Button)findViewById(R.id.skills); 
+			Button b3 = (Button)findViewById(R.id.combat); 
+			Button b4 = (Button)findViewById(R.id.saving_throws); 
+			Button b5 = (Button)findViewById(R.id.done_button); 
+			b1.setEnabled(false);
+			b2.setEnabled(false);
+			b3.setEnabled(false);
+			b4.setEnabled(false);
+			b5.setEnabled(false);
 		}
 		// Show the Up button in the action bar.
 		setupActionBar();
