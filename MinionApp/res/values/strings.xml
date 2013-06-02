@@ -65,6 +65,33 @@
     <string name="title_activity_new_password_validator">NewPasswordValidatorActivity</string>
     <string name="title_activity_recovery_question">RecoveryQuestionActivity</string>
     <string name="title_activity_basic_info">Basic Info</string>
+    
+    <string name="alignment_prompt">Choose an alignment</string>
+    <string-array name="alignment_array">
+        <item>Lawful Good</item>
+        <item>Lawful Neutral</item>
+        <item>Lawful Evil</item>
+        <item>Neutral Good</item>
+        <item>Neutral</item>
+        <item>Neutral Evil</item>
+        <item>Chaotic Good</item>
+        <item>Chaotic Neutral</item>
+        <item>Chaotic Evil</item>
+    </string-array>
+    
+    <string name="size_prompt">Choose a size</string>
+    <string-array name="size_array">
+        <item>Fine</item>
+        <item>Diminutive</item>
+        <item>Tiny</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Huge</item>
+        <item>Gargantuan</item>
+        <item>Colossal</item>
+    </string-array>
+    
     <string name="character_name">Character Name</string>
     <string name="title_activity_char_create_main">Character Creation</string>
     <string name="button_basic_info">Basic Info</string>
@@ -109,6 +136,7 @@
     <string name="age">Age</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
+    <string name="lbs">lbs.</string>
     <string name="hair">Hair</string>
     <string name="eyes">Eyes</string>
     <string name="done">Done</string>
@@ -192,5 +220,9 @@
     
     <string name="save">Save</string>
     <string name="button_test">Test GUI</string>
+    
+    <string name="remove_user">Remove User</string>
+    <string name="invite_user">Invite User</string>
+    <string name="finish_editing">Finish</string>
 
 </resources>

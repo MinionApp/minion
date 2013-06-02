@@ -1,6 +1,5 @@
 package uw.cse403.minion;
 
-
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -17,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -121,7 +121,7 @@ public class CharCreateMainActivity extends Activity {
     		UploadCharacterTask task = new UploadCharacterTask(this);
     	    task.execute(username);
     	} else {
-    		
+    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
     	}
 	}
 
@@ -247,10 +247,10 @@ public class CharCreateMainActivity extends Activity {
 	     * Parses the String result and directs to the correct Activity
 	     */
 	    protected void onPostExecute(String result) {
-        	//Intent intent = new Intent(context, CharactersActivity.class);
-        	//intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //startActivity(intent);
-            //finish();
+        	Intent intent = new Intent(context, CharactersActivity.class);
+        	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
 	    }
 	}	 
 }

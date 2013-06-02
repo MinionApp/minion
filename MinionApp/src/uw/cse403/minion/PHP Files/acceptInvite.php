@@ -1,6 +1,7 @@
 <?php
 $un=$_POST['un']; 
 $group=$_POST['group'];  
+$character=$_POST['character'];
 
 try {
 	//connect to the db
@@ -13,7 +14,7 @@ try {
 	$num++;
 	$sql = "UPDATE `Group` SET `num_users` = '$num' WHERE groupname = '$group'";
 	$result = $db->exec($sql);
-	$sql = "INSERT INTO group_user (groupname, username) VALUES ('$group', '$un')";
+	$sql = "INSERT INTO group_user (groupname, username, character) VALUES ('$group', '$un', '$character')";
 	$result = $db->exec($sql);
 	$sql = "DELETE FROM invites WHERE groupname = '$group' AND username = '$un'";
 	$result = $db->exec($sql);

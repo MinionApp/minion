@@ -17,6 +17,14 @@ import android.database.sqlite.SQLiteDatabase;
  *
  */
 public class Combat {
+	public static final String ARMOR_BONUS_STRING = "armorBonus";
+	public static final String ARMOR_SHIELD_STRING = "armorShield";
+	public static final String ARMOR_DEX_STRING = "armorDex";
+	public static final String ARMOR_SIZE_STRING = "armorSize";
+	public static final String ARMOR_NATURAL_STRING = "armorNatural";
+	public static final String ARMOR_DEFLECTION_STRING = "armorDeflection";
+	public static final String ARMOR_MISC_STRING = "armorMisc";
+	
 	public long charID;
 	public boolean isNew; 
 	
@@ -69,13 +77,19 @@ public class Combat {
 		if (cursor.moveToFirst()) {
 			isNew = false;
 			// Columns: COLUMN_CHAR_ID, COLUMN_HP_TOTAL, COLUMN_HP_DR, COLUMN_SPEED_BASE, COLUMN_SPEED_ARMOR,
-			// COLUMN_INIT_MISC_MOD, COLUMN_BASE_ATTACK_BONUS
+			// COLUMN_INIT_MISC_MOD, COLUMN_ARMOR, COLUMN_ARMOR_SHIELD, COLUMN_ARMOR_NATURAL,
+			// COLUMN_ARMOR_DEFLEC, COLUMN_ARMOR_MISC, COLUMN_BASE_ATTACK_BONUS
 			baseHP 			= cursor.getInt(1);
 			damageReduction = cursor.getInt(2);
 			speedBase 		= cursor.getInt(3);
 			speedArmor 		= cursor.getInt(4);
 			initModifiers 	= cursor.getInt(5);
-			bAb 			= cursor.getInt(6);
+			armorModifiers.put(ARMOR_BONUS_STRING, cursor.getInt(6));
+			armorModifiers.put(ARMOR_SHIELD_STRING, cursor.getInt(7));
+			armorModifiers.put(ARMOR_NATURAL_STRING, cursor.getInt(8));
+			armorModifiers.put(ARMOR_DEFLECTION_STRING, cursor.getInt(9));
+			armorModifiers.put(ARMOR_MISC_STRING, cursor.getInt(10));
+			bAb 			= cursor.getInt(11);
 		}
 		cursor.close();
 	}
@@ -286,6 +300,11 @@ public class Combat {
 		values.put(SQLiteHelperCombat.COLUMN_HP_DR, damageReduction);
 		values.put(SQLiteHelperCombat.COLUMN_SPEED_BASE, speed);
 		values.put(SQLiteHelperCombat.COLUMN_INIT_MISC_MOD, initModifiers);
+		values.put(SQLiteHelperCombat.COLUMN_ARMOR, armorModifiers.get(ARMOR_BONUS_STRING));
+		values.put(SQLiteHelperCombat.COLUMN_ARMOR_SHIELD, armorModifiers.get(ARMOR_SHIELD_STRING));
+		values.put(SQLiteHelperCombat.COLUMN_ARMOR_NATURAL, armorModifiers.get(ARMOR_NATURAL_STRING));
+		values.put(SQLiteHelperCombat.COLUMN_ARMOR_DEFLEC, armorModifiers.get(ARMOR_DEFLECTION_STRING));
+		values.put(SQLiteHelperCombat.COLUMN_ARMOR_MISC, armorModifiers.get(ARMOR_MISC_STRING));
 		values.put(SQLiteHelperCombat.COLUMN_BASE_ATTACK_BONUS, bAb);
 		// still need to do lethal/bludgeoning, and armor mods
 		SQLiteHelperCombat.db.insert(SQLiteHelperCombat.TABLE_NAME, null, values);

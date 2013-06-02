@@ -68,6 +68,10 @@ public class AccountUtils {
 		return password.equals(passwordConfirmation);
 	}
 	
+	public boolean validUsername(String username) {
+		return !username.trim().equals("");
+	}
+	
 	/**
 	 * A wrapper method for the SignUpTask AsyncTask
 	 * @param username The user's chosen username
@@ -95,8 +99,8 @@ public class AccountUtils {
 		
 	/**
 	 * 
-	 * @param username the inputted username
-	 * @param password the inputted password
+	 * @param username the inputed username
+	 * @param password the inputed password
 	 * @return a boolean representing a successful login
 	 */
 	public boolean checkLogin(String username, String password) {

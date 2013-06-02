@@ -15,20 +15,22 @@ public class SQLiteHelperSkills extends SQLiteOpenHelper
 	private static final int DATABASE_VERSION = 1;
 	 static SQLiteDatabase db;
 	
-	// columns (AS = Ability Scores)
+	// columns (S = Skills)
 	public static final String TABLE_NAME 	= "skills";
 	public static final String COLUMN_CHAR_ID 	= "char_id";
 	public static final String COLUMN_REF_S_ID 	= "ref_s_id";
+	public static final String COLUMN_TITLE		= "title"; // for write-in fields
 	public static final String COLUMN_RANKS 	= "ranks";
 	public static final String COLUMN_MISC_MOD 	= "misc_mod";
 	public static final String[] ALL_COLUMNS = 
-		{ COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_RANKS, COLUMN_MISC_MOD };
+		{ COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_TITLE, COLUMN_RANKS, COLUMN_MISC_MOD };
 
 	// table creation SQL statement
 	private static final String CREATE_TABLE_STATEMENT = "CREATE TABLE "
 	    + TABLE_NAME 		+ "(" 
 		+ COLUMN_CHAR_ID 	+ " INTEGER, "
 		+ COLUMN_REF_S_ID	+ " INTEGER, "
+		+ COLUMN_TITLE		+ " STRING, "
 		+ COLUMN_RANKS 		+ " INTEGER, "
 		+ COLUMN_MISC_MOD	+ " INTEGER, "
 		// references Basic Info _id

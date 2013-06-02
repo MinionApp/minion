@@ -8,7 +8,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -39,7 +38,7 @@ public class CharactersActivity extends Activity {
 	
 	// Change this array's name and contents to be the character information
 	// received from the database
-	private static ArrayList<String> testArray = new ArrayList<String>();
+	private static ArrayList<String> testArray;
 	
 	// Adapter for connecting the array above to the UI view
 	private ArrayAdapter<String> adapter;
@@ -57,8 +56,7 @@ public class CharactersActivity extends Activity {
 
 	    datasource.printTables();
 	    // To test reading from database:
-	    //List<Character> values = datasource.getAllCharacters();
-	    //testArray = values.toArray(testArray);
+	    testArray = new ArrayList<String>();
 	    
 	    // Initialize the UI components
         charListView = (ListView) findViewById(R.id.charListView);
@@ -135,6 +133,56 @@ public class CharactersActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	/**
+	 * Updates the view if it is reached via back button presses.
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		testArray = new ArrayList<String>();
+	    // Initialize the UI components
+        charListView = (ListView) findViewById(R.id.charListView);
+
+        //GETS ALL CHAR
+        Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+        		null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) { 
+				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
+				String characterName = cursor.getString(0);
+				testArray.add(characterName);
+				cursor.moveToNext();
+			}
+		}
+        cursor.close();
+        //testArray.add("test");
+        // Create an empty adapter we will use to display the loaded data.
+        // We pass null for the cursor, then update it in onLoadFinished()
+        adapter = new ArrayAdapter<String>(this, 
+        		android.R.layout.simple_list_item_1, testArray);
+        charListView.setAdapter(adapter);
+        charListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// When clicked, show a toast with the TextView text
+	            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
+				String charName = ((TextView) view).getText().toString();
+		        //GETS charID based on character name
+		        Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
+		        		SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
+		        long cid = 0;
+		        if (cursor2.moveToFirst()) {
+		        	cid = cursor2.getLong(0);
+				}
+		        cursor2.close();
+				intent.putExtra(CHARACTER_ID, cid);
+				startActivity(intent);
+			}
+          });
 	}
 	
 	public void addCharacter(View view) {
