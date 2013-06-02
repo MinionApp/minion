@@ -78,22 +78,48 @@ public class EditGroupActivity extends ListActivity {
         
 	}
 	
+	public static class ViewHolder {
+		Button removeButton = null;
+	    Button makeGMButton = null;
+	    TextView currentGM = null;
+		
+		ViewHolder(View row) {
+			this.removeButton = (Button) row.findViewById(R.id.remove_button);
+		    this.makeGMButton = (Button) row.findViewById(R.id.gm_button);
+		    this.currentGM = (TextView) row.findViewById(R.id.current_gm);
+		}
+	}
+	
 	class IconicAdapter extends ArrayAdapter<String> {
 		IconicAdapter() {
 			super(EditGroupActivity.this, R.layout.custom_player_list_item, R.id.player, playersList);
 		}
 		
 		@Override
+		public int getViewTypeCount() {                 
+		    return getCount();
+		}
+
+		@Override
+		public int getItemViewType(int position) {
+		    return position;
+		}
+		
+		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			
 			View row = super.getView(position, convertView, parent);
-			Button removeButton = (Button) row.findViewById(R.id.remove_button);
-		    Button makeGMButton = (Button) row.findViewById(R.id.gm_button);
-		    TextView currentGM = (TextView) row.findViewById(R.id.current_gm);
-	
+			ViewHolder holder = (ViewHolder) row.getTag();
+			
+			if (holder == null) {
+				holder = new ViewHolder(row);
+				row.setTag(holder);
+			}
+				
 			if (playersList.get(position).equals(gm)) {
-				removeButton.setVisibility(View.GONE);
-				makeGMButton.setVisibility(View.GONE);
-			    currentGM.setVisibility(View.VISIBLE);
+				holder.removeButton.setVisibility(View.GONE);
+				holder.makeGMButton.setVisibility(View.GONE);
+			    holder.currentGM.setVisibility(View.VISIBLE);
 			}
 			
 			return(row);

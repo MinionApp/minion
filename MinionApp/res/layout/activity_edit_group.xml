@@ -10,11 +10,12 @@
 
     <EditText
         android:id="@+id/group_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:inputType="text" />
+        android:inputType="text|textNoSuggestions" />
 	
 	<LinearLayout
 	    android:id="@+id/game_master_info"
@@ -51,6 +52,7 @@
     <ListView
         android:id="@android:id/list"
         android:layout_below="@+id/players_title"
+        android:layout_above="@+id/editing_buttons"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
     </ListView>

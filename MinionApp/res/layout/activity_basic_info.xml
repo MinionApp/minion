@@ -40,10 +40,10 @@
 		
 	    <EditText 
 	        android:id="@+id/char_name_enter"
-	        android:inputType="textCapWords"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
+	        android:layout_weight="1"
+	        android:inputType="textCapWords|textNoSuggestions" />
 	    	    
 	    <Spinner
 	        android:id="@+id/alignment_spinner"
@@ -101,17 +101,17 @@
 	    
 	    <EditText 
 	        android:id="@+id/deity_enter"
-	        android:inputType="textCapWords"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
+	        android:layout_weight="1"
+	        android:inputType="textCapWords|textNoSuggestions" />
 	    
 	    <EditText 
 	        android:id="@+id/homeland_enter"
-	        android:inputType="textCapWords"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
+	        android:layout_weight="1"
+	        android:inputType="textCapWords|textNoSuggestions" />
     </LinearLayout>
     
     
@@ -167,10 +167,10 @@
 	    
 	    <EditText 
 	        android:id="@+id/race_enter"
-	        android:inputType="textCapWords"
 	        android:layout_weight="1"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapWords|textNoSuggestions" />
 	    
 	    <Spinner
 	        android:id="@+id/size_spinner"
@@ -182,10 +182,10 @@
 	    
 	    <EditText 
 	        android:id="@+id/gender_enter"
-	        android:inputType="textCapWords"
 	        android:layout_weight="1"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapWords|textNoSuggestions" />
 	    
 	    <EditText 
 	        android:id="@+id/age_enter"
@@ -261,17 +261,17 @@
 	    
 	    <EditText 
 	        android:id="@+id/hair_enter"
-	        android:inputType="textCapWords"
 	        android:layout_weight="1"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapWords|textNoSuggestions" />
 	    
 	    <EditText 
 	        android:id="@+id/eyes_enter"
-	        android:inputType="textCapWords"
 	        android:layout_weight="1"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
+	        android:layout_height="wrap_content"
+	        android:inputType="textCapWords|textNoSuggestions" />
 	</LinearLayout>
 	
     <Button 
