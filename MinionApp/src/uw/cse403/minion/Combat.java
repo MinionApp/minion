@@ -45,6 +45,9 @@ public class Combat {
 	private int initModifier;
 	private int bAb;
 	
+	public int dexMod;
+	public int sizeMod;
+	
 	/**
 	 * Creates a new Combat Object with all values initialized to 0
 	 * or empty lists accordingly
@@ -271,13 +274,21 @@ public class Combat {
 	}
 
 	/**
+	 * Return total initiative
+	 * 
+	 * @return int total initiative
+	 */
+	public int getInitTotal() {
+		return dexMod + initModifier;
+	}
+	
+	/**
 	 * Return total armor class
 	 * 
-	 * @return	an integer total armor class
+	 * @return int total armor class
 	 */
 	public int getArmorTotal() {
-		//TODO: Include dexterity modifier
-		int score = 10;
+		int score = 10 + dexMod;
 		Collection<Integer> temps = armorModifiers.values();
 		Iterator<Integer> it = temps.iterator();
 		while (it.hasNext()) {

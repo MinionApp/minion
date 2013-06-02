@@ -5,10 +5,14 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 
 public class CombatActivity extends Activity {
@@ -68,7 +72,40 @@ public class CombatActivity extends Activity {
 	}
 
 	private void loadData() {
-		// TODO Auto-generated method stub
+		// get dexterity modifier
+		Ability dexterity = new Ability(charID, AbilityName.DEXTERITY);
+		combat.dexMod = dexterity.getMod();
+		
+		
+		String size = "";
+		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, 
+				new String[] {SQLiteHelperBasicInfo.COLUMN_SIZE}, null, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			size = cursor.getString(0);
+		}
+		cursor.close();
+		// size modifier determined by size
+		// defined here: http://paizo.com/prd/combat.html#ac-enhancement-bonuses
+		if (size.equals("Colossal"))
+			combat.sizeMod = -8;
+		if (size.equals("Gargantuan"))
+			combat.sizeMod = -4;
+		if (size.equals("Huge"))
+			combat.sizeMod = -2;
+		if (size.equals("Large"))
+			combat.sizeMod = -1;
+		if (size.equals("Medium"))
+			combat.sizeMod = 0;
+		if (size.equals("Small"))
+			combat.sizeMod = 1;
+		if (size.equals("Tiny"))
+			combat.sizeMod = 2;
+		if (size.equals("Diminutive"))
+			combat.sizeMod = 4;
+		if (size.equals("Fine"))
+			combat.sizeMod = 8;
+		
+		// load user data
 		if (!combat.isNew) {
 			EditText hitPointsTotalEnter = (EditText) findViewById(R.id.hit_point_total_enter);
 			hitPointsTotalEnter.setText(""+combat.getBaseHP());
@@ -82,15 +119,31 @@ public class CombatActivity extends Activity {
 			EditText speedArmorEnter = (EditText) findViewById(R.id.speed_armor_enter);
 			speedArmorEnter.setText(""+combat.speedArmor);
 
+			// initiative stuff
+			TextView initiativeTotalField = (TextView) findViewById(R.id.initiative_total);
+			initiativeTotalField.setText(""+combat.getInitTotal());
+			
+			TextView initiativeDexModField = (TextView) findViewById(R.id.initiative_dex_modifier_enter);
+			initiativeDexModField.setText(""+combat.dexMod);
+			
 			EditText initiativeMiscModEnter = (EditText) findViewById(R.id.initiative_misc_modifier_enter);
 			initiativeMiscModEnter.setText(""+combat.getInitModifier());
 
 			// armor stuff
+			TextView armorTotalField = (TextView) findViewById(R.id.armor_total);
+			armorTotalField.setText(""+combat.getArmorTotal());
+			
 			EditText armorBonusEnter = (EditText) findViewById(R.id.armor_bonus_enter);
 			armorBonusEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_BONUS_STRING));
 			
 			EditText armorShieldEnter = (EditText) findViewById(R.id.armor_shield_enter);
 			armorShieldEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_SHIELD_STRING));
+			
+			TextView armorDexModField = (TextView) findViewById(R.id.armor_dex);
+			armorDexModField.setText(""+combat.dexMod);
+			
+			TextView armorSizeModField = (TextView) findViewById(R.id.armor_size);
+			armorSizeModField.setText(""+combat.sizeMod);
 			
 			EditText armorNaturalEnter = (EditText) findViewById(R.id.armor_natural_enter);
 			armorNaturalEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_NATURAL_STRING));
