@@ -6,12 +6,12 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:useDefaultMargins="true"
         android:alignmentMode="alignBounds"
+        android:columnCount="7"
         android:columnOrderPreserved="true"
-    	android:columnCount="7"
-    	android:rowCount="39" >
-
+        android:padding="@dimen/activity_horizontal_margin"
+        android:rowCount="39"
+        android:useDefaultMargins="true" >
     
 	    <TextView
 	        android:id="@+id/ab_name_title"
@@ -64,10 +64,11 @@
 	        android:text="@string/acrobatics" />
         
         <LinearLayout
-			android:id="@+id/acrobatics"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+            android:id="@+id/acrobatics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
         
 	        <TextView 
 		        android:id="@+id/acrobatics_total"
@@ -126,7 +127,8 @@
 			android:id="@+id/appraise"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
         
 	        <TextView 
 		        android:id="@+id/appraise_total"
@@ -184,7 +186,8 @@
 			android:id="@+id/bluff"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/bluff_total"
@@ -242,7 +245,8 @@
 			android:id="@+id/climb"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/climb_total"
@@ -316,7 +320,8 @@
 			android:id="@+id/craft1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/craft1_total"
@@ -390,7 +395,8 @@
 			android:id="@+id/craft2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/craft2_total"
@@ -465,7 +471,8 @@
 			android:id="@+id/craft3"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 	    
 	        <TextView 
 		        android:id="@+id/craft3_total"
@@ -523,7 +530,8 @@
 			android:id="@+id/diplomacy"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/diplomacy_total"
@@ -581,7 +589,8 @@
 			android:id="@+id/disable_device"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/disable_device_total"
@@ -639,7 +648,8 @@
 			android:id="@+id/disguise"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 
 	        <TextView 
 		        android:id="@+id/disguise_total"
@@ -697,7 +707,8 @@
 			android:id="@+id/escape_artist"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/escape_artist_total"
@@ -755,7 +766,8 @@
 			android:id="@+id/fly"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/fly_total"
@@ -813,7 +825,8 @@
 			android:id="@+id/handle_animal"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/handle_animal_total"
@@ -871,7 +884,8 @@
 			android:id="@+id/heal"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
         
 	        <TextView 
 		        android:id="@+id/heal_total"
@@ -929,7 +943,8 @@
 			android:id="@+id/intimidate"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/intimidate_total"
@@ -987,7 +1002,8 @@
 			android:id="@+id/knowledge_arcana"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_arcana_total"
@@ -1045,7 +1061,8 @@
 			android:id="@+id/knowledge_dungeoneering"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_dungeoneering_total"
@@ -1103,7 +1120,8 @@
 			android:id="@+id/knowledge_engineering"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_engineering_total"
@@ -1161,7 +1179,8 @@
 			android:id="@+id/knowledge_geography"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_geography_total"
@@ -1219,7 +1238,8 @@
 			android:id="@+id/knowledge_history"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
         
 	        <TextView 
 		        android:id="@+id/knowledge_history_total"
@@ -1277,7 +1297,8 @@
 			android:id="@+id/knowledge_local"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_local_total"
@@ -1335,7 +1356,8 @@
 			android:id="@+id/knowledge_nature"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_nature_total"
@@ -1393,7 +1415,8 @@
 			android:id="@+id/knowledge_nobility"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_nobility_total"
@@ -1451,7 +1474,8 @@
 			android:id="@+id/knowledge_planes"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_planes_total"
@@ -1509,7 +1533,8 @@
 			android:id="@+id/knowledge_religion"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/knowledge_religion_total"
@@ -1567,7 +1592,8 @@
 			android:id="@+id/linguistics"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/linguistics_total"
@@ -1625,7 +1651,8 @@
 			android:id="@+id/perception"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/perception_total"
@@ -1700,7 +1727,8 @@
 			android:id="@+id/perform1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
         
 	        <TextView 
 		        android:id="@+id/perform1_total"
@@ -1775,7 +1803,8 @@
 			android:id="@+id/perform2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/perform2_total"
@@ -1850,7 +1879,8 @@
 			android:id="@+id/profession1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/profession1_total"
@@ -1925,7 +1955,8 @@
 			android:id="@+id/profession2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/profession2_total"
@@ -1983,7 +2014,8 @@
 			android:id="@+id/ride"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/ride_total"
@@ -2041,7 +2073,8 @@
 			android:id="@+id/sense_motive"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
         
 			<TextView 
 		        android:id="@+id/sense_motive_total"
@@ -2099,7 +2132,8 @@
 			android:id="@+id/sleight_of_hand"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
         
 	        <TextView 
 		        android:id="@+id/sleight_of_hand_total"
@@ -2157,7 +2191,8 @@
 			android:id="@+id/spellcraft"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/spellcraft_total"
@@ -2215,7 +2250,8 @@
 			android:id="@+id/stealth"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/stealth_total"
@@ -2273,7 +2309,8 @@
 			android:id="@+id/survival"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/survival_total"
@@ -2331,7 +2368,8 @@
 			android:id="@+id/swim"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/swim_total"
@@ -2389,7 +2427,8 @@
 			android:id="@+id/use_magic_device"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:paddingTop="10dp">
 		
 	        <TextView 
 		        android:id="@+id/use_magic_device_total"

@@ -139,8 +139,8 @@ public class CharacterDataSource {
 	 * @param character character to remove
 	 */
 	public void deleteCharacter(Character character) {
-		long id = character.getId();
-		System.out.println("Comment deleted with id: " + id);
+		//long id = character.getId();
+		//System.out.println("Comment deleted with id: " + id);
 		//database.delete(MinionSQLiteHelper.TABLE_BASIC_INFO, MinionSQLiteHelper.COLUMN_ID
 		//	+ " = " + id, null);
 	}
@@ -180,10 +180,11 @@ public class CharacterDataSource {
 	
 	// helper method for building Character from current cursor
 	private Character cursorToCharacter(Cursor cursor) {
-		Character character = new Character();
-		character.setId(cursor.getLong(0));
-		character.setName(cursor.getString(1));
-		return character;
+		//Character character = new Character();
+		//character.setId(cursor.getLong(0));
+		//character.setName(cursor.getString(1));
+		//return character;
+		return null;
 	}
 	
 	public void printTables() {

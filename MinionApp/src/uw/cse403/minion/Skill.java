@@ -14,6 +14,8 @@ import android.database.sqlite.SQLiteDatabase;
 public class Skill {
 	private static final int CLASS_BONUS = 3;
 	
+	private int charID;
+	
 	private int skillID; // get skill ID from ref db
 	private String name;
 	private String title; // write-in fields for Craft, Perform, Profession
@@ -21,24 +23,34 @@ public class Skill {
 	private boolean classSkill;
 	private Map<String,Integer> modifiers;
 	private AbilityName assocAbility;
+	private int abMod;
 	
-	/**
-	 * Initializes a new skill with the given name and it's associated ability.
-	 * Initializes skill with no ranks, as not a class skill and no miscellaneous modifiers.
-	 * 
-	 * @param name		String name of new skill
-	 * @param attribute	an AbilityName of which attribute is associated with this skill
-	 */
-	public Skill(String name, AbilityName attribute){
-		this.name = name;
-		ranks = 0;
-		classSkill = false;
-		modifiers = new HashMap<String,Integer>();
-		assocAbility = attribute;
-	}
+//	/** not needed
+//	 * Initializes a new skill with the given name and it's associated ability.
+//	 * Initializes skill with no ranks, as not a class skill and no miscellaneous modifiers.
+//	 * 
+//	 * @param name		String name of new skill
+//	 * @param attribute	an AbilityName of which attribute is associated with this skill
+//	 */
+//	public Skill(String name, AbilityName attribute){
+//		this.name = name;
+//		ranks = 0;
+//		classSkill = false;
+//		modifiers = new HashMap<String,Integer>();
+//		assocAbility = attribute;
+//		abMod = -1;
+//		
+//	}
 	
-	public Skill(int id, String name, AbilityName attribute, int rank, boolean classSkill){
-		this(id, name, null, attribute, rank, classSkill);
+//	public Skill(int charID, int skillID) {
+//		this.charID = charID;
+//		this.skillID = skillID;
+//		
+//		//loadFromDB();
+//	}
+	
+	public Skill(int skillID, String name, AbilityName attribute, int rank, boolean classSkill){
+		this(skillID, name, null, attribute, rank, classSkill);
 	}
 	
 	/**
@@ -51,8 +63,8 @@ public class Skill {
 	 * @param classSkill	a boolean that if <code>false</code> means the skill is not a class
 	 * 						skill and if <code>true</code> is a class skill
 	 */
-	public Skill(int id, String name, String title, AbilityName attribute, int rank, boolean classSkill){
-		this.skillID = id;
+	public Skill(int skillID, String name, String title, AbilityName attribute, int rank, boolean classSkill){
+		this.skillID = skillID;
 		this.name = name;
 		this.title = title;
 		// TODO: Consider not allowing negative ranks
@@ -64,6 +76,16 @@ public class Skill {
 		this.classSkill = classSkill;
 		modifiers = new HashMap<String,Integer>();
 		assocAbility = attribute;
+		abMod = -1;
+	}
+	
+	/**
+	 * Returns the name of the skill
+	 * 
+	 * @return	String name of skill
+	 */
+	public int getID(){
+		return skillID;
 	}
 	
 	/**
@@ -179,6 +201,13 @@ public class Skill {
 		}
 		
 		return bonus;
+	}
+	public int getAbMod() {
+		return 0;
+	}
+	public int getTotal() {
+		int mod = modifiers.get(modifiers.keySet().iterator().next());
+		return ranks + mod;
 	}
 	
 	/** 

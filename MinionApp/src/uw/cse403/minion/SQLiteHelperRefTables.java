@@ -72,6 +72,7 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	/*****************************************/
 	public SQLiteHelperRefTables(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.db = this.getWritableDatabase();
 		System.out.println("SQLiteHelperRefTables constructor");
 	}
 

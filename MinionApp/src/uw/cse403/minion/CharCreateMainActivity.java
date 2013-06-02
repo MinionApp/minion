@@ -40,7 +40,7 @@ public class CharCreateMainActivity extends Activity {
 		setContentView(R.layout.activity_char_create_main);
 		username = SaveSharedPreference.getPersistentUserName(CharCreateMainActivity.this);
 		if(newChar == null){
-			newChar = new Character();
+			//newChar = new Character();
 		}
 		try {
 			charID = this.getIntent().getExtras().getLong(CHARACTER_ID);

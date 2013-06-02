@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -67,6 +68,31 @@ public class SkillsActivity extends Activity {
 	}
 
 	public void loadData() {
+		// get ability scores
+		Ability[] abilities = new Ability[6];
+		// these should auto load from DB
+		abilities[0] = new Ability(charID, AbilityName.STRENGTH);
+		abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
+		abilities[2] = new Ability(charID, AbilityName.CONSTITUTION);
+		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
+		abilities[4] = new Ability(charID, AbilityName.WISDOM);
+		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
+				
+		// map from skillID to ability score
+		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
+		// get skillIDs and associated ability score IDs
+		Cursor cursor1 = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
+				null, null, null, null, null, null);
+		// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
+		if (cursor1.moveToFirst()) {
+			while (!cursor1.isAfterLast()) {
+				int abScoreID = cursor1.getInt(2);
+				skillToAbMod.put(cursor1.getInt(0), abilities[abScoreID].getMod());
+				cursor1.moveToNext();
+			}
+		}
+		cursor1.close();
+		
 		// prefixes for the xml fields
 		String[] xmlField = { "", "acrobatics", "appraise", "bluff", "climb", "craft", "diplomacy", 
 			"disable_device", "disguise", "escape_artist", "fly", "handle_animal", "heal", "intimidate",
@@ -78,16 +104,18 @@ public class SkillsActivity extends Activity {
 		int crafts = 0;
 		int performs = 0;
 		int professions = 0;
-
-		Cursor cursor = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
+		// get skills from DB
+		Cursor cursor2 = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
 				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
-		if (cursor.moveToFirst()) {
-			while (!cursor.isAfterLast()) { 
-				// Columns: COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_RANKS, COLUMN_MISC_MOD
-				int skillID = cursor.getInt(1);
-				String title = cursor.getString(2);
-				int ranks = cursor.getInt(3);
-				int miscMod = cursor.getInt(4);
+		if (cursor2.moveToFirst()) {
+			while (!cursor2.isAfterLast()) { 
+				// Columns: COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_TITLE, COLUMN_RANKS, COLUMN_MISC_MOD
+				int skillID = cursor2.getInt(1);
+				String title = cursor2.getString(2);
+				int ranks = cursor2.getInt(3);
+				int miscMod = cursor2.getInt(4);
+				Skill skill = new Skill(skillID, title, null, ranks, false);
+				skill.addModifier("skillMod", miscMod);
 //				String ranksEnter;
 //				String modEnter;
 //				if (skillID == 5)  { // craft
@@ -112,20 +140,30 @@ public class SkillsActivity extends Activity {
 //				modEnterField.setText(""+miscMod);
 				
 				int titleFieldID = 0;
+				int totalFieldID = 0;
+				int abModFieldID = 0;
 				int ranksFieldID = 0;
 				int modsFieldID = 0;
 				int arrayID = 0;
 				switch (skillID) {
 				case 1: 
+					totalFieldID = R.id.acrobatics_total;
+					abModFieldID = R.id.acrobatics_ab_mod;
 					ranksFieldID = R.id.acrobatics_ranks;
 					modsFieldID = R.id.acrobatics_misc_mod; break;
 				case 2: 
+					totalFieldID = R.id.appraise_total;
+					abModFieldID = R.id.appraise_ab_mod;
 					ranksFieldID = R.id.appraise_ranks;
 					modsFieldID = R.id.appraise_misc_mod; break;
 				case 3: 
+					totalFieldID = R.id.bluff_total;
+					abModFieldID = R.id.bluff_ab_mod;
 					ranksFieldID = R.id.bluff_ranks;
 					modsFieldID = R.id.bluff_misc_mod; break;
 				case 4: 
+					totalFieldID = R.id.climb_total;
+					abModFieldID = R.id.climb_ab_mod;
 					ranksFieldID = R.id.climb_ranks;
 					modsFieldID = R.id.climb_misc_mod; break;
 				case 5: 
@@ -134,75 +172,121 @@ public class SkillsActivity extends Activity {
 						arrayID = R.array.craft_array;
 					if (crafts == 1) {
 						titleFieldID = R.id.craft1_spinner;
+						totalFieldID = R.id.craft1_total;
+						abModFieldID = R.id.craft1_ab_mod;
 						ranksFieldID = R.id.craft1_ranks;
 						modsFieldID = R.id.craft1_misc_mod;
 					} else if (crafts == 2) {
 						titleFieldID = R.id.craft2_spinner;
+						totalFieldID = R.id.craft2_total;
+						abModFieldID = R.id.craft2_ab_mod;
 						ranksFieldID = R.id.craft2_ranks;
 						modsFieldID = R.id.craft2_misc_mod;
 					} else if (crafts == 3) {
 						titleFieldID = R.id.craft3_spinner;
+						totalFieldID = R.id.craft3_total;
+						abModFieldID = R.id.craft3_ab_mod;
 						ranksFieldID = R.id.craft3_ranks;
 						modsFieldID = R.id.craft3_misc_mod;
 					} break;
 				case 6: 
+					totalFieldID = R.id.diplomacy_total;
+					abModFieldID = R.id.diplomacy_ab_mod;
 					ranksFieldID = R.id.diplomacy_ranks;
 					modsFieldID = R.id.diplomacy_misc_mod; break;
 				case 7: 
+					totalFieldID = R.id.disable_device_total;
+					abModFieldID = R.id.disable_device_ab_mod;
 					ranksFieldID = R.id.disable_device_ranks;
 					modsFieldID = R.id.disable_device_misc_mod; break;
 				case 8: 
+					totalFieldID = R.id.disguise_total;
+					abModFieldID = R.id.disguise_ab_mod;
 					ranksFieldID = R.id.disguise_ranks;
 					modsFieldID = R.id.disguise_misc_mod; break;
 				case 9: 
+					totalFieldID = R.id.escape_artist_total;
+					abModFieldID = R.id.escape_artist_ab_mod;
 					ranksFieldID = R.id.escape_artist_ranks;
 					modsFieldID = R.id.escape_artist_misc_mod; break;
 				case 10: 
+					totalFieldID = R.id.fly_total;
+					abModFieldID = R.id.fly_ab_mod;
 					ranksFieldID = R.id.fly_ranks;
 					modsFieldID = R.id.fly_misc_mod; break;
 				case 11: 
+					totalFieldID = R.id.handle_animal_total;
+					abModFieldID = R.id.handle_animal_ab_mod;
 					ranksFieldID = R.id.handle_animal_ranks;
 					modsFieldID = R.id.handle_animal_misc_mod; break;
 				case 12: 
+					totalFieldID = R.id.heal_total;
+					abModFieldID = R.id.heal_ab_mod;
 					ranksFieldID = R.id.heal_ranks;
 					modsFieldID = R.id.heal_misc_mod; break;
 				case 13: 
+					totalFieldID = R.id.intimidate_total;
+					abModFieldID = R.id.intimidate_ab_mod;
 					ranksFieldID = R.id.intimidate_ranks;
 					modsFieldID = R.id.intimidate_misc_mod; break;
 				case 14: 
+					totalFieldID = R.id.knowledge_arcana_total;
+					abModFieldID = R.id.knowledge_arcana_ab_mod;
 					ranksFieldID = R.id.knowledge_arcana_ranks;
 					modsFieldID = R.id.knowledge_arcana_misc_mod; break;
 				case 15: 
+					totalFieldID = R.id.knowledge_dungeoneering_total;
+					abModFieldID = R.id.knowledge_dungeoneering_ab_mod;
 					ranksFieldID = R.id.knowledge_dungeoneering_ranks;
 					modsFieldID = R.id.knowledge_dungeoneering_misc_mod; break;
 				case 16: 
+					totalFieldID = R.id.knowledge_engineering_total;
+					abModFieldID = R.id.knowledge_engineering_ab_mod;
 					ranksFieldID = R.id.knowledge_engineering_ranks;
 					modsFieldID = R.id.knowledge_engineering_misc_mod; break;
 				case 17: 
+					totalFieldID = R.id.knowledge_geography_total;
+					abModFieldID = R.id.knowledge_geography_ab_mod;
 					ranksFieldID = R.id.knowledge_geography_ranks;
 					modsFieldID = R.id.knowledge_geography_misc_mod; break;
 				case 18: 
+					totalFieldID = R.id.knowledge_history_total;
+					abModFieldID = R.id.knowledge_history_ab_mod;
 					ranksFieldID = R.id.knowledge_history_ranks;
 					modsFieldID = R.id.knowledge_history_misc_mod; break;
 				case 19: 
+					totalFieldID = R.id.knowledge_local_total;
+					abModFieldID = R.id.knowledge_local_ab_mod;
 					ranksFieldID = R.id.knowledge_local_ranks;
 					modsFieldID = R.id.knowledge_local_misc_mod; break;
 				case 20: 
+					totalFieldID = R.id.knowledge_nature_total;
+					abModFieldID = R.id.knowledge_nature_ab_mod;
 					ranksFieldID = R.id.knowledge_nature_ranks;
 					modsFieldID = R.id.knowledge_nature_misc_mod; break;
 				case 21: 
+					totalFieldID = R.id.knowledge_nobility_total;
+					abModFieldID = R.id.knowledge_nobility_ab_mod;
 					ranksFieldID = R.id.knowledge_nobility_ranks;
 					modsFieldID = R.id.knowledge_nobility_misc_mod; break;
 				case 22: 
+					totalFieldID = R.id.knowledge_planes_total;
+					abModFieldID = R.id.knowledge_planes_ab_mod;
 					ranksFieldID = R.id.knowledge_planes_ranks;
 					modsFieldID = R.id.knowledge_planes_misc_mod; break;
 				case 23: 
+					totalFieldID = R.id.knowledge_religion_total;
+					abModFieldID = R.id.knowledge_religion_ab_mod;
 					ranksFieldID = R.id.knowledge_religion_ranks;
 					modsFieldID = R.id.knowledge_religion_misc_mod; break;
 				case 24: 
+					totalFieldID = R.id.linguistics_total;
+					abModFieldID = R.id.linguistics_ab_mod;
 					ranksFieldID = R.id.linguistics_ranks;
 					modsFieldID = R.id.linguistics_misc_mod; break;
 				case 25: 
+					totalFieldID = R.id.perception_total;
+					abModFieldID = R.id.perception_ab_mod;
 					ranksFieldID = R.id.perception_ranks;
 					modsFieldID = R.id.perception_misc_mod; break;
 				case 26: 
@@ -211,10 +295,14 @@ public class SkillsActivity extends Activity {
 						arrayID = R.array.perform_array;
 					if (performs == 1) {
 						titleFieldID = R.id.perform1_spinner;
+						totalFieldID = R.id.perform1_total;
+						abModFieldID = R.id.perform1_ab_mod;
 						ranksFieldID = R.id.perform1_ranks;
 						modsFieldID = R.id.perform1_misc_mod;
 					} else if (performs == 2) {
 						titleFieldID = R.id.perform2_spinner;
+						totalFieldID = R.id.perform2_total;
+						abModFieldID = R.id.perform2_ab_mod;
 						ranksFieldID = R.id.perform2_ranks;
 						modsFieldID = R.id.perform2_misc_mod;
 					} break;
@@ -224,39 +312,68 @@ public class SkillsActivity extends Activity {
 						arrayID = R.array.profession_array;
 					if (professions == 1) {
 						titleFieldID = R.id.profession1_spinner;
+						totalFieldID = R.id.profession1_total;
+						abModFieldID = R.id.profession1_ab_mod;
 						ranksFieldID = R.id.profession1_ranks;
 						modsFieldID = R.id.profession1_misc_mod;
 					} else if (professions == 2) {
 						titleFieldID = R.id.profession2_spinner;
+						totalFieldID = R.id.profession2_total;
+						abModFieldID = R.id.profession2_ab_mod;
 						ranksFieldID = R.id.profession2_ranks;
 						modsFieldID = R.id.profession2_misc_mod;
 					} break;
 				case 28: 
+					totalFieldID = R.id.ride_total;
+					abModFieldID = R.id.ride_ab_mod;
 					ranksFieldID = R.id.ride_ranks;
 					modsFieldID = R.id.ride_misc_mod; break;
 				case 29: 
+					totalFieldID = R.id.sense_motive_total;
+					abModFieldID = R.id.sense_motive_ab_mod;
 					ranksFieldID = R.id.sense_motive_ranks;
 					modsFieldID = R.id.sense_motive_misc_mod; break;
 				case 30: 
+					totalFieldID = R.id.sleight_of_hand_total;
+					abModFieldID = R.id.sleight_of_hand_ab_mod;
 					ranksFieldID = R.id.sleight_of_hand_ranks;
 					modsFieldID = R.id.sleight_of_hand_misc_mod; break;
 				case 31: 
+					totalFieldID = R.id.spellcraft_total;
+					abModFieldID = R.id.spellcraft_ab_mod;
 					ranksFieldID = R.id.spellcraft_ranks;
 					modsFieldID = R.id.spellcraft_misc_mod; break;
 				case 32: 
+					totalFieldID = R.id.stealth_total;
+					abModFieldID = R.id.stealth_ab_mod;
 					ranksFieldID = R.id.stealth_ranks;
 					modsFieldID = R.id.stealth_misc_mod; break;
 				case 33: 
+					totalFieldID = R.id.survival_total;
+					abModFieldID = R.id.survival_ab_mod;
 					ranksFieldID = R.id.survival_ranks;
 					modsFieldID = R.id.survival_misc_mod; break;
 				case 34: 
+					totalFieldID = R.id.swim_total;
+					abModFieldID = R.id.swim_ab_mod;
 					ranksFieldID = R.id.swim_ranks;
 					modsFieldID = R.id.swim_misc_mod; break;
 				case 35: 
+					totalFieldID = R.id.use_magic_device_total;
+					abModFieldID = R.id.use_magic_device_ab_mod;
 					ranksFieldID = R.id.use_magic_device_ranks;
 					modsFieldID = R.id.use_magic_device_misc_mod; break;
 				}
-				if (skillID == 5 || skillID == 26 || skillID == 27) {
+				// put data in UI
+				int abMod = skillToAbMod.get(skill.getID());
+				
+				TextView totalField = (TextView) findViewById(totalFieldID);
+				totalField.setText(""+(skill.getTotal() + abMod));
+				
+				TextView abModField = (TextView) findViewById(abModFieldID);
+				abModField.setText(""+abMod);
+				
+				if (skillID == 5 || skillID == 26 || skillID == 27) { // just for write-ins
 					Spinner spinner = (Spinner) findViewById(titleFieldID);
 					ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, arrayID,
 			                R.layout.smaller_multiline_spinner_dropdown_item);
@@ -265,15 +382,17 @@ public class SkillsActivity extends Activity {
 					//set the default according to value
 					spinner.setSelection(spinnerPosition);
 				}
+				
 				EditText ranksEnterField = (EditText) findViewById(ranksFieldID);
-				ranksEnterField.setText(""+ranks);
+				ranksEnterField.setText(""+skill.getRank());
+				
 				EditText modEnterField = (EditText) findViewById(modsFieldID);
-				modEnterField.setText(""+miscMod);
+				modEnterField.setText(""+skill.getModifier("skillMod"));
 
-				cursor.moveToNext();
+				cursor2.moveToNext();
 			}
 		}
-		cursor.close();
+		cursor2.close();
 	}
 	
 	// helper class for storing a string and int together
