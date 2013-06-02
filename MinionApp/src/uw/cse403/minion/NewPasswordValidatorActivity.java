@@ -49,17 +49,17 @@ public class NewPasswordValidatorActivity extends Activity {
 					finish();
 				} else {
 					intent = new Intent(this, PasswordResetActivity.class);
-			    	// Stores if the given password is valid
-			    	intent.putExtra(IS_VALID_PASSWORD, true);
-			    	// Stores if the given password and confirmation password match
-			    	intent.putExtra(PASSWORDS_MATCH, true);
-			    	// Sends the input information back to the signup form so user doesn't have to reenter
+					// Stores if the given password is valid
+					intent.putExtra(IS_VALID_PASSWORD, true);
+					// Stores if the given password and confirmation password match
+					intent.putExtra(PASSWORDS_MATCH, true);
+					// Sends the input information back to the signup form so user doesn't have to reenter
 					intent.putExtra(PASSWORD, password);
 					intent.putExtra(USERNAME, username);
 					intent.putExtra(PASSWORD_CONFIRMATION, passwordConfirmation);
-		    		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		        	startActivity(intent);
-		        	finish(); 
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+					finish(); 
 				}
 			} else {
 				Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();

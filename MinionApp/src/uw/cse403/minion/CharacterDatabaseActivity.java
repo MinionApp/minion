@@ -15,29 +15,29 @@ public class CharacterDatabaseActivity extends ListActivity{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_char_create_main);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_char_create_main);
 
-	    datasource = new CharacterDataSource(this);
-	    datasource.open();
+		datasource = new CharacterDataSource(this);
+		datasource.open();
 
-	    List<Character> values = datasource.getAllCharacters();
+		List<Character> values = datasource.getAllCharacters();
 
-	    // Use the SimpleCursorAdapter to show the
-	    // elements in a ListView
-	    ArrayAdapter<Character> adapter = new ArrayAdapter<Character>(this,
-	        android.R.layout.simple_list_item_1, values);
-	    setListAdapter(adapter);
+		// Use the SimpleCursorAdapter to show the
+		// elements in a ListView
+		ArrayAdapter<Character> adapter = new ArrayAdapter<Character>(this,
+				android.R.layout.simple_list_item_1, values);
+		setListAdapter(adapter);
 	}
 
 	// Will be called via the onClick attribute
 	// of the buttons in main.xml
 	public void onClick(View view) {
-	  @SuppressWarnings("unchecked")
-	  ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
-//	  Character character = datasource.createCharacter("Danny McSizzle");
-//	  adapter.add(character);
-	  /*switch (view.getId()) {
+		@SuppressWarnings("unchecked")
+		ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
+		//	  Character character = datasource.createCharacter("Danny McSizzle");
+		//	  adapter.add(character);
+		/*switch (view.getId()) {
 	  case R.id.add:
 	    String[] comments = new String[] { "Cool", "Very nice", "Hate it" };
 	    int nextInt = new Random().nextInt(3);
@@ -53,18 +53,18 @@ public class CharacterDatabaseActivity extends ListActivity{
 	    }
 	    break;
 	  }*/
-	  adapter.notifyDataSetChanged();
+		adapter.notifyDataSetChanged();
 	}
 
 	@Override
 	protected void onResume() {
-	  datasource.open();
-	  super.onResume();
+		datasource.open();
+		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-	  datasource.close();
-	  super.onPause();
+		datasource.close();
+		super.onPause();
 	}
 }

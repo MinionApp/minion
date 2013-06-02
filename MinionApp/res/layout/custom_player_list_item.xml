@@ -7,37 +7,41 @@
     android:paddingTop="2dip" >
 
     <TextView
-        android:id="@+id/invite"
+        android:id="@+id/player"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text=""
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/gm_field"
+        android:id="@+id/current_gm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/invite"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:text="Current GM"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <Button
-        android:id="@+id/decline_button"
+        android:id="@+id/remove_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:focusable="false"
-        android:onClick="declineInvite"
-        android:text="Decline" />
+        android:onClick="removePlayerFromGroup"
+        android:text="Remove Player" />
 
     <Button
-        android:id="@+id/accept_button"
+        android:id="@+id/gm_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/decline_button"
+        android:layout_toLeftOf="@+id/remove_button"
         android:focusable="false"
-        android:onClick="acceptInvite"
-        android:text="Accept" />
+        android:onClick="makePlayerGM"
+        android:text="Make GM" />
 
 </RelativeLayout>

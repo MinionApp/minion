@@ -15,14 +15,15 @@ public class SavingThrow {
 	public static final String MAGIC_MOD_STRING = "magic";
 	public static final String MISC_MOD_STRING = "misc";
 	public static final String TEMP_MOD_STRING = "temp";
-	
+
 	public long charID;
 	public boolean isNew;
-	
+
 	private AbilityName assocAbility;
 	private int baseSave;
 	private Map<String,Integer> modifiers;
-	
+	public int abMod;
+
 	/**
 	 * Initialize a saving throw.
 	 * 
@@ -38,10 +39,10 @@ public class SavingThrow {
 		assocAbility = attribute;
 		baseSave = 0;
 		modifiers = new HashMap<String,Integer>();
-		
+
 		loadFromDB();
 	}
-	
+
 	/**
 	 * Return base save
 	 * 
@@ -50,7 +51,7 @@ public class SavingThrow {
 	public int getBaseSave(){
 		return baseSave;
 	}
-	
+
 	/**
 	 * Set base save to given value
 	 * 
@@ -60,10 +61,10 @@ public class SavingThrow {
 		if (save < 0) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		baseSave = save;
 	}
-	
+
 	/**
 	 * Returns the modifier under the given name. Can return both negative
 	 * and positive modifiers. These modifiers represent values that will be
@@ -81,7 +82,7 @@ public class SavingThrow {
 		}
 		return retVal;
 	}
-	
+
 	/**
 	 * Removes the modifier under the given name as well as the record of that name.
 	 * 
@@ -92,7 +93,7 @@ public class SavingThrow {
 		// remove checks if modifiers contains name
 		modifiers.remove(name);
 	}
-	
+
 	/**
 	 * Adds a new modifier with the given name and value
 	 * 
@@ -119,7 +120,7 @@ public class SavingThrow {
 		}
 		return 1;
 	}
-	
+
 	/**
 	 * 
 	 * @param mod
@@ -127,22 +128,22 @@ public class SavingThrow {
 	 */
 	//public int getTotal(Ability mod){ // not sure this is necessary -K
 	public int getTotal() {
-//		if (mod.getName() != assocAbility) {
-//			throw new IllegalArgumentException();
-//		}
-		
-		int total = baseSave;
+		//		if (mod.getName() != assocAbility) {
+		//			throw new IllegalArgumentException();
+		//		}
+
+		int total = baseSave + abMod;
 		//total += mod.getMod(); // not currently supported
-		
+
 		Collection<Integer> mods = modifiers.values();
 		Iterator<Integer> it = mods.iterator();
 		while (it.hasNext()) {
 			total += it.next();
 		}
-		
+
 		return total;
 	}
-	
+
 	/**
 	 * Populate fields with values from DB
 	 */
@@ -173,7 +174,7 @@ public class SavingThrow {
 		}
 		cursor.close();
 	}
-	
+
 	/** 
 	 * Writes Saving Throw to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
@@ -190,7 +191,7 @@ public class SavingThrow {
 		// remove old data
 		SQLiteHelperSavingThrows.db.delete(SQLiteHelperSavingThrows.TABLE_NAME, 
 				SQLiteHelperSavingThrows.COLUMN_CHAR_ID + " = " + charID + " AND " 
-				+ SQLiteHelperSavingThrows.COLUMN_REF_ST_ID + " = " + stID, null);
+						+ SQLiteHelperSavingThrows.COLUMN_REF_ST_ID + " = " + stID, null);
 		// prepare new insert
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperSavingThrows.COLUMN_CHAR_ID, charID);
@@ -199,7 +200,7 @@ public class SavingThrow {
 		values.put(SQLiteHelperSavingThrows.COLUMN_MAGIC_MOD, modifiers.get(MAGIC_MOD_STRING));
 		values.put(SQLiteHelperSavingThrows.COLUMN_MISC_MOD, modifiers.get(MISC_MOD_STRING));
 		values.put(SQLiteHelperSavingThrows.COLUMN_TEMP_MOD, modifiers.get(TEMP_MOD_STRING));
-		
+
 		SQLiteHelperSavingThrows.db.insert(SQLiteHelperSavingThrows.TABLE_NAME, null, values);
 	}
 }

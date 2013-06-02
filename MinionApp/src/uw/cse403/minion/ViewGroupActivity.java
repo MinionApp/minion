@@ -13,13 +13,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,11 +45,21 @@ public class ViewGroupActivity extends Activity {
 	private static final String GAME_MASTER = "gm";
 	private static final String CHARACTER_NAME = "characterName";
 	private static final String PLAYER_NAME = "playerName";
-	
+	private static final String PLAYERS = "players";
+
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getGroupInfo.php";
+	private static final String PHP_ADDRESS2 = "http://homes.cs.washington.edu/~elefse/acceptInvite.php";
+	private static final String PHP_ADDRESS3 = "http://homes.cs.washington.edu/~elefse/declineInvite.php";
 	private String username;
 	private String groupName;
-	
+	private String gm;
+	private static ArrayList<String> playersList;
+
+	private String character;
+	private static Dialog dialog;
+	private static Dialog noCharactersAlert;
+	private CharacterDataSource datasource;
+
 	/**
 	 * Declare the UI components
 	 */
@@ -53,12 +70,13 @@ public class ViewGroupActivity extends Activity {
 	 * received from the database
 	 */
 	private static ArrayList<HashMap<String, String>> testArray;
+	private static ArrayList<String> testArray2;
 
 	/**
 	 * Adapter for connecting the array above to the UI view
 	 */
 	private SimpleAdapter adapter;
-	
+
 	/**
 	 * Displays the view group page for the selected group.
 	 */
@@ -70,7 +88,7 @@ public class ViewGroupActivity extends Activity {
 		setupActionBar();
 		username = SaveSharedPreference.getPersistentUserName(ViewGroupActivity.this);
 		groupName = this.getIntent().getExtras().getString(GROUPNAME);
-		String gm = this.getIntent().getExtras().getString(GAME_MASTER);
+		gm = this.getIntent().getExtras().getString(GAME_MASTER);
 		TextView groupTitle = (TextView) findViewById(R.id.group_name);
 		groupTitle.setText(groupName);
 		TextView gameMasterText = (TextView) findViewById(R.id.game_master_name);
@@ -88,7 +106,7 @@ public class ViewGroupActivity extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
-	
+
 	/**
 	 * Creates Options Menu
 	 */
@@ -98,7 +116,7 @@ public class ViewGroupActivity extends Activity {
 		getMenuInflater().inflate(R.menu.groups, menu);
 		return true;
 	}
-	
+
 	/**
 	 * Sets up the Up button
 	 */
@@ -118,7 +136,7 @@ public class ViewGroupActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/**
 	 * Responds to the edit group button click by directing the user to the 
 	 * EditGroupActivity. Only works for the owner of the group. Disabled
@@ -126,9 +144,13 @@ public class ViewGroupActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void editGroup(View view) {
-		// TODO Auto-generated method stub
+		Intent intent = new Intent(this, EditGroupActivity.class);
+		intent.putExtra(GROUPNAME, groupName);
+		intent.putExtra(GAME_MASTER, gm);
+		intent.putStringArrayListExtra(PLAYERS, playersList);
+		startActivity(intent);
 	}
-	
+
 	/**
 	 * Responds to the accept invite button click by adding the user to the
 	 * group. Only works if the user has yet to respond to a pending invite
@@ -136,9 +158,62 @@ public class ViewGroupActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void acceptInvite(View view) {
-		// TODO Auto-generated method stub
+		datasource = new CharacterDataSource(this);
+		datasource.open();
+		// To test reading from database:
+		testArray2 = new ArrayList<String>();
+
+		//GETS ALL CHAR
+		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+				null, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) { 
+				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
+				String characterName = cursor.getString(0);
+				testArray2.add(characterName);
+				cursor.moveToNext();
+			}
+		}
+		cursor.close();
+
+		if(testArray2.size() == 0) {
+			AlertDialog.Builder noCharactersBuilder = new AlertDialog.Builder(this);
+			noCharactersBuilder.setMessage("You have no character with which to play with! Please go create a character!");
+			noCharactersBuilder.setTitle("No Characters Warning");
+			noCharactersBuilder.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					noCharactersAlert.dismiss(); 
+				}
+			});
+			noCharactersBuilder.setCancelable(true);
+			noCharactersAlert = noCharactersBuilder.create();
+			noCharactersAlert.show();
+		} else {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Pick a Character");
+
+			ListView modeList = new ListView(this);
+			ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray2);
+			modeList.setAdapter(modeAdapter);
+			builder.setView(modeList);
+			dialog = builder.create();
+
+			dialog.show();
+			modeList.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					// When clicked, show a toast with the TextView text
+					character = ((TextView) view).getText().toString();
+					dialog.dismiss();
+					AcceptInviteTask task = new AcceptInviteTask(view.getContext());
+					task.execute(username);
+				}
+			});
+		}
 	}
-	
+
 	/**
 	 * Responds to the decline invite button click by removing any pending invites
 	 * the user has from the current group. Only works if the user has yet to 
@@ -146,14 +221,16 @@ public class ViewGroupActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void declineInvite(View view) {
-		// TODO Auto-generated method stub
+		DeclineInviteTask task = new DeclineInviteTask(this);
+		task.execute(username);
 	}
 
 	private class GetGroupInfoTask extends AsyncTask<String, Void, ArrayList<HashMap<String, String>>> {
 		private Context context;
 		private boolean pendingInvite;
 		private boolean isGM;
-		
+		private ArrayList<String> playerListPlaceholder;
+
 		/**
 		 * Constructs a new GetGroupInfoTask object.
 		 * @param context The current Activity's context
@@ -161,172 +238,181 @@ public class ViewGroupActivity extends Activity {
 		private GetGroupInfoTask(Context context) {
 			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("un", username));
-	        postParameters.add(new BasicNameValuePair("groupName", groupName));
-	        
-	        // Hashmap for ListView
-	        ArrayList<HashMap<String, String>> playersArray = new ArrayList<HashMap<String, String>>();
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("un", username));
+			postParameters.add(new BasicNameValuePair("groupName", groupName));
+
+			// Hashmap for ListView
+			ArrayList<HashMap<String, String>> playersArray = new ArrayList<HashMap<String, String>>();
+			playerListPlaceholder = new ArrayList<String>();
 
 			String result = null;
-	        
-	        //http post
-			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();
-	        	JSONObject results  = new JSONObject(res);
-	        	pendingInvite = results.getBoolean("pendingInvite");
-	        	isGM = results.getBoolean("isGM");
-	        	JSONArray players = results.getJSONArray("items");
-	        	// looping through players
-	            for(int i = 0; i < players.length(); i++){
-	                JSONObject c = players.getJSONObject(i);
-	                 
-	                // Storing each json item in variable
-	                String characterName = c.getString("character");
-	                String playerName = c.getString("username");
-	                
-	                // creating new HashMap
-	                HashMap<String, String> map = new HashMap<String, String>();
-	                map.put(CHARACTER_NAME, characterName);
-	                map.put(PLAYER_NAME, playerName);
-	                // adding HashList to ArrayList
-	                playersArray.add(map);
-	            }
-	        } catch (Exception e) {
-	        	res = e.toString();
-	        }
-	        return playersArray;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
-	    	if(isGM) {
-		    	Button editButton = (Button) findViewById(R.id.edit_button);
-		    	editButton.setVisibility(View.VISIBLE);
-	    	}
-	    	
-	    	if(pendingInvite) {
-	    		LinearLayout inviteButtons = (LinearLayout) findViewById(R.id.invite_buttons);
-	    		inviteButtons.setVisibility(View.VISIBLE);
-	    	}
-	    	
-	    	testArray = result;
-	    	
-		    // Initialize the UI components
-	        playersListView = (ListView) findViewById(R.id.playersListView);
 
-	        // Create an empty adapter we will use to display the loaded data.
-	        // We pass null for the cursor, then update it in onLoadFinished()
-	        adapter = new SimpleAdapter(context, testArray,
-	        		R.layout.custom_group_list_item, new String[] { CHARACTER_NAME, PLAYER_NAME }, new int[] {
-	        			R.id.text1, R.id.text2 });
-	        playersListView.setAdapter(adapter);
-	        
-	    }
-	}
-	
-	/**
-	 * HasPendingInviteTask is a private inner class that allows requests to be made to the remote
-	 * MySQL database parallel to the main UI thread. Checks if the user has any pending invites
-	 * from the currently viewed group. Disables the accept and decline invite buttons if the user
-	 * has no pending invites, enables them otherwise.
-	 */
-	private class HasPendingInviteTask extends AsyncTask<String, Void, String> {
-		
-		/**
-		 * Constructs a new HasPendingInviteTask object.
-		 * @param context The current Activity's context
-		 */
-		private HasPendingInviteTask(Context context) {
-			// TODO Auto-generated method stub
+			//http post
+			String res;
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+				res = result.toString();
+				JSONObject results  = new JSONObject(res);
+				pendingInvite = results.getBoolean("pendingInvite");
+				isGM = results.getBoolean("isGM");
+				JSONArray players = results.getJSONArray("items");
+				// looping through players
+				for(int i = 0; i < players.length(); i++){
+					JSONObject c = players.getJSONObject(i);
+
+					// Storing each json item in variable
+					String characterName = c.getString("character");
+					String playerName = c.getString("username");
+					playerListPlaceholder.add(playerName);
+					// creating new HashMap
+					HashMap<String, String> map = new HashMap<String, String>();
+					map.put(CHARACTER_NAME, characterName);
+					map.put(PLAYER_NAME, playerName);
+					// adding HashList to ArrayList
+					playersArray.add(map);
+				}
+			} catch (Exception e) {
+				res = e.toString();
+			}
+			return playersArray;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	    	// TODO Auto-generated method stub
-	    	return "";
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	// TODO Auto-generated method stub
-	    }
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
+			if(isGM) {
+				Button editButton = (Button) findViewById(R.id.edit_button);
+				editButton.setVisibility(View.VISIBLE);
+			}
+
+			if(pendingInvite) {
+				LinearLayout inviteButtons = (LinearLayout) findViewById(R.id.invite_buttons);
+				inviteButtons.setVisibility(View.VISIBLE);
+			}
+			playersList = playerListPlaceholder;
+
+			testArray = result;
+
+			// Initialize the UI components
+			playersListView = (ListView) findViewById(R.id.playersListView);
+
+			// Create an empty adapter we will use to display the loaded data.
+			// We pass null for the cursor, then update it in onLoadFinished()
+			adapter = new SimpleAdapter(context, testArray,
+					R.layout.custom_group_list_item, new String[] { CHARACTER_NAME, PLAYER_NAME }, new int[] {
+					R.id.text1, R.id.text2 });
+			playersListView.setAdapter(adapter);
+
+		}
 	}
-	
+
 	/**
 	 * AcceptInviteTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. Adds the user to the group and updates
 	 * the database appropriately.
 	 */
 	private class AcceptInviteTask extends AsyncTask<String, Void, String> {
-		
+		private Context context;
+
 		/**
 		 * Constructs a new AcceptInviteTask object.
 		 * @param context The current Activity's context
 		 */
 		private AcceptInviteTask(Context context) {
-			// TODO Auto-generated method stub
+			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	    	// TODO Auto-generated method stub
-	    	return "";
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	// TODO Auto-generated method stub
-	    }
-	 
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("un", username));
+			postParameters.add(new BasicNameValuePair("group", groupName));
+			postParameters.add(new BasicNameValuePair("character", character));
+
+			String result = null;
+
+			//http post
+			String res;
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS2, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			Intent intent = new Intent(context, ViewGroupActivity.class);
+			intent.putExtra(GROUPNAME, groupName);
+			intent.putExtra(GAME_MASTER, "test");
+			startActivity(intent);
+			finish();
+		}
+
 	}
-	
+
 	/**
 	 * DeclineInviteTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. Removes the group's pending invite to
 	 * the user and updates the database accordingly.
 	 */
 	private class DeclineInviteTask extends AsyncTask<String, Void, String> {
+		private Context context;
 
 		/**
 		 * Constructs a new DeclineInviteTask object.
 		 * @param context The current Activity's context
 		 */
 		private DeclineInviteTask(Context context) {
-			// TODO Auto-generated method stub
+			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	    	// TODO Auto-generated method stub
-	    	return "";
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	// TODO Auto-generated method stub
-	    }
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("un", username));
+			postParameters.add(new BasicNameValuePair("group", groupName));
+
+			String result = null;
+
+			//http post
+			String res;
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS3, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			Intent intent = new Intent(context, ViewInvitesActivity.class);
+			startActivity(intent);
+			finish();
+		}
 	}
 }
