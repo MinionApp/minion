@@ -15,14 +15,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  * 
  * @author Thomas Eberlein (uwte)
  * @author Kevin Dong (kevinxd3)
- *
  */
-
 public class CharacterDataSource {
-	// Database fields
-	//private SQLiteDatabase database;
-	//private MinionSQLiteHelper dbHelper;
 
+	/** Database helper fields **/
 	private SQLiteHelperRefTables helperRef;
 	private static SQLiteHelperBasicInfo helperBasicInfo;
 	private SQLiteHelperAbilityScores helperAbilityScores;
@@ -37,6 +33,12 @@ public class CharacterDataSource {
 
 	private SQLiteDatabase dbRef;
 
+	/**
+	 * Creates a CharacterDataSource object that encapsulates all of the different
+	 * components and helper classes that make up a character data entry in the
+	 * local database.
+	 * @param context The given Activity's context
+	 */
 	public CharacterDataSource(Context context) {
 		helperRef			= new SQLiteHelperRefTables(context);
 
@@ -62,9 +64,10 @@ public class CharacterDataSource {
 
 	}
 
+	/**
+	 * Opens the connection to the local database.
+	 */
 	public void open() throws SQLException {
-		//database = dbHelper.getWritableDatabase();
-
 		dbRef = helperRef.getReadableDatabase();
 
 		// test ref databases; create them if they don't exist
@@ -95,10 +98,11 @@ public class CharacterDataSource {
 				((SQLiteOpenHelper) helper).onCreate(helper.getDB());
 			}
 		}
-
-
 	}
 
+	/**
+	 * Closes the connection to the local database.
+	 */
 	public void close() {
 		helperBasicInfo.close();
 		helperAbilityScores.close();
@@ -109,19 +113,6 @@ public class CharacterDataSource {
 		helperSavingThrows.close();
 		helperWeapons.close();
 	}
-
-	//	public Character createCharacter(String character) {
-	//		ContentValues values = new ContentValues();
-	//		values.put(MinionSQLiteHelper.COLUMN_NAME, character);
-	//		long insertId = database.insert(MinionSQLiteHelper.TABLE_BASIC_INFO, null, values);
-	//		Cursor cursor = database.query(MinionSQLiteHelper.TABLE_BASIC_INFO,
-	//			allColumns, MinionSQLiteHelper.COLUMN_ID + " = " + insertId, null,
-	//			null, null, null);
-	//		cursor.moveToFirst();
-	//		Character newCharacter = cursorToCharacter(cursor);
-	//		cursor.close();
-	//		return newCharacter;
-	//	}
 
 	/**
 	 * NOTE: This method may not be needed anymore. Stay tuned.

@@ -12,10 +12,14 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Loki White (lokiw)
  */
 public class CharacterDescription {
-	public long charID;
-	public boolean isNew; 
-	// used to determine whether to populate UI with stored values
 
+	/** The unique id for a character **/
+	public long charID;
+
+	/** Used to determine whether to populate UI with stored values **/
+	public boolean isNew; 
+
+	/** Various components the make up the basic information about a character **/
 	public String name;
 	public String player;
 	public String alignment;
@@ -28,13 +32,16 @@ public class CharacterDescription {
 	public String gender;
 	public String race;
 	public int age;
-	//consider storing in inches and displaying in feet inches
 	public int height;
 	public int weight;
 	public String hair;
 	public String eyes;
 
-
+	/**
+	 * Initializes and populates a CharacterDescription object from the data
+	 * stored in the local database.
+	 * @param id The id of the character whose information is to be loaded
+	 */
 	public CharacterDescription(long id) {
 		charID = id;
 		// set defaults
@@ -88,7 +95,6 @@ public class CharacterDescription {
 		cursor.close();
 	}
 
-
 	/** 
 	 * Writes character description / basic info to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
@@ -96,16 +102,13 @@ public class CharacterDescription {
 	 */
 	public void writeToDB() {
 		SQLiteDatabase db = SQLiteHelperBasicInfo.db;
-		// TODO implement
+
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name);
 		values.put(SQLiteHelperBasicInfo.COLUMN_ID, charID);
 		values.put(SQLiteHelperBasicInfo.COLUMN_ALIGNMENT, alignment);
 		values.put(SQLiteHelperBasicInfo.COLUMN_LEVEL, level);
 		values.put(SQLiteHelperBasicInfo.COLUMN_SIZE, size);
-		// TODO figure out what to do with alignments
-		//values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name); // alignment1
-		//values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name); // alignment2
 		values.put(SQLiteHelperBasicInfo.COLUMN_DEITY, deity);
 		values.put(SQLiteHelperBasicInfo.COLUMN_HOMELAND, homeLand);
 		values.put(SQLiteHelperBasicInfo.COLUMN_GENDER, gender);
@@ -121,10 +124,5 @@ public class CharacterDescription {
 		} else {
 			db.update(SQLiteHelperBasicInfo.TABLE_NAME, values, SQLiteHelperBasicInfo.COLUMN_ID + " = " + charID, null);
 		}
-
-		//String[] columns = {SQLiteHelperBasicInfo.COLUMN_ID};
-		//Cursor c = db.query(SQLiteHelperBasicInfo.TABLE_NAME, columns, columns[0] + " = " + name, null, null, null, null);
-		//return c.getInt(0);
-
 	}
 }

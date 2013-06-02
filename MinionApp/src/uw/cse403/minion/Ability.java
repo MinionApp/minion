@@ -14,15 +14,26 @@ import android.database.sqlite.SQLiteDatabase;
  * @author Loki White (lokiw)
  */
 public class Ability {
+	/** Class constants for string representations **/
 	static final String SAMPLE_MODIFIER = "sampleModifier";
 	private static final String BASE = "base=";
 
+	/** The unique id for a character **/
 	private long charID;
+
+	/** The id used to reference which ability this object represents **/
 	private int abilityID;
+
+	/** Stores whether or not this ability has been stored previously or not **/
 	boolean isNew;
 
+	/** The name of the ability **/
 	private AbilityName name;
+
+	/** The base ability score **/
 	private int base;
+
+	/** A collection of any temporary modifiers affecting this ability **/
 	private Map<String,Integer> tempModifiers;
 
 	/**
@@ -49,7 +60,6 @@ public class Ability {
 	 */
 	public Ability(long id, AbilityName name, int score){
 		charID = id;
-		//TODO: Consider ability values < 0
 		this.name = name;
 		this.base = score;
 		tempModifiers = new HashMap<String, Integer>();
@@ -70,6 +80,9 @@ public class Ability {
 		}
 	}
 
+	/**
+	 * Loads all of the abilities stored in the local database for the current character.
+	 */
 	private void loadAbilities() {
 		isNew = true;
 		// attempt to load from DB
@@ -114,7 +127,6 @@ public class Ability {
 	 * @modifies base
 	 */
 	public void addToBase(int modifier){
-		//TODO: Consider ability values < 0
 		base += modifier;
 	}
 
@@ -125,7 +137,6 @@ public class Ability {
 	 * @modifies this
 	 */
 	public void setBase(int newBase){
-		//TODO: Consider ability values < 0
 		base = newBase;
 	}
 
@@ -167,7 +178,6 @@ public class Ability {
 	 * @modifies this
 	 */
 	public void addTempModifier(String tempName, int tempValue){
-		//TODO: Consider already existing values
 		tempModifiers.put(tempName, tempValue);
 	}
 
@@ -183,7 +193,6 @@ public class Ability {
 	 * @return an int score representing the total ability score
 	 */
 	public int getScore(){
-		//TODO: consider capping return at 0 instead of giving negative scores
 		int score = base;
 		Collection<Integer> temps = tempModifiers.values();
 		Iterator<Integer> it = temps.iterator();
@@ -211,7 +220,6 @@ public class Ability {
 	 * 
 	 */
 	public int getMod(){
-		//TODO: Consider ability values < 0
 		int mod;
 		int score = getScore();
 		if (score >= 10) {
@@ -234,7 +242,6 @@ public class Ability {
 	 * @param dbTempMods database to write temporary mods into
 	 */
 	public void writeToDB() {
-		// TODO implement
 		SQLiteDatabase db = SQLiteHelperAbilityScores.db;
 
 		ContentValues values = new ContentValues();

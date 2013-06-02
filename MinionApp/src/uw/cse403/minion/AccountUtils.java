@@ -19,8 +19,8 @@ import android.widget.TextView;
  * validators used to manipulate user accounts.
  * @author Mary Jones (mlidge)
  */
-
 public class AccountUtils {
+	/** Class constants for string representations **/
 	private static final String PHP_ADDRESS_SIGNUP = 
 			"http://homes.cs.washington.edu/~elefse/signup.php";
 	private static final String PHP_ADDRESS_CHECK = 
@@ -33,8 +33,6 @@ public class AccountUtils {
 			"http://homes.cs.washington.edu/~elefse/resetPassword.php";
 	private static final String PHP_ADDRESS_CHECK_ANSWER = 
 			"http://homes.cs.washington.edu/~elefse/checkAnswer.php";
-
-
 
 	/**
 	 *  The regex that will only allow string with the following qualities:
@@ -68,6 +66,11 @@ public class AccountUtils {
 		return password.equals(passwordConfirmation);
 	}
 
+	/**
+	 * Checks that the given username is valid and not empty.
+	 * @param username The username the user input
+	 * @return true if username does not consist of only whitespace, false otherwise.
+	 */
 	public boolean validUsername(String username) {
 		return !username.trim().equals("");
 	}
@@ -98,7 +101,7 @@ public class AccountUtils {
 	}
 
 	/**
-	 * 
+	 * A wrapper method for the CheckLoginTask AsyncTask
 	 * @param username the inputed username
 	 * @param password the inputed password
 	 * @return a boolean representing a successful login
@@ -118,6 +121,12 @@ public class AccountUtils {
 		return false;
 	}
 
+	/**
+	 * Helper method to delete users from the remote database and thus eliminate
+	 * after the remote database has been populated by testing processes.
+	 * @param username The username of the user to be deleted
+	 * @return true if the user is successfully deleted, false otherwise
+	 */
 	public boolean deleteUser(String username) {
 		DeleteTask task = new DeleteTask(username);
 		try {
@@ -133,6 +142,11 @@ public class AccountUtils {
 		return false;
 	}
 
+	/**
+	 * A wrapper method for the GetSecurityQuestionTask AsyncTask
+	 * @param username The inputed username
+	 * @return a string representing the security question
+	 */
 	public String getSecurityQuestion(String username) {
 		GetSecurityQuestionTask task = new GetSecurityQuestionTask(username);
 		String retVal;
@@ -149,6 +163,12 @@ public class AccountUtils {
 		return null;
 	}
 
+	/**
+	 * A wrapper method for the ResetPasswordTask AsyncTask
+	 * @param username The inputed username
+	 * @param password The inputted password
+	 * @return true if the password is reset, false otherwise
+	 */
 	public boolean resetPassword(String username, String password) {
 		ResetPasswordTask task = new ResetPasswordTask(username, password);
 		try {
@@ -164,6 +184,13 @@ public class AccountUtils {
 		return false;
 	}
 
+	/**
+	 * A wrapper method for the CheckAnswerTask AsyncTask
+	 * @param username The inputed username
+	 * @param question The security question that is being queried against
+	 * @param answer The inputed security answer
+	 * @return true if the answer is correct for the user's security question, false otherwise
+	 */
 	public boolean checkAnswer(String username, String question, String answer) {
 		CheckAnswerTask task = new CheckAnswerTask(username, question, answer);
 		String res;
@@ -178,7 +205,6 @@ public class AccountUtils {
 			e.printStackTrace();
 		}
 		return false;
-
 	}
 
 	/**
@@ -237,12 +263,11 @@ public class AccountUtils {
 			}
 			return res;
 		}
-
-
-
 	}
+
 	private class DeleteTask extends AsyncTask<String, Void, String> {
 		private String un;
+
 		private DeleteTask (String username) {
 			this.un = username;
 		}
@@ -267,9 +292,6 @@ public class AccountUtils {
 			}
 			return res;
 		}
-
-
-
 	}
 
 	/**
@@ -281,7 +303,6 @@ public class AccountUtils {
 	private class CheckLoginTask extends AsyncTask<String, Void, String> {
 		private String un;
 		private String pw;
-
 
 		/**
 		 * Constructs a new CheckLoginTask object.
@@ -317,7 +338,6 @@ public class AccountUtils {
 			}
 			return res;
 		}
-
 	}
 
 	/**
@@ -329,7 +349,6 @@ public class AccountUtils {
 	private class GetSecurityQuestionTask extends AsyncTask<String, Void, String> {
 		private String un;
 
-
 		/**
 		 * Constructs a new GetSecurityQuestionTask object.
 		 * @param username The user given username
@@ -337,7 +356,6 @@ public class AccountUtils {
 		 */
 		private GetSecurityQuestionTask (String username) {
 			this.un = username;
-
 		}
 
 		/**
@@ -361,8 +379,8 @@ public class AccountUtils {
 			}
 			return res;
 		}
-
 	}
+
 	/**
 	 * ResetPasswordTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It updates the user's password to a valid
@@ -372,7 +390,6 @@ public class AccountUtils {
 	private class ResetPasswordTask extends AsyncTask<String, Void, String> {
 		private String un;
 		private String pw;
-
 
 		/**
 		 * Constructs a new ResetPasswordTask object.
@@ -384,7 +401,6 @@ public class AccountUtils {
 		private ResetPasswordTask (String username, String password) {
 			this.un = username;
 			this.pw = password;
-
 		}
 
 		/**
@@ -409,8 +425,6 @@ public class AccountUtils {
 			}
 			return res;
 		}
-
-
 	}
 
 	/**
@@ -462,8 +476,5 @@ public class AccountUtils {
 			}
 			return res;
 		}
-
-
 	}
-
 }

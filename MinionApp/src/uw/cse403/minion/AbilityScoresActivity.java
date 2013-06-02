@@ -1,6 +1,5 @@
 package uw.cse403.minion;
 
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -13,12 +12,28 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 
+/**
+ * AbilityScoresActivity is an activity that provides the user with the UI they
+ * can use to enter and edit ability information about their character. It
+ * handles both the population of the UI after loading the relevant information
+ * from the local database as well as the task of writing any new or updated
+ * information into the local database.
+ * @author 
+ */
 public class AbilityScoresActivity extends Activity {
+	/** Class constants for string representations **/
 	private static final String CHARACTER_ID = "cid";
 
+	/** The unique id for a character **/
 	private long charID;
+
+	/** Collection of the character's various abilities **/
 	private Ability[] abilities;
 
+	/**
+	 * Displays the ability scores page and loads in any previously entered information
+	 * from the local database.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,6 +60,9 @@ public class AbilityScoresActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -52,6 +70,9 @@ public class AbilityScoresActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -69,6 +90,9 @@ public class AbilityScoresActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Loads all of the ability information for the current character from the database.
+	 */
 	public void loadData() {
 		int[] abScoreFields = { R.id.str_ab_score, R.id.dex_ab_score, R.id.con_ab_score, 
 				R.id.int_ab_score, R.id.wis_ab_score, R.id.cha_ab_score };
@@ -98,12 +122,11 @@ public class AbilityScoresActivity extends Activity {
 	}
 
 	/**
-	 * On "done" button on ability scores screen get an ability
-	 * for each category and add them to an abilities array
-	 * Add the abilities score to the character
+	 * Responds to the Save button click and writes all of the currently
+	 * entered ability score information to the local database. Then sends the
+	 * user back to the main character creation screen.
 	 */
 	public void abilityScores(View view) {
-		//TODO: Replace values with ones loaded from db
 		int defaultScore = 10;
 
 		Ability str = getStr(defaultScore);
@@ -132,9 +155,7 @@ public class AbilityScoresActivity extends Activity {
 	}
 
 	/**
-	 * 
 	 * Get the values for the strength ability and store them
-	 * 
 	 * @return str the strength Ability
 	 */
 	private Ability getStr(int defaultValue) {
@@ -161,9 +182,7 @@ public class AbilityScoresActivity extends Activity {
 	}
 
 	/**
-	 * 
 	 * Get the values for the dexterity ability and store them
-	 * 
 	 * @return dex the dexterity Ability
 	 */	
 	private Ability getDex(int defaultValue) {
@@ -190,9 +209,7 @@ public class AbilityScoresActivity extends Activity {
 	}
 
 	/**
-	 * 
 	 * Get the values for the constitution ability and store them
-	 * 
 	 * @return con the constitution Ability
 	 */
 	private Ability getCon(int defaultValue) {
@@ -219,9 +236,7 @@ public class AbilityScoresActivity extends Activity {
 	}
 
 	/**
-	 * 
 	 * Get the values for the intelligence ability and store them
-	 * 
 	 * @return intel the intelligence Ability
 	 */
 	private Ability getInt(int defaultValue) {
@@ -248,9 +263,7 @@ public class AbilityScoresActivity extends Activity {
 	}
 
 	/**
-	 * 
 	 * Get the values for the wisdom ability and store them
-	 * 
 	 * @return wis the wisdom Ability
 	 */
 	private Ability getWis(int defaultValue) {
@@ -277,9 +290,7 @@ public class AbilityScoresActivity extends Activity {
 	}
 
 	/**
-	 * 
 	 * Get the values for the charisma ability and store them
-	 * 
 	 * @return cha the charisma Ability
 	 */
 	private Ability getCha(int defaultValue) {

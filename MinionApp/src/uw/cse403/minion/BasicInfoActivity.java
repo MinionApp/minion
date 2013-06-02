@@ -1,6 +1,5 @@
 package uw.cse403.minion;
 
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -12,14 +11,30 @@ import android.widget.Spinner;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
+/**
+ * BasicInfoActivity is an activity that provides the user with the UI they
+ * can use to enter and edit basic information about their character. It
+ * handles both the population of the UI after loading the relevant information
+ * from the local database as well as the task of writing any new or updated
+ * information into the local database.
+ * @author 
+ */
 public class BasicInfoActivity extends Activity {
+	/** Class constants for string representations **/
 	private static final String CHARACTER_ID = "cid";
+
+	/** The unique id for a character **/
 	private long charID;
+
+	/** Objec that stores all the basic information about the character **/
 	CharacterDescription baseInfo;
 
+	/**
+	 * Displays the basic information page and loads in any previously entered information
+	 * from the local database.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +55,9 @@ public class BasicInfoActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -47,6 +65,9 @@ public class BasicInfoActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -64,6 +85,9 @@ public class BasicInfoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Loads all of the basic information for the current character from the database.
+	 */
 	public void loadData() {
 		if (!baseInfo.isNew) {
 			//Name
@@ -78,10 +102,6 @@ public class BasicInfoActivity extends Activity {
 			int spinnerPosition = myAdap.getPosition(baseInfo.alignment);
 			//set the default according to value
 			alignments.setSelection(spinnerPosition);
-
-			//Player
-			//EditText playerEnter = (EditText) findViewById(R.id.player_enter);
-			//playerEnter.setText(baseInfo.player);
 
 			//Level
 			EditText levelEnter = (EditText) findViewById(R.id.char_level_enter);
@@ -134,10 +154,12 @@ public class BasicInfoActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Responds to the Save button click and writes all of the currently
+	 * entered basic information to the local database. Then sends the
+	 * user back to the main character creation screen.
+	 */
 	public void basicInfo(View view){
-		//System.out.println("BASIC INFO");
-		//TODO: Handle empty cases
-
 		EditText charName = (EditText) findViewById(R.id.char_name_enter);
 		String cName = charName.getText().toString().trim();
 		if (!cName.matches("")) {
@@ -152,13 +174,6 @@ public class BasicInfoActivity extends Activity {
 			baseInfo.alignment = align;
 		}
 
-		//Player
-		//EditText playerEnter = (EditText) findViewById(R.id.player_enter);
-		//String player = playerEnter.getText().toString().trim();
-		//if (!player.matches("")) {
-		//	baseInfo.player = player;
-		//}
-
 		//Level
 		EditText levelEnter = (EditText) findViewById(R.id.char_level_enter);
 		String level = levelEnter.getText().toString().trim();
@@ -167,7 +182,6 @@ public class BasicInfoActivity extends Activity {
 			System.out.println("REACHED THIS POINT");
 			baseInfo.level = Integer.parseInt(level);
 		}
-
 
 		//Deity
 		EditText deityEnter = (EditText) findViewById(R.id.deity_enter);
@@ -247,7 +261,5 @@ public class BasicInfoActivity extends Activity {
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
-
 	}
-
 }
