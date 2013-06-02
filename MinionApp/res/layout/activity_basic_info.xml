@@ -48,7 +48,7 @@
 	    <Spinner
 	        android:id="@+id/alignment_spinner"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_height="match_parent"
 	        android:drawSelectorOnTop="true"
 	        android:textSize="12sp"
 	        android:entries="@array/alignment_array"
@@ -138,6 +138,12 @@
 	        android:text="@string/size" />
 	    
 	    <TextView
+	        android:id="@+id/placeholder"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
+	    
+	    <TextView
 	        android:id="@+id/gender_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -169,9 +175,8 @@
 	    <Spinner
 	        android:id="@+id/size_spinner"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_height="match_parent"
 	        android:drawSelectorOnTop="true"
-	        android:textSize="12sp"
 	        android:entries="@array/size_array"
 	        android:prompt="@string/size_prompt" />
 	    
@@ -211,6 +216,12 @@
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:text="@string/weight" />
+	    
+		<TextView
+	        android:id="@+id/placeholder2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1" />
 	    
 	    <TextView
 	        android:id="@+id/hair_title"
