@@ -302,12 +302,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/craft" />
 	        
-	        <EditText 
-		        android:id="@+id/craft1_enter"
-		        android:inputType="textAutoCorrect"
+	        <Spinner
+		        android:id="@+id/craft1_spinner"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:hint="@string/type" />
+		        android:drawSelectorOnTop="true"
+		        android:textSize="12sp"
+		        android:entries="@array/craft_array"
+		        android:prompt="@string/craft_prompt" />
         
         </LinearLayout>
         
@@ -375,12 +377,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/craft" />
 	        
-	        <EditText 
-		        android:id="@+id/craft2_enter"
-		        android:inputType="textAutoCorrect"
+	        <Spinner
+		        android:id="@+id/craft2_spinner"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:hint="@string/type" />
+		        android:drawSelectorOnTop="true"
+		        android:textSize="12sp"
+		        android:entries="@array/craft_array"
+		        android:prompt="@string/craft_prompt" />
         
         </LinearLayout>
         
@@ -449,12 +453,14 @@
 		        
 		        android:text="@string/craft" />
 	        
-	        <EditText 
-		        android:id="@+id/craft3_enter"
-		        android:inputType="textAutoCorrect"
+	        <Spinner
+		        android:id="@+id/craft3_spinner"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:hint="@string/type" />
+		        android:drawSelectorOnTop="true"
+		        android:textSize="12sp"
+		        android:entries="@array/craft_array"
+		        android:prompt="@string/craft_prompt" />
         
         </LinearLayout>
         
@@ -1682,12 +1688,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/perform" />
 	        
-	        <EditText 
-		        android:id="@+id/perform1_enter"
-		        android:inputType="textAutoCorrect"
+	        <Spinner
+		        android:id="@+id/perform1_spinner"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:hint="@string/type" />
+		        android:drawSelectorOnTop="true"
+		        android:textSize="12sp"
+		        android:entries="@array/perform_array"
+		        android:prompt="@string/perform_prompt" />
         
         </LinearLayout>
         
@@ -1755,12 +1763,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/perform" />
 	        
-	        <EditText 
-		        android:id="@+id/perform2_enter"
-		        android:inputType="textAutoCorrect"
+	        <Spinner
+		        android:id="@+id/perform2_spinner"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:hint="@string/type" />
+		        android:drawSelectorOnTop="true"
+		        android:textSize="12sp"
+		        android:entries="@array/perform_array"
+		        android:prompt="@string/perform_prompt" />
         
         </LinearLayout>
         
@@ -1828,12 +1838,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/profession" />
 	        
-	        <EditText 
-		        android:id="@+id/profession1_enter"
-		        android:inputType="textAutoCorrect"
+	        <Spinner
+		        android:id="@+id/profession1_spinner"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:hint="@string/type" />
+		        android:drawSelectorOnTop="true"
+		        android:textSize="12sp"
+		        android:entries="@array/profession_array"
+		        android:prompt="@string/profession_prompt" />
         
         </LinearLayout>
         
@@ -1901,12 +1913,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/profession" />
 	        
-	        <EditText 
-		        android:id="@+id/profession2_enter"
-		        android:inputType="textAutoCorrect"
+	        <Spinner
+		        android:id="@+id/profession2_spinner"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:hint="@string/type" />
+		        android:drawSelectorOnTop="true"
+		        android:textSize="12sp"
+		        android:entries="@array/profession_array"
+		        android:prompt="@string/profession_prompt" />
         
         </LinearLayout>
         

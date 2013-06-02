@@ -203,6 +203,78 @@
     <string name="swim">Swim</string>
     <string name="use_magic_device">Use Magic\nDevice</string>
     
+    <string name="perform_prompt">Choose a Perform category</string>
+    <string-array name="perform_array">
+        <item>Act</item>
+        <item>Comedy</item>
+        <item>Dance</item>
+        <item>Keyboard Instruments</item>
+        <item>Oratory</item>
+        <item>Percussion Instruments</item>
+        <item>String Instruments</item>
+        <item>Wind Instruments</item>
+        <item>Sing</item>
+    </string-array>
+    
+    <string name="profession_prompt">Choose a Profession</string>
+    <string-array name="profession_array">
+        <item>Architect</item>
+        <item>Baker</item>
+        <item>Barrister</item>
+        <item>Brewer</item>
+        <item>Butcher</item>
+        <item>Clerk</item>
+        <item>Cook</item>
+        <item>Courtesan</item>
+        <item>Driver</item>
+        <item>Engineer</item>
+        <item>Farmer</item>
+        <item>Fisherman</item>
+        <item>Gambler</item>
+        <item>Gardener</item>
+        <item>Herbalist</item>
+        <item>Innkeeper</item>
+        <item>Librarian</item>
+        <item>Merchant</item>
+        <item>Midwife</item>
+        <item>Miller</item>
+        <item>Miner</item>
+        <item>Porter</item>
+        <item>Sailor</item>
+        <item>Scribe</item>
+        <item>Shepherd</item>
+        <item>Stable Master</item>
+        <item>Soldier</item>
+        <item>Tanner</item>
+        <item>Trapper</item>
+        <item>Woodcutter</item>
+    </string-array>
+    
+    <string name="craft_prompt">Choose a Craft</string>
+    <string-array name="craft_array">
+        <item>Alchemy</item>
+        <item>Armor</item>
+        <item>Baskets</item>
+        <item>Books</item>
+        <item>Bows</item>
+        <item>Calligraphy</item>
+        <item>Carpentry</item>
+        <item>Cloth</item>
+        <item>Clothing</item>
+        <item>Glass</item>
+        <item>Jewelry</item>
+        <item>Leather</item>
+        <item>Locks</item>
+        <item>Paintings</item>
+        <item>Pottery</item>
+        <item>Sculptures</item>
+        <item>Ships</item>
+        <item>Shoes</item>
+        <item>Stonemasonry</item>
+        <item>Traps</item>
+        <item>Weapons</item>
+    </string-array>
+    
     <string name="fortitude_title">Fortitude (Constitution)</string>
     <string name="reflex_title">Reflex (Dexterity)</string>
     <string name="will_title">Will (Wisdom)</string>
