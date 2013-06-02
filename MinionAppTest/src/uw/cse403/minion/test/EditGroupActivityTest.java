@@ -8,6 +8,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Thomas Eberlein
+ *
+ */
 public class EditGroupActivityTest extends
 	ActivityInstrumentationTestCase2<EditGroupActivity>  {
 	
