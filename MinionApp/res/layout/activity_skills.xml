@@ -304,10 +304,9 @@
 	        
 	        <Spinner
 		        android:id="@+id/craft1_spinner"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		        android:layout_width="85dp"
+		        android:layout_height="35dp"
 		        android:drawSelectorOnTop="true"
-		        android:textSize="12sp"
 		        android:entries="@array/craft_array"
 		        android:prompt="@string/craft_prompt" />
         
@@ -379,10 +378,9 @@
 	        
 	        <Spinner
 		        android:id="@+id/craft2_spinner"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		        android:layout_width="85dp"
+		        android:layout_height="35dp"
 		        android:drawSelectorOnTop="true"
-		        android:textSize="12sp"
 		        android:entries="@array/craft_array"
 		        android:prompt="@string/craft_prompt" />
         
@@ -455,10 +453,9 @@
 	        
 	        <Spinner
 		        android:id="@+id/craft3_spinner"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		        android:layout_width="85dp"
+		        android:layout_height="35dp"
 		        android:drawSelectorOnTop="true"
-		        android:textSize="12sp"
 		        android:entries="@array/craft_array"
 		        android:prompt="@string/craft_prompt" />
         
@@ -1690,8 +1687,8 @@
 	        
 	        <Spinner
 		        android:id="@+id/perform1_spinner"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		        android:layout_width="85dp"
+		        android:layout_height="35dp"
 		        android:drawSelectorOnTop="true"
 		        android:textSize="12sp"
 		        android:entries="@array/perform_array"
@@ -1765,8 +1762,8 @@
 	        
 	        <Spinner
 		        android:id="@+id/perform2_spinner"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		        android:layout_width="85dp"
+		        android:layout_height="35dp"
 		        android:drawSelectorOnTop="true"
 		        android:textSize="12sp"
 		        android:entries="@array/perform_array"
@@ -1840,8 +1837,8 @@
 	        
 	        <Spinner
 		        android:id="@+id/profession1_spinner"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		        android:layout_width="85dp"
+		        android:layout_height="35dp"
 		        android:drawSelectorOnTop="true"
 		        android:textSize="12sp"
 		        android:entries="@array/profession_array"
@@ -1915,8 +1912,8 @@
 	        
 	        <Spinner
 		        android:id="@+id/profession2_spinner"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		        android:layout_width="85dp"
+		        android:layout_height="35dp"
 		        android:drawSelectorOnTop="true"
 		        android:textSize="12sp"
 		        android:entries="@array/profession_array"

@@ -208,11 +208,11 @@
         <item>Act</item>
         <item>Comedy</item>
         <item>Dance</item>
-        <item>Keyboard Instruments</item>
+        <item>Keyboard</item>
         <item>Oratory</item>
-        <item>Percussion Instruments</item>
-        <item>String Instruments</item>
-        <item>Wind Instruments</item>
+        <item>Percussion</item>
+        <item>Strings</item>
+        <item>Wind</item>
         <item>Sing</item>
     </string-array>
     

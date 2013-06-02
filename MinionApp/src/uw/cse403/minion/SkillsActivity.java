@@ -259,7 +259,7 @@ public class SkillsActivity extends Activity {
 				if (skillID == 5 || skillID == 26 || skillID == 27) {
 					Spinner spinner = (Spinner) findViewById(titleFieldID);
 					ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, arrayID,
-			                R.layout.multiline_spinner_dropdown_item);
+			                R.layout.smaller_multiline_spinner_dropdown_item);
 					spinner.setAdapter(myAdap);
 					int spinnerPosition = myAdap.getPosition(title);
 					//set the default according to value
