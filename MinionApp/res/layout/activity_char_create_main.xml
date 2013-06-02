@@ -8,57 +8,67 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CharCreateMainActivity" >
 
-    <Button
-        android:id="@+id/basic_info"
+    <TextView
+        android:id="@+id/char_creation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:onClick="gotoBasicInfo"
-        android:text="@string/button_basic_info" />
+        android:text="Character Creation"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/ability_scores"
+    <LinearLayout
+        android:id="@+id/homepage_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/basic_info"
-        android:layout_centerHorizontal="true"
-        android:onClick="gotoAbilityScores"
-        android:text="@string/button_ability_scores" />
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/skills"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ability_scores"
-        android:layout_centerHorizontal="true"
-        android:onClick="gotoSkills"
-        android:text="@string/button_skills" />
+        <Button
+            android:id="@+id/basic_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="gotoBasicInfo"
+            android:text="@string/button_basic_info" />
 
-    <Button
-        android:id="@+id/combat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/skills"
-        android:layout_centerHorizontal="true"
-        android:onClick="gotoCombat"
-        android:text="@string/button_combat" />
+        <Button
+            android:id="@+id/ability_scores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:onClick="gotoAbilityScores"
+            android:text="@string/button_ability_scores" />
 
-    <Button
-        android:id="@+id/saving_throws"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/combat"
-        android:layout_centerHorizontal="true"
-        android:onClick="gotoSavingThrows"
-        android:text="@string/button_saving_throws" />
+        <Button
+            android:id="@+id/skills"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:onClick="gotoSkills"
+            android:text="@string/button_skills" />
 
-    <Button
-        android:id="@+id/done_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/saving_throws"
-        android:layout_centerHorizontal="true"
-        android:onClick="gotoCharacterList"
-        android:text="@string/done" />
+        <Button
+            android:id="@+id/combat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:onClick="gotoCombat"
+            android:text="@string/button_combat" />
+
+        <Button
+            android:id="@+id/saving_throws"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:onClick="gotoSavingThrows"
+            android:text="@string/button_saving_throws" />
+
+        <Button
+            android:id="@+id/done_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:onClick="gotoCharacterList"
+            android:text="@string/done" />
+    </LinearLayout>
 
 </RelativeLayout>
