@@ -58,6 +58,7 @@ public class Skill {
 	 * given name, associated ability, rank and whether or not it is a class skill.
 	 * 
 	 * @param name			String name of new skill
+	 * @param title			Secondary name for a skill such as craft, profession and perform
 	 * @param attribute		an AbilityName of which attribute is associated with this skill
 	 * @param rank			int ranks of new skill, will not set rank lower than 0
 	 * @param classSkill	a boolean that if <code>false</code> means the skill is not a class
