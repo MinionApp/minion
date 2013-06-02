@@ -1,6 +1,8 @@
 package uw.cse403.minion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -58,13 +61,13 @@ public class ViewInvitesActivity extends ListActivity {
 	 * Change this array's name and contents to be the character information
 	 * received from the database
 	 */
-	private static ArrayList<String> testArray;
+	private static ArrayList<HashMap<String, String>> testArray;
 	private static ArrayList<String> testArray2;
 
 	/**
 	 * Adapter for connecting the array above to the UI view
 	 */
-	private ArrayAdapter<String> adapter;
+	private SimpleAdapter adapter;
 	
 	/**
 	 * Displays the view invites page for the current user.
@@ -208,7 +211,7 @@ public class ViewInvitesActivity extends ListActivity {
 	 * MySQL database parallel to the main UI thread. It gets all of the pending invites
 	 * for the current user and displays them in a ListView.
 	 */
-	private class GetInvitesTask extends AsyncTask<String, Void, ArrayList<String>> {
+	private class GetInvitesTask extends AsyncTask<String, Void, ArrayList<HashMap<String, String>>> {
 		private Context context;
 		
 		/**
@@ -222,13 +225,13 @@ public class ViewInvitesActivity extends ListActivity {
 	    /**
 	     * Makes the HTTP request and returns the result as a String.
 	     */
-	    protected ArrayList<String> doInBackground(String... args) {
+	    protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
 	        //the data to send
 	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 	        postParameters.add(new BasicNameValuePair("un", username));
 	        
 	        // Hashmap for ListView
-	        ArrayList<String> invitesArray = new ArrayList<String>();
+	        ArrayList<HashMap<String, String>> invitesArray = new ArrayList<HashMap<String, String>>();
 			String result = null;
 	        
 	        //http post
@@ -237,17 +240,23 @@ public class ViewInvitesActivity extends ListActivity {
 	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
 	        	res = result.toString();    
 	        	JSONObject results  = new JSONObject(res);
-	        	JSONArray invites = results.getJSONArray("items");
+	        	JSONArray groups = results.getJSONArray("items");
 	        	// looping through groups
-	            for(int i = 0; i < invites.length(); i++){
-	                JSONObject c = invites.getJSONObject(i);
+	            for(int i = 0; i < groups.length(); i++){
+	                JSONObject c = groups.getJSONObject(i);
 	                 
 	                // Storing each json item in variable
 	                String groupName = c.getString("groupname");
-
-	                invitesArray.add(groupName);
+	                String gm = c.getString("gm");
+	                
+	                // creating new HashMap
+	                HashMap<String, String> map = new HashMap<String, String>();
+	                map.put(GROUPNAME, groupName);
+	                map.put(GAME_MASTER, gm);
+	                // adding HashList to ArrayList
+	                invitesArray.add(map);
 	            }
-	        } catch (Exception e) {  
+	        } catch (Exception e) {
 	        	res = e.toString();
 	        }
 	        return invitesArray;
@@ -256,7 +265,7 @@ public class ViewInvitesActivity extends ListActivity {
 	    /**
 	     * Parses the String result and directs to the correct Activity
 	     */
-	    protected void onPostExecute(ArrayList<String> result) {
+	    protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
 	    	if(result.size() == 0) {
 	    		ListView list = (ListView) findViewById(android.R.id.list);
 	    		list.setVisibility(View.GONE);
@@ -270,7 +279,10 @@ public class ViewInvitesActivity extends ListActivity {
 
 		        // Create an empty adapter we will use to display the loaded data.
 		        // We pass null for the cursor, then update it in onLoadFinished()
-		        adapter = new ArrayAdapter<String>(context, R.layout.custom_invite_list_item, R.id.invite, testArray);
+		        adapter = new SimpleAdapter(context, testArray, 
+		        		R.layout.custom_invite_list_item, new String[] { GROUPNAME, GAME_MASTER }, new int[] {
+		        		R.id.invite, R.id.gm_field });
+
 		        invitesListView.setAdapter(adapter);
 		        
 		        invitesListView.setOnItemClickListener(new OnItemClickListener() {
@@ -283,7 +295,9 @@ public class ViewInvitesActivity extends ListActivity {
 						TextView groupTextView = (TextView) view.findViewById(R.id.invite);
 						String groupname = groupTextView.getText().toString();
 						intent.putExtra(GROUPNAME, groupname);
-						intent.putExtra(GAME_MASTER, "test");
+						TextView gmTextView = (TextView) view.findViewById(R.id.gm_field);
+						String gm = gmTextView.getText().toString();
+						intent.putExtra(GAME_MASTER, gm);
 						startActivity(intent);
 					}
 		          });

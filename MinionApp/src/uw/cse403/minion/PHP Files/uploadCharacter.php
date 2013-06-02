@@ -52,7 +52,7 @@ try {
 		foreach($skills->skills as $skill) {
 			$ref_id = $skill->ref_id;
 			$ranks = $skill->ranks;
-			$misc_mod = $ability->score;
+			$misc_mod = $skill->score;
 			$sql = "DELETE FROM `char_skills` WHERE `char_id` = '$id' AND `ref_id` = '$ref_id'";
 			$result = $db->exec($sql);
 			$sql = "INSERT INTO `char_skills` (`char_id`, `ref_id`, `ranks`, `misc_mod`) VALUES ('$id', '$ref_id', '$ranks', '$misc_mod')";

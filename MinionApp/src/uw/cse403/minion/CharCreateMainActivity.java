@@ -309,7 +309,7 @@ public class CharCreateMainActivity extends Activity {
 	        postParameters.add(new BasicNameValuePair("skills", skillsObject.toString()));
 	        postParameters.add(new BasicNameValuePair("combat", combatObject.toString()));
 	        postParameters.add(new BasicNameValuePair("savingThrows", savingThrowsObject.toString()));
-	        Log.i("JSON", skillsObject.toString());
+	        Log.i("JSON", savingThrowsObject.toString());
 			String result = null;
 	        
 	        //http post

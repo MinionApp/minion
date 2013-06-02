@@ -10,9 +10,15 @@
         android:id="@+id/invite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:textSize="16sp"
         android:text="" />
+	
+	<TextView 
+	    android:id="@+id/gm_field" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+	    android:layout_below="@+id/invite"
+	    android:textAppearance="?android:attr/textAppearanceSmall"/>
     
     <Button
         android:id="@+id/decline_button"
