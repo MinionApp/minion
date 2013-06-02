@@ -138,6 +138,7 @@ public class ViewInvitesActivity extends ListActivity {
 	    datasource.open();
 		// To test reading from database:
 	    testArray2 = new ArrayList<String>();
+	    
         //GETS ALL CHAR
         Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
         		null, null, null, null, null);

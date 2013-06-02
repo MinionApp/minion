@@ -24,7 +24,8 @@
 	    android:layout_alignParentTop="true"
 	    android:layout_alignParentRight="true"
 		android:visibility="gone"
-	    android:text="Edit" />
+	    android:text="Edit"
+	    android:onClick="editGroup" />
     
 	<LinearLayout
 	    android:id="@+id/invite_buttons"
@@ -40,14 +41,16 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
-	        android:text="Accept" />
+	        android:text="Accept"
+	        android:onClick="acceptInvite" />
 	
 	    <Button
 	        android:id="@+id/decline_button"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 			android:layout_weight="1"
-	        android:text="Decline" />
+	        android:text="Decline"
+	        android:onClick="declineInvite" />
 	</LinearLayout>
 
 	

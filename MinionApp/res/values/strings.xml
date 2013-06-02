@@ -309,5 +309,8 @@
     <string name="button_test">Test GUI</string>
     
     <string name="sp">""</string>
+    <string name="remove_user">Remove User</string>
+    <string name="invite_user">Invite User</string>
+    <string name="finish_editing">Finish</string>
 
 </resources>
