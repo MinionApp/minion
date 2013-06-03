@@ -219,7 +219,7 @@ public class LoginActivity extends Activity {
 				// Stores the username to be used by later Activities
 				SaveSharedPreference.setPersistentUserName(context, un);
 				// Login succeeds, go to homepage.
-				Intent intent = new Intent(context, HomeActivity.class);
+				Intent intent = new Intent(context, LoadCharactersActivity.class);
 				startActivity(intent);
 				finish();
 			} else {

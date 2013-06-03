@@ -152,6 +152,10 @@
             android:name="uw.cse403.minion.EditGroupActivity"
             android:label="@string/title_activity_edit_group" >
         </activity>
+        <activity
+            android:name="uw.cse403.minion.LoadCharactersActivity"
+            android:label="@string/title_activity_load_characters" >
+        </activity>
     </application>
 
 </manifest>

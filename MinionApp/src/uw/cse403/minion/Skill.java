@@ -68,32 +68,28 @@ public class Skill {
 	 * @param classSkill 	a boolean that if <code>false</code> means the skill is not a class
 	 * 						skill and if <code>true</code> is a class skill
 	 */
-	public Skill(int skillID, String name, AbilityName attribute, int rank, boolean classSkill){
-		this(skillID, name, null, attribute, rank, classSkill);
+	public Skill(int skillID, int rank){
+		this(skillID, null, rank);
 	}
 
 	/**
 	 * Initializes a new skill with almost all necessary information. Sets values for
 	 * given name, associated ability, rank and whether or not it is a class skill.
-	 * @param name			String name of new skill
 	 * @param title			Secondary name for a skill such as craft, profession and perform
-	 * @param attribute		an AbilityName of which attribute is associated with this skill
 	 * @param rank			int ranks of new skill, will not set rank lower than 0
-	 * @param classSkill	a boolean that if <code>false</code> means the skill is not a class
-	 * 						skill and if <code>true</code> is a class skill
 	 */
-	public Skill(int skillID, String name, String title, AbilityName attribute, int rank, boolean classSkill){
+	public Skill(int skillID, String title, int rank){
 		this.skillID = skillID;
-		this.name = name;
+		//this.name = name;
 		this.title = title;
 		if (rank < 0) {
 			this.ranks = 0;
 		} else {
 			this.ranks = rank;
 		}
-		this.classSkill = classSkill;
+		//this.classSkill = classSkill;
 		modifiers = new HashMap<String,Integer>();
-		assocAbility = attribute;
+		//assocAbility = attribute;
 		abMod = -1;
 	}
 

@@ -20,7 +20,7 @@ import android.os.Build;
  * handles both the population of the UI after loading the relevant information
  * from the local database as well as the task of writing any new or updated
  * information into the local database.
- * @author 
+ * @author Kevin Dong (kevinxd3)
  */
 public class CombatActivity extends Activity {
 
