@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,9 @@ public class LoginActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("LoginActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		Intent intent;
 		// If the user has not chosen to remain logged in, sends to login page
@@ -55,6 +59,9 @@ public class LoginActivity extends Activity {
 			startActivity(intent);
 			finish();
 		}
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.annotation.TargetApi;
 import android.app.ListActivity;
 import android.content.Context;
@@ -57,6 +58,9 @@ public class EditGroupActivity extends ListActivity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("EditGroupActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_group);
 		// Show the Up button in the action bar.
@@ -72,8 +76,15 @@ public class EditGroupActivity extends ListActivity {
 		TextView gameMasterText = (TextView) findViewById(R.id.game_master_name);
 		gameMasterText.setText(gm);
 
+<<<<<<< HEAD
 		setListAdapter(new CustomArrayAdapter());
 
+=======
+		setListAdapter(new IconicAdapter());
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
+>>>>>>> ad0541ecee890f93976b9e075f257c8820e55824
 	}
 
 	/**

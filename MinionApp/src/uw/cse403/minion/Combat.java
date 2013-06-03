@@ -7,6 +7,11 @@ import java.util.Map;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+<<<<<<< HEAD
+=======
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Debug;
+>>>>>>> ad0541ecee890f93976b9e075f257c8820e55824
 
 /**
  * A wrapper class with a few associated calculations to do with combat
@@ -72,7 +77,13 @@ public class Combat {
 		initModifier = 0;
 		bAb = 0;
 
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("Combat_loadFromDB");
+		
 		loadFromDB();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,9 @@ public class SignupActivity extends Activity{
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("SignupActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 
 		Intent receivedIntent = getIntent();
@@ -102,6 +106,9 @@ public class SignupActivity extends Activity{
 		answerEditText.setText(receivedIntent.getStringExtra(ANSWER), EditText.BufferType.EDITABLE);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -93,6 +94,9 @@ public class ViewGroupActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("ViewGroupActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_group);
 		// Show the Up button in the action bar.
@@ -106,6 +110,9 @@ public class ViewGroupActivity extends Activity {
 		gameMasterText.setText(gm);
 		GetGroupInfoTask task = new GetGroupInfoTask(this);
 		task.execute(username);
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

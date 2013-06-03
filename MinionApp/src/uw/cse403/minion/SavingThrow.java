@@ -4,6 +4,11 @@ import java.util.*;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+<<<<<<< HEAD
+=======
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Debug;
+>>>>>>> ad0541ecee890f93976b9e075f257c8820e55824
 
 /**
  * A wrapper class around the saving throws of a character.
@@ -42,8 +47,14 @@ public class SavingThrow {
 		assocAbility = attribute;
 		baseSave = 0;
 		modifiers = new HashMap<String,Integer>();
-
+		
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("SavingThrow_database");
+		
 		loadFromDB();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

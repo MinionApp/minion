@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Debug;
 
 /**
  * 
@@ -40,6 +41,9 @@ public class CharacterDataSource {
 	 * @param context The given Activity's context
 	 */
 	public CharacterDataSource(Context context) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("CharacterDataSource_constructor");
+		
 		helperRef			= new SQLiteHelperRefTables(context);
 
 		helperBasicInfo 	= new SQLiteHelperBasicInfo(context);
@@ -50,7 +54,7 @@ public class CharacterDataSource {
 		helperArmor 		= new SQLiteHelperArmor(context);
 		helperSavingThrows 	= new SQLiteHelperSavingThrows(context);
 		helperWeapons 		= new SQLiteHelperWeapons(context);
-
+		
 		helpers = new SQLiteHelperInterface[8];
 
 		helpers[0] = helperBasicInfo;
@@ -62,6 +66,8 @@ public class CharacterDataSource {
 		helpers[6] = helperSavingThrows;
 		helpers[7] = helperWeapons;
 
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

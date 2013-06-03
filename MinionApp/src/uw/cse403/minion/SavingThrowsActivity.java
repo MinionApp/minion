@@ -1,6 +1,7 @@
 package uw.cse403.minion;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,9 @@ public class SavingThrowsActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("SavingThrowsActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_saving_throws);
 		charID = this.getIntent().getExtras().getLong("cid");
@@ -45,6 +49,9 @@ public class SavingThrowsActivity extends Activity {
 		will = new SavingThrow(AbilityName.WISDOM);
 
 		loadData();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -101,62 +108,62 @@ public class SavingThrowsActivity extends Activity {
 
 		if (!fortitude.isNew) {
 			TextView fortTotalField = (TextView) findViewById(R.id.fortitude_total);
-			fortTotalField.setText(""+fortitude.getTotal());
-
+			fortTotalField.setText("" + fortitude.getTotal());
+			
 			EditText fortBaseEnter = (EditText) findViewById(R.id.fortitude_base);
-			fortBaseEnter.setText(""+fortitude.getBaseSave());
-
+			fortBaseEnter.setText("" + fortitude.getBaseSave());
+			
 			TextView fortAbModField = (TextView) findViewById(R.id.fortitude_ability);
-			fortAbModField.setText(""+fortitude.abMod);
-
+			fortAbModField.setText("" + fortitude.abMod);
+			
 			EditText fortMagicEnter = (EditText) findViewById(R.id.fortitude_magic);
-			fortMagicEnter.setText(""+fortitude.getModifier(SavingThrow.MAGIC_MOD_STRING));
-
+			fortMagicEnter.setText("" + fortitude.getModifier(SavingThrow.MAGIC_MOD_STRING));
+			
 			EditText fortMiscEnter = (EditText) findViewById(R.id.fortitude_misc);
-			fortMiscEnter.setText(""+fortitude.getModifier(SavingThrow.MISC_MOD_STRING));
-
+			fortMiscEnter.setText("" + fortitude.getModifier(SavingThrow.MISC_MOD_STRING));
+			
 			EditText fortTempEnter = (EditText) findViewById(R.id.fortitude_temp);
-			fortTempEnter.setText(""+fortitude.getModifier(SavingThrow.TEMP_MOD_STRING));
+			fortTempEnter.setText("" + fortitude.getModifier(SavingThrow.TEMP_MOD_STRING));
 		}
 
 		if (!reflex.isNew) {
 			TextView reflexTotalField = (TextView) findViewById(R.id.reflex_total);
-			reflexTotalField.setText(""+reflex.getTotal());
+			reflexTotalField.setText("" + reflex.getTotal());
 
 			EditText reflexBaseEnter = (EditText) findViewById(R.id.reflex_base);
-			reflexBaseEnter.setText(""+reflex.getBaseSave());
-
+			reflexBaseEnter.setText("" + reflex.getBaseSave());
+			
 			TextView reflexAbModField = (TextView) findViewById(R.id.reflex_ability);
-			reflexAbModField.setText(""+reflex.abMod);
-
+			reflexAbModField.setText("" + reflex.abMod);
+			
 			EditText reflexMagicEnter = (EditText) findViewById(R.id.reflex_magic);
-			reflexMagicEnter.setText(""+reflex.getModifier(SavingThrow.MAGIC_MOD_STRING));
-
+			reflexMagicEnter.setText("" + reflex.getModifier(SavingThrow.MAGIC_MOD_STRING));
+			
 			EditText reflexMiscEnter = (EditText) findViewById(R.id.reflex_misc);
-			reflexMiscEnter.setText(""+reflex.getModifier(SavingThrow.MISC_MOD_STRING));
-
+			reflexMiscEnter.setText("" + reflex.getModifier(SavingThrow.MISC_MOD_STRING));
+			
 			EditText reflexTempEnter = (EditText) findViewById(R.id.reflex_temp);
-			reflexTempEnter.setText(""+reflex.getModifier(SavingThrow.TEMP_MOD_STRING));
+			reflexTempEnter.setText("" + reflex.getModifier(SavingThrow.TEMP_MOD_STRING));
 		}
 
 		if (!will.isNew) {
 			TextView willTotalField = (TextView) findViewById(R.id.will_total);
-			willTotalField.setText(""+will.getTotal());
+			willTotalField.setText("" + will.getTotal());
 
 			EditText willBaseEnter = (EditText) findViewById(R.id.will_base);
-			willBaseEnter.setText(""+will.getBaseSave());
-
+			willBaseEnter.setText("" + will.getBaseSave());
+			
 			TextView willAbModField = (TextView) findViewById(R.id.will_ability);
-			willAbModField.setText(""+will.abMod);
-
+			willAbModField.setText("" + will.abMod);
+			
 			EditText willMagicEnter = (EditText) findViewById(R.id.will_magic);
-			willMagicEnter.setText(""+will.getModifier(SavingThrow.MAGIC_MOD_STRING));
-
+			willMagicEnter.setText("" + will.getModifier(SavingThrow.MAGIC_MOD_STRING));
+			
 			EditText willMiscEnter = (EditText) findViewById(R.id.will_misc);
-			willMiscEnter.setText(""+will.getModifier(SavingThrow.MISC_MOD_STRING));
-
+			willMiscEnter.setText("" + will.getModifier(SavingThrow.MISC_MOD_STRING));
+			
 			EditText willTempEnter = (EditText) findViewById(R.id.will_temp);
-			willTempEnter.setText(""+will.getModifier(SavingThrow.TEMP_MOD_STRING));
+			willTempEnter.setText("" + will.getModifier(SavingThrow.TEMP_MOD_STRING));
 		}
 	}
 

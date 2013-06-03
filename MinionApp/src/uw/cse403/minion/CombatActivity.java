@@ -1,6 +1,7 @@
 package uw.cse403.minion;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,12 +36,18 @@ public class CombatActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("CombatActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_combat);
 		charID = this.getIntent().getExtras().getLong("cid");
 		combat = new Combat(charID);
 
 		loadData();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -123,55 +130,55 @@ public class CombatActivity extends Activity {
 		// load user data
 		if (!combat.isNew) {
 			EditText hitPointsTotalEnter = (EditText) findViewById(R.id.hit_point_total_enter);
-			hitPointsTotalEnter.setText(""+combat.getBaseHP());
-
+			hitPointsTotalEnter.setText("" + combat.getBaseHP());
+			
 			EditText hitPointsDrEnter = (EditText) findViewById(R.id.hit_point_dr_enter);
-			hitPointsDrEnter.setText(""+combat.getDamageReduction());
+			hitPointsDrEnter.setText("" + combat.getDamageReduction());
 
 			EditText speedBaseEnter = (EditText) findViewById(R.id.speed_base_enter);
-			speedBaseEnter.setText(""+combat.speedBase);
+			speedBaseEnter.setText("" + combat.speedBase);
 
 			EditText speedArmorEnter = (EditText) findViewById(R.id.speed_armor_enter);
-			speedArmorEnter.setText(""+combat.speedArmor);
+			speedArmorEnter.setText("" + combat.speedArmor);
 
 			// initiative stuff
 			TextView initiativeTotalField = (TextView) findViewById(R.id.initiative_total);
-			initiativeTotalField.setText(""+combat.getInitTotal());
-
+			initiativeTotalField.setText("" + combat.getInitTotal());
+			
 			TextView initiativeDexModField = (TextView) findViewById(R.id.initiative_dex_modifier_enter);
-			initiativeDexModField.setText(""+combat.dexMod);
+			initiativeDexModField.setText("" + combat.dexMod);
 
 			EditText initiativeMiscModEnter = (EditText) findViewById(R.id.initiative_misc_modifier_enter);
-			initiativeMiscModEnter.setText(""+combat.getInitModifier());
+			initiativeMiscModEnter.setText("" + combat.getInitModifier());
 
 			// armor stuff
 			TextView armorTotalField = (TextView) findViewById(R.id.armor_total);
-			armorTotalField.setText(""+combat.getArmorTotal());
-
+			armorTotalField.setText("" + combat.getArmorTotal());
+			
 			EditText armorBonusEnter = (EditText) findViewById(R.id.armor_bonus_enter);
-			armorBonusEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_BONUS_STRING));
-
+			armorBonusEnter.setText("" + combat.getArmorModifier(Combat.ARMOR_BONUS_STRING));
+			
 			EditText armorShieldEnter = (EditText) findViewById(R.id.armor_shield_enter);
-			armorShieldEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_SHIELD_STRING));
-
+			armorShieldEnter.setText("" + combat.getArmorModifier(Combat.ARMOR_SHIELD_STRING));
+			
 			TextView armorDexModField = (TextView) findViewById(R.id.armor_dex);
-			armorDexModField.setText(""+combat.dexMod);
-
+			armorDexModField.setText("" + combat.dexMod);
+			
 			TextView armorSizeModField = (TextView) findViewById(R.id.armor_size);
-			armorSizeModField.setText(""+combat.sizeMod);
-
+			armorSizeModField.setText("" + combat.sizeMod);
+			
 			EditText armorNaturalEnter = (EditText) findViewById(R.id.armor_natural_enter);
-			armorNaturalEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_NATURAL_STRING));
-
+			armorNaturalEnter.setText("" + combat.getArmorModifier(Combat.ARMOR_NATURAL_STRING));
+			
 			EditText armorDeflectionEnter = (EditText) findViewById(R.id.armor_deflection_enter);
-			armorDeflectionEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_DEFLECTION_STRING));
-
+			armorDeflectionEnter.setText("" + combat.getArmorModifier(Combat.ARMOR_DEFLECTION_STRING));
+			
 			EditText armorMiscEnter = (EditText) findViewById(R.id.armor_misc_enter);
-			armorMiscEnter.setText(""+combat.getArmorModifier(Combat.ARMOR_MISC_STRING));
-
+			armorMiscEnter.setText("" + combat.getArmorModifier(Combat.ARMOR_MISC_STRING));
+			
 			// base attack bonus
 			EditText babEnter = (EditText) findViewById(R.id.attack_bonus_enter);
-			babEnter.setText(""+combat.getbAb());
+			babEnter.setText("" + combat.getbAb());
 		}
 	}
 
