@@ -3,6 +3,7 @@ package uw.cse403.minion.test;
 import uw.cse403.minion.AbilityScoresActivity;
 import uw.cse403.minion.BasicInfoActivity;
 import uw.cse403.minion.CharCreateMainActivity;
+import uw.cse403.minion.CharacterDataSource;
 import uw.cse403.minion.CharactersActivity;
 import uw.cse403.minion.HomeActivity;
 import uw.cse403.minion.LoginActivity;
@@ -300,6 +301,7 @@ public class CreateCharacterFullTest extends
 	
 	@Override
 	protected void tearDown() throws Exception {
+		CharacterDataSource.deleteAllCharacters();
 		SaveSharedPreference.setUserName(loginActivity, EMPTY);
 		solo.finishOpenedActivities();
 		
