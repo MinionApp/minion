@@ -5,6 +5,7 @@ import java.util.*;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Debug;
 
 /**
  * Ability is a class to represent a single ability on a character sheet 
@@ -12,18 +13,31 @@ import android.database.sqlite.SQLiteDatabase;
  * the raw stat and the modifier from that stat.
  * 
  * @author Loki White (lokiw)
+ * @author Preston Sahabu (sahabp) slight performance and consistency changes
  */
 public class Ability {
+	/** Class constants for string representations **/
+	static final String SAMPLE_MODIFIER = "sampleModifier";
 	private static final String BASE = "base=";
-	
+
+	/** The unique id for a character **/
 	private long charID;
+
+	/** The id used to reference which ability this object represents **/
 	private int abilityID;
+
+	/** Stores whether or not this ability has been stored previously or not **/
 	boolean isNew;
-	
+
+	/** The name of the ability **/
 	private AbilityName name;
+
+	/** The base ability score **/
 	private int base;
+
+	/** A collection of any temporary modifiers affecting this ability **/
 	private Map<String,Integer> tempModifiers;
-	
+
 	/**
 	 * Initializes an ability with the given name and defaults the base stat to
 	 * -1. Stats cannot be negative as this is indicative of death or unconsciousness,
@@ -37,7 +51,7 @@ public class Ability {
 	public Ability(long id, AbilityName name){
 		this(id, name, -1);
 	}
-	
+
 	/**
 	 * Initializes an ability with the given name and given default score.
 	 * 
@@ -48,9 +62,12 @@ public class Ability {
 	 */
 	public Ability(long id, AbilityName name, int score){
 		charID = id;
-		//TODO: Consider ability values < 0
 		this.name = name;
-		this.base = score;
+		if (score < 0) {
+			this.base = 0;
+		} else {
+			this.base = score;
+		}
 		tempModifiers = new HashMap<String, Integer>();
 
 		// set abilityID
@@ -69,7 +86,13 @@ public class Ability {
 		}
 	}
 
+	/**
+	 * Loads all of the abilities stored in the local database for the current character.
+	 */
 	private void loadAbilities() {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("Ability_loadAbilities");
+		
 		isNew = true;
 		// attempt to load from DB
 		Cursor cursor = SQLiteHelperAbilityScores.db.query(SQLiteHelperAbilityScores.TABLE_NAME, 
@@ -79,13 +102,17 @@ public class Ability {
 		System.out.println("Querying charID=" + charID + " abilityID=" + abilityID);
 		if (cursor.moveToFirst()) {
 			isNew = false;
-			// COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_SCORE
+			// COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_BASE, COLUMN_TEMP
 			base = cursor.getInt(2);
+			tempModifiers.put(SAMPLE_MODIFIER, cursor.getInt(3));
 			System.out.println(BASE + base);
 		}
 		cursor.close();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
-	
+
 	/**
 	 * Get the name of this ability
 	 * 
@@ -94,7 +121,7 @@ public class Ability {
 	public AbilityName getName(){
 		return name;
 	}
-	
+
 	/**
 	 * Get the current base stat for the ability, not including any temporary
 	 * modifiers to the base stat
@@ -104,7 +131,7 @@ public class Ability {
 	public int getBase(){
 		return base;
 	}
-	
+
 	/**
 	 * Add the given value to the base permanently 
 	 * 
@@ -112,10 +139,12 @@ public class Ability {
 	 * @modifies base
 	 */
 	public void addToBase(int modifier){
-		//TODO: Consider ability values < 0
 		base += modifier;
+		if (base < 0) {
+			base = 0;
+		}
 	}
-	
+
 	/**
 	 * Sets base stat to the given value permanently
 	 * 
@@ -123,10 +152,12 @@ public class Ability {
 	 * @modifies this
 	 */
 	public void setBase(int newBase){
-		//TODO: Consider ability values < 0
 		base = newBase;
+		if (base < 0) {
+			base = 0;
+		}
 	}
-	
+
 	/**
 	 * Returns the modifier under the given name. Can return both negative
 	 * and positive modifiers. These modifiers represent values that will be
@@ -138,13 +169,13 @@ public class Ability {
 	 * 			was found
 	 */
 	public int getTempModifier(String tempName){
-		if (tempModifiers.containsKey(tempName)) {
-			return tempModifiers.get(tempName);
+		Integer retVal = tempModifiers.get(tempName);
+		if (retVal == null) {
+			return 0;
 		}
-		
-		return 0;
+		return retVal;
 	}
-	
+
 	/**
 	 * Removes the modifier under the given name as well as the record of that name.
 	 * 
@@ -152,11 +183,9 @@ public class Ability {
 	 * @modifies this
 	 */
 	public void removeTempModifier(String tempName){
-		if (tempModifiers.containsKey(tempName)) {
-			tempModifiers.remove(tempName);
-		}
+		tempModifiers.remove(tempName);
 	}
-	
+
 	/**
 	 * Adds a new Temporary Modifier with the given name and value
 	 * 
@@ -164,11 +193,14 @@ public class Ability {
 	 * @param tempValue	the value of the modifier
 	 * @modifies this
 	 */
-	public void addTempModifier(String tempName, int tempValue){
-		//TODO: Consider already existing values
-		tempModifiers.put(tempName, tempValue);
+	public int addTempModifier(String tempName, int tempValue){
+		Integer retVal = tempModifiers.put(tempName, tempValue);
+		if (retVal == null) {
+			return 0;
+		}
+		return retVal;
 	}
-	
+
 	/**
 	 * Gets the total ability score including the base stat value and all
 	 * temporary modifiers currently stored.
@@ -181,16 +213,19 @@ public class Ability {
 	 * @return an int score representing the total ability score
 	 */
 	public int getScore(){
-		//TODO: consider capping return at 0 instead of giving negative scores
 		int score = base;
 		Collection<Integer> temps = tempModifiers.values();
 		Iterator<Integer> it = temps.iterator();
 		while (it.hasNext()) {
 			score += it.next();
 		}
-		return score;
+		if (score < 0) {
+			return 0;
+		} else {
+			return score;
+		}
 	}
-	
+
 	/**
 	 * Gets the modifier of the ability score with all base and temporary values
 	 * considered.
@@ -209,7 +244,6 @@ public class Ability {
 	 * 
 	 */
 	public int getMod(){
-		//TODO: Consider ability values < 0
 		int mod;
 		int score = getScore();
 		if (score >= 10) {
@@ -217,9 +251,14 @@ public class Ability {
 		} else {
 			mod = (score - 11) / 2;
 		}
-		
+
 		return mod;
 	}
+
+	public int getRefID() {
+		return abilityID;
+	}
+
 	/** 
 	 * Writes Ability to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
@@ -227,21 +266,22 @@ public class Ability {
 	 * @param dbTempMods database to write temporary mods into
 	 */
 	public void writeToDB() {
-		// TODO implement
 		SQLiteDatabase db = SQLiteHelperAbilityScores.db;
-		
+
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
-		values.put(SQLiteHelperAbilityScores.COLUMN_SCORE, base);
+		values.put(SQLiteHelperAbilityScores.COLUMN_BASE, base);
+		values.put(SQLiteHelperAbilityScores.COLUMN_TEMP, tempModifiers.get(SAMPLE_MODIFIER));
 		if (isNew) {
 			db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
 		} else {
 			db.update(SQLiteHelperAbilityScores.TABLE_NAME, values, SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID 
 					+ " AND " + SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = " + abilityID, null);
 		}
-		
+
+		// for later implementation
 		SQLiteDatabase dbTempMods = SQLiteHelperASTempMods.db;
 	}
-	
+
 }

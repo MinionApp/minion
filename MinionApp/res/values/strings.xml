@@ -65,6 +65,33 @@
     <string name="title_activity_new_password_validator">NewPasswordValidatorActivity</string>
     <string name="title_activity_recovery_question">RecoveryQuestionActivity</string>
     <string name="title_activity_basic_info">Basic Info</string>
+    
+    <string name="alignment_prompt">Choose an alignment</string>
+    <string-array name="alignment_array">
+        <item>Lawful Good</item>
+        <item>Lawful Neutral</item>
+        <item>Lawful Evil</item>
+        <item>Neutral Good</item>
+        <item>Neutral</item>
+        <item>Neutral Evil</item>
+        <item>Chaotic Good</item>
+        <item>Chaotic Neutral</item>
+        <item>Chaotic Evil</item>
+    </string-array>
+    
+    <string name="size_prompt">Choose a size</string>
+    <string-array name="size_array">
+        <item>Fine</item>
+        <item>Diminutive</item>
+        <item>Tiny</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
+        <item>Huge</item>
+        <item>Gargantuan</item>
+        <item>Colossal</item>
+    </string-array>
+    
     <string name="character_name">Character Name</string>
     <string name="title_activity_char_create_main">Character Creation</string>
     <string name="button_basic_info">Basic Info</string>
@@ -97,6 +124,9 @@
     <string name="armor_deflection">Deflection</string>
     <string name="armor_misc">Misc</string>
     <string name="attack_bonus">Base Attack Bonus</string>
+    <string name="bab">B.A.B.</string>
+    
+
     <string name="alignment">Alignment</string>
     <string name="enter_text">Enter text&#8230;</string>
     <string name="player">Player</string>
@@ -109,58 +139,142 @@
     <string name="age">Age</string>
     <string name="height">Height</string>
     <string name="weight">Weight</string>
+    <string name="lbs">lbs.</string>
     <string name="hair">Hair</string>
     <string name="eyes">Eyes</string>
     <string name="done">Done</string>
-    <string name="ab_name">Ability Name</string>
-    <string name="ab_score">Ability Score</string>
-    <string name="ab_mod">Ability Modifier</string>
-    <string name="temp_adjust">Temp Adjust</string>
-    <string name="temp_mod">Temp Mod</string>
+    <string name="ab_name">Ab.\nName</string>
+    <string name="ab_score">Ab.\nScore</string>
+    <string name="ab_mod">Ab.\nMod.</string>
+    <string name="base">Base</string>
+    <string name="temp">Temp</string>
     <string name="str">STR\nStrength</string>
     <string name="dex">DEX\nDexterity</string>
     <string name="con">CON\nConstitution</string>
     <string name="intel">INT\nIntelligence</string>
     <string name="wis">WIS\nWisdom</string>
     <string name="cha">CHA\nCharisma</string>
-    <string name="skill_names">Skill Names</string>
+    <string name="equals">=</string>
+    <string name="plus">+</string>
+    
+    <string name="skill_names">Skill\nNames</string>
+    <string name="total_bonus">Total\nBonus</string>
     <string name="ranks">Ranks</string>
-    <string name="misc_mod">Misc. Mod.</string>
+    <string name="misc_mod">Misc.\nMod.</string>
+    <string name="eqcha"> = Cha</string>
+    <string name="eqdex"> = Dex</string>
+    <string name="eqint"> = Int</string>
+    <string name="eqstr"> = Str</string>
+    <string name="eqwis"> = Wis</string>
+    <string name="type">Type</string>
     <string name="acrobatics">Acrobatics</string>
     <string name="appraise">Appraise</string>
     <string name="bluff">Bluff</string>
     <string name="climb">Climb</string>
     <string name="craft">Craft</string>
     <string name="diplomacy">Diplomacy</string>
-    <string name="disable_device">Disable Device</string>
+    <string name="disable_device">Disable\nDevice</string>
     <string name="disguise">Disguise</string>
-    <string name="escape_artist">Escape Artist</string>
+    <string name="escape_artist">Escape\nArtist</string>
     <string name="fly">Fly</string>
-    <string name="handle_animal">Handle Animal</string>
+    <string name="handle_animal">Handle\nAnimal</string>
     <string name="heal">Heal</string>
     <string name="intimidate">Intimidate</string>
-    <string name="knowledge_arcana">Knowledge (Arcana)</string>
-    <string name="knowledge_dungeoneering">Knowledge (Dungeoneering)</string>
-    <string name="knowledge_engineering">Knowledge (Engineering)</string>
-    <string name="knowledge_geography">Knowledge (Geography)</string>
-    <string name="knowledge_history">Knowledge (History)</string>
-    <string name="knowledge_local">Knowledge (Local)</string>
-    <string name="knowledge_nature">Knowledge (Nature)</string>
-    <string name="knowledge_nobility">Knowledge (Nobility)</string>
-    <string name="knowledge_planes">Knowledge (Planes)</string>
-    <string name="knowledge_religion">Knowledge (Religion)</string>
+    <string name="knowledge_arcana">Knowledge\n(Arcana)</string>
+    <string name="knowledge_dungeoneering">Knowledge\n(Dngnring)</string>
+    <string name="knowledge_engineering">Knowledge\n(Engring)</string>
+    <string name="knowledge_geography">Knowledge\n(Geography)</string>
+    <string name="knowledge_history">Knowledge\n(History)</string>
+    <string name="knowledge_local">Knowledge\n(Local)</string>
+    <string name="knowledge_nature">Knowledge\n(Nature)</string>
+    <string name="knowledge_nobility">Knowledge\n(Nobility)</string>
+    <string name="knowledge_planes">Knowledge\n(Planes)</string>
+    <string name="knowledge_religion">Knowledge\n(Religion)</string>
     <string name="linguistics">Linguistics</string>
     <string name="perception">Perception</string>
-    <string name="perform">Perform</string>
-    <string name="profession">Profession</string>
+    <string name="perform">Perf.</string>
+    <string name="profession">Prof.</string>
     <string name="ride">Ride</string>
     <string name="sense_motive">Sense Motive</string>
-    <string name="sleight_of_hand">Sleight of Hand</string>
+    <string name="sleight_of_hand">Sleight of\nHand</string>
     <string name="spellcraft">Spellcraft</string>
     <string name="stealth">Stealth</string>
     <string name="survival">Survival</string>
     <string name="swim">Swim</string>
-    <string name="use_magic_device">Use Magic Device</string>
+    <string name="use_magic_device">Use Magic\nDevice</string>
+    
+    <string name="perform_prompt">Choose a Perform category</string>
+    <string-array name="perform_array">
+        <item>Act</item>
+        <item>Comedy</item>
+        <item>Dance</item>
+        <item>Keyboard</item>
+        <item>Oratory</item>
+        <item>Percussion</item>
+        <item>Strings</item>
+        <item>Wind</item>
+        <item>Sing</item>
+    </string-array>
+    
+    <string name="profession_prompt">Choose a Profession</string>
+    <string-array name="profession_array">
+        <item>Architect</item>
+        <item>Baker</item>
+        <item>Barrister</item>
+        <item>Brewer</item>
+        <item>Butcher</item>
+        <item>Clerk</item>
+        <item>Cook</item>
+        <item>Courtesan</item>
+        <item>Driver</item>
+        <item>Engineer</item>
+        <item>Farmer</item>
+        <item>Fisherman</item>
+        <item>Gambler</item>
+        <item>Gardener</item>
+        <item>Herbalist</item>
+        <item>Innkeeper</item>
+        <item>Librarian</item>
+        <item>Merchant</item>
+        <item>Midwife</item>
+        <item>Miller</item>
+        <item>Miner</item>
+        <item>Porter</item>
+        <item>Sailor</item>
+        <item>Scribe</item>
+        <item>Shepherd</item>
+        <item>Stable Master</item>
+        <item>Soldier</item>
+        <item>Tanner</item>
+        <item>Trapper</item>
+        <item>Woodcutter</item>
+    </string-array>
+    
+    <string name="craft_prompt">Choose a Craft</string>
+    <string-array name="craft_array">
+        <item>Alchemy</item>
+        <item>Armor</item>
+        <item>Baskets</item>
+        <item>Books</item>
+        <item>Bows</item>
+        <item>Calligraphy</item>
+        <item>Carpentry</item>
+        <item>Cloth</item>
+        <item>Clothing</item>
+        <item>Glass</item>
+        <item>Jewelry</item>
+        <item>Leather</item>
+        <item>Locks</item>
+        <item>Paintings</item>
+        <item>Pottery</item>
+        <item>Sculptures</item>
+        <item>Ships</item>
+        <item>Shoes</item>
+        <item>Stonemasonry</item>
+        <item>Traps</item>
+        <item>Weapons</item>
+    </string-array>
+    
     <string name="fortitude_title">Fortitude (Constitution)</string>
     <string name="reflex_title">Reflex (Dexterity)</string>
     <string name="will_title">Will (Wisdom)</string>
@@ -191,6 +305,12 @@
     <string name="title_activity_edit_group">EditGroupActivity</string>
     
     <string name="save">Save</string>
+    <string name="zero">0</string>
     <string name="button_test">Test GUI</string>
+    
+    <string name="sp">""</string>
+    <string name="remove_user">Remove User</string>
+    <string name="invite_user">Invite User</string>
+    <string name="finish_editing">Finish</string>
 
 </resources>

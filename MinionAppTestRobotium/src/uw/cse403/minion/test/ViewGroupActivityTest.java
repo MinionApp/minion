@@ -4,7 +4,9 @@ import junit.framework.Assert;
 import uw.cse403.minion.CharCreateMainActivity;
 import uw.cse403.minion.SaveSharedPreference;
 import uw.cse403.minion.ViewGroupActivity;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.jayway.android.robotium.solo.Solo;
@@ -38,8 +40,18 @@ public class ViewGroupActivityTest extends
 	 */
 	@Override
 	public void setUp() throws Exception{
+		Log.i("got to top of setup", "yay");
+		
+		Log.i("solo", "created solo");
+		
+		Log.i("user name", "set user name");
+		Intent i = new Intent();
+		i.putExtra("groupname", "testGroup");
+		i.putExtra("gm", "test");
+		setActivityIntent(i);
 		solo = new Solo(getInstrumentation(), getActivity());
-		SaveSharedPreference.setUserName(getActivity(), VALID_USERNAME);
+		SaveSharedPreference.setPersistentUserName(getActivity(), VALID_USERNAME);
+		Log.i("set the intent", "what?");
 	}
 	
 	/**

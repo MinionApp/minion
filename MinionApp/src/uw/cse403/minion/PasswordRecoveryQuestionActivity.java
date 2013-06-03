@@ -1,17 +1,9 @@
 package uw.cse403.minion;
 
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -28,22 +20,24 @@ import android.widget.Toast;
  * @author Mary Jones (mlidge) [secondary]
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
-	
+
+	/** Class constants for string representations **/
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
-	
+
+	/** Account Utility that stores Async tasks for this class **/
 	private AccountUtils account;
-	
+
 	/**
 	 * Stores the user's username.
 	 */
 	private String username;
-	
+
 	/**
 	 * Stores the relevant security question for the user.
 	 */
 	private String question;
-	
+
 	/**
 	 * Displays the password recovery security question page.
 	 */
@@ -80,7 +74,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 		getMenuInflater().inflate(R.menu.sqlite_test, menu);
 		return true;
 	}
-	
+
 	/**
 	 * Sets up the Up button
 	 */
@@ -100,7 +94,7 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/**
 	 * Responds to the answer question button click and sends user to password reset page.
 	 * @param view The current view
@@ -108,23 +102,21 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 	public void gotoLogin(View view) {
 		EditText answerEditText = (EditText) findViewById(R.id.question_input);
 		String answer = answerEditText.getText().toString().trim();
-		
-    	// Checks for internet connectivity
-    	if (ConnectionChecker.hasConnection(this)) {
-    		// Tests security question for user on remote database
-    		boolean result = account.checkAnswer(username, question, answer);
-    		TextView error = (TextView) findViewById(R.id.incorrect_answer_error);
-        	if (result) {
-        		Intent intent = new Intent(this, PasswordResetActivity.class);
-        		intent.putExtra(USERNAME, username);
-        		startActivity(intent);
-        	} else {
-        		error.setVisibility(View.VISIBLE);  
-        	}
-    	} else {
-    	   Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-    	}
-	}
 
-	
+		// Checks for internet connectivity
+		if (ConnectionChecker.hasConnection(this)) {
+			// Tests security question for user on remote database
+			boolean result = account.checkAnswer(username, question, answer);
+			TextView error = (TextView) findViewById(R.id.incorrect_answer_error);
+			if (result) {
+				Intent intent = new Intent(this, PasswordResetActivity.class);
+				intent.putExtra(USERNAME, username);
+				startActivity(intent);
+			} else {
+				error.setVisibility(View.VISIBLE);  
+			}
+		} else {
+			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+		}
+	}
 }

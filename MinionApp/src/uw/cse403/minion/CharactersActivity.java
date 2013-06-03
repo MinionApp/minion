@@ -1,18 +1,9 @@
 package uw.cse403.minion;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
-import android.app.ListActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,86 +12,94 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 
+/**
+ * CharactersActivity is an activity that provides the user a UI with which
+ * they can access their previously created characters as well as move to
+ * another screen that will allow them to create more characters.
+ * @author Elijah Elefson (elefse)
+ */
 public class CharactersActivity extends Activity {
+	/** Class constants for string representations **/
 	private static final String CHARACTER_ID = "cid";
-	
+
+	/** The local database source **/
 	private CharacterDataSource datasource;
-	
-	// Declare the UI components
+
+	/** Declares the necessary UI components **/
 	private ListView charListView;
-	
-	// Change this array's name and contents to be the character information
-	// received from the database
-	private static ArrayList<String> testArray = new ArrayList<String>();
-	
-	// Adapter for connecting the array above to the UI view
+
+	/** Collection of all the characters a user has **/
+	private static ArrayList<String> characterArray;
+
+	/** Adapter for connecting the characterArray to the UI view **/
 	private ArrayAdapter<String> adapter;
 
+	/**
+	 * Displays the user's character page.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("CharactersActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_characters);
 		// Show the Up button in the action bar.
 		setupActionBar();
-        System.out.println("CREATING DATASOURCE");
-        datasource = new CharacterDataSource(this);
-        System.out.println("OPENING DATASOURCE");
-	    datasource.open();
+		System.out.println("CREATING DATASOURCE");
+		datasource = new CharacterDataSource(this);
+		System.out.println("OPENING DATASOURCE");
+		datasource.open();
 
-	    datasource.printTables();
-	    // To test reading from database:
-	    //List<Character> values = datasource.getAllCharacters();
-	    //testArray = values.toArray(testArray);
-	    
-	    // Initialize the UI components
-        charListView = (ListView) findViewById(R.id.charListView);
+		characterArray = new ArrayList<String>();
 
-        //GETS ALL CHAR
-        Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
-        		null, null, null, null, null);
-        if (cursor.moveToFirst()) {
+		// Initialize the UI components
+		charListView = (ListView) findViewById(R.id.charListView);
+
+		// Gets all the characters
+		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+				null, null, null, null, null);
+		if (cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
 				String characterName = cursor.getString(0);
-				testArray.add(characterName);
+				characterArray.add(characterName);
 				cursor.moveToNext();
 			}
 		}
-        cursor.close();
-        //testArray.add("test");
-        // Create an empty adapter we will use to display the loaded data.
-        // We pass null for the cursor, then update it in onLoadFinished()
-        adapter = new ArrayAdapter<String>(this, 
-        		android.R.layout.simple_list_item_1, testArray);
-        charListView.setAdapter(adapter);
-        charListView.setOnItemClickListener(new OnItemClickListener() {
+		cursor.close();
+		// Create an empty adapter we will use to display the loaded data.
+		// We pass null for the cursor, then update it in onLoadFinished()
+		adapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_1, characterArray);
+		charListView.setAdapter(adapter);
+		charListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// When clicked, show a toast with the TextView text
-	            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
 				String charName = ((TextView) view).getText().toString();
-		        //GETS charID based on character name
-		        Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
-		        		SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
-		        long cid = 0;
-		        if (cursor2.moveToFirst()) {
-		        	cid = cursor2.getLong(0);
+				// Gets charID based on character name
+				Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
+						SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
+				long cid = 0;
+				if (cursor2.moveToFirst()) {
+					cid = cursor2.getLong(0);
 				}
-		        cursor2.close();
+				cursor2.close();
 				intent.putExtra(CHARACTER_ID, cid);
 				startActivity(intent);
 			}
-          });
+		});
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -113,6 +112,9 @@ public class CharactersActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -120,6 +122,9 @@ public class CharactersActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -136,13 +141,61 @@ public class CharactersActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
+	/**
+	 * Updates the view if it is reached via back button presses.
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		characterArray = new ArrayList<String>();
+		// Initialize the UI components
+		charListView = (ListView) findViewById(R.id.charListView);
+
+		// Gets all characters
+		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
+				null, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			while (!cursor.isAfterLast()) { 
+				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
+				String characterName = cursor.getString(0);
+				characterArray.add(characterName);
+				cursor.moveToNext();
+			}
+		}
+		cursor.close();
+
+		// Create an empty adapter we will use to display the loaded data.
+		// We pass null for the cursor, then update it in onLoadFinished()
+		adapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_1, characterArray);
+		charListView.setAdapter(adapter);
+		charListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
+				String charName = ((TextView) view).getText().toString();
+				// Gets charID based on character name
+				Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
+						SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
+				long cid = 0;
+				if (cursor2.moveToFirst()) {
+					cid = cursor2.getLong(0);
+				}
+				cursor2.close();
+				intent.putExtra(CHARACTER_ID, cid);
+				startActivity(intent);
+			}
+		});
+	}
+
+	/** Responds to the add character button click and takes the user to
+	 *  the main character creation screen.
+	 *  @param view The current view
+	 */
 	public void addCharacter(View view) {
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		startActivity(intent);
 	}
-	 
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        // Do something when a list item is clicked
-    }
 }

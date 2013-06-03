@@ -1,35 +1,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent" 
-    android:layout_height="?android:attr/listPreferredItemHeight" 
-    android:paddingTop="2dip" 
-    android:paddingBottom="2dip" 
-    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft" >
-    
-	<TextView
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:paddingBottom="2dip"
+    android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+    android:paddingTop="2dip" >
+
+    <TextView
         android:id="@+id/invite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textSize="16sp"
-        android:text="" />
-    
+        android:text=""
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/gm_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/invite"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <Button
         android:id="@+id/decline_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="Decline" 
-        android:onClick="declineInvite" />
+        android:focusable="false"
+        android:onClick="declineInvite"
+        android:text="Decline" />
 
-	<Button
+    <Button
         android:id="@+id/accept_button"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/decline_button"
-        android:text="Accept" 
-        android:onClick="acceptInvite" />
+        android:focusable="false"
+        android:onClick="acceptInvite"
+        android:text="Accept" />
 
 </RelativeLayout>

@@ -7,39 +7,61 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".HomeActivity" >
-    
-    <Button android:id="@+id/button1"
+
+	<LinearLayout
+        android:id="@+id/homepage_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/button_manage_characters"
-     	android:onClick="gotoCharacters" />
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+        
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="gotoCharacters"
+        android:text="@string/button_manage_characters" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="gotoGroups"
+        android:layout_marginTop="5dp"
+        android:text="@string/button_manage_groups" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="logout"
+        android:layout_marginTop="5dp"
+        android:text="@string/button_logout" />
     
-    <Button android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/homepage_buttons"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/button1"
-        android:text="@string/button_manage_groups"
-     	android:onClick="gotoGroups" />
-    
-    <Button android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/button2"
-        android:text="@string/button_logout"
-     	android:onClick="logout" />
+        android:contentDescription="@string/icon_description"
+        android:maxHeight="250dp"
+        android:maxWidth="250dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/husky_soft" />
     
     <ImageView
-         android:id="@+id/imageView1"
-         android:layout_width="250dp"
-         android:layout_height="250dp"
-         android:layout_alignParentBottom="true"
-         android:layout_centerHorizontal="true"
-         android:contentDescription="@string/icon_description"
-         android:maxHeight="250dp"
-         android:maxWidth="250dp"
-         android:scaleType="centerInside"
-         android:src="@drawable/husky_soft" />
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/icon_description"
+        android:scaleType="centerInside"
+        android:src="@drawable/dicebanner1" />
+
 </RelativeLayout>

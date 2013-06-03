@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,13 +29,15 @@ import android.widget.Toast;
  * @author Elijah Elefson (elefse)
  */
 public class LoginActivity extends Activity {
+
+	/** Class constants for string representations **/
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/checkLogin.php";
-	
+
 	/**
 	 * Stores if the user has selected to remain logged in.
 	 */
 	private boolean keepLoggedIn;
-	
+
 	/**
 	 * Displays the login page if the user has not chosen to remain logged in or if it is their
 	 * first time logging in. Otherwise it displays the home page if they have chosen to remain
@@ -42,17 +45,23 @@ public class LoginActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("LoginActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
-        Intent intent;
-        // If the user has not chosen to remain logged in, sends to login page
-        if (SaveSharedPreference.getUserName(LoginActivity.this).length() == 0) {
-    		setContentView(R.layout.activity_login);
-    	// If the user has chosen to remain logged in, sends to home page
-        } else {
-        	intent = new Intent(this, HomeActivity.class);
-    	    startActivity(intent);
-    	    finish();
-        }
+		Intent intent;
+		// If the user has not chosen to remain logged in, sends to login page
+		if (SaveSharedPreference.getUserName(LoginActivity.this).length() == 0) {
+			setContentView(R.layout.activity_login);
+			// If the user has chosen to remain logged in, sends to home page
+		} else {
+			intent = new Intent(this, HomeActivity.class);
+			startActivity(intent);
+			finish();
+		}
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -81,42 +90,41 @@ public class LoginActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case android.R.id.home:
-				// This ID represents the Home or Up button. In the case of this
-				// activity, the Up button is shown. Use NavUtils to allow users
-				// to navigate up one level in the application structure. For
-				// more details, see the Navigation pattern on Android Design:
-				//
-				// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-				//
-				NavUtils.navigateUpFromSameTask(this);
-				return true;
+		case android.R.id.home:
+			// This ID represents the Home or Up button. In the case of this
+			// activity, the Up button is shown. Use NavUtils to allow users
+			// to navigate up one level in the application structure. For
+			// more details, see the Navigation pattern on Android Design:
+			//
+			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+			//
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/**
 	 * Responds to the login button click and goes to the home page while also storing if the user
 	 * has specified whether or not they wish to remain logged in.
 	 * @param view The current view
 	 */
 	public void gotoHomepage(View view) {
-	    if (ConnectionChecker.hasConnection(this)) {
+		if (ConnectionChecker.hasConnection(this)) {
 			// Get user login info.
 			EditText usernameEditText = (EditText) findViewById(R.id.username_input);
 			EditText passwordEditText = (EditText) findViewById(R.id.password_input);
-			//TextView error = (TextView) findViewById(R.id.error);
 			String un = usernameEditText.getText().toString().trim();
 			String pw = passwordEditText.getText().toString().trim();
-				
+
 			CheckLoginTask task = new CheckLoginTask(un, pw, keepLoggedIn, this);
 			task.execute(un);
-    	} else {
-    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-    	}
+		} else {
+			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+		}
 
 	}
-	
+
 	/**
 	 * Responds to the signup button click and goes to the signup page.
 	 * @param view The current view
@@ -125,7 +133,7 @@ public class LoginActivity extends Activity {
 		Intent intent = new Intent(this, SignupActivity.class);
 		startActivity(intent);
 	}
-	
+
 	/**
 	 * Responds to the recover password button click and goes to the password recovery page.
 	 * @param view The current view
@@ -134,17 +142,17 @@ public class LoginActivity extends Activity {
 		Intent intent = new Intent(this, PasswordRecoveryActivity.class);
 		startActivity(intent);
 	}
-	
+
 	/**
 	 * Responds to the toggling of the remember me checkbox and stores a boolean based on
 	 * whether or not the box is checked. True if checked, false otherwise.
 	 * @param view The current view
 	 */
 	public void keepLoggedIn(View view) {
-	    // Is the view now checked?
+		// Is the view now checked?
 		keepLoggedIn = ((CheckBox) view).isChecked();
 	}
-	
+
 	/**
 	 * CheckLoginTask is a private inner class that allows requests to be made to the remote
 	 * MySQL database parallel to the main UI thread. It checks if the user provided 
@@ -156,7 +164,7 @@ public class LoginActivity extends Activity {
 		private String pw;
 		private boolean keepLoggedIn;
 		private Context context;
-		
+
 		/**
 		 * Constructs a new CheckLoginTask object.
 		 * @param username The user given username
@@ -170,50 +178,49 @@ public class LoginActivity extends Activity {
 			this.keepLoggedIn = keepLoggedIn;
 			this.context = context;
 		}
-		
-	    /**
-	     * Makes the HTTP request and returns the result as a String.
-	     */
-	    protected String doInBackground(String... args) {
-	        //the data to send
-	        ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-	        postParameters.add(new BasicNameValuePair("username", un));
-	        postParameters.add(new BasicNameValuePair("password", pw));
+
+		/**
+		 * Makes the HTTP request and returns the result as a String.
+		 */
+		protected String doInBackground(String... args) {
+			//the data to send
+			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+			postParameters.add(new BasicNameValuePair("username", un));
+			postParameters.add(new BasicNameValuePair("password", pw));
 
 			String result = null;
-	        
-	        //http post
+
+			//http post
 			String res;
-	        try{
-	        	result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
-	        	res = result.toString();   
-	        	res = res.replaceAll("\\s+", "");    
-	        } catch (Exception e) {  
-	        	res = e.toString();
-	        }
-	        return res;
-	    }
-	 
-	    /**
-	     * Parses the String result and directs to the correct Activity
-	     */
-	    protected void onPostExecute(String result) {
-	    	TextView error = (TextView) findViewById(R.id.error);
-        	if (result.equals("1")) {  
-        		// Stores the username into preferences.
-        		if (keepLoggedIn) {
-        			SaveSharedPreference.setUserName(LoginActivity.this, un);
-        		}
-        		// Stores the username to be used by later Activities
-        		SaveSharedPreference.setPersistentUserName(context, un);
-        		// Login succeeds, go to homepage.
-        		Intent intent = new Intent(context, HomeActivity.class);
-        		startActivity(intent);
-        		finish();
-        	} else {
-        		error.setVisibility(View.VISIBLE); 
-        	}
-	    }
-	 
+			try{
+				result = CustomHttpClient.executeHttpPost(PHP_ADDRESS, postParameters);
+				res = result.toString();   
+				res = res.replaceAll("\\s+", "");    
+			} catch (Exception e) {  
+				res = e.toString();
+			}
+			return res;
+		}
+
+		/**
+		 * Parses the String result and directs to the correct Activity
+		 */
+		protected void onPostExecute(String result) {
+			TextView error = (TextView) findViewById(R.id.error);
+			if (result.equals("1")) {  
+				// Stores the username into preferences.
+				if (keepLoggedIn) {
+					SaveSharedPreference.setUserName(LoginActivity.this, un);
+				}
+				// Stores the username to be used by later Activities
+				SaveSharedPreference.setPersistentUserName(context, un);
+				// Login succeeds, go to homepage.
+				Intent intent = new Intent(context, HomeActivity.class);
+				startActivity(intent);
+				finish();
+			} else {
+				error.setVisibility(View.VISIBLE); 
+			}
+		}
 	}
 }

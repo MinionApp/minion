@@ -180,8 +180,8 @@ public class CombatTest extends TestCase {
 		Combat c = new Combat();
 		assertEquals(0, c.getSpeed());
 	
-		c.setSpeed(30);
-		assertEquals(30, c.getSpeed());
+		c.setSpeed(30,10);
+		assertEquals(20, c.getSpeed());
 	}
 
 	/**

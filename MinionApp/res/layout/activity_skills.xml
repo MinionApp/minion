@@ -1,1236 +1,2362 @@
+<!-- This xml file is the GUI for the skills activity of character creation. -->
+<!-- @author Caitlin Harding -->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:tools="http://schemas.android.com/tools"
-     android:layout_width="match_parent"
-	 android:layout_height="match_parent">
-
-<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SkillsActivity" >
+    android:layout_height="match_parent" >
 
-    <LinearLayout
-		android:id="@+id/skill_titles"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:orientation="horizontal">
-    
-	    <TextView
-	        android:id="@+id/ab_name_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/skill_names" />
-	    
-	    <TextView
-	        android:id="@+id/ab_score_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/ranks" />
-	    
-	    <TextView
-	        android:id="@+id/ab_mod_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/misc_mod" />
-	</LinearLayout>
-	
-    <LinearLayout
-        android:id="@+id/acrobatics"
-        android:layout_width="fill_parent"
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/skill_titles"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/acrobatics_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/acrobatics" />
-		
-	    <EditText 
-	        android:id="@+id/acrobatics_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/acrobatics_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/appraise"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/acrobatics"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/appraise_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/appraise" />
-		
-	    <EditText 
-	        android:id="@+id/appraise_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/appraise_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/bluff"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appraise"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/bluff_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/bluff" />
-		
-	    <EditText 
-	        android:id="@+id/bluff_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/bluff_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/climb"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bluff"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/climb_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/climb" />
-		
-	    <EditText 
-	        android:id="@+id/climb_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/climb_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	    
-	<LinearLayout
-        android:id="@+id/craft1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/climb"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/craft1_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/craft" />
-        
-        <EditText 
-	        android:id="@+id/craft1_enter"
-	        android:inputType="textAutoCorrect"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-		
-	    <EditText 
-	        android:id="@+id/craft1_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/craft1_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/craft2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/craft1"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/craft2_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/craft" />
-        
-        <EditText 
-	        android:id="@+id/craft2_enter"
-	        android:inputType="textAutoCorrect"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-		
-	    <EditText 
-	        android:id="@+id/craft2_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/craft2_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/craft3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/craft2"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/craft3_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/craft" />
-		
-        <EditText 
-	        android:id="@+id/craft3_enter"
-	        android:inputType="textAutoCorrect"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-        
-	    <EditText 
-	        android:id="@+id/craft3_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/craft3_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/diplomacy"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/craft3"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/diplomacy_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/diplomacy" />
-		
-	    <EditText 
-	        android:id="@+id/diplomacy_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/diplomacy_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/disable_device"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/diplomacy"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/disable_device_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/disable_device" />
-		
-	    <EditText 
-	        android:id="@+id/disable_device_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/disable_device_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-    <LinearLayout
-        android:id="@+id/disguise"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/disable_device"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/disguise_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/disguise" />
-		
-	    <EditText 
-	        android:id="@+id/disguise_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/disguise_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-    <LinearLayout
-        android:id="@+id/escape_artist"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/disguise"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/escape_artist_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/escape_artist" />
-		
-	    <EditText 
-	        android:id="@+id/escape_artist_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/escape_artist_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/fly"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/escape_artist"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/fly_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/fly" />
-		
-	    <EditText 
-	        android:id="@+id/fly_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/fly_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/handle_animal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fly"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/handle_animal_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/handle_animal" />
-		
-	    <EditText 
-	        android:id="@+id/handle_animal_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/handle_animal_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/heal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/handle_animal"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/heal_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/heal" />
-		
-	    <EditText 
-	        android:id="@+id/heal_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/heal_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/intimidate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/heal"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/intimidate_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/intimidate" />
-		
-	    <EditText 
-	        android:id="@+id/intimidate_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/intimidate_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_arcana"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/intimidate"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_arcana_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_arcana" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_arcana_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_arcana_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_dungeoneering"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_arcana"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_dungeoneering_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_dungeoneering" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_dungeoneering_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_dungeoneering_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_engineering"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_dungeoneering"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_engineering_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_engineering" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_engineering_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_engineering_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_geography"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_engineering"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_geopgrahy_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_geography" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_geography_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_geography_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_history"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_geography"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_history_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_history" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_history_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_history_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_local"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_history"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_local_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_local" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_local_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_local_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_nature"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_local"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_nature_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_nature" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_nature_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_nature_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_nobility"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_nature"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_nobility_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_nobility" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_nobility_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_nobility_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_planes"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_nobility"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_planes_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_planes" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_planes_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_planes_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/knowledge_religion"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_planes"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/knowledge_religion_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/knowledge_religion" />
-		
-	    <EditText 
-	        android:id="@+id/knowledge_religion_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/knowledge_religion_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
+        android:alignmentMode="alignBounds"
+        android:columnCount="7"
+        android:columnOrderPreserved="true"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:rowCount="39"
+        android:useDefaultMargins="true" >
 
-	<LinearLayout
-        android:id="@+id/linguistics"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/knowledge_religion"
-        android:orientation="horizontal" >
-	    
         <TextView
-	        android:id="@+id/linguistics_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/linguistics" />
-		
-	    <EditText 
-	        android:id="@+id/linguistics_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/linguistics_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/perception"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linguistics"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/perception_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/perception" />
-		
-	    <EditText 
-	        android:id="@+id/perception_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/perception_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/perform1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/perception"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/perform1_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/perform" />
-        
-        <EditText 
-	        android:id="@+id/perform1_enter"
-	        android:inputType="textAutoCorrect"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-		
-	    <EditText 
-	        android:id="@+id/perform1_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/perform1_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/perform2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/perform1"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/perform2_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/perform" />
-        
-        <EditText 
-	        android:id="@+id/perform2_enter"
-	        android:inputType="textAutoCorrect"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-		
-	    <EditText 
-	        android:id="@+id/perform2_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/perform2_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/profession1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/perform2"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/profession1_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/profession" />
-        
-        <EditText 
-	        android:id="@+id/profession1_enter"
-	        android:inputType="textAutoCorrect"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-		
-	    <EditText 
-	        android:id="@+id/profession1_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/profession1_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/profession2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profession1"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/profession2_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/profession" />
-        
-        <EditText 
-	        android:id="@+id/profession2_enter"
-	        android:inputType="textAutoCorrect"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-		
-	    <EditText 
-	        android:id="@+id/profession2_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/profession2_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/ride"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profession2"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/ride_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/ride" />
-		
-	    <EditText 
-	        android:id="@+id/ride_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/ride_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/sense_motive"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ride"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/sense_motive_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/sense_motive" />
-		
-	    <EditText 
-	        android:id="@+id/sense_motive_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/sense_motive_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/sleight_of_hand"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sense_motive"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/sleight_of_hand_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/sleight_of_hand" />
-		
-	    <EditText 
-	        android:id="@+id/sleight_of_hand_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/sleight_of_hand_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/spellcraft"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sleight_of_hand"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/spellcraft_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/spellcraft" />
-		
-	    <EditText 
-	        android:id="@+id/spellcraft_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/spellcraft_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/stealth"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spellcraft"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/stealth_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/stealth" />
-		
-	    <EditText 
-	        android:id="@+id/stealth_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/stealth_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/survival"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/stealth"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/survial_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/survival" />
-		
-	    <EditText 
-	        android:id="@+id/survival_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/survival_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/swim"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/survival"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/swim_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/swim" />
-		
-	    <EditText 
-	        android:id="@+id/swim_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/swim_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-	
-	<LinearLayout
-        android:id="@+id/use_magic_device"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/swim"
-        android:orientation="horizontal" >
-	    
-        <TextView
-	        android:id="@+id/use_magic_device_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/use_magic_device" />
-		
-	    <EditText 
-	        android:id="@+id/use_magic_device_ranks"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/use_magic_device_misc_mod"
-	        android:inputType="numberSigned"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	</LinearLayout>
-    
-    <Button 
-        android:id="@+id/button_done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/use_magic_device"
-        android:text="@string/save"
-     	android:onClick="skills" />
+            android:id="@+id/ab_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skill_names" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/ab_total_bonus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_bonus" />
+
+        <TextView
+            android:id="@+id/ab_mod_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ab_mod" />
+
+        <TextView
+            android:id="@+id/placeholder1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sp" />
+
+        <TextView
+            android:id="@+id/ab_ranks_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ranks" />
+
+        <TextView
+            android:id="@+id/placeholder2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sp" />
+
+        <TextView
+            android:id="@+id/ab_misc_mod_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/misc_mod" />
+
+        <TextView
+            android:id="@+id/acrobatics_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/acrobatics" />
+
+        <LinearLayout
+            android:id="@+id/acrobatics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/acrobatics_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/acrobatics_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqdex" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/acrobatics_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/acrobatics_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/acrobatics_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/acrobatics_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/acrobatics_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/appraise_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/appraise" />
+
+        <LinearLayout
+            android:id="@+id/appraise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/appraise_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/appraise_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/appraise_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/appraise_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/appraise_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/appraise_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/appraise_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/bluff_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bluff" />
+
+        <LinearLayout
+            android:id="@+id/bluff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/bluff_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/bluff_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqcha" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/bluff_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/bluff_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/bluff_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/bluff_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/bluff_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/climb_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/climb" />
+
+        <LinearLayout
+            android:id="@+id/climb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/climb_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/climb_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqstr" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/climb_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/climb_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/climb_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/climb_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/climb_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <LinearLayout
+            android:id="@+id/craft1_title_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/craft1_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/craft" />
+
+            <Spinner
+                android:id="@+id/craft1_spinner"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/craft_array"
+                android:prompt="@string/craft_prompt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/craft1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/craft1_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/craft1_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/craft1_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/craft1_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/craft1_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/craft1_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/craft1_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <LinearLayout
+            android:id="@+id/craft2_title_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/craft2_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/craft" />
+
+            <Spinner
+                android:id="@+id/craft2_spinner"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/craft_array"
+                android:prompt="@string/craft_prompt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/craft2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/craft2_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/craft2_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/craft2_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/craft2_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/craft2_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/craft2_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/craft2_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <LinearLayout
+            android:id="@+id/craft3_title_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/craft3_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/craft" />
+
+            <Spinner
+                android:id="@+id/craft3_spinner"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/craft_array"
+                android:prompt="@string/craft_prompt" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/craft3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/craft3_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/craft3_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/craft3_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/craft3_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/craft3_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/craft3_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/craft3_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/diplomacy_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/diplomacy" />
+
+        <LinearLayout
+            android:id="@+id/diplomacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/diplomacy_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/diplomacy_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqcha" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/diplomacy_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/diplomacy_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/diplomacy_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/diplomacy_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/diplomacy_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/disable_device_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disable_device" />
+
+        <LinearLayout
+            android:id="@+id/disable_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/disable_device_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/disable_device_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqdex" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/disable_device_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/disable_device_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/disable_device_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/disable_device_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/disable_device_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/disguise_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disguise" />
+
+        <LinearLayout
+            android:id="@+id/disguise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/disguise_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/disguise_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqcha" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/disguise_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/disguise_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/disguise_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/disguise_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/disguise_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/escape_artist_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/escape_artist" />
+
+        <LinearLayout
+            android:id="@+id/escape_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/escape_artist_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/escape_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqdex" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/escape_artist_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/escape_artist_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/escape_artist_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/escape_artist_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/escape_artist_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/fly_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fly" />
+
+        <LinearLayout
+            android:id="@+id/fly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/fly_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/fly_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqdex" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fly_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/fly_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/fly_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/fly_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/fly_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/handle_animal_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/handle_animal" />
+
+        <LinearLayout
+            android:id="@+id/handle_animal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/handle_animal_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/handle_animal_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqcha" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/handle_animal_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/handle_animal_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/handle_animal_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/handle_animal_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/handle_animal_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/heal_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/heal" />
+
+        <LinearLayout
+            android:id="@+id/heal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/heal_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/heal_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqwis" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/heal_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/heal_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/heal_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/heal_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/heal_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/intimidate_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/intimidate" />
+
+        <LinearLayout
+            android:id="@+id/intimidate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/intimidate_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/intimidate_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqcha" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/intimidate_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/intimidate_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/intimidate_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/intimidate_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/intimidate_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_arcana_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_arcana" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_arcana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_arcana_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_arcana_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_arcana_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_arcana_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_arcana_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_arcana_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_arcana_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_dungeoneering_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_dungeoneering" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_dungeoneering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_dungeoneering_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_dungeoneering_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_dungeoneering_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_dungeoneering_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_dungeoneering_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_dungeoneering_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_dungeoneering_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_engineering_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_engineering" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_engineering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_engineering_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_engineering_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_engineering_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_engineering_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_engineering_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_engineering_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_engineering_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_geopgrahy_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_geography" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_geography"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_geography_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_geography_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_geography_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_geography_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_geography_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_geography_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_geography_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_history_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_history" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_history_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_history_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_history_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_history_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_history_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_history_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_history_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_local_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_local" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_local_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_local_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_local_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_local_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_local_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_local_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_local_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_nature_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_nature" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_nature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_nature_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_nature_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_nature_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_nature_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_nature_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_nature_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_nature_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_nobility_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_nobility" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_nobility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_nobility_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_nobility_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_nobility_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_nobility_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_nobility_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_nobility_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_nobility_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_planes_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_planes" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_planes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_planes_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_planes_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_planes_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_planes_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_planes_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_planes_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_planes_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_religion_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/knowledge_religion" />
+
+        <LinearLayout
+            android:id="@+id/knowledge_religion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/knowledge_religion_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/knowledge_religion_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/knowledge_religion_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/knowledge_religion_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_religion_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/knowledge_religion_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/knowledge_religion_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/linguistics_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/linguistics" />
+
+        <LinearLayout
+            android:id="@+id/linguistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/linguistics_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/linguistics_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/linguistics_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/linguistics_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/linguistics_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/linguistics_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/linguistics_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/perception_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/perception" />
+
+        <LinearLayout
+            android:id="@+id/perception"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/perception_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/perception_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqwis" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/perception_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/perception_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/perception_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/perception_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/perception_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <LinearLayout
+            android:id="@+id/perform1_title_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perform1_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/perform" />
+
+            <Spinner
+                android:id="@+id/perform1_spinner"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/perform_array"
+                android:prompt="@string/perform_prompt"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/perform1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/perform1_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/perform1_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqcha" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/perform1_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/perform1_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/perform1_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/perform1_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/perform1_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <LinearLayout
+            android:id="@+id/perform2_title_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/perform2_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/perform" />
+
+            <Spinner
+                android:id="@+id/perform2_spinner"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/perform_array"
+                android:prompt="@string/perform_prompt"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/perform2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/perform2_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/perform2_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqcha" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/perform2_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/perform2_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/perform2_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/perform2_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/perform2_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <LinearLayout
+            android:id="@+id/profession1_title_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/profession1_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profession" />
+
+            <Spinner
+                android:id="@+id/profession1_spinner"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/profession_array"
+                android:prompt="@string/profession_prompt"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profession1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/profession1_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/profession1_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqwis" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/profession1_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/profession1_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/profession1_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/profession1_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/profession1_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <LinearLayout
+            android:id="@+id/profession2_title_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/profession2_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profession" />
+
+            <Spinner
+                android:id="@+id/profession2_spinner"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/profession_array"
+                android:prompt="@string/profession_prompt"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profession2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/profession2_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/profession2_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqwis" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/profession2_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/profession2_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/profession2_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/profession2_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/profession2_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/ride_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ride" />
+
+        <LinearLayout
+            android:id="@+id/ride"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/ride_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/ride_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqdex" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ride_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/ride_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/ride_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/ride_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/ride_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/sense_motive_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sense_motive" />
+
+        <LinearLayout
+            android:id="@+id/sense_motive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/sense_motive_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/sense_motive_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqwis" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/sense_motive_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/sense_motive_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/sense_motive_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/sense_motive_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/sense_motive_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/sleight_of_hand_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sleight_of_hand" />
+
+        <LinearLayout
+            android:id="@+id/sleight_of_hand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/sleight_of_hand_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/sleight_of_hand_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqdex" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/sleight_of_hand_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/sleight_of_hand_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/sleight_of_hand_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/sleight_of_hand_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/sleight_of_hand_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/spellcraft_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spellcraft" />
+
+        <LinearLayout
+            android:id="@+id/spellcraft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/spellcraft_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/spellcraft_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/spellcraft_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/spellcraft_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/spellcraft_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/spellcraft_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/spellcraft_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/stealth_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stealth" />
+
+        <LinearLayout
+            android:id="@+id/stealth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/stealth_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/stealth_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqdex" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/stealth_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/stealth_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/stealth_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/stealth_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/stealth_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/survial_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/survival" />
+
+        <LinearLayout
+            android:id="@+id/survival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/survival_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/survival_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqwis" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/survival_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/survival_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/survival_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/survival_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/survival_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/swim_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/swim" />
+
+        <LinearLayout
+            android:id="@+id/swim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/swim_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/swim_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqstr" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/swim_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/swim_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/swim_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/swim_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/swim_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/use_magic_device_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/use_magic_device" />
+
+        <LinearLayout
+            android:id="@+id/use_magic_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/use_magic_device_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zero" />
+
+            <TextView
+                android:id="@+id/use_magic_device_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/eqcha" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/use_magic_device_ab_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+
+        <TextView
+            android:id="@+id/use_magic_device_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/use_magic_device_ranks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/use_magic_device_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plus" />
+
+        <EditText
+            android:id="@+id/use_magic_device_misc_mod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned" />
+
+        <Button
+            android:id="@+id/button_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="skills"
+            android:text="@string/save" />
+    </GridLayout>
 
 </ScrollView>

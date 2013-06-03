@@ -13,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:text="You have no pending invites"
         android:textSize="16sp"
-        android:visibility="gone"
-        android:text="You have no pending invites" />
-    
-	<ListView
+        android:visibility="gone" />
+
+    <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
