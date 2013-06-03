@@ -191,7 +191,7 @@ public class CharacterDataSource {
 	}
 
 	public void printTables() {
-		helperRef.printContents(dbRef);
+		helperRef.printContents();
 		helperBasicInfo.printContents(helperBasicInfo.db);
 	}
 
