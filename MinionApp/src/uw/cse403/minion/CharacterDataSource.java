@@ -121,51 +121,6 @@ public class CharacterDataSource {
 	}
 
 	/**
-	 * NOTE: This method may not be needed anymore. Stay tuned.
-	 * Adds character to local SQLite database. Each component of the Character knows 
-	 * how to write itself to the database.
-	 * @param character character to add to database
-	 */
-	public void addCharacter(Character character) {
-		//character.writeToDB(helperBasicInfo.getDB(), helperAbilityScores.getDB(), helperASTempMods.getDB(), helperSkills.getDB(), 
-		//	helperCombat.getDB(), helperArmor.getDB(), helperSavingThrows.getDB(), helperWeapons.getDB());
-	}
-
-	/**
-	 * Remove character from local database.
-	 * @param character character to remove
-	 */
-	public void deleteCharacter(Character character) {
-		//long id = character.getId();
-		//System.out.println("Comment deleted with id: " + id);
-		//database.delete(MinionSQLiteHelper.TABLE_BASIC_INFO, MinionSQLiteHelper.COLUMN_ID
-		//	+ " = " + id, null);
-	}
-
-	// NOTE: these methods won't be used, but are being kept for reference until actual add/delete methods are implemented
-	//	public void deleteCharacter(Character character) {
-	//		long id = character.getId();
-	//		System.out.println("Comment deleted with id: " + id);
-	//		database.delete(MinionSQLiteHelper.TABLE_BASIC_INFO, MinionSQLiteHelper.COLUMN_ID
-	//			+ " = " + id, null);
-	//	}
-
-	//	public List<Character> getAllCharacters() {
-	//		List<Character> characters = new ArrayList<Character>();
-	//		Cursor cursor = database.query(MinionSQLiteHelper.TABLE_BASIC_INFO,
-	//			allColumns, null, null, null, null, null);
-	//		cursor.moveToFirst();
-	//		while (!cursor.isAfterLast()) {
-	//			Character character = cursorToCharacter(cursor);
-	//			characters.add(character);
-	//			cursor.moveToNext();
-	//	 	}
-	//		// Make sure to close the cursor
-	//		cursor.close();
-	//		return characters;
-	//	}
-
-	/**
 	 * Gets a list of all characters in local database
 	 * @return list of all characters
 	 */
