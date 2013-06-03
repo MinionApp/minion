@@ -41,14 +41,16 @@ public class ViewGroupActivityTest extends
 	@Override
 	public void setUp() throws Exception{
 		Log.i("got to top of setup", "yay");
-		solo = new Solo(getInstrumentation(), getActivity());
+		
 		Log.i("solo", "created solo");
-		SaveSharedPreference.setPersistentUserName(getActivity(), VALID_USERNAME);
+		
 		Log.i("user name", "set user name");
 		Intent i = new Intent();
 		i.putExtra("groupname", "testGroup");
 		i.putExtra("gm", "test");
 		setActivityIntent(i);
+		solo = new Solo(getInstrumentation(), getActivity());
+		SaveSharedPreference.setPersistentUserName(getActivity(), VALID_USERNAME);
 		Log.i("set the intent", "what?");
 	}
 	

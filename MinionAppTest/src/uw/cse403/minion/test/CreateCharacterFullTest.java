@@ -3,6 +3,7 @@ package uw.cse403.minion.test;
 import uw.cse403.minion.AbilityScoresActivity;
 import uw.cse403.minion.BasicInfoActivity;
 import uw.cse403.minion.CharCreateMainActivity;
+import uw.cse403.minion.CharacterDataSource;
 import uw.cse403.minion.CharactersActivity;
 import uw.cse403.minion.HomeActivity;
 import uw.cse403.minion.LoginActivity;
@@ -65,11 +66,9 @@ public class CreateCharacterFullTest extends
 	 */
 	@Override
 	protected void setUp() throws Exception {
-
 		solo = new Solo(getInstrumentation(), getActivity());
 		loginActivity = getActivity();
 		SaveSharedPreference.clearPreferences(loginActivity);
-		
 	}
 	
 	/**
@@ -80,7 +79,7 @@ public class CreateCharacterFullTest extends
 		SaveSharedPreference.clearPreferences(loginActivity);
 		EditText usernameField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.username_input); 
 		EditText passwordField = (EditText) getActivity().findViewById(uw.cse403.minion.R.id.password_input); 
-		
+
 		solo.typeText(usernameField, VALID_USERNAME);
 		solo.typeText(passwordField, VALID_PASSWORD);
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.login_button));
@@ -213,7 +212,7 @@ public class CreateCharacterFullTest extends
 		solo.assertCurrentActivity("save basic info", CharCreateMainActivity.class);
 		
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.done));
-		
+
 		getActivity().finish();
 	}
 	
@@ -258,7 +257,7 @@ public class CreateCharacterFullTest extends
 		TextView intTotal = (TextView) solo.getView(uw.cse403.minion.R.id.int_ab_score);
 		TextView wisTotal = (TextView) solo.getView(uw.cse403.minion.R.id.wis_ab_score);
 		TextView chaTotal = (TextView) solo.getView(uw.cse403.minion.R.id.cha_ab_score);
-/*		
+
 		TextView strMod = (TextView) solo.getView(uw.cse403.minion.R.id.str_ab_mod);
 		TextView dexMod = (TextView) solo.getView(uw.cse403.minion.R.id.dex_ab_mod);
 		TextView conMod = (TextView) solo.getView(uw.cse403.minion.R.id.con_ab_mod);
@@ -266,20 +265,35 @@ public class CreateCharacterFullTest extends
 		TextView wisMod = (TextView) solo.getView(uw.cse403.minion.R.id.wis_ab_mod);
 		TextView chaMod = (TextView) solo.getView(uw.cse403.minion.R.id.cha_ab_mod);
 		
-		assertTrue(STR.equals(strTotal));
-		assertTrue(DEX.equals(dexTotal));
-		assertTrue(CON_SCORE.equals(conTotal));
-		assertTrue(INT_SCORE.equals(intTotal));
-		assertTrue(WIS.equals(wisTotal));
-		assertTrue(CHA.equals(chaTotal));
+		String strTotalText = strTotal.getText().toString();
+		String dexTotalText = dexTotal.getText().toString();
+		String conTotalText = conTotal.getText().toString();
+		String intTotalText = intTotal.getText().toString();
+		String wisTotalText = wisTotal.getText().toString();
+		String chaTotalText = chaTotal.getText().toString();
 		
-		assertTrue(STR_MOD.equals(strMod));
-		assertTrue(DEX_MOD.equals(dexMod));
-		assertTrue(CON_MOD.equals(conMod));
-		assertTrue(INT_MOD.equals(intMod));
-		assertTrue(WIS_MOD.equals(wisMod));
-		assertTrue(CHA_MOD.equals(chaMod));
-*/		
+		String strModText = strMod.getText().toString();
+		String dexModText = dexMod.getText().toString();
+		String conModText = conMod.getText().toString();
+		String intModText = intMod.getText().toString();
+		String wisModText = wisMod.getText().toString();
+		String chaModText = chaMod.getText().toString();
+
+		
+		assertTrue(STR.equals(strTotalText));
+		assertTrue(DEX.equals(dexTotalText));
+		assertTrue(CON_SCORE.equals(conTotalText));
+		assertTrue(INT_SCORE.equals(intTotalText));
+		assertTrue(WIS.equals(wisTotalText));
+		assertTrue(CHA.equals(chaTotalText));
+		
+		assertTrue(STR_MOD.equals(strModText));
+		assertTrue(DEX_MOD.equals(dexModText));
+		assertTrue(CON_MOD.equals(conModText));
+		assertTrue(INT_MOD.equals(intModText));
+		assertTrue(WIS_MOD.equals(wisModText));
+		assertTrue(CHA_MOD.equals(chaModText));
+
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.save));
 		solo.assertCurrentActivity("save basic info", CharCreateMainActivity.class);
 
@@ -287,6 +301,7 @@ public class CreateCharacterFullTest extends
 	
 	@Override
 	protected void tearDown() throws Exception {
+		CharacterDataSource.deleteAllCharacters();
 		SaveSharedPreference.setUserName(loginActivity, EMPTY);
 		solo.finishOpenedActivities();
 		
