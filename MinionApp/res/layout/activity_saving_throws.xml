@@ -13,322 +13,319 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fortitude_title" />
-    
-	<LinearLayout
-		android:id="@+id/fortitude_numbers"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/fortitude_title"
-		android:layout_marginTop="10dp"
-		android:orientation="horizontal">
-    	
-    	<TextView
-    	    android:id="@+id/fortitude_total"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/total" />
-    	
-    	<TextView
-    	    android:id="@+id/fortitude_equals"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/equals" />
-    	
-    	<EditText 
-    	    android:id="@+id/fortitude_base"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/base_save" />
-    	
-    	<TextView
-    	    android:id="@+id/fortitude_plus1"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<TextView 
-    	    android:id="@+id/fortitude_ability"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/ability_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/fortitude_plus2"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<EditText 
-    	    android:id="@+id/fortitude_magic"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/magic_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/fortitude_plus3"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<EditText 
-    	    android:id="@+id/fortitude_misc"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/misc_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/fortitude_plus4"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-     	<EditText 
-     	    android:id="@+id/fortitude_temp"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/temp_modifier" />
 
+    <LinearLayout
+        android:id="@+id/fortitude_numbers"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fortitude_title"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/fortitude_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/total"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/fortitude_equals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/equals"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/fortitude_base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/base_save"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/fortitude_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/fortitude_ability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/ability_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/fortitude_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/fortitude_magic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/magic_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/fortitude_plus3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/fortitude_misc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/misc_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/fortitude_plus4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/fortitude_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/temp_modifier"
+            android:textSize="4pt" />
     </LinearLayout>
-    
-     <TextView
+
+    <TextView
         android:id="@+id/reflex_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/fortitude_numbers"
         android:text="@string/reflex_title" />
-     
-	<LinearLayout
-		android:id="@+id/reflex_numbers"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/reflex_title"
-		android:layout_marginTop="10dp"
-		android:orientation="horizontal">
-    	
-    	<TextView
-    	    android:id="@+id/reflex_total"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/total" />
-    	
-    	<TextView
-    	    android:id="@+id/reflex_equals"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/equals" />
-    	
-    	<EditText 
-    	    android:id="@+id/reflex_base"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/base_save" />
-    	
-    	<TextView
-    	    android:id="@+id/reflex_plus1"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<TextView 
-    	    android:id="@+id/reflex_ability"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/ability_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/reflex_plus2"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<EditText 
-    	    android:id="@+id/reflex_magic"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/magic_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/reflex_plus3"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<EditText 
-    	    android:id="@+id/reflex_misc"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/misc_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/reflex_plus4"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-     	<EditText 
-     	    android:id="@+id/reflex_temp"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/temp_modifier" />
 
+    <LinearLayout
+        android:id="@+id/reflex_numbers"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reflex_title"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/reflex_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/total"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/reflex_equals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/equals"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/reflex_base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/base_save"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/reflex_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/reflex_ability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/ability_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/reflex_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/reflex_magic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/magic_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/reflex_plus3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/reflex_misc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/misc_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/reflex_plus4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/reflex_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/temp_modifier"
+            android:textSize="4pt" />
     </LinearLayout>
-        
-     <TextView
+
+    <TextView
         android:id="@+id/will_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/reflex_numbers"
         android:text="@string/will_title" />
-     
-	<LinearLayout
-		android:id="@+id/will_numbers"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/will_title"
-		android:layout_marginTop="10dp"
-		android:orientation="horizontal">
-    	
-    	<TextView
-    	    android:id="@+id/will_total"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/total" />
-    	
-    	<TextView
-    	    android:id="@+id/will_equals"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/equals" />
-    	
-    	<EditText 
-    	    android:id="@+id/will_base"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/base_save" />
-    	
-    	<TextView
-    	    android:id="@+id/will_plus1"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<TextView 
-    	    android:id="@+id/will_ability"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/ability_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/will_plus2"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<EditText 
-    	    android:id="@+id/will_magic"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/magic_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/will_plus3"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-    	<EditText 
-    	    android:id="@+id/will_misc"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/misc_modifier" />
-    	
-    	<TextView
-    	    android:id="@+id/will_plus4"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:textSize="4pt"
-    	    android:hint="@string/plus" />
-    	
-     	<EditText 
-     	    android:id="@+id/will_temp"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:layout_weight="1"
-       		android:textSize="4pt"
-       		android:hint="@string/temp_modifier" />
 
+    <LinearLayout
+        android:id="@+id/will_numbers"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/will_title"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/will_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/total"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/will_equals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/equals"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/will_base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/base_save"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/will_plus1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/will_ability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/ability_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/will_plus2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/will_magic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/magic_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/will_plus3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/will_misc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/misc_modifier"
+            android:textSize="4pt" />
+
+        <TextView
+            android:id="@+id/will_plus4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/plus"
+            android:textSize="4pt" />
+
+        <EditText
+            android:id="@+id/will_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/temp_modifier"
+            android:textSize="4pt" />
     </LinearLayout>
-    
-	    <Button 
+
+    <Button
         android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/will_numbers"
-        android:text="@string/save"
-     	android:onClick="savingThrows" />
+        android:onClick="savingThrows"
+        android:text="@string/save" />
 
 </RelativeLayout>

@@ -77,7 +77,7 @@ public class SkillsActivity extends Activity {
 		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
 		abilities[4] = new Ability(charID, AbilityName.WISDOM);
 		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
-				
+
 		// map from skillID to ability score
 		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
 		// get skillIDs and associated ability score IDs
@@ -96,6 +96,7 @@ public class SkillsActivity extends Activity {
 		int crafts = 0; // number of Crafts loaded
 		int performs = 0; // number of Performs loaded
 		int professions = 0; // number of Professions loaded
+
 		// get skills from DB
 		Cursor cursor2 = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
 				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
@@ -261,8 +262,8 @@ public class SkillsActivity extends Activity {
 					modsFieldID = R.id.perception_misc_mod; break;
 				case Skill.PERFORM_ID:
 					//if (performs < 2)
-						performs++;
-						arrayID = R.array.perform_array;
+					performs++;
+					arrayID = R.array.perform_array;
 					if (performs == 1) {
 						titleFieldID = R.id.perform1_spinner;
 						totalFieldID = R.id.perform1_total;
@@ -278,8 +279,8 @@ public class SkillsActivity extends Activity {
 					} break;
 				case Skill.PROFESSION_ID:
 					//if (professions < 2)
-						professions++;
-						arrayID = R.array.profession_array;
+					professions++;
+					arrayID = R.array.profession_array;
 					if (professions == 1) {
 						titleFieldID = R.id.profession1_spinner;
 						totalFieldID = R.id.profession1_total;
@@ -336,7 +337,7 @@ public class SkillsActivity extends Activity {
 				}
 				// put data in UI
 				int abMod = skillToAbMod.get(skill.getID());
-				
+
 				TextView totalField = (TextView) findViewById(totalFieldID);
 				totalField.setText("" + (skill.getTotal() + abMod));
 				
@@ -347,13 +348,13 @@ public class SkillsActivity extends Activity {
 						|| skillID == Skill.PROFESSION_ID) {
 					Spinner spinner = (Spinner) findViewById(titleFieldID);
 					ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, arrayID,
-			                R.layout.smaller_multiline_spinner_dropdown_item);
+							R.layout.smaller_multiline_spinner_dropdown_item);
 					spinner.setAdapter(myAdap);
 					int spinnerPosition = myAdap.getPosition(title);
 					//set the default according to value
 					spinner.setSelection(spinnerPosition);
 				}
-				
+
 				EditText ranksEnterField = (EditText) findViewById(ranksFieldID);
 				ranksEnterField.setText("" + skill.getRank());
 				
@@ -365,7 +366,7 @@ public class SkillsActivity extends Activity {
 		}
 		cursor2.close();
 	}
-	
+
 	// helper class for storing a string and int together
 	// mostly for making the following code readable
 	private class StrInt {
@@ -383,23 +384,23 @@ public class SkillsActivity extends Activity {
 		// TODO write method
 		//Skill sk = new Skill(null, null);
 		ArrayList<Skill> skills = new ArrayList<Skill>();
-		
-// this segment of code is for factoring the code so that it's not so redundant
-// however the priority is getting this to work, so we can finish this later
-//		// load skills from DB
-//		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
-//				SQLiteHelperRefTables.ALL_COLUMNS_S, null, null, null, null, null);
-//		Map<Integer, StrInt> skillsRef = new HashMap<Integer, StrInt>(); 
-//		// ^ this is essentially a map from skill id to skill name and ability score id
-//		if (cursor.moveToFirst()) {
-//			// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
-//			int id 		= cursor.getInt(0);
-//			String name = cursor.getString(1);
-//			int asID 	= cursor.getInt(2);
-//			skillsRef.put(id, new StrInt(name, asID));
-//		}
-//		cursor.close();
-		
+
+		// this segment of code is for factoring the code so that it's not so redundant
+		// however the priority is getting this to work, so we can finish this later
+		//		// load skills from DB
+		//		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
+		//				SQLiteHelperRefTables.ALL_COLUMNS_S, null, null, null, null, null);
+		//		Map<Integer, StrInt> skillsRef = new HashMap<Integer, StrInt>(); 
+		//		// ^ this is essentially a map from skill id to skill name and ability score id
+		//		if (cursor.moveToFirst()) {
+		//			// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
+		//			int id 		= cursor.getInt(0);
+		//			String name = cursor.getString(1);
+		//			int asID 	= cursor.getInt(2);
+		//			skillsRef.put(id, new StrInt(name, asID));
+		//		}
+		//		cursor.close();
+
 		// Acrobatics
 		EditText acrobaticsRanksEnter = (EditText) findViewById(R.id.acrobatics_ranks);
 		EditText acrobaticsMiscEnter = (EditText) findViewById(R.id.acrobatics_misc_mod);
@@ -412,7 +413,7 @@ public class SkillsActivity extends Activity {
 		if (acrobaticsMisc.matches("")) {
 			acrobaticsMisc = "0";
 		}
-		
+
 		if (!acrobaticsRanks.matches("")) {
 			int acrobaticsRank = Integer.parseInt(acrobaticsRanks);
 			Skill skill = new Skill(Skill.ACROBATICS_ID, "Acrobatics", 
@@ -482,7 +483,7 @@ public class SkillsActivity extends Activity {
 		if (climbMisc.matches("")) {
 			climbMisc = "0";
 		}
-		
+
 		if (!climbRanks.matches("")) {
 			int climbRank = Integer.parseInt(climbRanks);
 			Skill skill = new Skill(Skill.CLIMB_ID, "Climb", 
@@ -498,7 +499,7 @@ public class SkillsActivity extends Activity {
 		Spinner craft1Spinner = (Spinner) findViewById(R.id.craft1_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String craft1 = craft1Spinner.getSelectedItem().toString();
-		
+
 		EditText craft1RanksEnter = (EditText) findViewById(R.id.craft1_ranks);
 		EditText craft1MiscEnter = (EditText) findViewById(R.id.craft1_misc_mod);
 		String craft1Ranks = craft1RanksEnter.getText().toString().trim();
@@ -525,7 +526,7 @@ public class SkillsActivity extends Activity {
 		Spinner craft2Spinner = (Spinner) findViewById(R.id.craft2_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String craft2 = craft2Spinner.getSelectedItem().toString();
-		
+
 		EditText craft2RanksEnter = (EditText) findViewById(R.id.craft2_ranks);
 		EditText craft2MiscEnter = (EditText) findViewById(R.id.craft2_misc_mod);
 		String craft2Ranks = craft2RanksEnter.getText().toString().trim();
@@ -553,7 +554,7 @@ public class SkillsActivity extends Activity {
 		Spinner craft3Spinner = (Spinner) findViewById(R.id.craft3_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String craft3 = craft3Spinner.getSelectedItem().toString();
-		
+
 		EditText craft3RanksEnter = (EditText) findViewById(R.id.craft3_ranks);
 		EditText craft3MiscEnter = (EditText) findViewById(R.id.craft3_misc_mod);
 		String craft3Ranks = craft3RanksEnter.getText().toString().trim();
@@ -1043,7 +1044,7 @@ public class SkillsActivity extends Activity {
 		Spinner perform1Spinner = (Spinner) findViewById(R.id.perform1_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String perform1 = perform1Spinner.getSelectedItem().toString();
-		
+
 		EditText perform1RanksEnter = (EditText) findViewById(R.id.perform1_ranks);
 		EditText perform1MiscEnter = (EditText) findViewById(R.id.perform1_misc_mod);
 		String perform1Ranks = perform1RanksEnter.getText().toString().trim();
@@ -1070,7 +1071,7 @@ public class SkillsActivity extends Activity {
 		Spinner perform2Spinner = (Spinner) findViewById(R.id.perform2_spinner);
 		// Gives a string representation of whatever item is selected in the spinner
 		String perform2 = perform2Spinner.getSelectedItem().toString();
-		
+
 		EditText perform2RanksEnter = (EditText) findViewById(R.id.perform2_ranks);
 		EditText perform2MiscEnter = (EditText) findViewById(R.id.perform2_misc_mod);
 		String perform2Ranks = perform2RanksEnter.getText().toString().trim();
@@ -1332,13 +1333,13 @@ public class SkillsActivity extends Activity {
 		// clear old data from DB
 		SQLiteHelperSkills.db.delete(SQLiteHelperSkills.TABLE_NAME,
 				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null);
-		
+
 		// write all data to DB
 		for (Skill s : skills) {
 			s.writeToDB(charID);
 		}
 
-		
+
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra("cid", charID);

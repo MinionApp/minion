@@ -7,280 +7,279 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".BasicInfoActivity" >
-    
+
     <LinearLayout
-		android:id="@+id/name_align_title"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_marginTop="10dp"
-		android:orientation="horizontal">
-    
-	    <TextView
-	        android:id="@+id/char_name_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/character_name" />
-	    
-	    <TextView
-	        android:id="@+id/alignment_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/alignment" />
-	</LinearLayout>
-	    
+        android:id="@+id/name_align_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/char_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/character_name" />
+
+        <TextView
+            android:id="@+id/alignment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/alignment" />
+    </LinearLayout>
+
     <LinearLayout
-		android:id="@+id/name_align_enter"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/name_align_title"
-		android:orientation="horizontal">
-		
-	    <EditText 
-	        android:id="@+id/char_name_enter"
-	        android:inputType="textCapWords"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    	    
-	    <Spinner
-	        android:id="@+id/alignment_spinner"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:drawSelectorOnTop="true"
-	        android:textSize="12sp"
-	        android:entries="@array/alignment_array"
-	        android:prompt="@string/alignment_prompt" />
-	</LinearLayout>
-    
+        android:id="@+id/name_align_enter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name_align_title"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/char_name_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textCapWords|textNoSuggestions" />
+
+        <Spinner
+            android:id="@+id/alignment_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/alignment_array"
+            android:prompt="@string/alignment_prompt"
+            android:textSize="12sp" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/char_level_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_align_enter"
         android:text="@string/char_level" />
-    
-    <EditText 
+
+    <EditText
         android:id="@+id/char_level_enter"
-        android:inputType="number"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/char_level_title" />
+        android:layout_below="@+id/char_level_title"
+        android:inputType="number" />
 
     <LinearLayout
-		android:id="@+id/deity_homeland_title"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/char_level_enter"
-		android:layout_marginTop="10dp"
-		android:orientation="horizontal">
-	    
-	    <TextView
-	        android:id="@+id/deity_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/deity" />
-	    
-	    <TextView
-	        android:id="@+id/homeland_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/homeland" />
+        android:id="@+id/deity_homeland_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/char_level_enter"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/deity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/deity" />
+
+        <TextView
+            android:id="@+id/homeland_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/homeland" />
     </LinearLayout>
-    
+
     <LinearLayout
-		android:id="@+id/deity_homeland_enter"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/deity_homeland_title"
-		android:orientation="horizontal">
-	    
-	    <EditText 
-	        android:id="@+id/deity_enter"
-	        android:inputType="textCapWords"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <EditText 
-	        android:id="@+id/homeland_enter"
-	        android:inputType="textCapWords"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
+        android:id="@+id/deity_homeland_enter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deity_homeland_title"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/deity_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textCapWords|textNoSuggestions" />
+
+        <EditText
+            android:id="@+id/homeland_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textCapWords|textNoSuggestions" />
     </LinearLayout>
-    
-    
+
     <LinearLayout
-		android:id="@+id/race_size_gender_age_title"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/deity_homeland_enter"
-		android:layout_marginTop="10dp"
-		android:orientation="horizontal">
-	    
-	    <TextView
-	        android:id="@+id/race_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/race" />
-	    
-	    <TextView
-	        android:id="@+id/size_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/size" />
-	    
-	    <TextView
-	        android:id="@+id/placeholder"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1" />
-	    
-	    <TextView
-	        android:id="@+id/gender_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/gender" />
-	    
-	    <TextView
-	        android:id="@+id/age_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/age" />
+        android:id="@+id/race_size_gender_age_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deity_homeland_enter"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/race_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/race" />
+
+        <TextView
+            android:id="@+id/size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/size" />
+
+        <TextView
+            android:id="@+id/placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/gender_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/gender" />
+
+        <TextView
+            android:id="@+id/age_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/age" />
     </LinearLayout>
-    
+
     <LinearLayout
-		android:id="@+id/race_size_gender_age_enter"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/race_size_gender_age_title"
-		android:orientation="horizontal">
-	    
-	    <EditText 
-	        android:id="@+id/race_enter"
-	        android:inputType="textCapWords"
-	        android:layout_weight="1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
-	    
-	    <Spinner
-	        android:id="@+id/size_spinner"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:drawSelectorOnTop="true"
-	        android:entries="@array/size_array"
-	        android:prompt="@string/size_prompt" />
-	    
-	    <EditText 
-	        android:id="@+id/gender_enter"
-	        android:inputType="textCapWords"
-	        android:layout_weight="1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
-	    
-	    <EditText 
-	        android:id="@+id/age_enter"
-	        android:inputType="number"
-	        android:layout_weight="1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
-	</LinearLayout>
-	
-    <LinearLayout
-		android:id="@+id/h_w_hair_eyes_title"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/race_size_gender_age_enter"
-		android:layout_marginTop="10dp"
-		android:orientation="horizontal">
-	    
-	    <TextView
-	        android:id="@+id/height_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/height" />
-	    
-	    <TextView
-	        android:id="@+id/weight_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/weight" />
-	    
-	    <TextView
-	        android:id="@+id/hair_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/hair" />
-	    
-	    <TextView
-	        android:id="@+id/eyes_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/eyes" />
+        android:id="@+id/race_size_gender_age_enter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/race_size_gender_age_title"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/race_enter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textCapWords|textNoSuggestions" />
+
+        <Spinner
+            android:id="@+id/size_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/size_array"
+            android:prompt="@string/size_prompt" />
+
+        <EditText
+            android:id="@+id/gender_enter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textCapWords|textNoSuggestions" />
+
+        <EditText
+            android:id="@+id/age_enter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
     </LinearLayout>
-    
+
     <LinearLayout
-		android:id="@+id/h_w_hair_eyes_enter"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/h_w_hair_eyes_title"
-		android:orientation="horizontal">
-	    
-	    <EditText 
-	        android:id="@+id/height_enter"
-	        android:inputType="number"
-	        android:layout_weight="1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
-	    
-	    <EditText 
-	        android:id="@+id/weight_enter"
-	        android:inputType="numberDecimal"
-	        android:layout_weight="1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
-	    
-		<TextView
-	        android:id="@+id/pounds"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/lbs" />
-	    
-	    <EditText 
-	        android:id="@+id/hair_enter"
-	        android:inputType="textCapWords"
-	        android:layout_weight="1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
-	    
-	    <EditText 
-	        android:id="@+id/eyes_enter"
-	        android:inputType="textCapWords"
-	        android:layout_weight="1"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
-	</LinearLayout>
-	
-    <Button 
+        android:id="@+id/h_w_hair_eyes_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/race_size_gender_age_enter"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/height_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/height" />
+
+        <TextView
+            android:id="@+id/weight_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/weight" />
+
+        <TextView
+            android:id="@+id/hair_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/hair" />
+
+        <TextView
+            android:id="@+id/eyes_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/eyes" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/h_w_hair_eyes_enter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/h_w_hair_eyes_title"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/height_enter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/weight_enter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/pounds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbs" />
+
+        <EditText
+            android:id="@+id/hair_enter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textCapWords|textNoSuggestions" />
+
+        <EditText
+            android:id="@+id/eyes_enter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textCapWords|textNoSuggestions" />
+    </LinearLayout>
+
+    <Button
         android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/h_w_hair_eyes_enter"
-        android:text="@string/save"
-     	android:onClick="basicInfo" />
+        android:onClick="basicInfo"
+        android:text="@string/save" />
 
 </RelativeLayout>

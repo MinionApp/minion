@@ -17,9 +17,9 @@ public class SkillTest extends TestCase {
 	 * Test two parameter constructor for fatal failure only
 	 */
 	public void testSkillStringAbilityName() {
-		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY);
-		Skill climb = new Skill("Climb", AbilityName.STRENGTH);
-		Skill jibberish = new Skill("#jSe820", AbilityName.CHARISMA);
+		Skill acro = new Skill(-1, "Acrobatics", AbilityName.DEXTERITY, 0, false);
+		Skill climb = new Skill(-1, "Climb", AbilityName.STRENGTH, 0, true);
+		Skill jibberish = new Skill(-1, "#jSe820", AbilityName.CHARISMA, 3, false);
 		
 		assertTrue(acro != null);
 		assertTrue(climb != null);
@@ -30,9 +30,13 @@ public class SkillTest extends TestCase {
 	 * Test three parameter constructor for fatal failure only
 	 */
 	public void testSkillStringAbilityNameIntBoolean() {
-		Skill acro = new Skill(-1, "Acrobatics", AbilityName.DEXTERITY, 1, true);
-		Skill climb = new Skill(-1, "Climb", AbilityName.STRENGTH, 0, false);
-		Skill jibberish = new Skill(-1, "#jSe820", AbilityName.CHARISMA, 4, false);
+		String acroName = "Acrobatics";
+		String climbName = "Climb";
+		String jibberName = "#jSe820";
+		
+		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 1, true);
+		Skill climb = new Skill(-1, climbName, AbilityName.STRENGTH, 0, false);
+		Skill jibberish = new Skill(-1, jibberName, AbilityName.CHARISMA, 4, false);
 		
 		assertTrue(acro != null);
 		assertTrue(climb != null);
@@ -49,9 +53,9 @@ public class SkillTest extends TestCase {
 		String climbName = "Climb";
 		String jibberName = "#jSe820";
 		
-		Skill acro = new Skill(acroName, AbilityName.DEXTERITY);
-		Skill climb = new Skill(climbName, AbilityName.STRENGTH);
-		Skill jibberish = new Skill(jibberName, AbilityName.CHARISMA);
+		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 1, true);
+		Skill climb = new Skill(-1, climbName, AbilityName.STRENGTH, 0, false);
+		Skill jibberish = new Skill(-1, jibberName, AbilityName.CHARISMA, 4, false);
 	
 		assertEquals(acroName, acro.getName());
 		assertEquals(climbName, climb.getName());
@@ -63,10 +67,13 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor
 	 */
 	public void testGetRank() {
-		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY);
+		String acroName = "Acrobatics";
+		String climbName = "Climb";
+		
+		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
 		assertEquals(0, acro.getRank());
 		
-		Skill climb = new Skill(-1, "Climb", AbilityName.DEXTERITY, 1, true);
+		Skill climb = new Skill(-1, climbName, AbilityName.STRENGTH, 1, true);
 		assertEquals(1, climb.getRank());
 	}
 	
@@ -75,7 +82,9 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor and getRank
 	 */
 	public void testAddToRank() {
-		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY);
+		String acroName = "Acrobatics";
+
+		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
 		assertEquals(0, acro.getRank());
 		
 		acro.addToRank(1);
@@ -90,7 +99,9 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor
 	 */
 	public void testGetModifier() {
-		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY);
+		String acroName = "Acrobatics";
+
+		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
 		assertEquals(0, acro.getModifier("racial"));
 	}
 
@@ -99,7 +110,9 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor and getModifier
 	 */
 	public void testAddModifier() {
-		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY);
+		String acroName = "Acrobatics";
+
+		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
 		assertEquals(0, acro.getModifier("racial"));
 	
 		acro.addModifier("racial", 8);
@@ -115,7 +128,9 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor, getModifier and addModifier
 	 */
 	public void testRemoveModifier() {
-		Skill acro = new Skill("Acrobatics", AbilityName.DEXTERITY);
+		String acroName = "Acrobatics";
+
+		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
 		assertEquals(0, acro.getModifier("racial"));
 		acro.removeModifier("racial");
 		assertEquals(0, acro.getModifier("racial"));

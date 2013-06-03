@@ -24,7 +24,7 @@ public class PasswordRecoveryActivity extends Activity {
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
 	private AccountUtils account;
-	
+
 	/**
 	 * Displays the password recovery page.
 	 */
@@ -76,7 +76,7 @@ public class PasswordRecoveryActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/**
 	 * Responds to the recover password button click and goes to the security question page.
 	 * @param view The current view
@@ -86,22 +86,22 @@ public class PasswordRecoveryActivity extends Activity {
 			// Get user login info.
 			EditText usernameEditText = (EditText) findViewById(R.id.username_input);
 			String un = usernameEditText.getText().toString().trim();
-			
+
 			String res = account.getSecurityQuestion(un);
 			TextView error = (TextView) findViewById(R.id.username_error);
-        	if (res == null || res.equals("0")) {
-        		error.setVisibility(View.VISIBLE); 
-        	} else { 		
-        		Intent intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
-        		intent.putExtra(USERNAME, un);
-        		intent.putExtra(QUESTION, res.replace("_", " ")); //to fix question string
-        		startActivity(intent);
-        	}
-    	} else {
-    		Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
-    	}
+			if (res == null || res.equals("0")) {
+				error.setVisibility(View.VISIBLE); 
+			} else { 		
+				Intent intent = new Intent(this, PasswordRecoveryQuestionActivity.class);
+				intent.putExtra(USERNAME, un);
+				intent.putExtra(QUESTION, res.replace("_", " ")); //to fix question string
+				startActivity(intent);
+			}
+		} else {
+			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+		}
 	}
-	
+
 	/**
 	 * Responds to the cancel button click and returns to the login page.
 	 * @param view The current view
@@ -111,6 +111,6 @@ public class PasswordRecoveryActivity extends Activity {
 		startActivity(intent);
 		finish();
 	}
-	
-	
+
+
 }

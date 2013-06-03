@@ -24,10 +24,10 @@ public class Combat {
 	public static final String ARMOR_NATURAL_STRING = "armorNatural";
 	public static final String ARMOR_DEFLECTION_STRING = "armorDeflection";
 	public static final String ARMOR_MISC_STRING = "armorMisc";
-	
+
 	public long charID;
 	public boolean isNew; 
-	
+
 	//totalHP field does not include constitution
 	private int baseHP;
 	private int damageReduction;
@@ -44,10 +44,10 @@ public class Combat {
 	private int speed;
 	private int initModifier;
 	private int bAb;
-	
+
 	public int dexMod;
 	public int sizeMod;
-	
+
 	/**
 	 * Creates a new Combat Object with all values initialized to 0
 	 * or empty lists accordingly
@@ -55,7 +55,7 @@ public class Combat {
 	public Combat() {
 		this(9000);
 	}
-	
+
 	public Combat(long id) {
 		baseHP = 0;
 		damageReduction = 0;
@@ -65,10 +65,10 @@ public class Combat {
 		speed = 0;
 		initModifier = 0;
 		bAb = 0;
-		
+
 		loadFromDB();
 	}
-	
+
 	/**
 	 * Populate fields with values from DB
 	 */
@@ -96,7 +96,7 @@ public class Combat {
 		}
 		cursor.close();
 	}
-	
+
 	/**
 	 * Get base hit point value
 	 * @return	an integer representing base HP
@@ -162,7 +162,7 @@ public class Combat {
 	public int getBludgeoningDamage() {
 		return bludgeningDamage;
 	}
-	
+
 	/**
 	 * Set the current amount of bludgeoning damage taken by character, 
 	 * overriding all previous damage with new value.
@@ -187,10 +187,10 @@ public class Combat {
 		if (armorModifiers.containsKey(armorName)) {
 			return armorModifiers.get(armorName);
 		}
-		
+
 		return 0;
 	}
-	
+
 	/**
 	 * Removes the modifier under the given name as well as the record of that name.
 	 * 
@@ -202,7 +202,7 @@ public class Combat {
 			armorModifiers.remove(armorName);
 		}
 	}
-	
+
 	/**
 	 * Adds a new Armor Modifier with the given name and value
 	 * 
@@ -223,7 +223,7 @@ public class Combat {
 	public int getSpeed() {
 		return speed;
 	}
-	
+
 	/**
 	 * Set the base speed of a character stored in US feet.
 	 * 
@@ -281,7 +281,7 @@ public class Combat {
 	public int getInitTotal() {
 		return dexMod + initModifier;
 	}
-	
+
 	/**
 	 * Return total armor class
 	 * 
@@ -297,7 +297,7 @@ public class Combat {
 		return score;
 	}
 
-	
+
 	/** 
 	 * Writes Combat to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
@@ -306,7 +306,7 @@ public class Combat {
 	public void writeToDB(long charID) {
 		// TODO implement
 		int skillID = 0; // get skill ID from ref db
-		
+
 		// remove old data
 		SQLiteHelperCombat.db.delete(SQLiteHelperCombat.TABLE_NAME, SQLiteHelperCombat.COLUMN_CHAR_ID + " = " + charID, null);
 		// prepare new insert
@@ -324,7 +324,7 @@ public class Combat {
 		values.put(SQLiteHelperCombat.COLUMN_ARMOR_MISC, armorModifiers.get(ARMOR_MISC_STRING));
 		values.put(SQLiteHelperCombat.COLUMN_BASE_ATTACK_BONUS, bAb);
 		// still need to do lethal/bludgeoning, and armor/hp mods
-		
+
 		SQLiteHelperCombat.db.insert(SQLiteHelperCombat.TABLE_NAME, null, values);
 	}
 }
