@@ -3,17 +3,21 @@ package uw.cse403.minion;
 import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.app.ListActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
@@ -72,10 +76,12 @@ public class CharactersActivity extends ListActivity {
 		System.out.println("OPENING DATASOURCE");
 		datasource.open();
 
+		username = SaveSharedPreference.getPersistentUserName(CharactersActivity.this);
+		
 		characterArray = new ArrayList<String>();
 
 		// Initialize the UI components
-		charListView = (ListView) findViewById(R.id.charListView);
+		charListView = (ListView) findViewById(android.R.id.list);
 
 		// Gets all the characters
 		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
@@ -165,7 +171,7 @@ public class CharactersActivity extends ListActivity {
 		super.onResume();
 		characterArray = new ArrayList<String>();
 		// Initialize the UI components
-		charListView = (ListView) findViewById(R.id.charListView);
+		charListView = (ListView) findViewById(android.R.id.list);
 
 		// Gets all characters
 		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
@@ -183,7 +189,7 @@ public class CharactersActivity extends ListActivity {
 		// Create an empty adapter we will use to display the loaded data.
 		// We pass null for the cursor, then update it in onLoadFinished()
 		adapter = new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_1, characterArray);
+				R.layout.custom_character_list_item, R.id.character, characterArray);
 		charListView.setAdapter(adapter);
 		charListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -253,11 +259,19 @@ public class CharactersActivity extends ListActivity {
 		 * Makes the HTTP request and returns the result as a String.
 		 */
 		protected String doInBackground(String... args) {
+			JSONObject characterInfo = new JSONObject();
+			try {
+				characterInfo.put("username", username);
+				characterInfo.put("local_id", charID);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-			postParameters.add(new BasicNameValuePair("username", username));
-			postParameters.add(new BasicNameValuePair("char_id", String.valueOf(charID)));
-
+			postParameters.add(new BasicNameValuePair("characterInfo", characterInfo.toString()));
+			Log.i("JSON", characterInfo.toString());
 			String result = null;
 
 			//http post
@@ -276,7 +290,8 @@ public class CharactersActivity extends ListActivity {
 		 * Parses the String result and directs to the correct Activity
 		 */
 		protected void onPostExecute(String result) {
-			// INSERT CODE TO DELETE FROM LOCAL DB HERE
+			Log.i("result", result);
+			CharacterDataSource.deleteCharacter(charID);
 			Intent intent = new Intent(context, CharactersActivity.class);
 			startActivity(intent);
 			finish();
