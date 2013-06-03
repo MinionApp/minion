@@ -212,4 +212,32 @@ public class CharacterDataSource {
 		}
 		return id;
 	}
+	
+	/**
+	 * Deletes a character from local database with charID
+	 * @param charID id of character to be deleted
+	 */
+	public static void deleteCharacter(long charID) {
+		SQLiteHelperBasicInfo.db.delete(SQLiteHelperBasicInfo.TABLE_NAME, 
+				SQLiteHelperBasicInfo.COLUMN_ID + " = " + charID, null);
+		SQLiteHelperAbilityScores.db.delete(SQLiteHelperAbilityScores.TABLE_NAME, 
+				SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID, null);
+		SQLiteHelperSkills.db.delete(SQLiteHelperSkills.TABLE_NAME, 
+				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null);
+		SQLiteHelperCombat.db.delete(SQLiteHelperCombat.TABLE_NAME, 
+				SQLiteHelperCombat.COLUMN_CHAR_ID + " = " + charID, null);
+		SQLiteHelperSavingThrows.db.delete(SQLiteHelperSavingThrows.TABLE_NAME, 
+				SQLiteHelperSavingThrows.COLUMN_CHAR_ID + " = " + charID, null);
+	}
+	
+	/**
+	 * Deletes all characters from database
+	 */
+	public static void deleteAllCharacters() {
+		SQLiteHelperBasicInfo.db.delete(SQLiteHelperBasicInfo.TABLE_NAME, null, null);
+		SQLiteHelperAbilityScores.db.delete(SQLiteHelperAbilityScores.TABLE_NAME, null, null);
+		SQLiteHelperSkills.db.delete(SQLiteHelperSkills.TABLE_NAME, null, null);
+		SQLiteHelperCombat.db.delete(SQLiteHelperCombat.TABLE_NAME, null, null);
+		SQLiteHelperSavingThrows.db.delete(SQLiteHelperSavingThrows.TABLE_NAME, null, null);
+	}
 }
