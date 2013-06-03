@@ -76,15 +76,10 @@ public class EditGroupActivity extends ListActivity {
 		TextView gameMasterText = (TextView) findViewById(R.id.game_master_name);
 		gameMasterText.setText(gm);
 
-<<<<<<< HEAD
 		setListAdapter(new CustomArrayAdapter());
-
-=======
-		setListAdapter(new IconicAdapter());
 		
 		if (TraceControl.TRACE)
 			Debug.stopMethodTracing();
->>>>>>> ad0541ecee890f93976b9e075f257c8820e55824
 	}
 
 	/**

@@ -136,12 +136,8 @@ public class SkillsActivity extends Activity {
 				int miscMod = cursor2.getInt(4);
 				Skill skill = new Skill(skillID, title, null, ranks, false);
 				skill.addModifier("skillMod", miscMod);
-<<<<<<< HEAD
 
-=======
-				
 				// these will store IDs referring to UI elements
->>>>>>> ad0541ecee890f93976b9e075f257c8820e55824
 				int titleFieldID = 0;
 				int totalFieldID = 0;
 				int abModFieldID = 0;
@@ -1379,10 +1375,5 @@ public class SkillsActivity extends Activity {
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra("cid", charID);
 		startActivity(intent);
-<<<<<<< HEAD
-	}
-}
-=======
 	}	
 }
->>>>>>> ad0541ecee890f93976b9e075f257c8820e55824
