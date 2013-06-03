@@ -5,6 +5,7 @@ import java.util.*;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Debug;
 
 /**
  * 
@@ -39,8 +40,14 @@ public class SavingThrow {
 		assocAbility = attribute;
 		baseSave = 0;
 		modifiers = new HashMap<String,Integer>();
-
+		
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("SavingThrow_database");
+		
 		loadFromDB();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

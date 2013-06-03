@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -60,6 +61,9 @@ public class GroupsActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("GroupsActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_groups);
 		// Show the Up button in the action bar.
@@ -68,6 +72,9 @@ public class GroupsActivity extends Activity {
 
 		GetGroupsTask task = new GetGroupsTask(this);
 		task.execute(username);
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

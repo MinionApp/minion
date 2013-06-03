@@ -104,7 +104,6 @@ public class Skill {
 		this.skillID = skillID;
 		this.name = name;
 		this.title = title;
-		// TODO: Consider not allowing negative ranks
 		if (rank < 0) {
 			this.ranks = 0;
 		} else {

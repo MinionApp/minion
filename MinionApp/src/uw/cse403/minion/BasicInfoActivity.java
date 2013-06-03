@@ -1,6 +1,7 @@
 package uw.cse403.minion;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,12 +38,16 @@ public class BasicInfoActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("BasicInfoActivity_onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_basic_info);
 
 		charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		baseInfo = new CharacterDescription(charID);
 		loadData();
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

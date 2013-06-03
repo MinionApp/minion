@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.util.Log;
@@ -36,6 +37,9 @@ public class CharCreateMainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("CharCreateMainActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_char_create_main);
 		username = SaveSharedPreference.getPersistentUserName(CharCreateMainActivity.this);
@@ -60,6 +64,9 @@ public class CharCreateMainActivity extends Activity {
 		}
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

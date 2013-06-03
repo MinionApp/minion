@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
@@ -57,6 +58,9 @@ public class GroupCreateActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("GroupCreateActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_create);
 		username = SaveSharedPreference.getPersistentUserName(GroupCreateActivity.this);
@@ -108,6 +112,9 @@ public class GroupCreateActivity extends Activity {
 		}
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

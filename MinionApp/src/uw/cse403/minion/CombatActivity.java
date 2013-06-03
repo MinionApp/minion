@@ -1,6 +1,7 @@
 package uw.cse403.minion;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,12 +30,18 @@ public class CombatActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("CombatActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_combat);
 		charID = this.getIntent().getExtras().getLong("cid");
 		combat = new Combat(charID);
 
 		loadData();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

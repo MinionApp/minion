@@ -3,6 +3,7 @@ package uw.cse403.minion;
 
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,9 @@ public class SavingThrowsActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("SavingThrowsActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_saving_throws);
 		charID = this.getIntent().getExtras().getLong("cid");
@@ -33,6 +37,9 @@ public class SavingThrowsActivity extends Activity {
 		will = new SavingThrow(AbilityName.WISDOM);
 
 		loadData();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

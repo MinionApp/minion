@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -74,11 +75,17 @@ public class ViewInvitesActivity extends ListActivity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("ViewInvitesActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_invites);
 		username = SaveSharedPreference.getPersistentUserName(ViewInvitesActivity.this);
 		GetInvitesTask task = new GetInvitesTask(this);
 		task.execute(username);
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

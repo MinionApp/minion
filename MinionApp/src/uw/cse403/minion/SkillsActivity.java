@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,8 +30,14 @@ public class SkillsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_skills);
 		charID = this.getIntent().getExtras().getLong("cid");
-
+		
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("SkillsActivity_database");
+		
 		loadData();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
