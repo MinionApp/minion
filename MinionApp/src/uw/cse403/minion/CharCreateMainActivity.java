@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.util.Log;
@@ -16,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
@@ -25,36 +25,55 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 
+/**
+ * CharCreateMainActivity is an activity that provides the user a UI with which
+ * they can access all the individual elements of their character. It also allows
+ * them to save their character to a remote database.
+ * @author Elijah Elefson (elefse)
+ */
 public class CharCreateMainActivity extends Activity {
+	/** Class constants for string representations **/
 	private static final String CHARACTER_ID = "cid";
-
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/uploadCharacter.php";
+
+	/** The current user's username **/
 	private String username;
 
-	private Character newChar = null;
+	/** The unique id for a character **/
 	private long charID;
 
+	/**
+	 * Displays the character creation main page.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("CharCreateMainActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_char_create_main);
 		username = SaveSharedPreference.getPersistentUserName(CharCreateMainActivity.this);
-		if(newChar == null){
-			//newChar = new Character();
-		}
 		try {
 			charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		} catch (Exception e) {
 			charID = CharacterDataSource.getNewID();
 			// disable buttons until Basic Info is completed.
-			Button b1 = (Button)findViewById(R.id.ability_scores); b1.setEnabled(false);
-			Button b2 = (Button)findViewById(R.id.skills); b2.setEnabled(false);
-			Button b3 = (Button)findViewById(R.id.combat); b3.setEnabled(false);
-			Button b4 = (Button)findViewById(R.id.saving_throws); b4.setEnabled(false);
-			Button b5 = (Button)findViewById(R.id.done_button); b5.setEnabled(false);
+			Button b1 = (Button)findViewById(R.id.ability_scores); 
+			Button b2 = (Button)findViewById(R.id.skills); 
+			Button b3 = (Button)findViewById(R.id.combat); 
+			Button b4 = (Button)findViewById(R.id.saving_throws); 
+			Button b5 = (Button)findViewById(R.id.done_button); 
+			b1.setEnabled(false);
+			b2.setEnabled(false);
+			b3.setEnabled(false);
+			b4.setEnabled(false);
+			b5.setEnabled(false);
 		}
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -67,6 +86,9 @@ public class CharCreateMainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -74,6 +96,9 @@ public class CharCreateMainActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -91,36 +116,61 @@ public class CharCreateMainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Repsonds to button click and goes to the Basic Information UI.
+	 * @param view The current view
+	 */
 	public void gotoBasicInfo(View view) {
 		Intent intent = new Intent(this, BasicInfoActivity.class);
 		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 
+	/**
+	 * Repsonds to button click and goes to the Ability Scores UI.
+	 * @param view The current view
+	 */
 	public void gotoAbilityScores(View view) {
 		Intent intent = new Intent(this, AbilityScoresActivity.class);
 		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 
+	/**
+	 * Repsonds to button click and goes to the Skills UI.
+	 * @param view The current view
+	 */
 	public void gotoSkills(View view) {
 		Intent intent = new Intent(this, SkillsActivity.class);
 		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 
+	/**
+	 * Repsonds to button click and goes to the Combat UI.
+	 * @param view The current view
+	 */
 	public void gotoCombat(View view) {
 		Intent intent = new Intent(this, CombatActivity.class);
 		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 
+	/**
+	 * Repsonds to button click and goes to the Saving Throws UI.
+	 * @param view The current view
+	 */
 	public void gotoSavingThrows(View view) {
 		Intent intent = new Intent(this, SavingThrowsActivity.class);
 		intent.putExtra(CHARACTER_ID, charID);
 		startActivity(intent);
 	}
 
+	/**
+	 * Repsonds to the Done button click by uploading the character data to the
+	 * remote database and sending the user back to the Main Character Creation page.
+	 * @param view The current view
+	 */
 	public void gotoCharacterList(View view) {
 		// Checks for internet connectivity
 		if (ConnectionChecker.hasConnection(this)) {
@@ -151,6 +201,9 @@ public class CharCreateMainActivity extends Activity {
 			dialog = new ProgressDialog(context);
 		}
 
+		/**
+		 * Begins a dialog to show that the character is uploading.
+		 */
 		protected void onPreExecute() {
 			this.dialog.setMessage("Uploading character...");
 			this.dialog.show();
@@ -212,6 +265,7 @@ public class CharCreateMainActivity extends Activity {
 				e1.printStackTrace();
 			}    	
 
+			// Creates JSON object for character skills
 			Cursor cursor = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
 					SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
 			JSONObject skillsObject = new JSONObject();
@@ -238,6 +292,7 @@ public class CharCreateMainActivity extends Activity {
 			}
 			cursor.close();
 
+			// Creates JSON object for character combat scores
 			Combat combat = new Combat(charID);
 			JSONObject combatObject = new JSONObject();
 			try {
@@ -259,6 +314,7 @@ public class CharCreateMainActivity extends Activity {
 				e1.printStackTrace();
 			}
 
+			// Creates JSON object for character saving throws
 			Cursor cursor2 = SQLiteHelperSavingThrows.db.query(SQLiteHelperSavingThrows.TABLE_NAME, SQLiteHelperSavingThrows.ALL_COLUMNS, 
 					SQLiteHelperSavingThrows.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
 			JSONObject savingThrowsObject = new JSONObject();

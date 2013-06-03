@@ -3,6 +3,7 @@ package uw.cse403.minion;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Debug;
 
 /**
  * A wrapper class around the basic descriptions of a character. 
@@ -62,7 +63,13 @@ public class CharacterDescription {
 		hair = "";
 		eyes = "";
 
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("CharacterDescription_constructor");
+		
 		loadFromDB();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**

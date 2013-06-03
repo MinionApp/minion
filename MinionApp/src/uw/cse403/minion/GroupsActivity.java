@@ -9,18 +9,16 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.TwoLineListItem;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -33,22 +31,22 @@ import android.os.Build;
  * @author Elijah Elefson (elefse)
  */
 public class GroupsActivity extends Activity {
+
+	/** Class constants for string representations **/
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
-
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getGroups.php";
+
+	/** The current user's username **/
 	private String username;
 
 	/**
-	 * Declare the UI components
+	 * Declares the UI components
 	 */
 	private ListView groupsListView;
 
-	/**
-	 * Change this array's name and contents to be the character information
-	 * received from the database
-	 */
-	private static ArrayList<HashMap<String, String>> testArray;
+	/** Collection of all the groups a user belongs to **/
+	private static ArrayList<HashMap<String, String>> groupsArray;
 
 	/**
 	 * Adapter for connecting the array above to the UI view
@@ -60,6 +58,9 @@ public class GroupsActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("GroupsActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_groups);
 		// Show the Up button in the action bar.
@@ -68,6 +69,9 @@ public class GroupsActivity extends Activity {
 
 		GetGroupsTask task = new GetGroupsTask(this);
 		task.execute(username);
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -202,14 +206,14 @@ public class GroupsActivity extends Activity {
 		 * Parses the String result and directs to the correct Activity
 		 */
 		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
-			testArray = result;
+			groupsArray = result;
 
 			// Initialize the UI components
 			groupsListView = (ListView) findViewById(R.id.groupsListView);
 
 			// Create an empty adapter we will use to display the loaded data.
 			// We pass null for the cursor, then update it in onLoadFinished()
-			adapter = new SimpleAdapter(context, testArray,
+			adapter = new SimpleAdapter(context, groupsArray,
 					R.layout.custom_group_list_item, new String[] { GROUPNAME, GAME_MASTER }, new int[] {
 					R.id.text1, R.id.text2 });
 			groupsListView.setAdapter(adapter);
@@ -218,8 +222,6 @@ public class GroupsActivity extends Activity {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					// When clicked, show a toast with the TextView text
-					//Toast.makeText(getApplicationContext(), ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 					Intent intent = new Intent(context, ViewGroupActivity.class);
 					TextView text1 = (TextView) view.findViewById(R.id.text1);
 					String groupname = text1.getText().toString();
@@ -231,7 +233,5 @@ public class GroupsActivity extends Activity {
 				}
 			});
 		}
-
 	}
-
 }

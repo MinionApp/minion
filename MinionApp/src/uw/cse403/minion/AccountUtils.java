@@ -9,10 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.TextView;
 
 /**
  * AccountUtils is a collection of asynchronous tasks and 

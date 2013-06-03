@@ -27,10 +27,8 @@ public class CustomHttpClient {
 	/** The time it takes for our client to timeout */
 	public static final int HTTP_TIMEOUT = 30 * 1000; // milliseconds
 
-
 	/** Single instance of our HttpClient */
 	private static HttpClient mHttpClient;
-
 
 	/**
 	 * Get our single instance of our HttpClient object.
@@ -46,7 +44,6 @@ public class CustomHttpClient {
 		}
 		return mHttpClient;
 	}
-
 
 	/**
 	 * Performs an HTTP Post request to the specified url with the specified
@@ -85,7 +82,6 @@ public class CustomHttpClient {
 			}
 		}
 	}
-
 
 	/**
 	 * Performs an HTTP GET request to the specified url.

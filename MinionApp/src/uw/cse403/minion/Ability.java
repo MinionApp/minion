@@ -5,6 +5,7 @@ import java.util.*;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Debug;
 
 /**
  * Ability is a class to represent a single ability on a character sheet 
@@ -12,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
  * the raw stat and the modifier from that stat.
  * 
  * @author Loki White (lokiw)
+ * @author Preston Sahabu (sahabp) slight performance and consistency changes
  */
 public class Ability {
 	/** Class constants for string representations **/
@@ -61,7 +63,11 @@ public class Ability {
 	public Ability(long id, AbilityName name, int score){
 		charID = id;
 		this.name = name;
-		this.base = score;
+		if (score < 0) {
+			this.base = 0;
+		} else {
+			this.base = score;
+		}
 		tempModifiers = new HashMap<String, Integer>();
 
 		// set abilityID
@@ -84,6 +90,9 @@ public class Ability {
 	 * Loads all of the abilities stored in the local database for the current character.
 	 */
 	private void loadAbilities() {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("Ability_loadAbilities");
+		
 		isNew = true;
 		// attempt to load from DB
 		Cursor cursor = SQLiteHelperAbilityScores.db.query(SQLiteHelperAbilityScores.TABLE_NAME, 
@@ -99,6 +108,9 @@ public class Ability {
 			System.out.println(BASE + base);
 		}
 		cursor.close();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -128,6 +140,9 @@ public class Ability {
 	 */
 	public void addToBase(int modifier){
 		base += modifier;
+		if (base < 0) {
+			base = 0;
+		}
 	}
 
 	/**
@@ -138,6 +153,9 @@ public class Ability {
 	 */
 	public void setBase(int newBase){
 		base = newBase;
+		if (base < 0) {
+			base = 0;
+		}
 	}
 
 	/**
@@ -151,11 +169,11 @@ public class Ability {
 	 * 			was found
 	 */
 	public int getTempModifier(String tempName){
-		if (tempModifiers.containsKey(tempName)) {
-			return tempModifiers.get(tempName);
+		Integer retVal = tempModifiers.get(tempName);
+		if (retVal == null) {
+			return 0;
 		}
-
-		return 0;
+		return retVal;
 	}
 
 	/**
@@ -165,9 +183,7 @@ public class Ability {
 	 * @modifies this
 	 */
 	public void removeTempModifier(String tempName){
-		if (tempModifiers.containsKey(tempName)) {
-			tempModifiers.remove(tempName);
-		}
+		tempModifiers.remove(tempName);
 	}
 
 	/**
@@ -177,8 +193,12 @@ public class Ability {
 	 * @param tempValue	the value of the modifier
 	 * @modifies this
 	 */
-	public void addTempModifier(String tempName, int tempValue){
-		tempModifiers.put(tempName, tempValue);
+	public int addTempModifier(String tempName, int tempValue){
+		Integer retVal = tempModifiers.put(tempName, tempValue);
+		if (retVal == null) {
+			return 0;
+		}
+		return retVal;
 	}
 
 	/**
@@ -199,7 +219,11 @@ public class Ability {
 		while (it.hasNext()) {
 			score += it.next();
 		}
-		return score;
+		if (score < 0) {
+			return 0;
+		} else {
+			return score;
+		}
 	}
 
 	/**
@@ -256,6 +280,7 @@ public class Ability {
 					+ " AND " + SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = " + abilityID, null);
 		}
 
+		// for later implementation
 		SQLiteDatabase dbTempMods = SQLiteHelperASTempMods.db;
 	}
 

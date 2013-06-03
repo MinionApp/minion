@@ -21,8 +21,12 @@ import android.widget.Toast;
  * @author Mary Jones (mlidge) [secondary]
  */
 public class PasswordRecoveryActivity extends Activity {
+	
+	/** Class constants for string representations **/
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
+	
+	/** Account Utility that stores Async tasks for this class **/
 	private AccountUtils account;
 
 	/**
@@ -111,6 +115,4 @@ public class PasswordRecoveryActivity extends Activity {
 		startActivity(intent);
 		finish();
 	}
-
-
 }

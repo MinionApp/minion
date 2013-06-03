@@ -1,6 +1,7 @@
 package uw.cse403.minion;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,8 @@ public class AbilityScoresActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("AbilityScoresActivity_onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ability_scores);
 
@@ -48,6 +51,8 @@ public class AbilityScoresActivity extends Activity {
 		abilities[4] = new Ability(charID, AbilityName.WISDOM);
 		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
 		loadData();
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -107,16 +112,16 @@ public class AbilityScoresActivity extends Activity {
 				System.out.println(i + "  " + abilities[i].getBase());
 
 				TextView abScoreView = (TextView) findViewById(abScoreFields[i]);
-				abScoreView.setText(""+abilities[i].getScore());
+				abScoreView.setText("" + abilities[i].getScore());
 
 				TextView abModView = (TextView) findViewById(abModFields[i]);
-				abModView.setText(""+abilities[i].getMod());
+				abModView.setText("" + abilities[i].getMod());
 
 				EditText baseEnter = (EditText) findViewById(baseFields[i]);
-				baseEnter.setText(""+abilities[i].getBase());
+				baseEnter.setText("" + abilities[i].getBase());
 
 				EditText tempEnter = (EditText) findViewById(tempFields[i]);
-				tempEnter.setText(""+abilities[i].getTempModifier(Ability.SAMPLE_MODIFIER));
+				tempEnter.setText("" + abilities[i].getTempModifier(Ability.SAMPLE_MODIFIER));
 			}
 		}
 	}

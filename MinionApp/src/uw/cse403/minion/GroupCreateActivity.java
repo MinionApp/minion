@@ -1,7 +1,6 @@
 package uw.cse403.minion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -13,8 +12,8 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.app.Activity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,26 +36,44 @@ import android.os.Build;
  * @author Elijah Elefson (elefse)
  */
 public class GroupCreateActivity extends Activity {
+
+	/** Class constants for string representations **/
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
 	private static final String PLAYERS = "players";
-
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/sendInvites.php";
+
+	/** The current user's username **/
 	private String username;
+
+	/** The number of players in the group **/
+	private int numberOfPlayers;
+
+	/** Determines which Activity this current Activity was accessed from **/
+	private boolean cameFromEditGroup;
+
+	/** The name of the group that is being created **/
+	private String groupName;
+
+	/** The name of the GM who is creating the group **/
+	private String gm;
+
+	/** Collection of the players currently in the group **/
+	private ArrayList<String> playersList;
+
+	/** Layout components that allow additional player fields to be added dynamically **/
 	private LinearLayout.LayoutParams layoutParams;
 	private LinearLayout ll;
-	private int numberOfPlayers;
 	private List<EditText> editTexts;
-	private boolean cameFromEditGroup;
-	private String groupName;
-	private String gm;
-	private ArrayList<String> playersList;
 
 	/**
 	 * Displays the new group creation page.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("GroupCreateActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_create);
 		username = SaveSharedPreference.getPersistentUserName(GroupCreateActivity.this);
@@ -80,8 +97,6 @@ public class GroupCreateActivity extends Activity {
 				EditText userEditText = new EditText(GroupCreateActivity.this);
 				userEditText.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 2f));
 				userEditText.setHint("User Name");
-				// sets the id so we can gets values from this editText element later
-				//userEditText.setId(numberOfPlayers);
 				editTexts.add(userEditText);
 
 				l1.setOrientation(LinearLayout.HORIZONTAL);
@@ -101,13 +116,15 @@ public class GroupCreateActivity extends Activity {
 			groupName = i.getExtras().getString(GROUPNAME);
 			gm = i.getExtras().getString(GAME_MASTER);
 			playersList = i.getStringArrayListExtra(PLAYERS);
-			Log.i("playersList", playersList.toString());
 			TextView inviteNewPlayers = (TextView) findViewById(R.id.invite_new_players);
 			inviteNewPlayers.setText("Send New Invites For " + groupName);
 			inviteNewPlayers.setVisibility(View.VISIBLE);
 		}
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -268,7 +285,6 @@ public class GroupCreateActivity extends Activity {
 				intent = new Intent(context, EditGroupActivity.class);
 				intent.putExtra(GROUPNAME, groupName);
 				intent.putExtra(GAME_MASTER, gm);
-				Log.i("playersListBeforeReturn", playersList.toString());
 				intent.putStringArrayListExtra(PLAYERS, playersList);
 			} else {
 				intent = new Intent(context, GroupsActivity.class);

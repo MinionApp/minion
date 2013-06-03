@@ -9,6 +9,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.annotation.TargetApi;
 import android.app.ListActivity;
 import android.content.Context;
@@ -21,37 +22,35 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 /**
  * EditGroupActivity is an activity that provides the user with the ability to edit a
  * group that they are currently the game master of. This includes changing the name
  * of the group, inviting new players to the group or removing current players from 
- * the group. Currently stubbed out so it can be a placeholder until we fully implement
- * the groups feature.
+ * the group.
  * @author Elijah Elefson (elefse)
  */
 public class EditGroupActivity extends ListActivity {
+
+	/** Class constants for string representations **/
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
-	private static final String CHARACTER_NAME = "characterName";
-	private static final String PLAYER_NAME = "playerName";
 	private static final String PLAYERS = "players";
-
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/updateGroupInfo.php";
 	private static final String PHP_ADDRESS2 = "http://homes.cs.washington.edu/~elefse/removePlayer.php";
 	private static final String PHP_ADDRESS3 = "http://homes.cs.washington.edu/~elefse/makeGM.php";
 
-
-	/**
-	 * Change this array's name and contents to be the character information
-	 * received from the database
-	 */
+	/** Collection of all the players the group has **/
 	private ArrayList<String> playersList;
 
+	/** The current user's username **/
 	private String username;
+
+	/** The currently viewed group's name **/
 	private String groupName;
+
+	/** The game master of the currently viewed group **/
 	private String gm;
 
 	/**
@@ -59,6 +58,9 @@ public class EditGroupActivity extends ListActivity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("EditGroupActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_group);
 		// Show the Up button in the action bar.
@@ -74,15 +76,26 @@ public class EditGroupActivity extends ListActivity {
 		TextView gameMasterText = (TextView) findViewById(R.id.game_master_name);
 		gameMasterText.setText(gm);
 
-		setListAdapter(new IconicAdapter());
-
+		setListAdapter(new CustomArrayAdapter());
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
+	/**
+	 * ViewHolder inner class to help with performance of ListView and track
+	 * the id's of its elements.
+	 * @author Elijah Elefson (elefse)
+	 */
 	public static class ViewHolder {
 		Button removeButton = null;
 		Button makeGMButton = null;
 		TextView currentGM = null;
 
+		/**
+		 * Simple ViewHolder constructor.
+		 * @param row The ListView row whose information is being stored
+		 */
 		ViewHolder(View row) {
 			this.removeButton = (Button) row.findViewById(R.id.remove_button);
 			this.makeGMButton = (Button) row.findViewById(R.id.gm_button);
@@ -90,21 +103,39 @@ public class EditGroupActivity extends ListActivity {
 		}
 	}
 
-	class IconicAdapter extends ArrayAdapter<String> {
-		IconicAdapter() {
+	/** Custom ArrayAdapter used to populate the ListView and allow the correct
+	 * information to be displayed. Makes sure the ListView element that represents
+	 * the GM says "Current GM" next to it.
+	 * @author Elijah Elefson (elefse)
+	 */
+	class CustomArrayAdapter extends ArrayAdapter<String> {
+
+		/**
+		 * Constructs an ArrayAdapter with the specified parameters.
+		 */
+		CustomArrayAdapter() {
 			super(EditGroupActivity.this, R.layout.custom_player_list_item, R.id.player, playersList);
 		}
 
+		/**
+		 * Gets the count of the current view element
+		 */
 		@Override
 		public int getViewTypeCount() {                 
 			return getCount();
 		}
 
+		/**
+		 * Gets the position of the current view element
+		 */
 		@Override
 		public int getItemViewType(int position) {
 			return position;
 		}
 
+		/**
+		 * Gets the view for the current row
+		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -178,6 +209,10 @@ public class EditGroupActivity extends ListActivity {
 		task.execute(username);
 	}
 
+	/**
+	 * Responds to the make GM button click updating which player is the current GM.
+	 * @param view The current view
+	 */
 	public void makePlayerGM(View view) {
 		int position = getListView().getPositionForView((View) view.getParent());
 		String player = (String) getListView().getItemAtPosition(position);
@@ -334,6 +369,11 @@ public class EditGroupActivity extends ListActivity {
 		}
 	}
 
+	/**
+	 * MakeGMTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. Removes GM status from the player
+	 * currently specified as GM and updates the view to represent the new GM.
+	 */
 	private class MakeGMTask extends AsyncTask<String, Void, String> {
 		private Context context;
 		private String player;

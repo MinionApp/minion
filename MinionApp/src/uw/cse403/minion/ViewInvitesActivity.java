@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -20,7 +21,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +29,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
@@ -38,18 +37,28 @@ import android.widget.AdapterView.OnItemClickListener;
  * @author Elijah Elefson (elefse)
  */
 public class ViewInvitesActivity extends ListActivity {
-	private static final String CHARACTER_ID = "cid";
+
+	/** Class constants for string representations **/
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
-
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getInvites.php";
 	private static final String PHP_ADDRESS2 = "http://homes.cs.washington.edu/~elefse/acceptInvite.php";
 	private static final String PHP_ADDRESS3 = "http://homes.cs.washington.edu/~elefse/declineInvite.php";
+
+	/** The current user's username **/
 	private String username;
+
+	/** The name of the group the user clicks on **/
 	private String group;
+
+	/** Name of the character a player picks after accepting an invite **/
 	private String character;
+
+	/** Dialog elements to help manage the displaying of dialogs to the user **/
 	private static Dialog dialog;
 	private static Dialog noCharactersAlert;
+
+	/** The local database source **/
 	private CharacterDataSource datasource;
 
 	/**
@@ -57,12 +66,14 @@ public class ViewInvitesActivity extends ListActivity {
 	 */
 	private ListView invitesListView;
 
-	/**
-	 * Change this array's name and contents to be the character information
-	 * received from the database
+	/** 
+	 * Collection of all the groups the user is currently invited to
+	 * and their associated game master
 	 */
-	private static ArrayList<HashMap<String, String>> testArray;
-	private static ArrayList<String> testArray2;
+	private static ArrayList<HashMap<String, String>> groupAndGMList;
+
+	/** Collection of all the characters the current user owns **/
+	private static ArrayList<String> characterList;
 
 	/**
 	 * Adapter for connecting the array above to the UI view
@@ -74,11 +85,17 @@ public class ViewInvitesActivity extends ListActivity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (TraceControl.TRACE)
+			Debug.startMethodTracing("ViewInvitesActivity_onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_invites);
 		username = SaveSharedPreference.getPersistentUserName(ViewInvitesActivity.this);
 		GetInvitesTask task = new GetInvitesTask(this);
 		task.execute(username);
+		
+		if (TraceControl.TRACE)
+			Debug.stopMethodTracing();
 	}
 
 	/**
@@ -140,7 +157,7 @@ public class ViewInvitesActivity extends ListActivity {
 		datasource = new CharacterDataSource(this);
 		datasource.open();
 		// To test reading from database:
-		testArray2 = new ArrayList<String>();
+		characterList = new ArrayList<String>();
 
 		//GETS ALL CHAR
 		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
@@ -149,13 +166,13 @@ public class ViewInvitesActivity extends ListActivity {
 			while (!cursor.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
 				String characterName = cursor.getString(0);
-				testArray2.add(characterName);
+				characterList.add(characterName);
 				cursor.moveToNext();
 			}
 		}
 		cursor.close();
 
-		if(testArray2.size() == 0) {
+		if(characterList.size() == 0) {
 			AlertDialog.Builder noCharactersBuilder = new AlertDialog.Builder(this);
 			noCharactersBuilder.setMessage("You have no character with which to play with! Please go create a character!");
 			noCharactersBuilder.setTitle("No Characters Warning");
@@ -173,7 +190,7 @@ public class ViewInvitesActivity extends ListActivity {
 			builder.setTitle("Pick a Character");
 
 			ListView modeList = new ListView(this);
-			ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray2);
+			ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, characterList);
 			modeList.setAdapter(modeAdapter);
 			builder.setView(modeList);
 			dialog = builder.create();
@@ -272,14 +289,14 @@ public class ViewInvitesActivity extends ListActivity {
 				TextView noInvitesTextView = (TextView) findViewById(R.id.no_pending_invites);
 				noInvitesTextView.setVisibility(View.VISIBLE);
 			} else {	    		
-				testArray = result;
+				groupAndGMList = result;
 
 				// Initialize the UI components
 				invitesListView = (ListView) findViewById(android.R.id.list);
 
 				// Create an empty adapter we will use to display the loaded data.
 				// We pass null for the cursor, then update it in onLoadFinished()
-				adapter = new SimpleAdapter(context, testArray, 
+				adapter = new SimpleAdapter(context, groupAndGMList, 
 						R.layout.custom_invite_list_item, new String[] { GROUPNAME, GAME_MASTER }, new int[] {
 						R.id.invite, R.id.gm_field });
 
@@ -354,7 +371,6 @@ public class ViewInvitesActivity extends ListActivity {
 			startActivity(intent);
 			finish();
 		}
-
 	}
 
 	/**
@@ -404,6 +420,5 @@ public class ViewInvitesActivity extends ListActivity {
 			startActivity(intent);
 			finish();
 		}
-
 	}
 }

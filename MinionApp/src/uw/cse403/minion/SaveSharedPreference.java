@@ -3,7 +3,6 @@ package uw.cse403.minion;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
 
 /**
  * Utility to save the state of whether or not the user wishes to remain logged into
@@ -11,6 +10,8 @@ import android.preference.PreferenceManager;
  * @author Elijah Elefson (elefse)
  */
 public class SaveSharedPreference {
+
+	/** Class constants for string representations **/
 	static final String PREF_USER_NAME = "username";
 	static final String PERSISTENT_USER_NAME = "persistentUsername";
 
@@ -19,10 +20,6 @@ public class SaveSharedPreference {
 	 * @param ctx The context of an activity.
 	 * @return a SharedPreferences object that contains the login state of the user.
 	 */
-	//public static SharedPreferences getSharedPreferences(Context ctx) {
-	//     return context.getSharedPreferences("myprefs", 0);
-	// }
-
 	private static SharedPreferences getPrefs(Context context) {
 		return context.getSharedPreferences("myprefs", 0);
 	}
