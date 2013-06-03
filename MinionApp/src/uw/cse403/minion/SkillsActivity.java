@@ -34,7 +34,8 @@ public class SkillsActivity extends Activity {
 	private long charID;
 
 	/**
-	 * 
+	 * Displays the skills page and loads in any previously entered information
+	 * from the local database.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -49,6 +49,7 @@ public class Skill {
 	public static final int SWIM_ID 					= 34;
 	public static final int USE_MAGIC_DEVICE_ID 		= 35;
 
+	/** The unique id for a character **/
 	private int charID;
 
 	/** Various components the make up the skill information about a character **/
