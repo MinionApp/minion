@@ -136,7 +136,6 @@ public class SkillsActivity extends Activity {
 				int miscMod = cursor2.getInt(4);
 				Skill skill = new Skill(skillID, title, null, ranks, false);
 				skill.addModifier("skillMod", miscMod);
-
 				// these will store IDs referring to UI elements
 				int titleFieldID = 0;
 				int totalFieldID = 0;

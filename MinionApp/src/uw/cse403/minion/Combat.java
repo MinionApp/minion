@@ -10,7 +10,10 @@ import android.database.Cursor;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Debug;
+<<<<<<< HEAD
 
+=======
+>>>>>>> ad0541ecee890f93976b9e075f257c8820e55824
 
 /**
  * A wrapper class with a few associated calculations to do with combat
