@@ -1,3 +1,7 @@
+<!-- This xml file is the GUI for the combat activity of character creation. -->
+<!-- @author Caitlin Harding (cehardi) -->
+<!-- @author Tom Eberlein (uwte) -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"

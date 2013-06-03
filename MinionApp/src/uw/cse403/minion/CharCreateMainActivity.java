@@ -291,6 +291,45 @@ public class CharCreateMainActivity extends Activity {
 				e1.printStackTrace();
 			}
 			cursor.close();
+			
+			try {
+				if (skills.toString().equals("[]")) {
+					skillsObject = new JSONObject();
+					skills = new JSONArray();
+					for(int i = 1; i <= 35; i++) {
+						int skillID = i;
+						int ranks = 0;
+						int miscMod = 0;
+						if(skillID == 5) {
+							for(int j = 0; j < 3; j++) {
+								JSONObject skill = new JSONObject();
+								skill.put("ref_id", skillID);
+								skill.put("ranks", ranks);
+								skill.put("misc_mod", miscMod);
+								skills.put(skill);
+							}
+						} else if (skillID == 26 || skillID == 27) {
+							for(int j = 0; j < 2; j++) {
+								JSONObject skill = new JSONObject();
+								skill.put("ref_id", skillID);
+								skill.put("ranks", ranks);
+								skill.put("misc_mod", miscMod);
+								skills.put(skill);
+							}
+						} else {
+							JSONObject skill = new JSONObject();
+							skill.put("ref_id", skillID);
+							skill.put("ranks", ranks);
+							skill.put("misc_mod", miscMod);
+							skills.put(skill);
+						}
+					}
+					skillsObject.put("skills", skills);
+				}
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			// Creates JSON object for character combat scores
 			Combat combat = new Combat(charID);
@@ -356,6 +395,43 @@ public class CharCreateMainActivity extends Activity {
 				e1.printStackTrace();
 			}
 			cursor2.close();
+			
+			
+			try {
+				if (savingThrows.toString().equals("[]")) {
+					savingThrowsObject = new JSONObject();
+					savingThrows = new JSONArray();
+					for(int i = 1; i <= 3; i++) {
+						int throwID = i;
+						String name;
+						if (throwID == 1) {
+							name = "CONSTITUTION";
+						} else if (throwID == 2) {
+							name = "DEXTERITY";
+						} else {
+							name = "WISDOM";
+						}
+						int base_save = 0;
+
+						int magic_mod = 0;
+						int misc_mod = 0;
+						int temp_mod = 0;
+
+						JSONObject savingThrow = new JSONObject();
+						savingThrow.put("ref_id", throwID);
+						savingThrow.put("name", name);
+						savingThrow.put("base_save", base_save);
+						savingThrow.put("magic_mod", magic_mod);
+						savingThrow.put("misc_mod", misc_mod);
+						savingThrow.put("temp_mod", temp_mod);
+						savingThrows.put(savingThrow);
+					}
+					savingThrowsObject.put("savingThrows", savingThrows);
+				}
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			// the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -365,7 +441,6 @@ public class CharCreateMainActivity extends Activity {
 			postParameters.add(new BasicNameValuePair("skills", skillsObject.toString()));
 			postParameters.add(new BasicNameValuePair("combat", combatObject.toString()));
 			postParameters.add(new BasicNameValuePair("savingThrows", savingThrowsObject.toString()));
-			Log.i("JSON", savingThrowsObject.toString());
 			String result = null;
 
 			//http post

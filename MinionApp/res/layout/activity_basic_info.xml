@@ -1,3 +1,7 @@
+<!-- This xml file is the GUI for the basic info activity of character creation. -->
+<!-- @author Caitlin Harding (cehardi)-->
+<!-- @author Eli Elefson (elefse) -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
