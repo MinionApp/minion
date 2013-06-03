@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Debug;
 
 /**
- * 
+ * A helper class that manages the connection to the local database.
  * @author Thomas Eberlein (uwte)
  * @author Kevin Dong (kevinxd3)
  */

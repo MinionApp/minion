@@ -283,6 +283,10 @@ public class CharCreateMainActivity extends Activity {
 						int ranks = cursor.getInt(2);
 						int miscMod = cursor.getInt(3);
 						JSONObject skill = new JSONObject();
+						if(skillID == 5 || skillID == 26 || skillID == 27) {
+							String skillTitle = cursor.getString(2);
+							skill.put("title", skillTitle);
+						}
 						skill.put("ref_id", skillID);
 						skill.put("ranks", ranks);
 						skill.put("misc_mod", miscMod);
@@ -296,6 +300,7 @@ public class CharCreateMainActivity extends Activity {
 				e1.printStackTrace();
 			}
 			cursor.close();
+			Log.i("skillsOBJECT", skillsObject.toString());
 			
 			try {
 				if (skills.toString().equals("[]")) {
