@@ -7,7 +7,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,10 +24,13 @@ import android.widget.Toast;
  * also provides the means to get the the character management page, group management page, and
  * the logout option.
  * @author Kevin Dong (kevinxd3)
- *
  */
 public class HomeActivity extends Activity {
+
+	/** Class constants for string representations **/
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getNumberOfInvites.php";
+
+	/** The current user's username **/
 	private String username;
 
 	/**
@@ -40,7 +42,7 @@ public class HomeActivity extends Activity {
 		setContentView(R.layout.activity_home);
 		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
 		if (ConnectionChecker.hasConnection(this)) {
-			GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
+			GetNumberOfInvitesTask task = new GetNumberOfInvitesTask();
 			task.execute(username);
 		} else {
 			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
@@ -98,7 +100,7 @@ public class HomeActivity extends Activity {
 		Button goToGroupsButton = (Button) findViewById(R.id.button2);
 		goToGroupsButton.setText("Manage Groups");
 		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
-		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask(this);
+		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask();
 		task.execute(username);
 	}
 
@@ -140,14 +142,13 @@ public class HomeActivity extends Activity {
 	 * current user and updates the text on the manage groups button to reflect this number.
 	 */
 	private class GetNumberOfInvitesTask extends AsyncTask<String, Void, String> {
-		private Context context;
 
 		/**
 		 * Constructs a new GetNumberOfInvitesTask object.
 		 * @param context The current Activity's context.
 		 */
-		private GetNumberOfInvitesTask (Context context) {
-			this.context = context;
+		private GetNumberOfInvitesTask () {
+
 		}
 
 		/**

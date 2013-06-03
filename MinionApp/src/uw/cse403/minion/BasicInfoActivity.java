@@ -28,7 +28,7 @@ public class BasicInfoActivity extends Activity {
 	/** The unique id for a character **/
 	private long charID;
 
-	/** Objec that stores all the basic information about the character **/
+	/** Object that stores all the basic information about the character **/
 	CharacterDescription baseInfo;
 
 	/**

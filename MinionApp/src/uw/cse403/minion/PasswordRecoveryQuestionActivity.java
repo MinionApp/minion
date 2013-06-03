@@ -1,17 +1,9 @@
 package uw.cse403.minion;
 
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -29,9 +21,11 @@ import android.widget.Toast;
  */
 public class PasswordRecoveryQuestionActivity extends Activity {
 
+	/** Class constants for string representations **/
 	private static final String USERNAME = "username";
 	private static final String QUESTION = "question";
 
+	/** Account Utility that stores Async tasks for this class **/
 	private AccountUtils account;
 
 	/**
@@ -125,6 +119,4 @@ public class PasswordRecoveryQuestionActivity extends Activity {
 			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
 		}
 	}
-
-
 }

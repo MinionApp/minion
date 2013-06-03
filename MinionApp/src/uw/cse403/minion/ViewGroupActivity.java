@@ -15,13 +15,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,23 +39,37 @@ import android.widget.AdapterView.OnItemClickListener;
  * @author Elijah Elefson (elefse)
  */
 public class ViewGroupActivity extends Activity {
+
+	/** Class constants for string representations **/
 	private static final String GROUPNAME = "groupname";
 	private static final String GAME_MASTER = "gm";
 	private static final String CHARACTER_NAME = "characterName";
 	private static final String PLAYER_NAME = "playerName";
 	private static final String PLAYERS = "players";
-
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/getGroupInfo.php";
 	private static final String PHP_ADDRESS2 = "http://homes.cs.washington.edu/~elefse/acceptInvite.php";
 	private static final String PHP_ADDRESS3 = "http://homes.cs.washington.edu/~elefse/declineInvite.php";
+
+	/** The current user's username **/
 	private String username;
+
+	/** The currently viewed group's name **/
 	private String groupName;
+
+	/** The game master of the currently viewed group **/
 	private String gm;
+
+	/** Collection of all the players the group has **/
 	private static ArrayList<String> playersList;
 
+	/** Name of the character a player picks after accepting an invite **/
 	private String character;
+
+	/** Dialog elements to help manage the displaying of dialogs to the user **/
 	private static Dialog dialog;
 	private static Dialog noCharactersAlert;
+	
+	/** The local database source **/
 	private CharacterDataSource datasource;
 
 	/**
@@ -65,12 +77,11 @@ public class ViewGroupActivity extends Activity {
 	 */
 	private ListView playersListView;
 
-	/**
-	 * Change this array's name and contents to be the character information
-	 * received from the database
-	 */
-	private static ArrayList<HashMap<String, String>> testArray;
-	private static ArrayList<String> testArray2;
+	/** Collection of all the players in the group and their associated characters **/
+	private static ArrayList<HashMap<String, String>> playerAndCharacterList;
+
+	/** Collection of all the characters the current user owns **/
+	private static ArrayList<String> characterList;
 
 	/**
 	 * Adapter for connecting the array above to the UI view
@@ -160,23 +171,23 @@ public class ViewGroupActivity extends Activity {
 	public void acceptInvite(View view) {
 		datasource = new CharacterDataSource(this);
 		datasource.open();
-		// To test reading from database:
-		testArray2 = new ArrayList<String>();
 
-		//GETS ALL CHAR
+		characterList = new ArrayList<String>();
+
+		// Gets all characters
 		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_NAME}, 
 				null, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
 				String characterName = cursor.getString(0);
-				testArray2.add(characterName);
+				characterList.add(characterName);
 				cursor.moveToNext();
 			}
 		}
 		cursor.close();
 
-		if(testArray2.size() == 0) {
+		if(characterList.size() == 0) {
 			AlertDialog.Builder noCharactersBuilder = new AlertDialog.Builder(this);
 			noCharactersBuilder.setMessage("You have no character with which to play with! Please go create a character!");
 			noCharactersBuilder.setTitle("No Characters Warning");
@@ -194,7 +205,7 @@ public class ViewGroupActivity extends Activity {
 			builder.setTitle("Pick a Character");
 
 			ListView modeList = new ListView(this);
-			ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, testArray2);
+			ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, characterList);
 			modeList.setAdapter(modeAdapter);
 			builder.setView(modeList);
 			dialog = builder.create();
@@ -204,7 +215,6 @@ public class ViewGroupActivity extends Activity {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					// When clicked, show a toast with the TextView text
 					character = ((TextView) view).getText().toString();
 					dialog.dismiss();
 					AcceptInviteTask task = new AcceptInviteTask(view.getContext());
@@ -225,6 +235,11 @@ public class ViewGroupActivity extends Activity {
 		task.execute(username);
 	}
 
+	/**
+	 * GetGroupInfoTask is a private inner class that allows requests to be made to the remote
+	 * MySQL database parallel to the main UI thread. Gets a list of the players currently in
+	 * the group and what characters are associated with each of them.
+	 */
 	private class GetGroupInfoTask extends AsyncTask<String, Void, ArrayList<HashMap<String, String>>> {
 		private Context context;
 		private boolean pendingInvite;
@@ -299,14 +314,14 @@ public class ViewGroupActivity extends Activity {
 			}
 			playersList = playerListPlaceholder;
 
-			testArray = result;
+			playerAndCharacterList = result;
 
 			// Initialize the UI components
 			playersListView = (ListView) findViewById(R.id.playersListView);
 
 			// Create an empty adapter we will use to display the loaded data.
 			// We pass null for the cursor, then update it in onLoadFinished()
-			adapter = new SimpleAdapter(context, testArray,
+			adapter = new SimpleAdapter(context, playerAndCharacterList,
 					R.layout.custom_group_list_item, new String[] { CHARACTER_NAME, PLAYER_NAME }, new int[] {
 					R.id.text1, R.id.text2 });
 			playersListView.setAdapter(adapter);

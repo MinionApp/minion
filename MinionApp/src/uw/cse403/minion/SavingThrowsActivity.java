@@ -1,7 +1,5 @@
 package uw.cse403.minion;
 
-
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -12,16 +10,30 @@ import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 
+/**
+ * SavingThrowsActivity is an activity that provides the user with the UI they
+ * can use to enter and edit saving throw information about their character. It
+ * handles both the population of the UI after loading the relevant information
+ * from the local database as well as the task of writing any new or updated
+ * information into the local database.
+ * @author 
+ */
 public class SavingThrowsActivity extends Activity {
+
+	/** The unique id for a character **/
 	private long charID;
 
+	/** Objects that store all the saving throw information about the character **/
 	private SavingThrow fortitude;
 	private SavingThrow reflex;
 	private SavingThrow will;
 
+	/**
+	 * Displays the saving throws page and loads in any previously entered information
+	 * from the local database.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,6 +57,9 @@ public class SavingThrowsActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -52,6 +67,9 @@ public class SavingThrowsActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -69,6 +87,9 @@ public class SavingThrowsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Loads all of the saving throws for the current character from the database.
+	 */
 	private void loadData() {
 		// get relevant ability scores
 		Ability constitution = new Ability(charID, AbilityName.CONSTITUTION);
@@ -139,6 +160,11 @@ public class SavingThrowsActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Responds to the Save button click and writes all of the currently
+	 * entered saving throws information to the local database. Then sends the
+	 * user back to the main character creation screen.
+	 */
 	public void savingThrows(View view) {
 		setFortitude();
 		setReflex();
@@ -148,14 +174,15 @@ public class SavingThrowsActivity extends Activity {
 		reflex.writeToDB(charID);
 		will.writeToDB(charID);
 
-
-
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra("cid", charID);
 		startActivity(intent);
 	}
 
+	/**
+	 * Sets the Fortitude saving throw.
+	 */
 	private void setFortitude() {
 		EditText fortBaseEnter = (EditText) findViewById(R.id.fortitude_base);
 		String fortBaseRaw = fortBaseEnter.getText().toString().trim();
@@ -198,6 +225,9 @@ public class SavingThrowsActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Sets the Reflex saving throw.
+	 */
 	private void setReflex() {
 		EditText reflexBaseEnter = (EditText) findViewById(R.id.reflex_base);
 		String reflexBaseRaw = reflexBaseEnter.getText().toString().trim();
@@ -240,6 +270,9 @@ public class SavingThrowsActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Sets the Will saving throw.
+	 */
 	private void setWill() {
 		EditText willBaseEnter = (EditText) findViewById(R.id.will_base);
 		String willBaseRaw = willBaseEnter.getText().toString().trim();
@@ -281,5 +314,4 @@ public class SavingThrowsActivity extends Activity {
 			will.addModifier(SavingThrow.TEMP_MOD_STRING, willTemp);
 		}
 	}
-
 }

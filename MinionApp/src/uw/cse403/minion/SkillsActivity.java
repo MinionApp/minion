@@ -1,6 +1,5 @@
 package uw.cse403.minion;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,12 +17,24 @@ import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
+/**
+ * SkillsActivity is an activity that provides the user with the UI they
+ * can use to enter and edit skills information about their character. It
+ * handles both the population of the UI after loading the relevant information
+ * from the local database as well as the task of writing any new or updated
+ * information into the local database.
+ * @author 
+ */
 public class SkillsActivity extends Activity {
+	
+	/** The unique id for a character **/
 	private long charID;
 
+	/**
+	 * 
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,6 +54,9 @@ public class SkillsActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -50,6 +64,9 @@ public class SkillsActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -67,6 +84,9 @@ public class SkillsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Loads all of the skills for the current character from the database.
+	 */
 	public void loadData() {
 		// get ability scores
 		Ability[] abilities = new Ability[6];
@@ -116,28 +136,6 @@ public class SkillsActivity extends Activity {
 				int miscMod = cursor2.getInt(4);
 				Skill skill = new Skill(skillID, title, null, ranks, false);
 				skill.addModifier("skillMod", miscMod);
-				//				String ranksEnter;
-				//				String modEnter;
-				//				if (skillID == 5)  { // craft
-				//					crafts++;
-				//					ranksEnter = xmlField[5] + crafts + "_ranks";
-				//					modEnter = xmlField[5] + crafts + "_misc_mod";
-				//				} else if (skillID == 26)  { // perform
-				//					performs++;
-				//					ranksEnter = xmlField[26] + performs + "_ranks";
-				//					modEnter = xmlField[26] + performs + "_misc_mod";
-				//				} else if (skillID == 27)  { // profession
-				//					professions++;
-				//					ranksEnter = xmlField[27] + professions + "_ranks";
-				//					modEnter = xmlField[27] + professions + "_misc_mod";
-				//				} else {
-				//					ranksEnter = xmlField[skillID] + "_ranks";
-				//					modEnter = xmlField[skillID] + "_misc_mod";
-				//				}
-				//				EditText ranksEnterField = (EditText) findViewById(R.id.acrobatics_ranks);
-				//				ranksEnterField.setText(""+ranks);
-				//				EditText modEnterField = (EditText) findViewById(R.id.acrobatics_misc_mod);
-				//				modEnterField.setText(""+miscMod);
 
 				int titleFieldID = 0;
 				int totalFieldID = 0;
@@ -395,8 +393,10 @@ public class SkillsActivity extends Activity {
 		cursor2.close();
 	}
 
-	// helper class for storing a string and int together
-	// mostly for making the following code readable
+	/**
+	 * Helper class for storing a string and int together
+	 * mostly for making the following code readable
+	 */
 	private class StrInt {
 		int i;
 		String s;
@@ -405,8 +405,11 @@ public class SkillsActivity extends Activity {
 			this.s = s;
 		}
 	}
+	
 	/**
-	 * Called when Done button is clicked.
+	 * Responds to the Save button click and writes all of the currently
+	 * entered skills information to the local database. Then sends the
+	 * user back to the main character creation screen.
 	 */
 	public void skills(View view) {
 		// TODO write method
@@ -1328,13 +1331,9 @@ public class SkillsActivity extends Activity {
 			s.writeToDB(charID);
 		}
 
-
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
 		intent.putExtra("cid", charID);
 		startActivity(intent);
-
-
 	}
-
 }

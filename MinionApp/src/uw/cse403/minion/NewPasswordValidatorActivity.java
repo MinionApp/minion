@@ -12,6 +12,8 @@ import android.widget.Toast;
  * @author Elijah Elefson (elefse)
  */
 public class NewPasswordValidatorActivity extends Activity {
+
+	/** Class constants for string representations **/
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
@@ -78,5 +80,4 @@ public class NewPasswordValidatorActivity extends Activity {
 		}
 		// note we never called setContentView()
 	}
-
 }

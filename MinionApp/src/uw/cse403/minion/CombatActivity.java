@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
@@ -15,18 +13,26 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 
+/**
+ * CombatActivity is an activity that provides the user with the UI they
+ * can use to enter and edit combat information about their character. It
+ * handles both the population of the UI after loading the relevant information
+ * from the local database as well as the task of writing any new or updated
+ * information into the local database.
+ * @author 
+ */
 public class CombatActivity extends Activity {
-	//	public static final String ARMOR_BONUS_STRING = "armorBonus";
-	//	public static final String ARMOR_SHIELD_STRING = "armorShield";
-	//	public static final String ARMOR_DEX_STRING = "armorDex";
-	//	public static final String ARMOR_SIZE_STRING = "armorSize";
-	//	public static final String ARMOR_NATURAL_STRING = "armorNatural";
-	//	public static final String ARMOR_DEFLECTION_STRING = "armorDeflection";
-	//	public static final String ARMOR_MISC_STRING = "armorMisc";
 
+	/** The unique id for a character **/
 	private long charID;
+
+	/** Object that stores all the combat information about the character **/
 	private Combat combat;
 
+	/**
+	 * Displays the combat page and loads in any previously entered information
+	 * from the local database.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,6 +53,9 @@ public class CombatActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Creates Options Menu
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -54,6 +63,9 @@ public class CombatActivity extends Activity {
 		return true;
 	}
 
+	/**
+	 * Sets up the Up button
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -71,11 +83,13 @@ public class CombatActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Loads all of the combat information for the current character from the database.
+	 */
 	private void loadData() {
 		// get dexterity modifier
 		Ability dexterity = new Ability(charID, AbilityName.DEXTERITY);
 		combat.dexMod = dexterity.getMod();
-
 
 		String size = "";
 		Cursor cursor = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, 
@@ -165,7 +179,6 @@ public class CombatActivity extends Activity {
 	 * Get all of the combat scores and store them.
 	 */
 	public void combatScores(View view) {
-		//TODO: Set defaults with db
 		int defaultSpeed = 0;
 		int defaultArmorPen = 0;
 
@@ -259,13 +272,6 @@ public class CombatActivity extends Activity {
 			combat.addArmorModifier(Combat.ARMOR_SHIELD_STRING, armorShield);
 		}
 
-		//		EditText armorSizeEnter = (EditText) findViewById(R.id.armor_size_enter);
-		//		String armorSizeRaw = armorSizeEnter.getText().toString().trim();
-		//		if (!armorSizeRaw.matches("")) {
-		//			int armorSize = Integer.parseInt(armorSizeRaw);
-		//			combat.addArmorModifier(Combat.ARMOR_SIZE_STRING, armorSize);
-		//		}
-
 		EditText armorNaturalEnter = (EditText) findViewById(R.id.armor_natural_enter);
 		String armorNaturalRaw = armorNaturalEnter.getText().toString().trim();
 		if (!armorNaturalRaw.matches("")) {
@@ -288,6 +294,5 @@ public class CombatActivity extends Activity {
 		}
 
 		combat.writeToDB(charID);
-
 	}
 }

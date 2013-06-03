@@ -3,7 +3,6 @@ package uw.cse403.minion;
 import java.util.*; 
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 
 /**
  * A representation of a single skill in Pathfinder, such as 
@@ -14,8 +13,10 @@ import android.database.sqlite.SQLiteDatabase;
 public class Skill {
 	private static final int CLASS_BONUS = 3;
 
+	/** The unique id for a character **/
 	private int charID;
 
+	/** Various components the make up the skill information about a character **/
 	private int skillID; // get skill ID from ref db
 	private String name;
 	private String title; // write-in fields for Craft, Perform, Profession
@@ -25,30 +26,15 @@ public class Skill {
 	private AbilityName assocAbility;
 	private int abMod;
 
-	//	/** not needed
-	//	 * Initializes a new skill with the given name and it's associated ability.
-	//	 * Initializes skill with no ranks, as not a class skill and no miscellaneous modifiers.
-	//	 * 
-	//	 * @param name		String name of new skill
-	//	 * @param attribute	an AbilityName of which attribute is associated with this skill
-	//	 */
-	//	public Skill(String name, AbilityName attribute){
-	//		this.name = name;
-	//		ranks = 0;
-	//		classSkill = false;
-	//		modifiers = new HashMap<String,Integer>();
-	//		assocAbility = attribute;
-	//		abMod = -1;
-	//		
-	//	}
-
-	//	public Skill(int charID, int skillID) {
-	//		this.charID = charID;
-	//		this.skillID = skillID;
-	//		
-	//		//loadFromDB();
-	//	}
-
+	/**
+	 * Initializes a new skill object.
+	 * @param skillID 		ID used to reference what skill this object corresponds to
+	 * @param name 			String name of new skill
+	 * @param attribute 	an AbilityName of which attribute is associated with this skill
+	 * @param rank 			int ranks of new skill, will not set rank lower than 0
+	 * @param classSkill 	a boolean that if <code>false</code> means the skill is not a class
+	 * 						skill and if <code>true</code> is a class skill
+	 */
 	public Skill(int skillID, String name, AbilityName attribute, int rank, boolean classSkill){
 		this(skillID, name, null, attribute, rank, classSkill);
 	}
@@ -56,7 +42,6 @@ public class Skill {
 	/**
 	 * Initializes a new skill with almost all necessary information. Sets values for
 	 * given name, associated ability, rank and whether or not it is a class skill.
-	 * 
 	 * @param name			String name of new skill
 	 * @param title			Secondary name for a skill such as craft, profession and perform
 	 * @param attribute		an AbilityName of which attribute is associated with this skill
@@ -68,7 +53,6 @@ public class Skill {
 		this.skillID = skillID;
 		this.name = name;
 		this.title = title;
-		// TODO: Consider not allowing negative ranks
 		if (rank < 0) {
 			this.ranks = 0;
 		} else {
@@ -82,7 +66,6 @@ public class Skill {
 
 	/**
 	 * Returns the name of the skill
-	 * 
 	 * @return	String name of skill
 	 */
 	public int getID(){
@@ -91,7 +74,6 @@ public class Skill {
 
 	/**
 	 * Returns the name of the skill
-	 * 
 	 * @return	String name of skill
 	 */
 	public String getName(){
@@ -100,7 +82,6 @@ public class Skill {
 
 	/**
 	 * Returns the title of the skill
-	 * 
 	 * @return	String title of skill, may be null
 	 */
 	public String getTitle(){
@@ -110,7 +91,6 @@ public class Skill {
 	/**
 	 * Add given value (or subtract if negative) from the current
 	 * rank of the skill. Will not set rank lower than 0.
-	 * 
 	 * @param modifier
 	 */
 	public void addToRank(int modifier){
@@ -123,7 +103,6 @@ public class Skill {
 
 	/**
 	 * Get raw skill ranks
-	 * 
 	 * @return	an integer representing ranks in skill
 	 */
 	public int getRank() {
@@ -134,7 +113,6 @@ public class Skill {
 	 * Returns the modifier under the given name. Can return both negative
 	 * and positive modifiers. These modifiers represent values that will be
 	 * either added or subtracted from the skill.
-	 * 
 	 * @param name the name of the modifier whose value is retrieved
 	 * @return 	the value associated with the given String, may be either negative
 	 * 			or positive. Returns 0 if no modifier of the given name
@@ -144,13 +122,11 @@ public class Skill {
 		if (modifiers.containsKey(name)) {
 			return modifiers.get(name);
 		}
-
 		return 0;
 	}
 
 	/**
 	 * Removes the modifier under the given name as well as the record of that name.
-	 * 
 	 * @param name	the name of the modifier to remove
 	 * @modifies this
 	 */
@@ -162,20 +138,17 @@ public class Skill {
 
 	/**
 	 * Adds a new modifier with the given name and value
-	 * 
 	 * @param name	the name of the modifier
 	 * @param value	the value of the modifier
 	 * @modifies this
 	 */
 	public void addModifier(String name, int value){
-		//TODO: Consider already existing values
 		modifiers.put(name, value);
 	}
 
 	/**
 	 * Returns the total bonus of the skill accounting for ranks, class bonus,
 	 * and miscellaneous modifiers.
-	 * 
 	 * @param mod	the Ability for the given skill. Throws IllegalArgumentException 
 	 * 				exception if given ability not associated with that skill.
 	 * @return an int total bonus for given skill
@@ -203,9 +176,19 @@ public class Skill {
 
 		return bonus;
 	}
+
+	/**
+	 * Gets the associated ability modifier for this skill.
+	 * @return The associated ability modifier
+	 */
 	public int getAbMod() {
 		return 0;
 	}
+
+	/**
+	 * Gets the skill total for this skill.
+	 * @return the skill total
+	 */
 	public int getTotal() {
 		int mod = modifiers.get(modifiers.keySet().iterator().next());
 		return ranks + mod;
@@ -217,8 +200,6 @@ public class Skill {
 	 * @param db database to write into
 	 */
 	public void writeToDB(long id) {
-		// TODO implement
-
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, id);
 		values.put(SQLiteHelperSkills.COLUMN_REF_S_ID, skillID);
@@ -230,8 +211,6 @@ public class Skill {
 			int mod = modifiers.get(modifiers.keySet().iterator().next());
 			values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, mod);
 		}
-
 		SQLiteHelperSkills.db.insert(SQLiteHelperSkills.TABLE_NAME, null, values);
 	}
-
 }

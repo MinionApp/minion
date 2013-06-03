@@ -28,6 +28,8 @@ import android.widget.Toast;
  * @author Elijah Elefson (elefse)
  */
 public class LoginActivity extends Activity {
+
+	/** Class constants for string representations **/
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/checkLogin.php";
 
 	/**
@@ -105,7 +107,6 @@ public class LoginActivity extends Activity {
 			// Get user login info.
 			EditText usernameEditText = (EditText) findViewById(R.id.username_input);
 			EditText passwordEditText = (EditText) findViewById(R.id.password_input);
-			//TextView error = (TextView) findViewById(R.id.error);
 			String un = usernameEditText.getText().toString().trim();
 			String pw = passwordEditText.getText().toString().trim();
 
@@ -214,6 +215,5 @@ public class LoginActivity extends Activity {
 				error.setVisibility(View.VISIBLE); 
 			}
 		}
-
 	}
 }

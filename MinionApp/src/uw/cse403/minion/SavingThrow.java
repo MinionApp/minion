@@ -4,21 +4,25 @@ import java.util.*;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 /**
- * 
+ * A wrapper class around the saving throws of a character.
  * @author lokiw
- *
  */
 public class SavingThrow {
+
+	/** Class constants for string representations **/
 	public static final String MAGIC_MOD_STRING = "magic";
 	public static final String MISC_MOD_STRING = "misc";
 	public static final String TEMP_MOD_STRING = "temp";
 
+	/** The unique id for a character **/
 	public long charID;
+
+	/** Used to determine whether to populate UI with stored values **/
 	public boolean isNew;
 
+	/** Various components the make up the saving throw information about a character **/
 	private AbilityName assocAbility;
 	private int baseSave;
 	private Map<String,Integer> modifiers;
@@ -26,10 +30,9 @@ public class SavingThrow {
 
 	/**
 	 * Initialize a saving throw.
-	 * 
-	 * @param 			attribute	the associated attribute for the saving throw,
-	 * 					throws IllegalArgumentException if not WISDOM, DEXTERITY or
-	 * 					CONSTITUTION
+	 * @param attribute	the associated attribute for the saving throw,
+	 * 			throws IllegalArgumentException if not WISDOM, DEXTERITY or
+	 * 			CONSTITUTION
 	 */
 	public SavingThrow(AbilityName attribute){
 		if (attribute != AbilityName.WISDOM && attribute != AbilityName.DEXTERITY
@@ -45,7 +48,6 @@ public class SavingThrow {
 
 	/**
 	 * Return base save
-	 * 
 	 * @return int base save
 	 */
 	public int getBaseSave(){
@@ -54,14 +56,12 @@ public class SavingThrow {
 
 	/**
 	 * Set base save to given value
-	 * 
 	 * @param save	new base save
 	 */
 	public void setBaseSave(int save){
 		if (save < 0) {
 			throw new IllegalArgumentException();
 		}
-
 		baseSave = save;
 	}
 
@@ -69,7 +69,6 @@ public class SavingThrow {
 	 * Returns the modifier under the given name. Can return both negative
 	 * and positive modifiers. These modifiers represent values that will be
 	 * either added or subtracted from the skill.
-	 * 
 	 * @param name the name of the modifier whose value is retrieved
 	 * @return 	the value associated with the given String, may be either negative
 	 * 			or positive. Returns 0 if no modifier of the given name
@@ -85,7 +84,6 @@ public class SavingThrow {
 
 	/**
 	 * Removes the modifier under the given name as well as the record of that name.
-	 * 
 	 * @param name	the name of the modifier to remove
 	 * @modifies this
 	 */
@@ -96,7 +94,6 @@ public class SavingThrow {
 
 	/**
 	 * Adds a new modifier with the given name and value
-	 * 
 	 * @param name	the name of the modifier
 	 * @param value	the value of the modifier
 	 * @throws IllegalArgumentException, if name is null or value equals zero
@@ -122,25 +119,16 @@ public class SavingThrow {
 	}
 
 	/**
-	 * 
-	 * @param mod
-	 * @return
+	 * Returns the total save for the saving throw.
+	 * @return The total save for the saving throw
 	 */
-	//public int getTotal(Ability mod){ // not sure this is necessary -K
 	public int getTotal() {
-		//		if (mod.getName() != assocAbility) {
-		//			throw new IllegalArgumentException();
-		//		}
-
 		int total = baseSave + abMod;
-		//total += mod.getMod(); // not currently supported
-
 		Collection<Integer> mods = modifiers.values();
 		Iterator<Integer> it = mods.iterator();
 		while (it.hasNext()) {
 			total += it.next();
 		}
-
 		return total;
 	}
 

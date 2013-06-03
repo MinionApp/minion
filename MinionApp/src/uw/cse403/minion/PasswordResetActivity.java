@@ -18,6 +18,8 @@ import android.widget.TextView;
  * @author Elijah Elefson (elefse)
  */
 public class PasswordResetActivity extends Activity {
+
+	/** Class constants for string representations **/
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String PASSWORD_CONFIRMATION = "passwordConfirmation";
