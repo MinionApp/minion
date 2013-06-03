@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Debug;
 
-
 /**
  * A wrapper class around the saving throws of a character.
  * @author lokiw
