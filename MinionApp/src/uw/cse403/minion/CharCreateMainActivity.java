@@ -42,6 +42,11 @@ public class CharCreateMainActivity extends Activity {
 	/** The unique id for a character **/
 	private long charID;
 
+	/*
+	 * Testing Results:
+	 * Lots of CPU time is spent drawing the graphics, with little spent on the rest of our app.
+	 * Nothing to be optimized.
+	 */
 	/**
 	 * Displays the character creation main page.
 	 */

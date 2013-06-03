@@ -34,6 +34,12 @@ public class CharacterDataSource {
 
 	private SQLiteDatabase dbRef;
 
+	/*
+	 * Testing Results:
+	 * This class deals heavily with SQLite, and hence many of the expensive operations occur in the
+	 * SQL caller. As before, these are unavoidable operations, and there is no sense in
+	 * reimplementing SQLite.
+	 */
 	/**
 	 * Creates a CharacterDataSource object that encapsulates all of the different
 	 * components and helper classes that make up a character data entry in the

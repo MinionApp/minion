@@ -40,6 +40,11 @@ public class CharactersActivity extends Activity {
 	/** Adapter for connecting the characterArray to the UI view **/
 	private ArrayAdapter<String> adapter;
 
+	/*
+	 * Testing Results:
+	 * A lot of graphical displaying massively outweighs the rest of the code.
+	 * Nothing significant to be done.
+	 */
 	/**
 	 * Displays the user's character page.
 	 */

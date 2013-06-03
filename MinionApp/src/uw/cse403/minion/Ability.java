@@ -86,6 +86,14 @@ public class Ability {
 		}
 	}
 
+	/*
+	 * Testing Results:
+	 * The most computationally expensive elements of this section involved string building,
+	 * with 5.3% of the CPU time being spent in AbstractStringBuilder alone. However, when looking
+	 * at the Inclusive instead of the Exclusive CPU Time data, it is clear that much of the string
+	 * manipulation is occurring in SQLite services and not our app. This is unavoidable to our
+	 * application's operation, and cannot be optimized.
+	 */
 	/**
 	 * Loads all of the abilities stored in the local database for the current character.
 	 */
