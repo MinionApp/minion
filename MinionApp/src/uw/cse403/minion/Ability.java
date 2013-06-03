@@ -152,10 +152,10 @@ public class Ability {
 	 * @modifies this
 	 */
 	public void setBase(int newBase){
-		if (newBase >= 0) {
-			base = newBase;
-		}
 		base = newBase;
+		if (base < 0) {
+			base = 0;
+		}
 	}
 
 	/**

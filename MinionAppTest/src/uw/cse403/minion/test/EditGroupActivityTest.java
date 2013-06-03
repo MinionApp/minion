@@ -1,7 +1,13 @@
 package uw.cse403.minion.test;
 
+import java.util.ArrayList;
+
+import com.jayway.android.robotium.solo.Solo;
+
 import uw.cse403.minion.EditGroupActivity;
 import uw.cse403.minion.GroupCreateActivity;
+import uw.cse403.minion.SaveSharedPreference;
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +25,24 @@ public class EditGroupActivityTest extends
 	
 	public EditGroupActivityTest(){
 		super(EditGroupActivity.class);
+		
+	}
+	
+	/**
+	 * setup() instantiates Solo and stores the LoginActivity.
+	 * loginActivity is later used to clear out the "Remember me" settings
+	 * from the application preferences to ensure clean state for each test.
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		SaveSharedPreference.setPersistentUserName(this.getInstrumentation().getContext(), "test");
+		ArrayList<String> testPlayers = new ArrayList<String>();
+		testPlayers.add("testPlayer");
+		Intent i = new Intent();
+		i.putExtra("groupname", "testValue");
+		i.putExtra("gm", "testGM");
+		i.putExtra("players", testPlayers);
+		setActivityIntent(i);	
 	}
 	
 	/**

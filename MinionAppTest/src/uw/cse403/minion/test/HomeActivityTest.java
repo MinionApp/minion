@@ -13,7 +13,7 @@ import android.test.ActivityInstrumentationTestCase2;
  * Whitebox test of HomeActivity that verifies that Home buttons go to
  * the correct activities
  * 
- * @author loki
+ * @author Loki White (lokiw)
  *
  */
 public class HomeActivityTest extends
@@ -57,17 +57,6 @@ public class HomeActivityTest extends
 
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_manage_groups));	
 		solo.assertCurrentActivity("CharactersActivity", GroupsActivity.class);
-	}
-	
-	/**
-	 * Tests the Test button to make sure it brings the user 
-	 * to the SQLite Test Activity
-	 */
-	public void testTestGUI() {
-		SaveSharedPreference.clearPreferences(charCreate);
-
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_test));	
-		solo.assertCurrentActivity("SQLiteTestActivity", SQLiteTestActivity.class);
 	}
 	
 	@Override
