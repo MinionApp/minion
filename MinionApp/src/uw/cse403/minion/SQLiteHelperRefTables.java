@@ -9,9 +9,16 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 /**
- * 
  * @author Kevin Dong (kevinxd3)
  *
+ * This class represents the there helper tables: ref_ability_scores, ref_skills, and ref_saving_throws.
+ * These tables are created and populated on first run of app after install, and should not be modified.
+ * 
+ * Schema:
+ * ref_ability_scores(ability score ID#, abbreviation, full name)
+ * ref_skills(skill ID#, skill name, ID# of associated ability score)
+ * ref_saving_throws(saving throw ID#, saving throw name, ID# of associated ability score)
+ * 
  */
 public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "characters.db";
@@ -77,6 +84,9 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 	}
 
 	@Override
+	/**
+	 * Creates tables and populates each one
+	 */
 	public void onCreate(SQLiteDatabase db) {
 		System.out.println(CREATE_TABLE_REF_ABILITY_SCORES);
 		System.out.println(CREATE_TABLE_REF_SKILLS);
@@ -98,12 +108,16 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 		populateSavingThrows(db);
 	}
 
+	// constants for ability scores
 	private static final int STR = 0;
 	private static final int DEX = 1;
 	private static final int CON = 2;
 	private static final int INT = 3;
 	private static final int WIS = 4;
 	private static final int CHA = 5;
+	/**
+	 * populates ref_ability_scores table
+	 */
 	private void populateAbilityScores(SQLiteDatabase db) {
 		System.out.println("SQLiteHelperRefTables populateAbilityScores");
 		String[][] abilities = {
@@ -126,16 +140,21 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 			db.execSQL(insertStatement);
 		}
 	}
-	// helper class for storing an int and string together
-	// mostly for making the following code readable
+	/**
+	 * helper class for storing an int and string together,
+	 * for making the following code readable
+	 */
 	private class IntStr {
-		int i;
-		String s;
+		int num;
+		String str;
 		public IntStr(int i, String s) {
-			this.i = i;
-			this.s = s;
+			this.num = i;
+			this.str = s;
 		}
 	}
+	/**
+	 * populates ref_skills table
+	 */
 	private void populateSkills(SQLiteDatabase db) {
 		System.out.println("SQLiteHelperRefTables populateSkills");
 		ArrayList<IntStr> list = new ArrayList<IntStr>();
@@ -175,16 +194,19 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 		list.add(new IntStr(STR, "Swim"));
 		list.add(new IntStr(CHA, "Use Magic Device"));
 		for (int i = 0; i < list.size(); i++) {
-			IntStr asdf = list.get(i);
+			IntStr skill = list.get(i);
 			String insertStatement = "INSERT INTO " + TABLE_REF_SKILLS + " ("
 					+ COLUMN_S_NAME + ", "
 					+ COLUMN_S_REF_AS_ID + ") VALUES ('"
-					+ asdf.s + "', '"
-					+ asdf.i + "')";
+					+ skill.str + "', '"
+					+ skill.num + "')";
 			System.out.println(insertStatement);
 			db.execSQL(insertStatement);
 		}
 	}
+	/**
+	 * populates ref_saving_throws table
+	 */
 	private void populateSavingThrows(SQLiteDatabase db) {
 		ArrayList<IntStr> list = new ArrayList<IntStr>();
 		list.add(new IntStr(CON, "Fortitude"));
@@ -195,8 +217,8 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 			String insertStatement = "INSERT INTO " + TABLE_REF_SAVING_THROWS + " ("
 					+ COLUMN_S_NAME + ", "
 					+ COLUMN_S_REF_AS_ID + ") VALUES ('"
-					+ asdf.s + "', '"
-					+ asdf.i + "')";
+					+ asdf.str + "', '"
+					+ asdf.num + "')";
 			System.out.println(insertStatement);
 			db.execSQL(insertStatement);
 		}
@@ -212,8 +234,11 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_REF_ABILITY_SCORES);
 		onCreate(db);
 	}
-
-	public void printContents(SQLiteDatabase db) {
+	
+	/**
+	 * Prints contents of all three tables to console. For debugging.
+	 */
+	public void printContents() {
 		System.out.println("CONTENTS OF ref_ability_scores");
 		Cursor cursor = db.query(TABLE_REF_ABILITY_SCORES,
 				ALL_COLUMNS_AS, null, null, null, null, null);
