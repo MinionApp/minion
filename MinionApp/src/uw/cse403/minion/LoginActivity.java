@@ -38,6 +38,10 @@ public class LoginActivity extends Activity {
 	 */
 	private boolean keepLoggedIn;
 
+	/*
+	 * Testing Results:
+	 * More drawing, more DDMS weight, more inability to carry out optimization.
+	 */
 	/**
 	 * Displays the login page if the user has not chosen to remain logged in or if it is their
 	 * first time logging in. Otherwise it displays the home page if they have chosen to remain

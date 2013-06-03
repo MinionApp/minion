@@ -34,6 +34,12 @@ public class HomeActivity extends Activity {
 	/** The current user's username **/
 	private String username;
 
+	/*
+	 * Testing Results:
+	 * The top two expensive operations of this code were generating a bitmap to be drawn and 
+	 * DDMS. Rest assured, DDMS checks are turned off for the actual APK, for performance.
+	 * Inclusive CPU time similarly reflects the graphical emphasis.
+	 */
 	/**
 	 * Displays the home page.
 	 */
