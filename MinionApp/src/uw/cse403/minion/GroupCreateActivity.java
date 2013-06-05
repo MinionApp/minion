@@ -66,6 +66,12 @@ public class GroupCreateActivity extends Activity {
 	private LinearLayout ll;
 	private List<EditText> editTexts;
 
+	
+	/*
+	 * Testing Results:
+	 * In a slight change of pace, the single most expensive class was not graphics or the database.
+	 * It was the testing framework, DDMS. Everything after that is image drawing.
+	 */
 	/**
 	 * Displays the new group creation page.
 	 */

@@ -59,6 +59,11 @@ public class CharactersActivity extends ListActivity {
 	/** The unique id for a character **/
 	private long charID;
 
+	/*
+	 * Testing Results:
+	 * A lot of graphical displaying massively outweighs the rest of the code.
+	 * Nothing significant to be done.
+	 */
 	/**
 	 * Displays the user's character page.
 	 */

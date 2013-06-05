@@ -72,6 +72,13 @@ public class CharacterDescription {
 			Debug.stopMethodTracing();
 	}
 
+	/*
+	 * Testing Results:
+	 * Looking into the performance of loadFromDB, again much of it is tied up in database
+	 * operations. 1% of the entire operation is string building directly in the application,
+	 * hardly worth optimizing out with a StringBuilder vis a vis concatenation.
+	 */
+	
 	/**
 	 * Populate fields with values from DB
 	 */

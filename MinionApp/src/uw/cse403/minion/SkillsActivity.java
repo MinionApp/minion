@@ -33,6 +33,14 @@ public class SkillsActivity extends Activity {
 	/** The unique id for a character **/
 	private long charID;
 
+	/*
+	 * Testing Results:
+	 * This one is interesting because the MethodTracer began tracing other calls to the
+	 * MethodTracer due to the calls to Skills and Ability. However, once those calls are ignored, 
+	 * the same conclusion arises: a lot of database operation, and a lot of drawing.
+	 * Again, rest assured, all method tracing is wrapped in a boolean that is controlled by a
+	 * static class, and the shipped APK has it turned off.
+	 */
 	/**
 	 * Displays the skills page and loads in any previously entered information
 	 * from the local database.
