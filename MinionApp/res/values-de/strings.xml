@@ -126,7 +126,7 @@
     <string name="bab">G.A.B.</string>
 
     <string name="alignment">Gesinnung</string>
-    <string name="enter_text">Enter text&#8230;</string>
+    <string name="enter_text">Geben Sie Text ein&#8230;</string>
     <string name="player">Spieler</string>
     <string name="char_level">Stufe</string>
     <string name="deity">Gottheit</string>
@@ -135,36 +135,36 @@
     <string name="size">Größe</string>
     <string name="gender">Geschlecht</string>
     <string name="age">Alter</string>
-    <string name="height">Height</string>
+    <string name="height">Höhe</string>
     <string name="weight">Gewicht</string>
     <string name="lbs">kg</string>
     <string name="hair">Haarfarbe</string>
     <string name="eyes">Augenfarbe</string>
     <string name="done">Fertig</string>
-    <string name="ab_name">Ab.\nName</string>
-    <string name="ab_score">Ab.\nScore</string>
-    <string name="ab_mod">Ab.\nMod.</string>
-    <string name="base">Base</string>
+    <string name="ab_name">At.\nName</string>
+    <string name="ab_score">At.\nWert</string>
+    <string name="ab_mod">At.\nMod.</string>
+    <string name="base">Grund</string>
     <string name="temp">Temp</string>
-    <string name="str">STR\nStrength</string>
-    <string name="dex">DEX\nDexterity</string>
-    <string name="con">CON\nConstitution</string>
-    <string name="intel">INT\nIntelligence</string>
-    <string name="wis">WIS\nWisdom</string>
-    <string name="cha">CHA\nCharisma</string>
+    <string name="str">ST\nStärke</string>
+    <string name="dex">GE\nGeschicklichkeit</string>
+    <string name="con">KO\nKonstitution</string>
+    <string name="intel">IN\nIntelligenz</string>
+    <string name="wis">WE\nWeisheit</string>
+    <string name="cha">CH\nCharisma</string>
     <string name="equals">=</string>
     <string name="plus">+</string>
     
-    <string name="skill_names">Skill\nNames</string>
-    <string name="total_bonus">Total\nBonus</string>
-    <string name="ranks">Ranks</string>
-    <string name="misc_mod">Misc.\nMod.</string>
-    <string name="eqcha"> = Cha</string>
-    <string name="eqdex"> = Dex</string>
-    <string name="eqint"> = Int</string>
-    <string name="eqstr"> = Str</string>
-    <string name="eqwis"> = Wis</string>
-    <string name="type">Type</string>
+    <string name="skill_names">Fertigkeiten\nNamen</string>
+    <string name="total_bonus">Gesamt\nBonus</string>
+    <string name="ranks">Ränge</string>
+    <string name="misc_mod">Sonst\nMod.</string>
+    <string name="eqcha"> = Ch</string>
+    <string name="eqdex"> = Ge</string>
+    <string name="eqint"> = In</string>
+    <string name="eqstr"> = St</string>
+    <string name="eqwis"> = We</string>
+    <string name="type">Bezugs-\nattribut</string>
     <string name="acrobatics">Acrobatics</string>
     <string name="appraise">Appraise</string>
     <string name="bluff">Bluff</string>
@@ -273,15 +273,15 @@
         <item>Weapons</item>
     </string-array>
     
-    <string name="fortitude_title">Fortitude (Constitution)</string>
-    <string name="reflex_title">Reflex (Dexterity)</string>
-    <string name="will_title">Will (Wisdom)</string>
-    <string name="base_save">Base</string>
-    <string name="ability_modifier">Ability</string>
-    <string name="magic_modifier">Magic</string>
-    <string name="misc_modifier">Misc</string>
+    <string name="fortitude_title">Zähigkeit (Konstitution)</string>
+    <string name="reflex_title">Reflex (Geschicklichkeit)</string>
+    <string name="will_title">Willen (Weisheit)</string>
+    <string name="base_save">Grund</string>
+    <string name="ability_modifier">Attribut</string>
+    <string name="magic_modifier">Zauber</string>
+    <string name="misc_modifier">Sonst</string>
     <string name="temp_modifier">Temp</string>
-    <string name="total">Total</string>
+    <string name="total">Gesamt</string>
     <string name="title_activity_characters">Manage Characters</string>
     <string name="title_activity_groups">Manage Groups</string>
     <string name="welcome">Welcome to Minion Character Creation!</string>
@@ -309,6 +309,6 @@
     <string name="sp">""</string>
     <string name="remove_user">Remove User</string>
     <string name="invite_user">Invite User</string>
-    <string name="finish_editing">Finish</string>
+    <string name="finish_editing">Fertig</string>
 
 </resources>
