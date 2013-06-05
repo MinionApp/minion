@@ -96,53 +96,38 @@
     <string name="button_basic_info">Grundlegende Info</string>
     <string name="button_ability_scores">Attribute</string>
     <string name="button_skills">Fertigkeiten</string>
-    
-    <string name="button_combat">Combat</string>
-    
+    <string name="button_combat">Kampf</string>
     <string name="button_saving_throws">Verteidigungswerte</string>
     <string name="title_activity_ability_scores">Attribute</string>
-    <string name="title_activity_skills">Fertigkeiten</string>
-    
-    <string name="title_activity_combat">Combat</string>
-    
+    <string name="title_activity_skills">Fertigkeiten</string> 
+    <string name="title_activity_combat">Kampf</string> 
     <string name="title_activity_saving_throws">Verteidigungswerte</string>
     <string name="hit_points">TP (Trefferpunkt)</string>
-    <string name="hit_points_total">Wert</string>
-    
-    <string name="hit_points_dr">DR</string>
-    
+    <string name="hit_points_total">Gesamt</string>
+    <string name="hit_points_dr">Schadensreduzierung</string>
     <string name="speed">Bewegungsrate</string>
     <string name="speed_base">Grundwert</string>
     <string name="speed_armor">Rüstung</string>
     <string name="initiative">Initiative (Modifikatoren)</string>
-    <string name="initiative_total">Wert</string>
+    <string name="initiative_total">Gesamt</string>
     <string name="initiative_dex">Geschicklichkeit (Modifikatoren)</string>
     <string name="initiative_misc">Sonst (Modifikatoren)</string>
-    
-    <string name="armor_class">AC (Armor Class)</string>
-    
-    <string name="armor_total">Wert</string>
+    <string name="armor_class">RK (Rüstungklasse)</string>  
+    <string name="armor_total">Gesamt</string>
     <string name="armor_constant">10 +</string>
     <string name="armor_bonus">Rüstung</string>
-    
-    <string name="armor_shield">Shield</string>
-    
+    <string name="armor_shield">Schild</string> 
     <string name="armor_dex">GE</string>
     <string name="armor_size">Größe</string>
-    <string name="armor_natural">Natural</string>
-    
-    <string name="armor_deflection">Deflection</string>
-    
+    <string name="armor_natural">Natürl.</string>   
+    <string name="armor_deflection">Ablenkung</string> 
     <string name="armor_misc">Sonst</string>
-    
-    <string name="attack_bonus">Base Attack Bonus</string>
-    
-    <string name="bab">B.A.B.</string>
-    
+    <string name="attack_bonus">Grund-Angriffsbonus</string>  
+    <string name="bab">G.A.B.</string>
 
     <string name="alignment">Gesinnung</string>
     <string name="enter_text">Enter text&#8230;</string>
-    <string name="player">Player</string>
+    <string name="player">Spieler</string>
     <string name="char_level">Stufe</string>
     <string name="deity">Gottheit</string>
     <string name="homeland">Heimatland</string>
@@ -152,9 +137,9 @@
     <string name="age">Alter</string>
     <string name="height">Height</string>
     <string name="weight">Gewicht</string>
-    <string name="lbs">lbs.</string>
-    <string name="hair">Haare</string>
-    <string name="eyes">Augen</string>
+    <string name="lbs">kg</string>
+    <string name="hair">Haarfarbe</string>
+    <string name="eyes">Augenfarbe</string>
     <string name="done">Fertig</string>
     <string name="ab_name">Ab.\nName</string>
     <string name="ab_score">Ab.\nScore</string>
