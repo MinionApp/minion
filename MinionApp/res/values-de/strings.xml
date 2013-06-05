@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Minion</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="hello_world">Hallo welt!</string>
+    <string name="edit_message">Geben Sie ein Nachricht ein.</string>
+    <string name="button_send">Hallo!</string>
+    <string name="welcome_message">Wilkommen in Minion!</string>
+    <string name="icon_description">Platzhalterbild</string>
+    <string name="title_activity_home">Heim</string>
+    <string name="button_manage_characters">Charaktere leiten</string>
+    <string name="button_manage_groups">Gruppen leiten</string>
+    <string name="button_settings">Einstellungen</string>
+    <string name="title_activity_sqlite_test">Charaktere leiten</string>
+    <string name="button_add_character">Charakter ergänzen</string>
+    <string name="button_remove_character">Charakter löschen</string>
+    <string name="character_list">Charaktere:</string>
+    <string name="login_button">Login</string>
+    <string name="login_title">Login</string>
+    <string name="username_text">Benutzername</string>
+    <string name="password_text">Passwort</string>
+    <string name="invalid_login">Der Benutzername oder das Password ist falsch.</string>
+    <string name="signup_clickable_text">Registrieren</string>
+    <string name="signup_text">Haben Sie kein Login?</string>
+    <string name="forgot_password_clickable_text">Haben Sie das Passwort vergessen?</string>
+    <string name="signup_title">Registrieren</string>
+    <string name="email_signup_input">Email</string>
+    <string name="username_signup_input">Benutzername</string>
+    <string name="password_signup_input">Passwort</string>
+    <string name="finish_signup_button">Registrier mich!</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_signup">Registrieren</string>
+    <string name="title_activity_password_recovery">Passwort Wiederherstellung</string>
+    <string name="recover_password_button">Passwort wiederherstellen</string>
+    <string name="cancel_button">Abbrechen</string>
+    <string name="invalid_username_message">Benutzername ist noch benutzt. Bitte wieder versuchen.</string>
+    <string name="return_to_login_clickable_text">(Gehen zu Login zurück)</string>
+    <string name="invalid_password_message">Dein Passwort muss mindestens 8 Buchstaben lang sind und muss mindestens ein Zahl, ein Kleinbuchstabe, 
+	    ein Großbuchstabe, ein Sonderzeichen (@#$%^&#038;+=), und kein Wortzwischenraum haben.</string>
+    <string name="password_confirmation">Confirm Passwort rückmelden</string>
+    <string name="non_matching_passwords_message">Die angebotene Passwörter passen nicht zusammen.</string>
+    <string name="keep_logged_in">Erinner mich</string>
+    <string name="button_logout">Abmeldung</string>
+    <string name="title_activity_security_question">Sicherheitsfrage</string>
+    <string name="security_question_prompt">Wählen Sie eine Sicherheitsfrage</string>
+    <string name="security_answer_prompt">Antworten Sie ihre Sicherheitsfrage</string>
+    <string name="placeholder_text">**Ansetzen Sicherheitsfrage hier**</string>
+    <string name="invalid_username_error">Der angegebene Benutzername existiert nicht. Bitte versuchen Sie noch einmal.</string>
+    <string name="waiting">Warten&#8230;</string>
+    <string name="title_activity_view_invites">Einladungen ansehen</string>
+
+    <string-array name="security_question_array">
+        <item>Was ist ihre Aufgabe?</item>
+        <item>Was ist ihre Lieblingsfarbe?</item>
+        <item>Wo ist Bielefeld?</item>
+    </string-array>
+
+    <string name="next_button">Weiter</string>
+    <string name="title_activity_password_recovery_question">PasswortWiederherstellenFrageAktivität</string>
+    <string name="change_password_button">Passwort verändern</string>
+    <string name="new_password_input">Geben Sie ein neues Passwort ein</string>
+    <string name="answer_button">Antwort</string>
+    <string name="title_activity_new_password_validator">NeuesPasswortValidiererAktivität</string>
+    <string name="title_activity_recovery_question">WiederherstellenFrageAktivität</string>
+    <string name="title_activity_basic_info">Grundlegende Info</string>
+    
+    <string name="alignment_prompt">Bitte wählen Sie eine Gesinnung.</string>
+    <string-array name="alignment_array">
+        <item>Rechtsch. Gut</item>
+        <item>Rechtsch. Neutral</item>
+        <item>Rechtsch. Böse</item>
+        <item>Neutral Gut</item>
+        <item>Neutral</item>
+        <item>Neutral Böse</item>
+        <item>Chaotisch Gut</item>
+        <item>Chaotisch Neutral</item>
+        <item>Chaotisch Böse</item>
+    </string-array>
+    
+    <string name="size_prompt">Bitte wählen Sie eine Größe.</string>
+    <string-array name="size_array">
+        <item>Fein</item>
+        <item>Diminutiv</item>
+        <item>Tiny</item>
+        <item>Klein</item>
+        <item>Mittelgroß</item>
+        <item>Groß</item>
+        <item>Riesengroß</item>
+        <item>Ungeheuer</item>
+        <item>Überdimensional</item>
+    </string-array>
+    
+    <string name="character_name">Charaktername</string>
+    <string name="title_activity_char_create_main">Charakter Creation</string>
+    <string name="button_basic_info">Grundlegende Info</string>
+    <string name="button_ability_scores">Attribute</string>
+    <string name="button_skills">Fertigkeiten</string>
+    
+    <string name="button_combat">Combat</string>
+    
+    <string name="button_saving_throws">Verteidigungswerte</string>
+    <string name="title_activity_ability_scores">Attribute</string>
+    <string name="title_activity_skills">Fertigkeiten</string>
+    
+    <string name="title_activity_combat">Combat</string>
+    
+    <string name="title_activity_saving_throws">Verteidigungswerte</string>
+    <string name="hit_points">TP (Trefferpunkt)</string>
+    <string name="hit_points_total">Wert</string>
+    
+    <string name="hit_points_dr">DR</string>
+    
+    <string name="speed">Bewegungsrate</string>
+    <string name="speed_base">Grundwert</string>
+    <string name="speed_armor">Rüstung</string>
+    <string name="initiative">Initiative (Modifikatoren)</string>
+    <string name="initiative_total">Wert</string>
+    <string name="initiative_dex">Geschicklichkeit (Modifikatoren)</string>
+    <string name="initiative_misc">Sonst (Modifikatoren)</string>
+    
+    <string name="armor_class">AC (Armor Class)</string>
+    
+    <string name="armor_total">Wert</string>
+    <string name="armor_constant">10 +</string>
+    <string name="armor_bonus">Rüstung</string>
+    
+    <string name="armor_shield">Shield</string>
+    
+    <string name="armor_dex">GE</string>
+    <string name="armor_size">Größe</string>
+    <string name="armor_natural">Natural</string>
+    
+    <string name="armor_deflection">Deflection</string>
+    
+    <string name="armor_misc">Sonst</string>
+    
+    <string name="attack_bonus">Base Attack Bonus</string>
+    
+    <string name="bab">B.A.B.</string>
+    
+
+    <string name="alignment">Gesinnung</string>
+    <string name="enter_text">Enter text&#8230;</string>
+    <string name="player">Player</string>
+    <string name="char_level">Stufe</string>
+    <string name="deity">Gottheit</string>
+    <string name="homeland">Heimatland</string>
+    <string name="race">Rasse</string>
+    <string name="size">Größe</string>
+    <string name="gender">Geschlecht</string>
+    <string name="age">Alter</string>
+    <string name="height">Height</string>
+    <string name="weight">Gewicht</string>
+    <string name="lbs">lbs.</string>
+    <string name="hair">Haare</string>
+    <string name="eyes">Augen</string>
+    <string name="done">Fertig</string>
+    <string name="ab_name">Ab.\nName</string>
+    <string name="ab_score">Ab.\nScore</string>
+    <string name="ab_mod">Ab.\nMod.</string>
+    <string name="base">Base</string>
+    <string name="temp">Temp</string>
+    <string name="str">STR\nStrength</string>
+    <string name="dex">DEX\nDexterity</string>
+    <string name="con">CON\nConstitution</string>
+    <string name="intel">INT\nIntelligence</string>
+    <string name="wis">WIS\nWisdom</string>
+    <string name="cha">CHA\nCharisma</string>
+    <string name="equals">=</string>
+    <string name="plus">+</string>
+    
+    <string name="skill_names">Skill\nNames</string>
+    <string name="total_bonus">Total\nBonus</string>
+    <string name="ranks">Ranks</string>
+    <string name="misc_mod">Misc.\nMod.</string>
+    <string name="eqcha"> = Cha</string>
+    <string name="eqdex"> = Dex</string>
+    <string name="eqint"> = Int</string>
+    <string name="eqstr"> = Str</string>
+    <string name="eqwis"> = Wis</string>
+    <string name="type">Type</string>
+    <string name="acrobatics">Acrobatics</string>
+    <string name="appraise">Appraise</string>
+    <string name="bluff">Bluff</string>
+    <string name="climb">Climb</string>
+    <string name="craft">Craft</string>
+    <string name="diplomacy">Diplomacy</string>
+    <string name="disable_device">Disable\nDevice</string>
+    <string name="disguise">Disguise</string>
+    <string name="escape_artist">Escape\nArtist</string>
+    <string name="fly">Fly</string>
+    <string name="handle_animal">Handle\nAnimal</string>
+    <string name="heal">Heal</string>
+    <string name="intimidate">Intimidate</string>
+    <string name="knowledge_arcana">Knowledge\n(Arcana)</string>
+    <string name="knowledge_dungeoneering">Knowledge\n(Dngnring)</string>
+    <string name="knowledge_engineering">Knowledge\n(Engring)</string>
+    <string name="knowledge_geography">Knowledge\n(Geography)</string>
+    <string name="knowledge_history">Knowledge\n(History)</string>
+    <string name="knowledge_local">Knowledge\n(Local)</string>
+    <string name="knowledge_nature">Knowledge\n(Nature)</string>
+    <string name="knowledge_nobility">Knowledge\n(Nobility)</string>
+    <string name="knowledge_planes">Knowledge\n(Planes)</string>
+    <string name="knowledge_religion">Knowledge\n(Religion)</string>
+    <string name="linguistics">Linguistics</string>
+    <string name="perception">Perception</string>
+    <string name="perform">Perf.</string>
+    <string name="profession">Prof.</string>
+    <string name="ride">Ride</string>
+    <string name="sense_motive">Sense Motive</string>
+    <string name="sleight_of_hand">Sleight of\nHand</string>
+    <string name="spellcraft">Spellcraft</string>
+    <string name="stealth">Stealth</string>
+    <string name="survival">Survival</string>
+    <string name="swim">Swim</string>
+    <string name="use_magic_device">Use Magic\nDevice</string>
+    
+    <string name="perform_prompt">Choose a Perform category</string>
+    <string-array name="perform_array">
+        <item>Act</item>
+        <item>Comedy</item>
+        <item>Dance</item>
+        <item>Keyboard</item>
+        <item>Oratory</item>
+        <item>Percussion</item>
+        <item>Strings</item>
+        <item>Wind</item>
+        <item>Sing</item>
+    </string-array>
+    
+    <string name="profession_prompt">Choose a Profession</string>
+    <string-array name="profession_array">
+        <item>Architect</item>
+        <item>Baker</item>
+        <item>Barrister</item>
+        <item>Brewer</item>
+        <item>Butcher</item>
+        <item>Clerk</item>
+        <item>Cook</item>
+        <item>Courtesan</item>
+        <item>Driver</item>
+        <item>Engineer</item>
+        <item>Farmer</item>
+        <item>Fisherman</item>
+        <item>Gambler</item>
+        <item>Gardener</item>
+        <item>Herbalist</item>
+        <item>Innkeeper</item>
+        <item>Librarian</item>
+        <item>Merchant</item>
+        <item>Midwife</item>
+        <item>Miller</item>
+        <item>Miner</item>
+        <item>Porter</item>
+        <item>Sailor</item>
+        <item>Scribe</item>
+        <item>Shepherd</item>
+        <item>Stable Master</item>
+        <item>Soldier</item>
+        <item>Tanner</item>
+        <item>Trapper</item>
+        <item>Woodcutter</item>
+    </string-array>
+    
+    <string name="craft_prompt">Choose a Craft</string>
+    <string-array name="craft_array">
+        <item>Alchemy</item>
+        <item>Armor</item>
+        <item>Baskets</item>
+        <item>Books</item>
+        <item>Bows</item>
+        <item>Calligraphy</item>
+        <item>Carpentry</item>
+        <item>Cloth</item>
+        <item>Clothing</item>
+        <item>Glass</item>
+        <item>Jewelry</item>
+        <item>Leather</item>
+        <item>Locks</item>
+        <item>Paintings</item>
+        <item>Pottery</item>
+        <item>Sculptures</item>
+        <item>Ships</item>
+        <item>Shoes</item>
+        <item>Stonemasonry</item>
+        <item>Traps</item>
+        <item>Weapons</item>
+    </string-array>
+    
+    <string name="fortitude_title">Fortitude (Constitution)</string>
+    <string name="reflex_title">Reflex (Dexterity)</string>
+    <string name="will_title">Will (Wisdom)</string>
+    <string name="base_save">Base</string>
+    <string name="ability_modifier">Ability</string>
+    <string name="magic_modifier">Magic</string>
+    <string name="misc_modifier">Misc</string>
+    <string name="temp_modifier">Temp</string>
+    <string name="total">Total</string>
+    <string name="title_activity_characters">Manage Characters</string>
+    <string name="title_activity_groups">Manage Groups</string>
+    <string name="welcome">Welcome to Minion Character Creation!</string>
+    <string name="char_creation_success">Character successfully saved!</string>
+    
+    <string name="welcome_group">Welome to Minion Group Creation!</string>
+    <string name="create_new_group">Create New Group</string>
+    <string name="pending_invites">Pending Invites</string>
+    <string name="group_name">Name</string>
+    <string name="group_name_enter">Enter Group Name</string>
+    <string name="group_user_name">User Name</string>
+    <string name="group_enter_user_1">Enter User 1</string>
+    <string name="group_enter_user_2">Enter User 2</string>
+    <string name="group_enter_user_3">Enter User 3</string>
+    <string name="group_enter_user_4">Enter User 4</string>
+    <string name="group_enter_user_5">Enter User 5</string>
+    <string name="title_activity_group_create">GroupCreate</string>
+    <string name="title_activity_view_group">ViewGroupActivity</string>
+    <string name="title_activity_edit_group">EditGroupActivity</string>
+    
+    <string name="save">Save</string>
+    <string name="zero">0</string>
+    <string name="button_test">Test GUI</string>
+    
+    <string name="sp">""</string>
+    <string name="remove_user">Remove User</string>
+    <string name="invite_user">Invite User</string>
+    <string name="finish_editing">Finish</string>
+
+</resources>
