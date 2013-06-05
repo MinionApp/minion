@@ -5,7 +5,6 @@ import uw.cse403.minion.R;
 import uw.cse403.minion.SignupActivity;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
