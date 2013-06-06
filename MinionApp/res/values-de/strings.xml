@@ -165,112 +165,112 @@
     <string name="eqstr"> = St</string>
     <string name="eqwis"> = We</string>
     <string name="type">Bezugs-\nattribut</string>
-    <string name="acrobatics">Acrobatics</string>
-    <string name="appraise">Appraise</string>
-    <string name="bluff">Bluff</string>
-    <string name="climb">Climb</string>
-    <string name="craft">Craft</string>
-    <string name="diplomacy">Diplomacy</string>
-    <string name="disable_device">Disable\nDevice</string>
-    <string name="disguise">Disguise</string>
-    <string name="escape_artist">Escape\nArtist</string>
-    <string name="fly">Fly</string>
-    <string name="handle_animal">Handle\nAnimal</string>
-    <string name="heal">Heal</string>
-    <string name="intimidate">Intimidate</string>
-    <string name="knowledge_arcana">Knowledge\n(Arcana)</string>
-    <string name="knowledge_dungeoneering">Knowledge\n(Dngnring)</string>
-    <string name="knowledge_engineering">Knowledge\n(Engring)</string>
-    <string name="knowledge_geography">Knowledge\n(Geography)</string>
-    <string name="knowledge_history">Knowledge\n(History)</string>
-    <string name="knowledge_local">Knowledge\n(Local)</string>
-    <string name="knowledge_nature">Knowledge\n(Nature)</string>
-    <string name="knowledge_nobility">Knowledge\n(Nobility)</string>
-    <string name="knowledge_planes">Knowledge\n(Planes)</string>
-    <string name="knowledge_religion">Knowledge\n(Religion)</string>
-    <string name="linguistics">Linguistics</string>
-    <string name="perception">Perception</string>
-    <string name="perform">Perf.</string>
-    <string name="profession">Prof.</string>
-    <string name="ride">Ride</string>
-    <string name="sense_motive">Sense Motive</string>
-    <string name="sleight_of_hand">Sleight of\nHand</string>
-    <string name="spellcraft">Spellcraft</string>
-    <string name="stealth">Stealth</string>
-    <string name="survival">Survival</string>
-    <string name="swim">Swim</string>
-    <string name="use_magic_device">Use Magic\nDevice</string>
+    <string name="acrobatics">Akrobatik</string>
+    <string name="appraise">Schätzen</string>
+    <string name="bluff">Bluffen</string>
+    <string name="climb">Klettern</string>
+    <string name="craft">Handwerk</string>
+    <string name="diplomacy">Diplomatie</string>
+    <string name="disable_device">Mechanismus\nAusschalten</string>
+    <string name="disguise">Verkleiden</string>
+    <string name="escape_artist">Leise\nBewegen</string>
+    <string name="fly">Fliegen</string>
+    <string name="handle_animal">Mit Tieren\nUmgehen</string>
+    <string name="heal">Heilkunde</string>
+    <string name="intimidate">Einschüchtern</string>
+    <string name="knowledge_arcana">Wissen\n(Arkanes)</string>
+    <string name="knowledge_dungeoneering">Wissen\n(Kerker)</string>
+    <string name="knowledge_engineering">Wissen\n(Technik)</string>
+    <string name="knowledge_geography">Wissen\n(Geographie)</string>
+    <string name="knowledge_history">Wissen\n(Geschichte)</string>
+    <string name="knowledge_local">Wissen\n(Lokal)</string>
+    <string name="knowledge_nature">Wissen\n(Naturkunde)</string>
+    <string name="knowledge_nobility">Wissen\n(Adel)</string>
+    <string name="knowledge_planes">Wissen\n(Flugzeuge)</string>
+    <string name="knowledge_religion">Wissen\n(Religion)</string>
+    <string name="linguistics">Linguistik</string>
+    <string name="perception">Wahrnehmung</string>
+    <string name="perform">Auftreten</string>
+    <string name="profession">Beruf</string>
+    <string name="ride">Reiten</string>
+    <string name="sense_motive">Motiv Erkennen</string>
+    <string name="sleight_of_hand">Fingerfertigkeit</string>
+    <string name="spellcraft">Zauberkunde</string>
+    <string name="stealth">Heimlichkeit</string>
+    <string name="survival">Überlebenskunst</string>
+    <string name="swim">Swimmen</string>
+    <string name="use_magic_device">Magischen Gegenstand\nBenutzen</string>
     
-    <string name="perform_prompt">Choose a Perform category</string>
+    <string name="perform_prompt">Bitte wählen Sie eine Auftretenkategorie</string>
     <string-array name="perform_array">
-        <item>Act</item>
-        <item>Comedy</item>
-        <item>Dance</item>
-        <item>Keyboard</item>
-        <item>Oratory</item>
-        <item>Percussion</item>
-        <item>Strings</item>
-        <item>Wind</item>
-        <item>Sing</item>
+        <item>Shauspiel</item>
+        <item>Komödie</item>
+        <item>Tanz</item>
+        <item>Tasteninstrumente</item>
+        <item>Rhetorik</item>
+        <item>Schlaginstrumente</item>
+        <item>Saiteninstrumente</item>
+        <item>Blasinstrumente</item>
+        <item>Singen</item>
     </string-array>
     
-    <string name="profession_prompt">Choose a Profession</string>
+    <string name="profession_prompt">Bitte wählen Sie einen Beruf</string>
     <string-array name="profession_array">
-        <item>Architect</item>
-        <item>Baker</item>
+        <item>Architekt</item>
+        <item>Bäcker</item>
         <item>Barrister</item>
-        <item>Brewer</item>
-        <item>Butcher</item>
-        <item>Clerk</item>
-        <item>Cook</item>
-        <item>Courtesan</item>
-        <item>Driver</item>
-        <item>Engineer</item>
-        <item>Farmer</item>
-        <item>Fisherman</item>
-        <item>Gambler</item>
-        <item>Gardener</item>
-        <item>Herbalist</item>
-        <item>Innkeeper</item>
-        <item>Librarian</item>
-        <item>Merchant</item>
-        <item>Midwife</item>
-        <item>Miller</item>
-        <item>Miner</item>
-        <item>Porter</item>
-        <item>Sailor</item>
-        <item>Scribe</item>
-        <item>Shepherd</item>
-        <item>Stable Master</item>
-        <item>Soldier</item>
-        <item>Tanner</item>
-        <item>Trapper</item>
-        <item>Woodcutter</item>
+        <item>Brauer</item>
+        <item>Fleischer</item>
+        <item>Beamter</item>
+        <item>Koch</item>
+        <item>Kurtisane</item>
+        <item>Fahrer</item>
+        <item>Techniker</item>
+        <item>Landwirt</item>
+        <item>Fischer</item>
+        <item>Glückspieler</item>
+        <item>Gärtner</item>
+        <item>Kräuterarzt</item>
+        <item>Gastwirt</item>
+        <item>Bibliothekar</item>
+        <item>Händler</item>
+        <item>Hebamme</item>
+        <item>Müller</item>
+        <item>Bergarbeiter</item>
+        <item>Portier</item>
+        <item>Seeman</item>
+        <item>Schreiber</item>
+        <item>Hirte</item>
+        <item>Stallmeister</item>
+        <item>Soldat</item>
+        <item>Gerber</item>
+        <item>Fallensteller</item>
+        <item>Holzschneider</item>
     </string-array>
     
-    <string name="craft_prompt">Choose a Craft</string>
+    <string name="craft_prompt">Bitte wählen Sie ein Handwerk</string>
     <string-array name="craft_array">
-        <item>Alchemy</item>
-        <item>Armor</item>
-        <item>Baskets</item>
-        <item>Books</item>
-        <item>Bows</item>
-        <item>Calligraphy</item>
-        <item>Carpentry</item>
-        <item>Cloth</item>
-        <item>Clothing</item>
-        <item>Glass</item>
-        <item>Jewelry</item>
-        <item>Leather</item>
-        <item>Locks</item>
-        <item>Paintings</item>
-        <item>Pottery</item>
-        <item>Sculptures</item>
-        <item>Ships</item>
-        <item>Shoes</item>
-        <item>Stonemasonry</item>
-        <item>Traps</item>
-        <item>Weapons</item>
+        <item>Alchemie</item>
+        <item>Rüstung</item>
+        <item>Körbe</item>
+        <item>Bücher</item>
+        <item>Bogen</item>
+        <item>Kalligrafie</item>
+        <item>Tischlern</item>
+        <item>Tuch</item>
+        <item>Kleidung</item>
+        <item>Glas</item>
+        <item>Schmuck</item>
+        <item>Leder</item>
+        <item>Schlösser</item>
+        <item>Gemälde</item>
+        <item>Töpferei</item>
+        <item>Skulpturen</item>
+        <item>Schiffe</item>
+        <item>Schuhe</item>
+        <item>Steinmetzarbeit</item>
+        <item>Fallen</item>
+        <item>Waffen</item>
     </string-array>
     
     <string name="fortitude_title">Zähigkeit (Konstitution)</string>
@@ -282,33 +282,33 @@
     <string name="misc_modifier">Sonst</string>
     <string name="temp_modifier">Temp</string>
     <string name="total">Gesamt</string>
-    <string name="title_activity_characters">Manage Characters</string>
-    <string name="title_activity_groups">Manage Groups</string>
-    <string name="welcome">Welcome to Minion Character Creation!</string>
-    <string name="char_creation_success">Character successfully saved!</string>
+    <string name="title_activity_characters">Charaktere leiten</string>
+    <string name="title_activity_groups">Gruppen leiten</string>
+    <string name="welcome">Wilkommen in Minion Charakter Creation!</string>
+    <string name="char_creation_success">Charakter war gelungen abgesavt!</string>
     
-    <string name="welcome_group">Welome to Minion Group Creation!</string>
-    <string name="create_new_group">Create New Group</string>
-    <string name="pending_invites">Pending Invites</string>
+    <string name="welcome_group">Wilkommen in Minion Gruppe Creation!</string>
+    <string name="create_new_group">Eine neue Gruppe schaffen</string>
+    <string name="pending_invites">Ausstehende Einladungen</string>
     <string name="group_name">Name</string>
-    <string name="group_name_enter">Enter Group Name</string>
-    <string name="group_user_name">User Name</string>
-    <string name="group_enter_user_1">Enter User 1</string>
-    <string name="group_enter_user_2">Enter User 2</string>
-    <string name="group_enter_user_3">Enter User 3</string>
-    <string name="group_enter_user_4">Enter User 4</string>
-    <string name="group_enter_user_5">Enter User 5</string>
-    <string name="title_activity_group_create">GroupCreate</string>
-    <string name="title_activity_view_group">ViewGroupActivity</string>
-    <string name="title_activity_edit_group">EditGroupActivity</string>
+    <string name="group_name_enter">Geben Sie eine Gruppename ein</string>
+    <string name="group_user_name">Benutzername</string>
+    <string name="group_enter_user_1">Geben Sie Benutzer 1 ein</string>
+    <string name="group_enter_user_2">Geben Sie Benutzer 2 ein</string>
+    <string name="group_enter_user_3">Geben Sie Benutzer 3 ein</string>
+    <string name="group_enter_user_4">Geben Sie Benutzer 4 ein</string>
+    <string name="group_enter_user_5">Geben Sie Benutzer 5 ein</string>
+    <string name="title_activity_group_create">GruppeCreate</string>
+    <string name="title_activity_view_group">GruppeAnsehenAktivität</string>
+    <string name="title_activity_edit_group">GruppeEditierenAktivität</string>
     
-    <string name="save">Save</string>
+    <string name="save">Absaven</string>
     <string name="zero">0</string>
-    <string name="button_test">Test GUI</string>
+    <string name="button_test">GUI testen</string>
     
     <string name="sp">""</string>
-    <string name="remove_user">Remove User</string>
-    <string name="invite_user">Invite User</string>
+    <string name="remove_user">Benutzer wegnehmen</string>
+    <string name="invite_user">Benutzer einladen</string>
     <string name="finish_editing">Fertig</string>
 
 </resources>
