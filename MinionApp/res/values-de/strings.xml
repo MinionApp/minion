@@ -293,6 +293,7 @@
     <string name="group_name">Name</string>
     <string name="group_name_enter">Geben Sie eine Gruppename ein</string>
     <string name="group_user_name">Benutzername</string>
+    <string name="group_enter_user">Geben Sie Benutzer</string>
     <string name="group_enter_user_1">Geben Sie Benutzer 1 ein</string>
     <string name="group_enter_user_2">Geben Sie Benutzer 2 ein</string>
     <string name="group_enter_user_3">Geben Sie Benutzer 3 ein</string>
