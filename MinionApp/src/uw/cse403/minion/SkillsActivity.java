@@ -438,6 +438,7 @@ public class SkillsActivity extends Activity {
 		EditText acrobaticsMiscEnter = (EditText) findViewById(R.id.acrobatics_misc_mod);
 		String acrobaticsRanks = acrobaticsRanksEnter.getText().toString().trim();
 		String acrobaticsMisc = acrobaticsMiscEnter.getText().toString().trim();
+<<<<<<< Updated upstream
 		if (acrobaticsRanks.matches("")) {
 			acrobaticsRanks = "0";
 		}
@@ -450,6 +451,11 @@ public class SkillsActivity extends Activity {
 			int acrobaticsRank = Integer.parseInt(acrobaticsRanks);
 			Skill skill = new Skill(Skill.ACROBATICS_ID, "Acrobatics", 
 					AbilityName.DEXTERITY, acrobaticsRank, false);
+=======
+		if (!acrobaticsRanks.matches("")) {
+			int acrobaticsRank = Integer.parseInt(acrobaticsRanks);
+			Skill skill = new Skill("Acrobatics", AbilityName.DEXTERITY, acrobaticsRank, false);
+>>>>>>> Stashed changes
 			if (!acrobaticsMisc.matches("")) {
 				int acrobaticsMod = Integer.parseInt(acrobaticsMisc);
 				skill.addModifier("acrobaticsMod", acrobaticsMod);
