@@ -469,7 +469,12 @@ public class CharCreateMainActivity extends Activity {
 		 * Parses the String result and directs to the correct Activity
 		 */
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+			try {
+		        dialog.dismiss();
+		        dialog = null;
+		    } catch (Exception e) {
+		        // nothing
+		    }
 			Intent intent = new Intent(context, CharactersActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);

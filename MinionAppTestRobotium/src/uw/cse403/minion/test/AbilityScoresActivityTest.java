@@ -3,6 +3,7 @@ package uw.cse403.minion.test;
 import com.jayway.android.robotium.solo.Solo;
 
 import uw.cse403.minion.AbilityScoresActivity;
+import uw.cse403.minion.BasicInfoActivity;
 import uw.cse403.minion.CharCreateMainActivity;
 import uw.cse403.minion.CharactersActivity;
 import uw.cse403.minion.SaveSharedPreference;
@@ -27,49 +28,33 @@ public class AbilityScoresActivityTest extends
 
 	}
 	
-	/**
-	 * setup() instantiates Solo and stores the CharactersActivity.
-	 */
 	@Override
-	protected void setUp() throws Exception {
+	protected void setUp() {
 		solo = new Solo(getInstrumentation(), getActivity());
 		charCreate = getActivity();
 		SaveSharedPreference.clearPreferences(charCreate);
-		
-	}
-	
-	/**
-	 * Test that setup to get to charCreateMainActivity and then to AbilityScores
-	 *  at beginning of each test works
-	 */
-	public void testGetToAbilityScoresActivity() {
-		SaveSharedPreference.clearPreferences(charCreate);
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));	
-		solo.assertCurrentActivity("charCreateMainActivity", CharCreateMainActivity.class);
-		
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_ability_scores));
-		solo.assertCurrentActivity("charCreateMainActivity", AbilityScoresActivity.class);
-		getActivity().finish();  
-
-	}
-	
-	/**
-	 * Test to see that save button returns you to correct Activity after not entering
-	 * any text into the fields
-	 */
-	public void testDoneWithNoTextInput() {
-		SaveSharedPreference.clearPreferences(charCreate);
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_ability_scores));
-		
+		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_basic_info));
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.save));
-		solo.assertCurrentActivity("return to char create", CharCreateMainActivity.class);
-		getActivity().finish(); 
 	}
 	
 	@Override
-	protected void tearDown() throws Exception {
+	protected void tearDown() {
 		solo.finishOpenedActivities();
+		getActivity().finish();
+	}
+	
+	/**
+	 * Test that setup to get to CharCreateMainActivity, BasicInfoActivity, and then to
+	 * AbilityScoresActivity at beginning of each test works.
+	 */
+	public void testGetToAndReturnFromAbilityScoresActivity() {
 		
+		solo.assertCurrentActivity("CharCreateMainActivity", CharCreateMainActivity.class);
+		
+		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_ability_scores));
+		solo.assertCurrentActivity("AbilityScoresActivity", AbilityScoresActivity.class);
+		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.save));
+		solo.assertCurrentActivity("CharCreateMainActivity", CharCreateMainActivity.class);
 	}
 }

@@ -35,103 +35,76 @@ public class CharCreateMainActivityTest extends
 	}
 	
 	/**
-	 * setup() instantiates Solo and stores the CharCreateMainActivity.
+	 * setup() instantiates Solo and goes to through the basic info page, a necessary gateway.
 	 */
 	@Override
 	protected void setUp() throws Exception {
 		solo = new Solo(getInstrumentation(), getActivity());
 		charCreate = getActivity();
 		SaveSharedPreference.clearPreferences(charCreate);
-		
+		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));	
+		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_basic_info));
+		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.save));
+	}
+	
+	@Override
+	protected void tearDown() throws Exception {
+		solo.finishOpenedActivities();
+		getActivity().finish();
 	}
 	
 	/**
 	 * Test that setup to get to charCreateMainActivity at beginning of each test works
 	 */
 	public void testGetToCharCreateMainActivity() {
-		SaveSharedPreference.clearPreferences(charCreate);
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));	
 		solo.assertCurrentActivity("charCreateMainActivity", CharCreateMainActivity.class);
-		getActivity().finish(); 
-
 	}
 	
 	/**
 	 * Test to see that basicInfo button goes to correct activity
 	 */
 	public void testGotoBasicInfo() {
-		SaveSharedPreference.clearPreferences(charCreate);
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));
-		
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_basic_info));
 		solo.assertCurrentActivity("basic info", BasicInfoActivity.class);
-		getActivity().finish(); 
 	}
 	
 	/**
 	 * Test to see that ability scores button goes to correct activity
 	 */
 	public void testGotoAbilityScores() {
-		SaveSharedPreference.clearPreferences(charCreate);
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));
-		
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_ability_scores));
 		solo.assertCurrentActivity("ability scores", AbilityScoresActivity.class);
-		getActivity().finish(); 
 	}
 	
 	/**
 	 * Test to see that skills button goes to correct activity
 	 */
 	public void testGotoSkills() {
-		SaveSharedPreference.clearPreferences(charCreate);
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));
-		
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_skills));
 		solo.assertCurrentActivity("skills", SkillsActivity.class);
-		getActivity().finish(); 
 	}
 	
 	/**
 	 * Test to see that combat button goes to correct activity
 	 */
 	public void testGotoCombat() {
-		SaveSharedPreference.clearPreferences(charCreate);
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));
-		
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_combat));
 		solo.assertCurrentActivity("combat", CombatActivity.class);
-		getActivity().finish(); 
 	}
 	
 	/**
 	 * Test to see that saving throws button goes to correct activity
 	 */
-	public void testGotoSavingThrows() {
-		SaveSharedPreference.clearPreferences(charCreate);
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));
-		
+	public void testGotoSavingThrows() {	
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_saving_throws));
 		solo.assertCurrentActivity("saving throws", SavingThrowsActivity.class);
-		getActivity().finish(); 
 	}
 	
 	/**
 	 * Test to see that done button goes to correct activity
 	 */
-	public void testDone() {
-		SaveSharedPreference.clearPreferences(charCreate);
-		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_add_character));
-		
+	public void testDone() {	
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.done));
 		solo.assertCurrentActivity("done", CharactersActivity.class);
-		getActivity().finish(); 
 	}
-	
-	@Override
-	protected void tearDown() throws Exception {
-		solo.finishOpenedActivities();
-		
-	}
-
 }
