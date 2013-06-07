@@ -17,7 +17,7 @@ public class PasswordRecoveryActivityTest extends
 	private static final String SPINNER_QUESTION_1 = "What is your favorite color?";
 	private static final String SPINNER_QUESTION_2 = "What is the air-speed velocity of an unladen swallow?";
 	private static final String INVALID_USERNAME = "patrick";
-	private static final String VALID_USERNAME = "test2";
+	private static final String VALID_USERNAME = "UseForTestingOnly";
 	
 	public PasswordRecoveryActivityTest() {
 		super(PasswordRecoveryActivity.class);
