@@ -29,9 +29,6 @@ public class Ability {
 	/** Stores whether or not this ability has been stored previously or not **/
 	boolean isNew;
 
-	/** The name of the ability **/
-	private AbilityName name;
-
 	/** The base ability score **/
 	private int base;
 
@@ -39,52 +36,27 @@ public class Ability {
 	private Map<String,Integer> tempModifiers;
 
 	/**
-	 * Initializes an ability with the given name and defaults the base stat to
+	 * Initializes an ability with the given id and defaults the base stat to
 	 * -1. Stats cannot be negative as this is indicative of death or unconsciousness,
 	 * thus a default of -1 shows that this value is uninitialized.
 	 * <p>
 	 * No temporary modifiers are initialized.
 	 * 
-	 * @param name	the name of the ability being stored as the AbilityName enum,
-	 * 				such as STRENGTH, DEXTERITY, ect...
+	 * @param id		character id associated with this ability
+	 * @param abilityID	ability id associated with this ability. A value between 0 and 5.
 	 */
-	public Ability(long id, AbilityName name){
-		this(id, name, -1);
-	}
-
-	/**
-	 * Initializes an ability with the given name and given default score.
-	 * 
-	 * @param name	the name of the ability being stored as the AbilityName enum,
-	 * 				such as STRENGTH, DEXTERITY, ect...
-	 * @param score	the value to initialize the base stat
-	 * 
-	 */
-	public Ability(long id, AbilityName name, int score){
+	public Ability(long id, int abilityID){
 		charID = id;
-		this.name = name;
-		if (score < 0) {
-			this.base = 0;
-		} else {
-			this.base = score;
-		}
+		this.base = -1;
+		this.abilityID = abilityID;
+		
 		tempModifiers = new HashMap<String, Integer>();
 
-		// set abilityID
-		switch (name) {
-		case STRENGTH 		: abilityID = 0; break;
-		case DEXTERITY 		: abilityID = 1; break;
-		case CONSTITUTION 	: abilityID = 2; break;
-		case INTELLIGENCE 	: abilityID = 3; break;
-		case WISDOM 		: abilityID = 4; break;
-		case CHARISMA 		: abilityID = 5; break;
-		default 			: abilityID = -1;
-		}
-
 		if (charID >= 0) {
-			loadAbilities();
+			loadFromDB();
 		}
 	}
+
 
 	/*
 	 * Testing Results:
@@ -97,7 +69,7 @@ public class Ability {
 	/**
 	 * Loads all of the abilities stored in the local database for the current character.
 	 */
-	private void loadAbilities() {
+	private void loadFromDB() {
 		if (TraceControl.TRACE)
 			Debug.startMethodTracing("Ability_loadAbilities");
 		
@@ -122,15 +94,6 @@ public class Ability {
 	}
 
 	/**
-	 * Get the name of this ability
-	 * 
-	 * @return a AbilityName enum representing the name of the ability
-	 */
-	public AbilityName getName(){
-		return name;
-	}
-
-	/**
 	 * Get the current base stat for the ability, not including any temporary
 	 * modifiers to the base stat
 	 * 
@@ -138,19 +101,6 @@ public class Ability {
 	 */
 	public int getBase(){
 		return base;
-	}
-
-	/**
-	 * Add the given value to the base permanently 
-	 * 
-	 * @param modifier	Adds given number to the base stat
-	 * @modifies base
-	 */
-	public void addToBase(int modifier){
-		base += modifier;
-		if (base < 0) {
-			base = 0;
-		}
 	}
 
 	/**
@@ -182,16 +132,6 @@ public class Ability {
 			return 0;
 		}
 		return retVal;
-	}
-
-	/**
-	 * Removes the modifier under the given name as well as the record of that name.
-	 * 
-	 * @param tempName	the name of the temporary modifier to remove
-	 * @modifies this
-	 */
-	public void removeTempModifier(String tempName){
-		tempModifiers.remove(tempName);
 	}
 
 	/**
@@ -263,10 +203,6 @@ public class Ability {
 		return mod;
 	}
 
-	public int getRefID() {
-		return abilityID;
-	}
-
 	/** 
 	 * Writes Ability to database. SHOULD ONLY BE CALLED BY CHARACTER
 	 * @param id id of character
@@ -289,6 +225,7 @@ public class Ability {
 		}
 
 		// for later implementation
+		@SuppressWarnings("unused")
 		SQLiteDatabase dbTempMods = SQLiteHelperASTempMods.db;
 	}
 

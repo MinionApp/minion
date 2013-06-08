@@ -180,10 +180,6 @@ public class Skill {
 	 * @return an int total bonus for given skill
 	 */
 	public int getBonus(Ability mod){
-		if (mod.getName() != assocAbility) {
-			throw new IllegalArgumentException();
-		}
-
 		//Add rank and class modifier (if appropriate)
 		int bonus = ranks;
 		if (classSkill && ranks > 0) {

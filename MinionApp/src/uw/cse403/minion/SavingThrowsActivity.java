@@ -99,9 +99,9 @@ public class SavingThrowsActivity extends Activity {
 	 */
 	private void loadData() {
 		// get relevant ability scores
-		Ability constitution = new Ability(charID, AbilityName.CONSTITUTION);
-		Ability dexterity = new Ability(charID, AbilityName.DEXTERITY);
-		Ability wisdom = new Ability(charID, AbilityName.WISDOM);
+		Ability constitution = new Ability(charID, 2);
+		Ability dexterity = new Ability(charID, 1);
+		Ability wisdom = new Ability(charID, 4);
 		fortitude.abMod = constitution.getMod();
 		reflex.abMod = dexterity.getMod();
 		will.abMod = wisdom.getMod();

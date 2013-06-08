@@ -1,7 +1,6 @@
 package uw.cse403.minion.test;
 
 import uw.cse403.minion.Ability;
-import uw.cse403.minion.AbilityName;
 import uw.cse403.minion.Skill;
 import junit.framework.TestCase;
 
@@ -127,8 +126,10 @@ public class SkillTest extends TestCase {
 		
 		acro.addToRank(4);
 
-		Ability dex = new Ability(-1, AbilityName.DEXTERITY, 12);
-		Ability str = new Ability(-1, AbilityName.STRENGTH, 8);
+		Ability dex = new Ability(-1, 1);
+		dex.setBase(12);
+		Ability str = new Ability(-1, 0);
+		str.setBase(8);
 		
 		assertEquals(8, acro.getBonus(dex));
 		assertEquals(-1, climb.getBonus(str));

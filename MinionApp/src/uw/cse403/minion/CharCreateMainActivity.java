@@ -248,22 +248,20 @@ public class CharCreateMainActivity extends Activity {
 
 			// Creates JSON object for character abilities
 			Ability[] abilities = new Ability[6];
-			abilities[0] = new Ability(charID, AbilityName.STRENGTH);
-			abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
-			abilities[2] = new Ability(charID, AbilityName.CONSTITUTION);
-			abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
-			abilities[4] = new Ability(charID, AbilityName.WISDOM);
-			abilities[5] = new Ability(charID, AbilityName.CHARISMA);
+			abilities[0] = new Ability(charID, 0);
+			abilities[1] = new Ability(charID, 1);
+			abilities[2] = new Ability(charID, 2);
+			abilities[3] = new Ability(charID, 3);
+			abilities[4] = new Ability(charID, 4);
+			abilities[5] = new Ability(charID, 5);
 
 			JSONObject abilityObject = new JSONObject();
 			JSONArray abilityScores = new JSONArray();
 			try {
 				for(int i = 0; i < 6; i++) {
 					JSONObject ability = new JSONObject();
-					ability.put("name", abilities[i].getName());
 					ability.put("score", abilities[i].getScore());
 					ability.put("mod", abilities[i].getMod());
-					ability.put("ref_id", abilities[i].getRefID());
 					abilityScores.put(ability);
 				}
 				abilityObject.put("abilities", abilityScores);

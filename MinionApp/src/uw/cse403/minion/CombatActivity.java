@@ -100,7 +100,7 @@ public class CombatActivity extends Activity {
 	 */
 	private void loadData() {
 		// get dexterity modifier
-		Ability dexterity = new Ability(charID, AbilityName.DEXTERITY);
+		Ability dexterity = new Ability(charID, 1);
 		combat.dexMod = dexterity.getMod();
 
 		String size = "";
