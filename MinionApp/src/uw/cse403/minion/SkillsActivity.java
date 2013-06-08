@@ -26,7 +26,7 @@ import android.os.Build;
  * handles both the population of the UI after loading the relevant information
  * from the local database as well as the task of writing any new or updated
  * information into the local database.
- * @author 
+ * @author Kevin Dong (kevinxd3)
  */
 public class SkillsActivity extends Activity {
 	
@@ -143,7 +143,7 @@ public class SkillsActivity extends Activity {
 				String title = cursor2.getString(2);
 				int ranks = cursor2.getInt(3);
 				int miscMod = cursor2.getInt(4);
-				Skill skill = new Skill(skillID, title, null, ranks, false);
+				Skill skill = new Skill(skillID, title, ranks);
 				skill.addModifier("skillMod", miscMod);
 				// these will store IDs referring to UI elements
 				int titleFieldID = 0;
@@ -446,6 +446,7 @@ public class SkillsActivity extends Activity {
 		EditText acrobaticsMiscEnter = (EditText) findViewById(R.id.acrobatics_misc_mod);
 		String acrobaticsRanks = acrobaticsRanksEnter.getText().toString().trim();
 		String acrobaticsMisc = acrobaticsMiscEnter.getText().toString().trim();
+
 		if (acrobaticsRanks.matches("")) {
 			acrobaticsRanks = "0";
 		}
@@ -456,8 +457,7 @@ public class SkillsActivity extends Activity {
 
 		if (!acrobaticsRanks.matches("")) {
 			int acrobaticsRank = Integer.parseInt(acrobaticsRanks);
-			Skill skill = new Skill(Skill.ACROBATICS_ID, "Acrobatics", 
-					AbilityName.DEXTERITY, acrobaticsRank, false);
+			Skill skill = new Skill(Skill.ACROBATICS_ID, acrobaticsRank);
 			if (!acrobaticsMisc.matches("")) {
 				int acrobaticsMod = Integer.parseInt(acrobaticsMisc);
 				skill.addModifier("acrobaticsMod", acrobaticsMod);
@@ -479,8 +479,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!appraiseRanks.matches("")) {
 			int appraiseRank = Integer.parseInt(appraiseRanks);
-			Skill skill = new Skill(Skill.APPRAISE_ID, "Appraise", 
-					AbilityName.INTELLIGENCE, appraiseRank, false);
+			Skill skill = new Skill(Skill.APPRAISE_ID, appraiseRank);
 			if (!appraiseMisc.matches("")) {
 				int appraiseMod = Integer.parseInt(appraiseMisc);
 				skill.addModifier("appraiseMod", appraiseMod);
@@ -502,8 +501,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!bluffRanks.matches("")) {
 			int bluffRank = Integer.parseInt(bluffRanks);
-			Skill skill = new Skill(Skill.BLUFF_ID, "Bluff", 
-					AbilityName.CHARISMA, bluffRank, false);
+			Skill skill = new Skill(Skill.BLUFF_ID, bluffRank);
 			if (!bluffMisc.matches("")) {
 				int bluffMod = Integer.parseInt(bluffMisc);
 				skill.addModifier("bluffMod", bluffMod);
@@ -526,8 +524,7 @@ public class SkillsActivity extends Activity {
 
 		if (!climbRanks.matches("")) {
 			int climbRank = Integer.parseInt(climbRanks);
-			Skill skill = new Skill(Skill.CLIMB_ID, "Climb", 
-					AbilityName.STRENGTH, climbRank, false);
+			Skill skill = new Skill(Skill.CLIMB_ID, climbRank);
 			if (!climbMisc.matches("")) {
 				int climbMod = Integer.parseInt(climbMisc);
 				skill.addModifier("climbMod", climbMod);
@@ -553,8 +550,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!craft1Ranks.matches("")) {
 			int craft1Rank = Integer.parseInt(craft1Ranks);
-			Skill skill = new Skill(Skill.CRAFT_ID, "Craft1", craft1, 
-					AbilityName.INTELLIGENCE, craft1Rank, false);
+			Skill skill = new Skill(Skill.CRAFT_ID, craft1, craft1Rank);
 			if (!craft1Misc.matches("")) {
 				int craft1Mod = Integer.parseInt(craft1Misc);
 				skill.addModifier("craft1Mod", craft1Mod);
@@ -580,8 +576,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!craft2Ranks.matches("")) {
 			int craft2Rank = Integer.parseInt(craft2Ranks);
-			Skill skill = new Skill(Skill.CRAFT_ID, "Craft2", craft2, 
-					AbilityName.INTELLIGENCE, craft2Rank, false);
+			Skill skill = new Skill(Skill.CRAFT_ID, craft2, craft2Rank);
 			if (!craft2Misc.matches("")) {
 				int craft2Mod = Integer.parseInt(craft2Misc);
 				skill.addModifier("craft2Mod", craft2Mod);
@@ -608,8 +603,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!craft3Ranks.matches("")) {
 			int craft3Rank = Integer.parseInt(craft3Ranks);
-			Skill skill = new Skill(Skill.CRAFT_ID, "Craft3", craft3, 
-					AbilityName.INTELLIGENCE, craft3Rank, false);
+			Skill skill = new Skill(Skill.CRAFT_ID, craft3, craft3Rank);
 			if (!craft3Misc.matches("")) {
 				int craft3Mod = Integer.parseInt(craft3Misc);
 				skill.addModifier("craft3Mod", craft3Mod);
@@ -632,8 +626,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!diplomacyRanks.matches("")) {
 			int diplomacyRank = Integer.parseInt(diplomacyRanks);
-			Skill skill = new Skill(Skill.DIPLOMACY_ID, "Diplomacy", 
-					AbilityName.CHARISMA, diplomacyRank, false);
+			Skill skill = new Skill(Skill.DIPLOMACY_ID, diplomacyRank);
 			if (!diplomacyMisc.matches("")) {
 				int diplomacyMod = Integer.parseInt(diplomacyMisc);
 				skill.addModifier("diplomacyMod", diplomacyMod);
@@ -655,8 +648,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!disableDeviceRanks.matches("")) {
 			int disableDeviceRank = Integer.parseInt(disableDeviceRanks);
-			Skill skill = new Skill(Skill.DISABLE_DEVICE_ID, "Disable Device", 
-					AbilityName.DEXTERITY, disableDeviceRank, false);
+			Skill skill = new Skill(Skill.DISABLE_DEVICE_ID, disableDeviceRank);
 			if (!disableDeviceRanks.matches("")) {
 				int disableDeviceMod = Integer.parseInt(disableDeviceMisc);
 				skill.addModifier("disableDeviceMod", disableDeviceMod);
@@ -678,8 +670,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!disguiseRanks.matches("")) {
 			int disguiseRank = Integer.parseInt(disguiseRanks);
-			Skill skill = new Skill(Skill.DISGUISE_ID, "Disguise", 
-					AbilityName.CHARISMA, disguiseRank, false);
+			Skill skill = new Skill(Skill.DISGUISE_ID, disguiseRank);
 			if (!disguiseMisc.matches("")) {
 				int disguiseMod = Integer.parseInt(disguiseMisc);
 				skill.addModifier("disguiseMod", disguiseMod);
@@ -701,8 +692,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!escapeArtistRanks.matches("")) {
 			int escapeArtistRank = Integer.parseInt(escapeArtistRanks);
-			Skill skill = new Skill(Skill.ESCAPE_ARTIST_ID, "Escape Artist", 
-					AbilityName.DEXTERITY, escapeArtistRank, false);
+			Skill skill = new Skill(Skill.ESCAPE_ARTIST_ID, escapeArtistRank);
 			if (!escapeArtistMisc.matches("")) {
 				int escapeArtistMod = Integer.parseInt(escapeArtistMisc);
 				skill.addModifier("escapeArtistMod", escapeArtistMod);
@@ -724,8 +714,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!flyRanks.matches("")) {
 			int flyRank = Integer.parseInt(flyRanks);
-			Skill skill = new Skill(Skill.FLY_ID, "Fly", 
-					AbilityName.DEXTERITY, flyRank, false);
+			Skill skill = new Skill(Skill.FLY_ID, flyRank);
 			if (!flyMisc.matches("")) {
 				int flyMod = Integer.parseInt(flyMisc);
 				skill.addModifier("flyMod", flyMod);
@@ -747,8 +736,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!handleAnimalRanks.matches("")) {
 			int handleAnimalRank = Integer.parseInt(handleAnimalRanks);
-			Skill skill = new Skill(Skill.HANDLE_ANIMAL_ID, "Handle Animal", 
-					AbilityName.CHARISMA, handleAnimalRank, false);
+			Skill skill = new Skill(Skill.HANDLE_ANIMAL_ID, handleAnimalRank);
 			if (!handleAnimalMisc.matches("")) {
 				int handleAnimalMod = Integer.parseInt(handleAnimalMisc);
 				skill.addModifier("handleAnimalMod", handleAnimalMod);
@@ -770,8 +758,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!healRanks.matches("")) {
 			int healRank = Integer.parseInt(healRanks);
-			Skill skill = new Skill(Skill.HEAL_ID, "Heal", 
-					AbilityName.WISDOM, healRank, false);
+			Skill skill = new Skill(Skill.HEAL_ID, healRank);
 			if (!healMisc.matches("")) {
 				int healMod = Integer.parseInt(healMisc);
 				skill.addModifier("healMod", healMod);
@@ -793,8 +780,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!intimidateRanks.matches("")) {
 			int intimidateRank = Integer.parseInt(intimidateRanks);
-			Skill skill = new Skill(Skill.INTIMIDATE_ID, "Intimidate", 
-					AbilityName.CHARISMA, intimidateRank, false);
+			Skill skill = new Skill(Skill.INTIMIDATE_ID, intimidateRank);
 			if (!intimidateMisc.matches("")) {
 				int intimidateMod = Integer.parseInt(intimidateMisc);
 				skill.addModifier("intimidateMod", intimidateMod);
@@ -816,8 +802,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeArcanaRanks.matches("")) {
 			int knowledgeArcanaRank = Integer.parseInt(knowledgeArcanaRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_ARCANA_ID, "Knowledge (Arcana)", 
-					AbilityName.INTELLIGENCE, knowledgeArcanaRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_ARCANA_ID, knowledgeArcanaRank);
 			if (!knowledgeArcanaMisc.matches("")) {
 				int knowledgeArcanaMod = Integer.parseInt(knowledgeArcanaMisc);
 				skill.addModifier("knowledgeArcanaMod", knowledgeArcanaMod);
@@ -839,8 +824,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeDungeoneeringRanks.matches("")) {
 			int knowledgeDungeoneeringRank = Integer.parseInt(knowledgeDungeoneeringRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_DUNGEONEERING_ID, "Knowledge (Dungeoneering)", 
-					AbilityName.INTELLIGENCE, knowledgeDungeoneeringRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_DUNGEONEERING_ID, knowledgeDungeoneeringRank);
 			if (!knowledgeDungeoneeringMisc.matches("")) {
 				int knowledgeDungeoneeringMod = Integer.parseInt(knowledgeDungeoneeringMisc);
 				skill.addModifier("knowledgeDungeoneeringMod", knowledgeDungeoneeringMod);
@@ -862,8 +846,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeEngineeringRanks.matches("")) {
 			int knowledgeEngineeringRank = Integer.parseInt(knowledgeEngineeringRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_ENGINEERING_ID, "Knowledge (Engineering)", 
-					AbilityName.INTELLIGENCE, knowledgeEngineeringRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_ENGINEERING_ID, knowledgeEngineeringRank);
 			if (!knowledgeEngineeringMisc.matches("")) {
 				int knowledgeEngineeringMod = Integer.parseInt(knowledgeEngineeringMisc);
 				skill.addModifier("knowledgeEngineeringMod", knowledgeEngineeringMod);
@@ -885,8 +868,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeGeographyRanks.matches("")) {
 			int knowledgeGeographyRank = Integer.parseInt(knowledgeGeographyRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_GEOGRAPHY_ID, "Knowledge (Geography)", 
-					AbilityName.INTELLIGENCE, knowledgeGeographyRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_GEOGRAPHY_ID, knowledgeGeographyRank);
 			if (!knowledgeGeographyMisc.matches("")) {
 				int knowledgeGeographyMod = Integer.parseInt(knowledgeGeographyMisc);
 				skill.addModifier("knowledgeGeographyMod", knowledgeGeographyMod);
@@ -908,8 +890,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeHistoryRanks.matches("")) {
 			int knowledgeHistoryRank = Integer.parseInt(knowledgeHistoryRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_HISTORY_ID, "Knowledge (History)", 
-					AbilityName.INTELLIGENCE, knowledgeHistoryRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_HISTORY_ID, knowledgeHistoryRank);
 			if (!knowledgeHistoryMisc.matches("")) {
 				int knowledgeHistoryMod = Integer.parseInt(knowledgeHistoryMisc);
 				skill.addModifier("knowledgeHistoryMod", knowledgeHistoryMod);
@@ -931,8 +912,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeLocalRanks.matches("")) {
 			int knowledgeLocalRank = Integer.parseInt(knowledgeLocalRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_LOCAL_ID, "Knowledge (Local)", 
-					AbilityName.INTELLIGENCE, knowledgeLocalRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_LOCAL_ID, knowledgeLocalRank);
 			if (!knowledgeLocalMisc.matches("")) {
 				int knowledgeLocalMod = Integer.parseInt(knowledgeLocalMisc);
 				skill.addModifier("knowledgeLocalMod", knowledgeLocalMod);
@@ -954,8 +934,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeNatureRanks.matches("")) {
 			int knowledgeNatureRank = Integer.parseInt(knowledgeNatureRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_NATURE_ID, "Knowledge (Nature)", 
-					AbilityName.INTELLIGENCE, knowledgeNatureRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_NATURE_ID, knowledgeNatureRank);
 			if (!knowledgeNatureMisc.matches("")) {
 				int knowledgeNatureMod = Integer.parseInt(knowledgeNatureMisc);
 				skill.addModifier("knowledgeNatureMod", knowledgeNatureMod);
@@ -977,8 +956,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeNobilityRanks.matches("")) {
 			int knowledgeNobilityRank = Integer.parseInt(knowledgeNobilityRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_NOBILITY_ID, "Knowledge (Nobility)", 
-					AbilityName.INTELLIGENCE, knowledgeNobilityRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_NOBILITY_ID, knowledgeNobilityRank);
 			if (!knowledgeNobilityMisc.matches("")) {
 				int knowledgeNobilityMod = Integer.parseInt(knowledgeNobilityMisc);
 				skill.addModifier("knowledgeNobilityMod", knowledgeNobilityMod);
@@ -1000,8 +978,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgePlanesRanks.matches("")) {
 			int knowledgePlanesRank = Integer.parseInt(knowledgePlanesRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_PLANES_ID, "Knowledge (Planes)", 
-					AbilityName.INTELLIGENCE, knowledgePlanesRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_PLANES_ID, knowledgePlanesRank);
 			if (!knowledgePlanesMisc.matches("")) {
 				int knowledgePlanesMod = Integer.parseInt(knowledgePlanesMisc);
 				skill.addModifier("knowledgePlanesMod", knowledgePlanesMod);
@@ -1023,8 +1000,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!knowledgeReligionRanks.matches("")) {
 			int knowledgeReligionRank = Integer.parseInt(knowledgeReligionRanks);
-			Skill skill = new Skill(Skill.KNOWLEDGE_RELIGION_ID, "Knowledge (Religion)", 
-					AbilityName.INTELLIGENCE, knowledgeReligionRank, false);
+			Skill skill = new Skill(Skill.KNOWLEDGE_RELIGION_ID, knowledgeReligionRank);
 			if (!knowledgeReligionMisc.matches("")) {
 				int knowledgeReligionMod = Integer.parseInt(knowledgeReligionMisc);
 				skill.addModifier("knowledgeReligionMod", knowledgeReligionMod);
@@ -1046,8 +1022,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!linguisticsRanks.matches("")) {
 			int linguisticsRank = Integer.parseInt(linguisticsRanks);
-			Skill skill = new Skill(Skill.LINGUISTICS_ID, "Linguistics", 
-					AbilityName.INTELLIGENCE, linguisticsRank, false);
+			Skill skill = new Skill(Skill.LINGUISTICS_ID, linguisticsRank);
 			if (!linguisticsMisc.matches("")) {
 				int linguisticsMod = Integer.parseInt(linguisticsMisc);
 				skill.addModifier("linguisticsMod", linguisticsMod);
@@ -1069,8 +1044,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!perceptionRanks.matches("")) {
 			int perceptionRank = Integer.parseInt(perceptionRanks);
-			Skill skill = new Skill(Skill.PERCEPTION_ID, "Perception", 
-					AbilityName.WISDOM, perceptionRank, false);
+			Skill skill = new Skill(Skill.PERCEPTION_ID, perceptionRank);
 			if (!perceptionMisc.matches("")) {
 				int perceptionMod = Integer.parseInt(perceptionMisc);
 				skill.addModifier("perceptionMod", perceptionMod);
@@ -1098,8 +1072,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!perform1Ranks.matches("")) {
 			int perform1Rank = Integer.parseInt(perform1Ranks);
-			Skill skill = new Skill(Skill.PERFORM_ID, "Perform1", perform1, 
-					AbilityName.CHARISMA, perform1Rank, false);
+			Skill skill = new Skill(Skill.PERFORM_ID, perform1, perform1Rank);
 			if (!perform1Misc.matches("")) {
 				int perform1Mod = Integer.parseInt(perform1Misc);
 				skill.addModifier("perform1Mod", perform1Mod);
@@ -1125,8 +1098,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!perform2Ranks.matches("")) {
 			int perform2Rank = Integer.parseInt(perform2Ranks);
-			Skill skill = new Skill(Skill.PERFORM_ID, "Perform2", perform2, 
-					AbilityName.CHARISMA, perform2Rank, false);
+			Skill skill = new Skill(Skill.PERFORM_ID, perform2, perform2Rank);
 			if (!perform2Misc.matches("")) {
 				int perform2Mod = Integer.parseInt(perform2Misc);
 				skill.addModifier("perform2Mod", perform2Mod);
@@ -1151,8 +1123,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!profession1Ranks.matches("")) {
 			int profession1Rank = Integer.parseInt(profession1Ranks);
-			Skill skill = new Skill(Skill.PROFESSION_ID, "Profession1", profession1, 
-					AbilityName.WISDOM, profession1Rank, false);
+			Skill skill = new Skill(Skill.PROFESSION_ID, profession1, profession1Rank);
 			if (!profession1Misc.matches("")) {
 				int profession1Mod = Integer.parseInt(profession1Misc);
 				skill.addModifier("profession1Mod", profession1Mod);
@@ -1177,8 +1148,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!profession2Ranks.matches("")) {
 			int profession2Rank = Integer.parseInt(profession2Ranks);
-			Skill skill = new Skill(Skill.PROFESSION_ID, "Profession2", profession2, 
-					AbilityName.WISDOM, profession2Rank, false);
+			Skill skill = new Skill(Skill.PROFESSION_ID, profession2, profession2Rank);
 			if (!profession2Misc.matches("")) {
 				int profession2Mod = Integer.parseInt(profession2Misc);
 				skill.addModifier("profession2Mod", profession2Mod);
@@ -1200,8 +1170,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!rideRanks.matches("")) {
 			int rideRank = Integer.parseInt(rideRanks);
-			Skill skill = new Skill(Skill.RIDE_ID, "Ride", 
-					AbilityName.DEXTERITY, rideRank, false);
+			Skill skill = new Skill(Skill.RIDE_ID, rideRank);
 			if (!rideMisc.matches("")) {
 				int rideMod = Integer.parseInt(rideMisc);
 				skill.addModifier("rideMod", rideMod);
@@ -1223,8 +1192,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!senseMotiveRanks.matches("")) {
 			int senseMotiveRank = Integer.parseInt(senseMotiveRanks);
-			Skill skill = new Skill(Skill.SENSE_MOTIVE_ID, "Sense Motive", 
-					AbilityName.WISDOM, senseMotiveRank, false);
+			Skill skill = new Skill(Skill.SENSE_MOTIVE_ID, senseMotiveRank);
 			if (!senseMotiveMisc.matches("")) {
 				int senseMotiveMod = Integer.parseInt(senseMotiveMisc);
 				skill.addModifier("senseMotiveMod", senseMotiveMod);
@@ -1246,8 +1214,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!sleightOfHandRanks.matches("")) {
 			int sleightOfHandRank = Integer.parseInt(sleightOfHandRanks);
-			Skill skill = new Skill(Skill.SLEIGHT_OF_HAND_ID, "Sleight of Hand", 
-					AbilityName.DEXTERITY, sleightOfHandRank, false);
+			Skill skill = new Skill(Skill.SLEIGHT_OF_HAND_ID, sleightOfHandRank);
 			if (!sleightOfHandMisc.matches("")) {
 				int sleightOfHandMod = Integer.parseInt(sleightOfHandMisc);
 				skill.addModifier("sleightOfHandMod", sleightOfHandMod);
@@ -1269,8 +1236,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!spellcraftRanks.matches("")) {
 			int spellcraftRank = Integer.parseInt(spellcraftRanks);
-			Skill skill = new Skill(Skill.SPELLCRAFT_ID, "Spellcraft", 
-					AbilityName.INTELLIGENCE, spellcraftRank, false);
+			Skill skill = new Skill(Skill.SPELLCRAFT_ID, spellcraftRank);
 			if (!spellcraftMisc.matches("")) {
 				int spellcraftMod = Integer.parseInt(spellcraftMisc);
 				skill.addModifier("spellcraftMod", spellcraftMod);
@@ -1292,8 +1258,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!stealthRanks.matches("")) {
 			int stealthRank = Integer.parseInt(stealthRanks);
-			Skill skill = new Skill(Skill.STEALTH_ID, "Stealth", 
-					AbilityName.DEXTERITY, stealthRank, false);
+			Skill skill = new Skill(Skill.STEALTH_ID, stealthRank);
 			if (!stealthMisc.matches("")) {
 				int stealthMod = Integer.parseInt(stealthMisc);
 				skill.addModifier("stealthMod", stealthMod);
@@ -1315,8 +1280,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!survivalRanks.matches("")) {
 			int survivalRank = Integer.parseInt(survivalRanks);
-			Skill skill = new Skill(Skill.SURVIVAL_ID, "Survival", 
-					AbilityName.WISDOM, survivalRank, false);
+			Skill skill = new Skill(Skill.SURVIVAL_ID, survivalRank);
 			if (!survivalMisc.matches("")) {
 				int survivalMod = Integer.parseInt(survivalMisc);
 				skill.addModifier("survivalMod", survivalMod);
@@ -1338,8 +1302,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!swimRanks.matches("")) {
 			int swimRank = Integer.parseInt(swimRanks);
-			Skill skill = new Skill(Skill.SWIM_ID, "Swim", 
-					AbilityName.STRENGTH, swimRank, false);
+			Skill skill = new Skill(Skill.SWIM_ID, swimRank);
 			if (!swimMisc.matches("")) {
 				int swimMod = Integer.parseInt(swimMisc);
 				skill.addModifier("swimMod", swimMod);
@@ -1361,8 +1324,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!useMagicDeviceRanks.matches("")) {
 			int useMagicDeviceRank = Integer.parseInt(useMagicDeviceRanks);
-			Skill skill = new Skill(Skill.USE_MAGIC_DEVICE_ID, "Use Magic Device", 
-					AbilityName.CHARISMA, useMagicDeviceRank, false);
+			Skill skill = new Skill(Skill.USE_MAGIC_DEVICE_ID, useMagicDeviceRank);
 			if (!useMagicDeviceMisc.matches("")) {
 				int useMagicDeviceMod = Integer.parseInt(useMagicDeviceMisc);
 				skill.addModifier("useMagicDeviceMod", useMagicDeviceMod);

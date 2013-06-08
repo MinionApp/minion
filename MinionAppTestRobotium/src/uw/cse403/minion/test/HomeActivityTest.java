@@ -4,7 +4,6 @@ import com.jayway.android.robotium.solo.Solo;
 import uw.cse403.minion.CharactersActivity;
 import uw.cse403.minion.GroupsActivity;
 import uw.cse403.minion.HomeActivity;
-import uw.cse403.minion.SQLiteTestActivity;
 import uw.cse403.minion.SaveSharedPreference;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
