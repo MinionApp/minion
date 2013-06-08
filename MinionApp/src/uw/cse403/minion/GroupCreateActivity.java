@@ -28,6 +28,7 @@ import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 
 /**
@@ -96,9 +97,11 @@ public class GroupCreateActivity extends Activity {
 				numberOfPlayers++;
 				LinearLayout l1 = new LinearLayout(GroupCreateActivity.this);
 
-				TextView user = new TextView(GroupCreateActivity.this);             
-				user.setText("Enter User " + numberOfPlayers);
-				user.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+				TextView user = new TextView(GroupCreateActivity.this);
+				Resources res = getResources();
+				String enterUser = res.getString(R.string.group_enter_user);
+				user.setText(enterUser + " " + numberOfPlayers);
+				user.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
 				user.setPadding(0, 8, 0, 0);
 				EditText userEditText = new EditText(GroupCreateActivity.this);
 				userEditText.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 2f));

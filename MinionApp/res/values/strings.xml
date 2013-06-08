@@ -294,6 +294,7 @@
     <string name="group_name">Name</string>
     <string name="group_name_enter">Enter Group Name</string>
     <string name="group_user_name">User Name</string>
+    <string name="group_enter_user">Enter User</string>    
     <string name="group_enter_user_1">Enter User 1</string>
     <string name="group_enter_user_2">Enter User 2</string>
     <string name="group_enter_user_3">Enter User 3</string>
