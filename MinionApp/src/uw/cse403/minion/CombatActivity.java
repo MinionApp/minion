@@ -20,7 +20,7 @@ import android.os.Build;
  * handles both the population of the UI after loading the relevant information
  * from the local database as well as the task of writing any new or updated
  * information into the local database.
- * @author 
+ * @author Kevin Dong (kevinxd3)
  */
 public class CombatActivity extends Activity {
 
@@ -30,6 +30,11 @@ public class CombatActivity extends Activity {
 	/** Object that stores all the combat information about the character **/
 	private Combat combat;
 
+	/*
+	 * Testing Results:
+	 * As has been said throughout these comments (beginning in Ability and AbilityScoresActivity),
+	 * much of the computation here is being done by the graphical drawing.
+	 */
 	/**
 	 * Displays the combat page and loads in any previously entered information
 	 * from the local database.

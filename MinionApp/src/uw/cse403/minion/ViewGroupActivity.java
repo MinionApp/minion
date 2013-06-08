@@ -94,6 +94,7 @@ public class ViewGroupActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		if (TraceControl.TRACE)
 			Debug.startMethodTracing("ViewGroupActivity_onCreate");
 		
@@ -200,6 +201,7 @@ public class ViewGroupActivity extends Activity {
 			noCharactersBuilder.setTitle("No Characters Warning");
 			noCharactersBuilder.setPositiveButton("Ok",
 					new DialogInterface.OnClickListener() {
+				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					noCharactersAlert.dismiss(); 
 				}
@@ -264,6 +266,7 @@ public class ViewGroupActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -309,6 +312,7 @@ public class ViewGroupActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
 			if(isGM) {
 				Button editButton = (Button) findViewById(R.id.edit_button);
@@ -355,6 +359,7 @@ public class ViewGroupActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -379,6 +384,7 @@ public class ViewGroupActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, ViewGroupActivity.class);
 			intent.putExtra(GROUPNAME, groupName);
@@ -408,6 +414,7 @@ public class ViewGroupActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -431,6 +438,7 @@ public class ViewGroupActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, ViewInvitesActivity.class);
 			startActivity(intent);

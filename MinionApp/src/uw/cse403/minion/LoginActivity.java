@@ -38,6 +38,10 @@ public class LoginActivity extends Activity {
 	 */
 	private boolean keepLoggedIn;
 
+	/*
+	 * Testing Results:
+	 * More drawing, more DDMS weight, more inability to carry out optimization.
+	 */
 	/**
 	 * Displays the login page if the user has not chosen to remain logged in or if it is their
 	 * first time logging in. Otherwise it displays the home page if they have chosen to remain
@@ -182,6 +186,7 @@ public class LoginActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -205,6 +210,7 @@ public class LoginActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			TextView error = (TextView) findViewById(R.id.error);
 			if (result.equals("1")) {  
@@ -215,7 +221,7 @@ public class LoginActivity extends Activity {
 				// Stores the username to be used by later Activities
 				SaveSharedPreference.setPersistentUserName(context, un);
 				// Login succeeds, go to homepage.
-				Intent intent = new Intent(context, HomeActivity.class);
+				Intent intent = new Intent(context, LoadCharactersActivity.class);
 				startActivity(intent);
 				finish();
 			} else {

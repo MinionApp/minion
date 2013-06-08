@@ -20,7 +20,7 @@ import android.os.Build;
  * handles both the population of the UI after loading the relevant information
  * from the local database as well as the task of writing any new or updated
  * information into the local database.
- * @author 
+ * @author Kevin Dong (kevinxd3)
  */
 public class BasicInfoActivity extends Activity {
 	/** Class constants for string representations **/
@@ -32,6 +32,12 @@ public class BasicInfoActivity extends Activity {
 	/** Object that stores all the basic information about the character **/
 	CharacterDescription baseInfo;
 
+	/*
+	 * Testing Results:
+	 * All of the most expensive operations were related to drawing content on the screen and not
+	 * processing data. Even if data were being accessed, we would be forced to go through SQLite
+	 * and deal with the string building therein. Again, nothing could be refactored here.
+	 */
 	/**
 	 * Displays the basic information page and loads in any previously entered information
 	 * from the local database.

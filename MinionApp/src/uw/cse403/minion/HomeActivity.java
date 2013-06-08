@@ -34,6 +34,12 @@ public class HomeActivity extends Activity {
 	/** The current user's username **/
 	private String username;
 
+	/*
+	 * Testing Results:
+	 * The top two expensive operations of this code were generating a bitmap to be drawn and 
+	 * DDMS. Rest assured, DDMS checks are turned off for the actual APK, for performance.
+	 * Inclusive CPU time similarly reflects the graphical emphasis.
+	 */
 	/**
 	 * Displays the home page.
 	 */
@@ -161,6 +167,7 @@ public class HomeActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -184,6 +191,7 @@ public class HomeActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			try {
 				int resultAsNumber = Integer.parseInt(result);

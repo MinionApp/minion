@@ -178,6 +178,7 @@ public class ViewInvitesActivity extends ListActivity {
 			noCharactersBuilder.setTitle("No Characters Warning");
 			noCharactersBuilder.setPositiveButton("Ok",
 					new DialogInterface.OnClickListener() {
+				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					noCharactersAlert.dismiss(); 
 				}
@@ -242,6 +243,7 @@ public class ViewInvitesActivity extends ListActivity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -282,6 +284,7 @@ public class ViewInvitesActivity extends ListActivity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
 			if(result.size() == 0) {
 				ListView list = (ListView) findViewById(android.R.id.list);
@@ -342,6 +345,7 @@ public class ViewInvitesActivity extends ListActivity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -366,6 +370,7 @@ public class ViewInvitesActivity extends ListActivity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, ViewInvitesActivity.class);
 			startActivity(intent);
@@ -392,6 +397,7 @@ public class ViewInvitesActivity extends ListActivity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -415,6 +421,7 @@ public class ViewInvitesActivity extends ListActivity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, ViewInvitesActivity.class);
 			startActivity(intent);
