@@ -3,7 +3,6 @@ package uw.cse403.minion.test;
 import uw.cse403.minion.PasswordRecoveryQuestionActivity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jayway.android.robotium.solo.Solo;
@@ -16,8 +15,8 @@ import com.jayway.android.robotium.solo.Solo;
 public class PasswordRecoveryQuestionActivityTest extends
 		ActivityInstrumentationTestCase2<PasswordRecoveryQuestionActivity> {
 	
-	private static final String VALID_ANSWER = "yay";
-	private static final String INVALID_ANSWER = "boo";
+//	private static final String VALID_ANSWER = "yay";
+//	private static final String INVALID_ANSWER = "boo";
 	
 	
 	public PasswordRecoveryQuestionActivityTest() {

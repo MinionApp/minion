@@ -18,7 +18,7 @@ public class AbilityTest extends TestCase {
 	 */
 	public void testAbilityLongAbilityName() {
 		Ability a = new Ability(-1, AbilityName.STRENGTH);
-		assertEquals(-1, a.getBase());
+		assertEquals(0, a.getBase());
 		assertEquals(AbilityName.STRENGTH,a.getName());
 	}
 
@@ -59,7 +59,7 @@ public class AbilityTest extends TestCase {
 	 * Test Dependent on three parameter constructor
 	 */
 	public void testGetBase() {
-		int baseScoreNeg = -5;
+		int baseScoreNeg = 0;
 		int baseScoreBig = 16;
 		int baseScoreAve = 10;
 		

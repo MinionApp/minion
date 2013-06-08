@@ -164,6 +164,7 @@ public class GroupsActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected ArrayList<HashMap<String, String>> doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -205,6 +206,7 @@ public class GroupsActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
 			groupsArray = result;
 

@@ -32,7 +32,7 @@ camel-cased) by necessity. -->
         android:text="@string/button_add_character" />
 
     <ListView
-        android:id="@+id/charListView"
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/button_add_char" >
