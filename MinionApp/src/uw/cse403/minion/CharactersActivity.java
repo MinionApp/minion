@@ -1,6 +1,7 @@
 package uw.cse403.minion;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -36,6 +37,7 @@ import android.os.Build;
 public class CharactersActivity extends ListActivity {
 	/** Class constants for string representations **/
 	private static final String CHARACTER_ID = "cid";
+	private static final String CHARACTER = "Character";
 	private static final String PHP_ADDRESS = "http://homes.cs.washington.edu/~elefse/deleteCharacter.php";
 
 	/** The local database source **/
@@ -45,10 +47,10 @@ public class CharactersActivity extends ListActivity {
 	private ListView charListView;
 
 	/** Collection of all the characters a user has **/
-	private static ArrayList<String> characterArray;
+	private static ArrayList<HashMap<String, String>> characterArray;
 
 	/** Adapter for connecting the characterArray to the UI view **/
-	private ArrayAdapter<String> adapter;
+	private SimpleAdapter adapter;
 	
 	/** The character that has been clicked on **/
 	private String character;
@@ -83,7 +85,7 @@ public class CharactersActivity extends ListActivity {
 
 		username = SaveSharedPreference.getPersistentUserName(CharactersActivity.this);
 		
-		characterArray = new ArrayList<String>();
+		characterArray = new ArrayList<HashMap<String, String>>();
 
 		// Initialize the UI components
 		charListView = (ListView) findViewById(android.R.id.list);
@@ -95,22 +97,26 @@ public class CharactersActivity extends ListActivity {
 			while (!cursor.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
 				String characterName = cursor.getString(0);
-				characterArray.add(characterName);
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put(CHARACTER, characterName);
+				characterArray.add(map);
 				cursor.moveToNext();
 			}
 		}
 		cursor.close();
 		// Create an empty adapter we will use to display the loaded data.
 		// We pass null for the cursor, then update it in onLoadFinished()
-		adapter = new ArrayAdapter<String>(this, 
-				android.R.layout.simple_list_item_1, characterArray);
+		adapter = new SimpleAdapter(this, characterArray, 
+				R.layout.custom_character_list_item, new String[] { CHARACTER }, new int[] {
+				R.id.character });
 		charListView.setAdapter(adapter);
 		charListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
-				String charName = ((TextView) view).getText().toString();
+				TextView characterTextView = (TextView) view.findViewById(R.id.character);
+				String charName = characterTextView.getText().toString();
 				// Gets charID based on character name
 				Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
 						SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
@@ -174,7 +180,7 @@ public class CharactersActivity extends ListActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		characterArray = new ArrayList<String>();
+		characterArray = new ArrayList<HashMap<String, String>>();
 		// Initialize the UI components
 		charListView = (ListView) findViewById(android.R.id.list);
 
@@ -185,7 +191,9 @@ public class CharactersActivity extends ListActivity {
 			while (!cursor.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_NAME
 				String characterName = cursor.getString(0);
-				characterArray.add(characterName);
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put(CHARACTER, characterName);
+				characterArray.add(map);
 				cursor.moveToNext();
 			}
 		}
@@ -193,15 +201,17 @@ public class CharactersActivity extends ListActivity {
 
 		// Create an empty adapter we will use to display the loaded data.
 		// We pass null for the cursor, then update it in onLoadFinished()
-		adapter = new ArrayAdapter<String>(this, 
-				R.layout.custom_character_list_item, R.id.character, characterArray);
+		adapter = new SimpleAdapter(this, characterArray, 
+				R.layout.custom_character_list_item, new String[] { CHARACTER }, new int[] {
+				R.id.character });
 		charListView.setAdapter(adapter);
 		charListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(getApplicationContext(), CharCreateMainActivity.class);
-				String charName = ((TextView) view).getText().toString();
+				TextView characterTextView = (TextView) view.findViewById(R.id.character);
+				String charName = characterTextView.getText().toString();
 				// Gets charID based on character name
 				Cursor cursor2 = SQLiteHelperBasicInfo.db.query(SQLiteHelperBasicInfo.TABLE_NAME, new String[]{SQLiteHelperBasicInfo.COLUMN_ID}, 
 						SQLiteHelperBasicInfo.COLUMN_NAME + " = \"" + charName + "\"", null, null, null, null);
@@ -263,6 +273,7 @@ public class CharactersActivity extends ListActivity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			JSONObject characterInfo = new JSONObject();
 			try {
@@ -294,6 +305,7 @@ public class CharactersActivity extends ListActivity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Log.i("result", result);
 			CharacterDataSource.deleteCharacter(charID);

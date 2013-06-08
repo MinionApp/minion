@@ -51,7 +51,7 @@ implements SQLiteHelperInterface {
 	 */
 	public SQLiteHelperWeapons(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.db = this.getWritableDatabase();
+		SQLiteHelperWeapons.db = this.getWritableDatabase();
 	}
 
 	/**
@@ -112,6 +112,7 @@ implements SQLiteHelperInterface {
 	 * Get the database in use
 	 * @return db the database in use
 	 */
+	@Override
 	public SQLiteDatabase getDB() {
 		return db;
 	}

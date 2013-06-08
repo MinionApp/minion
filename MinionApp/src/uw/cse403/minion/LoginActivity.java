@@ -186,6 +186,7 @@ public class LoginActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -209,6 +210,7 @@ public class LoginActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			TextView error = (TextView) findViewById(R.id.error);
 			if (result.equals("1")) {  

@@ -33,6 +33,20 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		solo.finishOpenedActivities();
 	}
 	
+	
+	/**
+	 * Test to see that save button returns you to correct Activity after not entering
+	 * any text into the fields
+	 */
+	public void testDoneWithOnlyNameInput() {
+		EditText name = (EditText) solo.getView(uw.cse403.minion.R.id.char_name_enter); 
+		solo.typeText(name, "Phil Ernst");
+		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.save));
+		
+		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.done));
+		solo.assertCurrentActivity("return to char create", CharCreateMainActivity.class);
+	}
+	
 	public void testEnterMajorAlphaText() {
 		EditText name = (EditText) solo.getView(uw.cse403.minion.R.id.char_name_enter); 
 		EditText level = (EditText) solo.getView(uw.cse403.minion.R.id.char_level_enter);

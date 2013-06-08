@@ -8,7 +8,6 @@ import java.util.Map;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Debug;
 
 /**

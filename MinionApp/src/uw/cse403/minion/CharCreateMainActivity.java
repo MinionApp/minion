@@ -209,6 +209,7 @@ public class CharCreateMainActivity extends Activity {
 		/**
 		 * Begins a dialog to show that the character is uploading.
 		 */
+		@Override
 		protected void onPreExecute() {
 			this.dialog.setMessage("Uploading character...");
 			this.dialog.show();
@@ -217,6 +218,7 @@ public class CharCreateMainActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 
 			// Creates JSON object for basic character information
@@ -468,8 +470,14 @@ public class CharCreateMainActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+			try {
+		        dialog.dismiss();
+		        dialog = null;
+		    } catch (Exception e) {
+		        // nothing
+		    }
 			Intent intent = new Intent(context, CharactersActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
