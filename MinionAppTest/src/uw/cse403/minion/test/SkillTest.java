@@ -16,31 +16,23 @@ public class SkillTest extends TestCase {
 	/**
 	 * Test two parameter constructor for fatal failure only
 	 */
-	public void testSkillStringAbilityName() {
-		Skill acro = new Skill(-1, "Acrobatics", AbilityName.DEXTERITY, 0, false);
-		Skill climb = new Skill(-1, "Climb", AbilityName.STRENGTH, 0, true);
-		Skill jibberish = new Skill(-1, "#jSe820", AbilityName.CHARISMA, 3, false);
+	public void testSkillConstructor() {
+		Skill acro = new Skill(-1, 1);
+		Skill climb = new Skill(-1, 4);
 		
 		assertTrue(acro != null);
 		assertTrue(climb != null);
-		assertTrue(jibberish != null);
 	}
 
 	/**
 	 * Test three parameter constructor for fatal failure only
 	 */
-	public void testSkillStringAbilityNameIntBoolean() {
-		String acroName = "Acrobatics";
-		String climbName = "Climb";
-		String jibberName = "#jSe820";
-		
-		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 1, true);
-		Skill climb = new Skill(-1, climbName, AbilityName.STRENGTH, 0, false);
-		Skill jibberish = new Skill(-1, jibberName, AbilityName.CHARISMA, 4, false);
+	public void testSkillConstructorTitle() {
+		Skill acro = new Skill(-1, 26,"Sing");
+		Skill climb = new Skill(-1, 27,"Brewer");
 		
 		assertTrue(acro != null);
 		assertTrue(climb != null);
-		assertTrue(jibberish != null);	
 	}
 
 	/**
@@ -51,15 +43,12 @@ public class SkillTest extends TestCase {
 		//Ensure equally spelled/mispelled throughout test
 		String acroName = "Acrobatics";
 		String climbName = "Climb";
-		String jibberName = "#jSe820";
 		
-		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 1, true);
-		Skill climb = new Skill(-1, climbName, AbilityName.STRENGTH, 0, false);
-		Skill jibberish = new Skill(-1, jibberName, AbilityName.CHARISMA, 4, false);
+		Skill acro = new Skill(-1, 1);
+		Skill climb = new Skill(-1, 4);
 	
 		assertEquals(acroName, acro.getName());
 		assertEquals(climbName, climb.getName());
-		assertEquals(jibberName, jibberish.getName());
 	}
 
 	/**
@@ -67,14 +56,8 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor
 	 */
 	public void testGetRank() {
-		String acroName = "Acrobatics";
-		String climbName = "Climb";
-		
-		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
+		Skill acro = new Skill(-1, 1);
 		assertEquals(0, acro.getRank());
-		
-		Skill climb = new Skill(-1, climbName, AbilityName.STRENGTH, 1, true);
-		assertEquals(1, climb.getRank());
 	}
 	
 	/**
@@ -82,9 +65,7 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor and getRank
 	 */
 	public void testAddToRank() {
-		String acroName = "Acrobatics";
-
-		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
+		Skill acro = new Skill(-1, 1);
 		assertEquals(0, acro.getRank());
 		
 		acro.addToRank(1);
@@ -99,9 +80,7 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor
 	 */
 	public void testGetModifier() {
-		String acroName = "Acrobatics";
-
-		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
+		Skill acro = new Skill(-1, 1);
 		assertEquals(0, acro.getModifier("racial"));
 	}
 
@@ -110,9 +89,7 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor and getModifier
 	 */
 	public void testAddModifier() {
-		String acroName = "Acrobatics";
-
-		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
+		Skill acro = new Skill(-1, 1);
 		assertEquals(0, acro.getModifier("racial"));
 	
 		acro.addModifier("racial", 8);
@@ -128,9 +105,7 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor, getModifier and addModifier
 	 */
 	public void testRemoveModifier() {
-		String acroName = "Acrobatics";
-
-		Skill acro = new Skill(-1, acroName, AbilityName.DEXTERITY, 0, false);
+		Skill acro = new Skill(-1, 1);
 		assertEquals(0, acro.getModifier("racial"));
 		acro.removeModifier("racial");
 		assertEquals(0, acro.getModifier("racial"));
@@ -147,8 +122,10 @@ public class SkillTest extends TestCase {
 	 * Depends on constructor, addModifier and Ability class
 	 */
 	public void testGetBonus() {
-		Skill acro = new Skill(-1, "Acrobatics", AbilityName.DEXTERITY, 4, true);
-		Skill climb = new Skill(-1, "Climb", AbilityName.STRENGTH, 0, true);
+		Skill acro = new Skill(-1, 1);
+		Skill climb = new Skill(-1, 4);
+		
+		acro.addToRank(4);
 
 		Ability dex = new Ability(-1, AbilityName.DEXTERITY, 12);
 		Ability str = new Ability(-1, AbilityName.STRENGTH, 8);

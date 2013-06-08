@@ -68,8 +68,8 @@ public class Skill {
 	 * @param classSkill 	a boolean that if <code>false</code> means the skill is not a class
 	 * 						skill and if <code>true</code> is a class skill
 	 */
-	public Skill(int skillID, int rank){
-		this(skillID, null, rank);
+	public Skill(int id, int skillID){
+		this(id, skillID, null);
 	}
 
 	/**
@@ -78,15 +78,12 @@ public class Skill {
 	 * @param title			Secondary name for a skill such as craft, profession and perform
 	 * @param rank			int ranks of new skill, will not set rank lower than 0
 	 */
-	public Skill(int skillID, String title, int rank){
+	public Skill(int id, int skillID, String title){
 		this.skillID = skillID;
 		//this.name = name;
 		this.title = title;
-		if (rank < 0) {
-			this.ranks = 0;
-		} else {
-			this.ranks = rank;
-		}
+		this.ranks = 0;
+
 		//this.classSkill = classSkill;
 		modifiers = new HashMap<String,Integer>();
 		//assocAbility = attribute;
