@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -147,7 +146,7 @@ public class CharacterDataSource {
 
 	public void printTables() {
 		helperRef.printContents();
-		helperBasicInfo.printContents(helperBasicInfo.db);
+		helperBasicInfo.printContents(SQLiteHelperBasicInfo.db);
 	}
 
 	/**

@@ -61,7 +61,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 	 */
 	public SQLiteHelperBasicInfo(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.db = this.getWritableDatabase();
+		SQLiteHelperBasicInfo.db = this.getWritableDatabase();
 	}
 
 	/**
@@ -94,6 +94,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 	 * Print the contents of a database
 	 * @param db the database to print
 	 */
+	@Override
 	public void printContents(SQLiteDatabase db) {
 		System.out.println("CONTENTS OF basic_info");
 		Cursor cursor = db.query(TABLE_NAME,
@@ -158,6 +159,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 	 * Get the database in use
 	 * @return db the database in use
 	 */
+	@Override
 	public SQLiteDatabase getDB() {
 		return db;
 	}
