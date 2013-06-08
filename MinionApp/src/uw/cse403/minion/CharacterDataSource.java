@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -13,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Debug;
 
 /**
- * 
+ * A helper class that manages the connection to the local database.
  * @author Thomas Eberlein (uwte)
  * @author Kevin Dong (kevinxd3)
  */
@@ -34,6 +33,12 @@ public class CharacterDataSource {
 
 	private SQLiteDatabase dbRef;
 
+	/*
+	 * Testing Results:
+	 * This class deals heavily with SQLite, and hence many of the expensive operations occur in the
+	 * SQL caller. As before, these are unavoidable operations, and there is no sense in
+	 * reimplementing SQLite.
+	 */
 	/**
 	 * Creates a CharacterDataSource object that encapsulates all of the different
 	 * components and helper classes that make up a character data entry in the
@@ -140,8 +145,8 @@ public class CharacterDataSource {
 	}
 
 	public void printTables() {
-		helperRef.printContents(dbRef);
-		helperBasicInfo.printContents(helperBasicInfo.db);
+		helperRef.printContents();
+		helperBasicInfo.printContents(SQLiteHelperBasicInfo.db);
 	}
 
 	/**

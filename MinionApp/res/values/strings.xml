@@ -65,8 +65,8 @@
     <string name="title_activity_new_password_validator">NewPasswordValidatorActivity</string>
     <string name="title_activity_recovery_question">RecoveryQuestionActivity</string>
     <string name="title_activity_basic_info">Basic Info</string>
-    
     <string name="alignment_prompt">Choose an alignment</string>
+
     <string-array name="alignment_array">
         <item>Lawful Good</item>
         <item>Lawful Neutral</item>
@@ -78,8 +78,9 @@
         <item>Chaotic Neutral</item>
         <item>Chaotic Evil</item>
     </string-array>
-    
+
     <string name="size_prompt">Choose a size</string>
+
     <string-array name="size_array">
         <item>Fine</item>
         <item>Diminutive</item>
@@ -91,7 +92,7 @@
         <item>Gargantuan</item>
         <item>Colossal</item>
     </string-array>
-    
+
     <string name="character_name">Character Name</string>
     <string name="title_activity_char_create_main">Character Creation</string>
     <string name="button_basic_info">Basic Info</string>
@@ -125,8 +126,6 @@
     <string name="armor_misc">Misc</string>
     <string name="attack_bonus">Base Attack Bonus</string>
     <string name="bab">B.A.B.</string>
-    
-
     <string name="alignment">Alignment</string>
     <string name="enter_text">Enter text&#8230;</string>
     <string name="player">Player</string>
@@ -156,7 +155,6 @@
     <string name="cha">CHA\nCharisma</string>
     <string name="equals">=</string>
     <string name="plus">+</string>
-    
     <string name="skill_names">Skill\nNames</string>
     <string name="total_bonus">Total\nBonus</string>
     <string name="ranks">Ranks</string>
@@ -202,8 +200,8 @@
     <string name="survival">Survival</string>
     <string name="swim">Swim</string>
     <string name="use_magic_device">Use Magic\nDevice</string>
-    
     <string name="perform_prompt">Choose a Perform category</string>
+
     <string-array name="perform_array">
         <item>Act</item>
         <item>Comedy</item>
@@ -215,8 +213,9 @@
         <item>Wind</item>
         <item>Sing</item>
     </string-array>
-    
+
     <string name="profession_prompt">Choose a Profession</string>
+
     <string-array name="profession_array">
         <item>Architect</item>
         <item>Baker</item>
@@ -249,8 +248,9 @@
         <item>Trapper</item>
         <item>Woodcutter</item>
     </string-array>
-    
+
     <string name="craft_prompt">Choose a Craft</string>
+
     <string-array name="craft_array">
         <item>Alchemy</item>
         <item>Armor</item>
@@ -274,7 +274,7 @@
         <item>Traps</item>
         <item>Weapons</item>
     </string-array>
-    
+
     <string name="fortitude_title">Fortitude (Constitution)</string>
     <string name="reflex_title">Reflex (Dexterity)</string>
     <string name="will_title">Will (Wisdom)</string>
@@ -288,7 +288,6 @@
     <string name="title_activity_groups">Manage Groups</string>
     <string name="welcome">Welcome to Minion Character Creation!</string>
     <string name="char_creation_success">Character successfully saved!</string>
-    
     <string name="welcome_group">Welome to Minion Group Creation!</string>
     <string name="create_new_group">Create New Group</string>
     <string name="pending_invites">Pending Invites</string>
@@ -304,14 +303,13 @@
     <string name="title_activity_group_create">GroupCreate</string>
     <string name="title_activity_view_group">ViewGroupActivity</string>
     <string name="title_activity_edit_group">EditGroupActivity</string>
-    
     <string name="save">Save</string>
     <string name="zero">0</string>
     <string name="button_test">Test GUI</string>
-    
     <string name="sp">""</string>
     <string name="remove_user">Remove User</string>
     <string name="invite_user">Invite User</string>
     <string name="finish_editing">Finish</string>
+    <string name="title_activity_load_characters">LoadCharactersActivity</string>
 
 </resources>

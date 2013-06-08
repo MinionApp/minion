@@ -67,6 +67,12 @@ public class GroupCreateActivity extends Activity {
 	private LinearLayout ll;
 	private List<EditText> editTexts;
 
+	
+	/*
+	 * Testing Results:
+	 * In a slight change of pace, the single most expensive class was not graphics or the database.
+	 * It was the testing framework, DDMS. Everything after that is image drawing.
+	 */
 	/**
 	 * Displays the new group creation page.
 	 */
@@ -80,7 +86,7 @@ public class GroupCreateActivity extends Activity {
 		username = SaveSharedPreference.getPersistentUserName(GroupCreateActivity.this);
 		Button b = (Button) findViewById(R.id.add_user_button);
 		ll = (LinearLayout) findViewById(R.id.users);
-		layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		layoutParams = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		editTexts = new ArrayList<EditText>();
 
@@ -98,12 +104,12 @@ public class GroupCreateActivity extends Activity {
 				user.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
 				user.setPadding(0, 8, 0, 0);
 				EditText userEditText = new EditText(GroupCreateActivity.this);
-				userEditText.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 2f));
+				userEditText.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 2f));
 				userEditText.setHint("User Name");
 				editTexts.add(userEditText);
 
 				l1.setOrientation(LinearLayout.HORIZONTAL);
-				l1.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+				l1.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 				l1.addView(user); 
 				l1.addView(userEditText);
 
@@ -183,7 +189,7 @@ public class GroupCreateActivity extends Activity {
 
 			HashSet<String> users = new HashSet<String>();
 			for(int i = 0; i < editTexts.size(); i++) {
-				EditText userEditText = (EditText) editTexts.get(i);
+				EditText userEditText = editTexts.get(i);
 				String user = userEditText.getText().toString().trim();
 				users.add(user);
 			}
@@ -242,6 +248,7 @@ public class GroupCreateActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			JSONObject playersObject = new JSONObject();
 			JSONArray players = new JSONArray();
@@ -282,6 +289,7 @@ public class GroupCreateActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Intent intent;
 			if(cameFromEditGroup) {

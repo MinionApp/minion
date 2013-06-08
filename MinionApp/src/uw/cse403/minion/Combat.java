@@ -8,7 +8,6 @@ import java.util.Map;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Debug;
 
 /**
@@ -60,6 +59,11 @@ public class Combat {
 		this(9000);
 	}
 
+	/*
+	 * Testing Results:
+	 * As anticipated, even though loadFromDB takes nearly the entirety of the performance of this
+	 * class, it cannot be helped as it is completely dominated by database access.
+	 */
 	/**
 	 * Creates a Combat Object for the character and loads in all the
 	 * information stored in the local database for that character.

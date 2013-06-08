@@ -271,6 +271,7 @@ public class EditGroupActivity extends ListActivity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -294,6 +295,7 @@ public class EditGroupActivity extends ListActivity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, ViewGroupActivity.class);
 			EditText groupNameEditText = (EditText) findViewById(R.id.group_name);
@@ -329,6 +331,7 @@ public class EditGroupActivity extends ListActivity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -355,6 +358,7 @@ public class EditGroupActivity extends ListActivity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, EditGroupActivity.class);
 			EditText groupNameEditText = (EditText) findViewById(R.id.group_name);
@@ -390,6 +394,7 @@ public class EditGroupActivity extends ListActivity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 			//the data to send
 			ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -413,6 +418,7 @@ public class EditGroupActivity extends ListActivity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(context, EditGroupActivity.class);
 			EditText groupNameEditText = (EditText) findViewById(R.id.group_name);

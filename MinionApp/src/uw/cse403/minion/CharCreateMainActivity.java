@@ -42,6 +42,11 @@ public class CharCreateMainActivity extends Activity {
 	/** The unique id for a character **/
 	private long charID;
 
+	/*
+	 * Testing Results:
+	 * Lots of CPU time is spent drawing the graphics, with little spent on the rest of our app.
+	 * Nothing to be optimized.
+	 */
 	/**
 	 * Displays the character creation main page.
 	 */
@@ -204,6 +209,7 @@ public class CharCreateMainActivity extends Activity {
 		/**
 		 * Begins a dialog to show that the character is uploading.
 		 */
+		@Override
 		protected void onPreExecute() {
 			this.dialog.setMessage("Uploading character...");
 			this.dialog.show();
@@ -212,6 +218,7 @@ public class CharCreateMainActivity extends Activity {
 		/**
 		 * Makes the HTTP request and returns the result as a String.
 		 */
+		@Override
 		protected String doInBackground(String... args) {
 
 			// Creates JSON object for basic character information
@@ -278,6 +285,10 @@ public class CharCreateMainActivity extends Activity {
 						int ranks = cursor.getInt(2);
 						int miscMod = cursor.getInt(3);
 						JSONObject skill = new JSONObject();
+						if(skillID == 5 || skillID == 26 || skillID == 27) {
+							String skillTitle = cursor.getString(2);
+							skill.put("title", skillTitle);
+						}
 						skill.put("ref_id", skillID);
 						skill.put("ranks", ranks);
 						skill.put("misc_mod", miscMod);
@@ -291,6 +302,7 @@ public class CharCreateMainActivity extends Activity {
 				e1.printStackTrace();
 			}
 			cursor.close();
+			Log.i("skillsOBJECT", skillsObject.toString());
 			
 			try {
 				if (skills.toString().equals("[]")) {
@@ -458,8 +470,14 @@ public class CharCreateMainActivity extends Activity {
 		/**
 		 * Parses the String result and directs to the correct Activity
 		 */
+		@Override
 		protected void onPostExecute(String result) {
-			dialog.dismiss();
+			try {
+		        dialog.dismiss();
+		        dialog = null;
+		    } catch (Exception e) {
+		        // nothing
+		    }
 			Intent intent = new Intent(context, CharactersActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);

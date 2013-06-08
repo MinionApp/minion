@@ -5,7 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 /**
- * 
+ * SQLiteHelperCombat manages creating, accessing and deleting
+ * the combat table
  * @author Kevin Dong (kevinxd3)
  *
  */
@@ -54,17 +55,31 @@ implements SQLiteHelperInterface {
 			+ SQLiteHelperBasicInfo.TABLE_NAME + "(" 
 			+ SQLiteHelperBasicInfo.COLUMN_ID + ")) ";
 
+	/**
+	 * Store a writable version of the database
+	 * @param context the context of the calling activity
+	 */
 	public SQLiteHelperCombat(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.db = this.getWritableDatabase();
+		SQLiteHelperCombat.db = this.getWritableDatabase();
 	}
 
+	/**
+	 * Create the table in the specified database
+	 * @param database the database to create the table in
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase database) {
 		System.out.println("SQLiteHelperCombat onCreate");
 		database.execSQL(CREATE_TABLE_STATEMENT);
 	}
 
+	/**
+	 * When upgrading the table, drop old table (and old data)
+	 * @param db the database to drop table in
+	 * @param oldVer the old version number
+	 * @param newVer the new version number
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer) {
 		Log.w(SQLiteHelperCombat.class.getName(),
@@ -74,21 +89,39 @@ implements SQLiteHelperInterface {
 		onCreate(db);
 	}
 
+	/**
+	 * Print the contents of a database
+	 * @param db the database to print
+	 */
 	@Override
 	public void printContents(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 
 	}
+	
+	/**
+	 * Get the name of all columns in the combat table
+	 * @return an array of column names
+	 */
 	@Override
 	public String[] getColumns() {
 		return ALL_COLUMNS;
 	}
 
+	/**
+	 * Get the table name for the basic info table
+	 * @return the table name
+	 */
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;
 	}
 
+	/**
+	 * Get the database in use
+	 * @return db the database in use
+	 */
+	@Override
 	public SQLiteDatabase getDB() {
 		return db;
 	}
