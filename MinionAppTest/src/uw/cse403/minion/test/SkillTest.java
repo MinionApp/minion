@@ -27,8 +27,8 @@ public class SkillTest extends TestCase {
 	 * Test three parameter constructor for fatal failure only
 	 */
 	public void testSkillConstructorTitle() {
-		Skill acro = new Skill(-1, 26,"Sing");
-		Skill climb = new Skill(-1, 27,"Brewer");
+		Skill acro = new Skill(-1, "Sing", 26);
+		Skill climb = new Skill(-1, "Brewer", 27);
 		
 		assertTrue(acro != null);
 		assertTrue(climb != null);

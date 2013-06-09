@@ -72,8 +72,6 @@ public class Skill {
 	 */
 	public Skill(long charID, int skillID) {
 		this(charID, null, skillID);
-		this.charID = charID;
-		this.skillID = skillID;
 	}
 
 	/**

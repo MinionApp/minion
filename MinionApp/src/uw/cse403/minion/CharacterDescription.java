@@ -26,8 +26,6 @@ public class CharacterDescription {
 	public String alignment;
 	public int level;
 	public String size;
-	public Alignment firstAlign;
-	public Alignment secondAlign;
 	public String deity;
 	public String homeLand;
 	public String gender;
@@ -50,8 +48,6 @@ public class CharacterDescription {
 		player = "";
 		alignment = "";
 		size = "";
-		firstAlign = null;
-		secondAlign = null;
 		level = 0;
 		deity = "";
 		homeLand = "";
