@@ -17,55 +17,12 @@ public class AbilityTest extends TestCase {
 	 */
 	public void testAbilityConstructor() {
 		Ability a = new Ability(-1, 1);
-		assertEquals(0, a.getBase());
+		assertEquals(0, a.baseScore);
 	}
-
-
-	/*
-	 * Get Base Ability Score
-	 * Test Dependent on constructor and setBase
-	 */
-	public void testGetBase() {
-		int baseScoreNeg = 0;
-		int baseScoreBig = 16;
-		int baseScoreAve = 10;
-		
-		Ability ba = new Ability(-1, 0);
-		
-		ba.setBase(-3);
-		assertEquals(baseScoreNeg,ba.getBase());
-		
-		ba.setBase(16);
-		assertEquals(baseScoreBig,ba.getBase());
-		
-		ba.setBase(10);
-		assertEquals(baseScoreAve,ba.getBase());
-	}
-
-
-	/*
-	 * Set base score
-	 * Depends on three parameter constructor and getBase()
-	 */
-	public void testSetBase() {
-		int baseScore = 10;
-		Ability a = new Ability(-1, 0);
-		assertEquals(baseScore, a.getBase());
-		
-		int newBase = 22;
-		a.setBase(newBase);
-		assertEquals(newBase, a.getBase());
-		
-		newBase = 3;
-		a.setBase(newBase);
-		assertEquals(newBase, a.getBase());
-	}
-
-	
 
 	public void testGetScore() {
 		Ability a = new Ability(-1, 0);
-		a.setBase(10);
+		a.baseScore = 10;
 		assertEquals(10, a.getTotal());
 		
 		a.tempMod = 4;
@@ -78,31 +35,31 @@ public class AbilityTest extends TestCase {
 	public void testGetMod() {
 		Ability ab = new Ability(-1, 0);
 		
-		ab.setBase(1);
+		ab.baseScore = 1;
 		assertEquals(-5, ab.getMod());
-		ab.setBase(2);
+		ab.baseScore = 2;
 		assertEquals(-4, ab.getMod());
-		ab.setBase(5);
+		ab.baseScore = 5;
 		assertEquals(-3, ab.getMod());
-		ab.setBase(8);
+		ab.baseScore = 8;
 		assertEquals(-1, ab.getMod());
-		ab.setBase(9);
+		ab.baseScore = 9;
 		assertEquals(-1, ab.getMod());
-		ab.setBase(10);
+		ab.baseScore = 10;
 		assertEquals(0, ab.getMod());
-		ab.setBase(11);
+		ab.baseScore = 11;
 		assertEquals(0, ab.getMod());
-		ab.setBase(12);
+		ab.baseScore = 12;
 		assertEquals(1, ab.getMod());
-		ab.setBase(16);
+		ab.baseScore = 16;
 		assertEquals(3, ab.getMod());
-		ab.setBase(19);
+		ab.baseScore = 19;
 		assertEquals(4, ab.getMod());
-		ab.setBase(20);
+		ab.baseScore = 20;
 		assertEquals(5, ab.getMod());
-		ab.setBase(44);
+		ab.baseScore = 44;
 		assertEquals(17, ab.getMod());
-		ab.setBase(100);
+		ab.baseScore = 100;
 		assertEquals(45, ab.getMod());
 	}
 

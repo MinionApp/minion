@@ -1,7 +1,5 @@
 package uw.cse403.minion;
 
-import java.util.*; 
-
 import android.content.ContentValues;
 
 /**
