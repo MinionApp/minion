@@ -312,4 +312,5 @@
     <string name="finish_editing">Finish</string>
     <string name="title_activity_load_characters">LoadCharactersActivity</string>
 
+    <string name="loading_text">Loading your characters...</string>
 </resources>
