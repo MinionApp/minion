@@ -242,7 +242,7 @@ public class Combat {
 	 * @param id id of character
 	 * @param db database to write into
 	 */
-	public void writeToDB(long charID) {
+	public void writeToDB() {
 		int skillID = 0; // get skill ID from ref db
 
 		// remove old data
