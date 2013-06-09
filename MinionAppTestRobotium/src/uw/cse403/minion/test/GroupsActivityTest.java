@@ -14,7 +14,7 @@ import android.widget.ListView;
 public class GroupsActivityTest extends
 	ActivityInstrumentationTestCase2<GroupsActivity> {
 	private Solo solo;
-	private static final String VALID_USERNAME = "test";
+	private static final String VALID_USERNAME = "UseForTestingOnly";
 	
 	public GroupsActivityTest(){
 		super(GroupsActivity.class);
@@ -56,8 +56,8 @@ public class GroupsActivityTest extends
 	}
 	
 	public void testRightGroupIsDisplayed(){
-		Assert.assertTrue(solo.searchText("testGroup"));
-		Assert.assertTrue(solo.searchText("test"));
+		Assert.assertTrue(solo.searchText("GroupForTestingOnly"));
+		Assert.assertTrue(solo.searchText("UseForTestingOnly"));
 		solo.finishOpenedActivities();
 	}
 }
