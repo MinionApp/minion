@@ -331,5 +331,8 @@
     <string name="edit">Editieren</string>
     <string name="gm_colon">Spielmeister:</string>
     <string name="players">Spieler</string>
+    
+    <string name="game_master">Spielmeister</string>
+    <string name="meters">m</string>
 
 </resources>
