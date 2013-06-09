@@ -49,7 +49,9 @@ public class SavingThrow {
 		if (TraceControl.TRACE)
 			Debug.startMethodTracing("SavingThrow_database");
 		
-		loadFromDB();
+		if (charID >= 0) {
+			loadFromDB();
+		}
 		
 		if (TraceControl.TRACE)
 			Debug.stopMethodTracing();

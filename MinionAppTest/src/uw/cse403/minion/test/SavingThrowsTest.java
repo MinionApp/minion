@@ -38,17 +38,6 @@ public class SavingThrowsTest extends TestCase {
 	}
 	
 	// black box
-	public void test_addModifier_ZeroValueModifierArg() {
-		try {
-			SavingThrow s = new SavingThrow(-1, 3);
-			s.addModifier("sample", 0);
-			fail("setBaseSave did not throw IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			// test passes
-		}
-	}
-	
-	// black box
 	public void test_addModifier_NoPrevValue() {
 		SavingThrow s = new SavingThrow(-1, 3);
 		int prev = s.addModifier("sample", 10);

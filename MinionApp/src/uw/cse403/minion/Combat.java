@@ -63,11 +63,14 @@ public class Combat {
 		armorModifiers = new HashMap<String, Integer>();
 		initModifier = 0;
 		bAb = 0;
+		charID = id;
 
 		if (TraceControl.TRACE)
 			Debug.startMethodTracing("Combat_loadFromDB");
 		
-		loadFromDB();
+		if (charID >=0) {
+			loadFromDB();
+		}
 		
 		if (TraceControl.TRACE)
 			Debug.stopMethodTracing();

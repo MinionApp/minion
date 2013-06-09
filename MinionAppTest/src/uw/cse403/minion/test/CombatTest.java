@@ -69,8 +69,4 @@ public class CombatTest extends TestCase {
 		assertEquals(13, c.getArmorTotal());
 	}
 
-	public void testWriteToDB() {
-		//TODO: Test database
-	}
-
 }

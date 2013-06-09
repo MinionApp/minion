@@ -38,6 +38,8 @@ public class SkillTest extends TestCase {
 		Ability str = new Ability(-1, 0);
 		str.baseScore = 8;
 		
+		acro.classSkill = true;
+		
 		assertEquals(8, acro.getBonus(dex));
 		assertEquals(-1, climb.getBonus(str));
 		
