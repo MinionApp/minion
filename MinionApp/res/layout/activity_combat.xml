@@ -36,14 +36,14 @@
 		        android:id="@+id/hit_point_total_enter_title"
 		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
-		        android:layout_weight="25"
+		        android:layout_weight="30"
 		        android:text="@string/hit_points_total" />
 
 	        <TextView
 	            android:id="@+id/hit_point_dr_enter_title"
 	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
-	            android:layout_weight="35"
+	            android:layout_weight="20"
 	            android:text="@string/hit_points_dr" />
 			    
 		</LinearLayout>
@@ -57,21 +57,26 @@
 	
 	        <TextView
 	            android:id="@+id/hit_points_title"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="50"
 	            android:text="@string/hit_points" />
 			    
 		    <EditText
 		        android:id="@+id/hit_point_total_enter"
-		        android:layout_width="wrap_content"
+		        android:layout_width="0dp"
 		        android:layout_height="wrap_content"
+		        android:layout_weight="25"
+		        android:gravity="center"
 		        android:hint="@string/hit_points_total"
 		        android:inputType="numberSigned" />
 
 	        <EditText
 	            android:id="@+id/hit_point_dr_enter"
-	            android:layout_width="wrap_content"
+	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
+	            android:layout_weight="35"
+	            android:gravity="center"
 	            android:hint="@string/hit_points_dr"
 	            android:inputType="numberSigned" />
 	    </LinearLayout>
@@ -124,6 +129,7 @@
 	            android:id="@+id/speed_base_enter"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:gravity="center"
 	            android:hint="@string/speed_base"
 	            android:inputType="numberSigned" />
 	
@@ -131,6 +137,7 @@
 	            android:id="@+id/speed_armor_enter"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
+	            android:gravity="center"
 	            android:hint="@string/speed_armor"
 	            android:inputType="numberSigned" />
 	    </LinearLayout>
@@ -220,6 +227,7 @@
 	 		    android:layout_width="0dp"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="55"
+	            android:gravity="center"
 	            android:hint="@string/initiative_dex"
 	            android:inputType="numberSigned" />
 	
@@ -235,6 +243,7 @@
 	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="55"
+	            android:gravity="center"
 	            android:hint="@string/initiative_misc"
 	            android:inputType="numberSigned" />
 	    </LinearLayout>
@@ -317,6 +326,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
+	            android:gravity="center"
 	            android:hint="@string/armor_bonus"
 	            android:inputType="numberSigned" />
 	    </LinearLayout>
@@ -382,6 +392,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
+	            android:gravity="center"
 	            android:hint="@string/armor_shield"
 	            android:inputType="numberSigned" />
 
@@ -422,6 +433,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
+	            android:gravity="center"
 	            android:hint="@string/armor_natural"
 	            android:inputType="numberSigned" />
 	    </LinearLayout>
@@ -438,7 +450,7 @@
 	            android:id="@+id/armor_3_placeholder"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_weight="15"
+	            android:layout_weight="30"
 	            android:text="" />
 	        
 	        <TextView
@@ -474,6 +486,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="10"
+	            android:gravity="center"
 	            android:hint="@string/armor_deflection"
 	            android:inputType="numberSigned" />
 
@@ -488,6 +501,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="10"
+	            android:gravity="center"
 	            android:hint="@string/armor_misc"
 	            android:inputType="numberSigned" />
 	    </LinearLayout>
@@ -534,6 +548,7 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:hint="@string/bab"
+		        android:gravity="center"
 		        android:inputType="numberSigned" />
 	    </LinearLayout>
 	
