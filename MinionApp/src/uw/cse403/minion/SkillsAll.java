@@ -17,7 +17,9 @@ public class SkillsAll {
 		this.charID = charID;
 		this.allSkills = new HashMap<Integer, Skill>();
 		
-		loadFromDB();
+		if (charID >= 0) {
+			loadFromDB();
+		}
 	}
 	
 	public Skill getSkill(int skillID) {
