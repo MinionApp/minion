@@ -70,7 +70,7 @@ public class SkillsAll {
 		abilities[2] = new Ability(charID, Ability.CONSTITUTION_ID);
 		abilities[3] = new Ability(charID, Ability.INTELLIGENCE_ID);
 		abilities[4] = new Ability(charID, Ability.WISDOM_ID);
-		abilities[5] = new Ability(charID, Ability.CHARISMA);
+		abilities[5] = new Ability(charID, Ability.CHARISMA_ID);
 		
 		// map from skillID to ability score modifier
 		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();

@@ -24,7 +24,7 @@ public class Ability {
 	public static final int CONSTITUTION_ID = 2;
 	public static final int INTELLIGENCE_ID = 3;
 	public static final int WISDOM_ID = 4;
-	public static final int CHARISMA = 5;
+	public static final int CHARISMA_ID = 5;
 
 	/** The unique id for a character **/
 	public long charID;
