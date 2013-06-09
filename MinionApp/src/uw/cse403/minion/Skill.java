@@ -48,16 +48,18 @@ public class Skill {
 	public static final int SURVIVAL_ID 				= 33;
 	public static final int SWIM_ID 					= 34;
 	public static final int USE_MAGIC_DEVICE_ID 		= 35;
+	
 
 	/** Various components the make up the skill information about a character **/
+	private long charID;
 	private int skillID; // get skill ID from ref db
-	private String name;
-	private String title; // write-in fields for Craft, Perform, Profession
-	private int ranks;
-	private boolean classSkill;
+	// private String name; // not needed
+	public String title; // write-in names for Craft, Perform, Profession
+	public int ranks;
+	public boolean classSkill; // not currently supported
 	private Map<String,Integer> modifiers;
-	private AbilityName assocAbility;
-	private int abMod;
+	public AbilityName assocAbility;
+	public int abMod;
 
 	/**
 	 * Initializes a new skill object.
@@ -68,8 +70,10 @@ public class Skill {
 	 * @param classSkill 	a boolean that if <code>false</code> means the skill is not a class
 	 * 						skill and if <code>true</code> is a class skill
 	 */
-	public Skill(int id, int skillID){
-		this(id, skillID, null);
+	public Skill(long charID, int skillID) {
+		this(charID, null, skillID);
+		this.charID = charID;
+		this.skillID = skillID;
 	}
 
 	/**
@@ -78,7 +82,8 @@ public class Skill {
 	 * @param title			Secondary name for a skill such as craft, profession and perform
 	 * @param rank			int ranks of new skill, will not set rank lower than 0
 	 */
-	public Skill(int id, int skillID, String title){
+	public Skill(long charID, String title, int skillID) {
+		this.charID = charID;
 		this.skillID = skillID;
 		//this.name = name;
 		this.title = title;
@@ -103,7 +108,8 @@ public class Skill {
 	 * @return	String name of skill
 	 */
 	public String getName(){
-		return name;
+		return null;
+		// return name;
 	}
 
 	/**
@@ -221,9 +227,9 @@ public class Skill {
 	 * @param id id of character
 	 * @param db database to write into
 	 */
-	public void writeToDB(long id) {
+	public void writeToDB() {
 		ContentValues values = new ContentValues();
-		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, id);
+		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperSkills.COLUMN_REF_S_ID, skillID);
 		if (skillID == 5 || skillID == 26 || skillID == 27) {
 			values.put(SQLiteHelperSkills.COLUMN_TITLE, title);

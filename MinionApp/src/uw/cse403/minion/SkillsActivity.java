@@ -1338,7 +1338,7 @@ public class SkillsActivity extends Activity {
 
 		// write all data to DB
 		for (Skill s : skills) {
-			s.writeToDB(charID);
+			s.writeToDB();
 		}
 
 		// return to character creation main screen
