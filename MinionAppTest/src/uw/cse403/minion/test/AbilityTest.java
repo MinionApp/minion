@@ -66,13 +66,13 @@ public class AbilityTest extends TestCase {
 	public void testGetScore() {
 		Ability a = new Ability(-1, 0);
 		a.setBase(10);
-		assertEquals(10, a.getScore());
+		assertEquals(10, a.getTotal());
 		
 		a.tempMod = 4;
-		assertEquals(14, a.getScore());
+		assertEquals(14, a.getTotal());
 		
 		a.tempMod += -2;
-		assertEquals(12, a.getScore());
+		assertEquals(12, a.getTotal());
 	}
 
 	public void testGetMod() {

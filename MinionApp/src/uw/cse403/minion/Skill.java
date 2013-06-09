@@ -52,13 +52,14 @@ public class Skill {
 
 	/** Various components the make up the skill information about a character **/
 	private long charID;
-	private int skillID; // get skill ID from ref db
+	public int skillID; // get skill ID from ref db
 	// private String name; // not needed
 	public String title; // write-in names for Craft, Perform, Profession
-	public int ranks;
+	public int rank;
 	public boolean classSkill; // not currently supported
-	private Map<String,Integer> modifiers;
-	public AbilityName assocAbility;
+	//private Map<String,Integer> modifiers;
+	public int miscMod;
+	//public AbilityName assocAbility;
 	public int abMod;
 
 	/**
@@ -71,110 +72,112 @@ public class Skill {
 	 * 						skill and if <code>true</code> is a class skill
 	 */
 	public Skill(long charID, int skillID) {
-		this(charID, null, skillID);
-	}
-
-	/**
-	 * Initializes a new skill with almost all necessary information. Sets values for
-	 * given name, associated ability, rank and whether or not it is a class skill.
-	 * @param title			Secondary name for a skill such as craft, profession and perform
-	 * @param rank			int ranks of new skill, will not set rank lower than 0
-	 */
-	public Skill(long charID, String title, int skillID) {
+		//this(charID, null, skillID);
 		this.charID = charID;
 		this.skillID = skillID;
-		//this.name = name;
-		this.title = title;
-		this.ranks = 0;
-
-		//this.classSkill = classSkill;
-		modifiers = new HashMap<String,Integer>();
-		//assocAbility = attribute;
-		abMod = -1;
 	}
 
-	/**
-	 * Returns the name of the skill
-	 * @return	String name of skill
-	 */
-	public int getID(){
-		return skillID;
-	}
-
-	/**
-	 * Returns the name of the skill
-	 * @return	String name of skill
-	 */
-	public String getName(){
-		return null;
-		// return name;
-	}
-
-	/**
-	 * Returns the title of the skill
-	 * @return	String title of skill, may be null
-	 */
-	public String getTitle(){
-		return title;
-	}
-
-	/**
-	 * Add given value (or subtract if negative) from the current
-	 * rank of the skill. Will not set rank lower than 0.
-	 * @param modifier
-	 */
-	public void addToRank(int modifier){
-		if (ranks + modifier < 0) {
-			ranks = 0;
-		} else {
-			ranks += modifier;
-		}
-	}
-
-	/**
-	 * Get raw skill ranks
-	 * @return	an integer representing ranks in skill
-	 */
-	public int getRank() {
-		return ranks;
-	}
-
-	/**
-	 * Returns the modifier under the given name. Can return both negative
-	 * and positive modifiers. These modifiers represent values that will be
-	 * either added or subtracted from the skill.
-	 * @param name the name of the modifier whose value is retrieved
-	 * @return 	the value associated with the given String, may be either negative
-	 * 			or positive. Returns 0 if no modifier of the given name
-	 * 			was found
-	 */
-	public int getModifier(String name){
-		if (modifiers.containsKey(name)) {
-			return modifiers.get(name);
-		}
-		return 0;
-	}
-
-	/**
-	 * Removes the modifier under the given name as well as the record of that name.
-	 * @param name	the name of the modifier to remove
-	 * @modifies this
-	 */
-	public void removeModifier(String name){
-		if (modifiers.containsKey(name)) {
-			modifiers.remove(name);
-		}
-	}
-
-	/**
-	 * Adds a new modifier with the given name and value
-	 * @param name	the name of the modifier
-	 * @param value	the value of the modifier
-	 * @modifies this
-	 */
-	public void addModifier(String name, int value){
-		modifiers.put(name, value);
-	}
+//	/**
+//	 * Initializes a new skill with almost all necessary information. Sets values for
+//	 * given name, associated ability, rank and whether or not it is a class skill.
+//	 * @param title			Secondary name for a skill such as craft, profession and perform
+//	 * @param rank			int ranks of new skill, will not set rank lower than 0
+//	 */
+//	public Skill(long charID, String title, int skillID) {
+//		this.charID = charID;
+//		this.skillID = skillID;
+//		//this.name = name;
+//		this.title = title;
+//		this.ranks = 0;
+//
+//		//this.classSkill = classSkill;
+//		modifiers = new HashMap<String,Integer>();
+//		//assocAbility = attribute;
+//		abMod = -1;
+//	}
+//
+//	/**
+//	 * Returns the name of the skill
+//	 * @return	String name of skill
+//	 */
+//	public int getID(){
+//		return skillID;
+//	}
+//
+//	/**
+//	 * Returns the name of the skill
+//	 * @return	String name of skill
+//	 */
+//	public String getName(){
+//		return null;
+//		// return name;
+//	}
+//
+//	/**
+//	 * Returns the title of the skill
+//	 * @return	String title of skill, may be null
+//	 */
+//	public String getTitle(){
+//		return title;
+//	}
+//
+//	/**
+//	 * Add given value (or subtract if negative) from the current
+//	 * rank of the skill. Will not set rank lower than 0.
+//	 * @param modifier
+//	 */
+//	public void addToRank(int modifier){
+//		if (ranks + modifier < 0) {
+//			ranks = 0;
+//		} else {
+//			ranks += modifier;
+//		}
+//	}
+//
+//	/**
+//	 * Get raw skill ranks
+//	 * @return	an integer representing ranks in skill
+//	 */
+//	public int getRank() {
+//		return ranks;
+//	}
+//
+//	/**
+//	 * Returns the modifier under the given name. Can return both negative
+//	 * and positive modifiers. These modifiers represent values that will be
+//	 * either added or subtracted from the skill.
+//	 * @param name the name of the modifier whose value is retrieved
+//	 * @return 	the value associated with the given String, may be either negative
+//	 * 			or positive. Returns 0 if no modifier of the given name
+//	 * 			was found
+//	 */
+//	public int getModifier(String name){
+//		if (modifiers.containsKey(name)) {
+//			return modifiers.get(name);
+//		}
+//		return 0;
+//	}
+//
+//	/**
+//	 * Removes the modifier under the given name as well as the record of that name.
+//	 * @param name	the name of the modifier to remove
+//	 * @modifies this
+//	 */
+//	public void removeModifier(String name){
+//		if (modifiers.containsKey(name)) {
+//			modifiers.remove(name);
+//		}
+//	}
+//
+//	/**
+//	 * Adds a new modifier with the given name and value
+//	 * @param name	the name of the modifier
+//	 * @param value	the value of the modifier
+//	 * @modifies this
+//	 */
+//	public void addModifier(String name, int value){
+//		modifiers.put(name, value);
+//	}
 
 	/**
 	 * Returns the total bonus of the skill accounting for ranks, class bonus,
@@ -185,8 +188,8 @@ public class Skill {
 	 */
 	public int getBonus(Ability mod){
 		//Add rank and class modifier (if appropriate)
-		int bonus = ranks;
-		if (classSkill && ranks > 0) {
+		int bonus = rank;
+		if (classSkill && rank > 0) {
 			bonus += CLASS_BONUS;
 		}
 
@@ -194,30 +197,35 @@ public class Skill {
 		bonus += mod.getMod();
 
 		//Add miscellaneous modifiers to bonus
-		Collection<Integer> mods = modifiers.values();
-		Iterator<Integer> it = mods.iterator();
-		while (it.hasNext()) {
-			bonus += it.next();
-		}
+//		Collection<Integer> mods = modifiers.values();
+//		Iterator<Integer> it = mods.iterator();
+//		while (it.hasNext()) {
+//			bonus += it.next();
+//		}
+		bonus += miscMod;
 
 		return bonus;
 	}
 
-	/**
-	 * Gets the associated ability modifier for this skill.
-	 * @return The associated ability modifier
-	 */
-	public int getAbMod() {
-		return 0;
-	}
+//	/**
+//	 * Gets the associated ability modifier for this skill.
+//	 * @return The associated ability modifier
+//	 */
+//	public int getAbMod() {
+//		return 0;
+//	}
 
 	/**
 	 * Gets the skill total for this skill.
 	 * @return the skill total
 	 */
 	public int getTotal() {
-		int mod = modifiers.get(modifiers.keySet().iterator().next());
-		return ranks + mod;
+		//int mod = modifiers.get(modifiers.keySet().iterator().next());
+		return rank + miscMod;
+	}
+	
+	public static boolean isTitledSkillID(int skillID) {
+		return (skillID == CRAFT_ID || skillID == PERFORM_ID || skillID == PROFESSION_ID);
 	}
 
 	/** 
@@ -229,14 +237,15 @@ public class Skill {
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperSkills.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperSkills.COLUMN_REF_S_ID, skillID);
-		if (skillID == 5 || skillID == 26 || skillID == 27) {
+		if (isTitledSkillID(skillID)) {
 			values.put(SQLiteHelperSkills.COLUMN_TITLE, title);
 		}
-		values.put(SQLiteHelperSkills.COLUMN_RANKS, ranks);
-		if (modifiers.size() > 0) {
-			int mod = modifiers.get(modifiers.keySet().iterator().next());
-			values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, mod);
-		}
+		values.put(SQLiteHelperSkills.COLUMN_RANKS, rank);
+//		if (modifiers.size() > 0) {
+//			int mod = modifiers.get(modifiers.keySet().iterator().next());
+//			values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, mod);
+//		}
+		values.put(SQLiteHelperSkills.COLUMN_MISC_MOD, miscMod);
 		SQLiteHelperSkills.db.insert(SQLiteHelperSkills.TABLE_NAME, null, values);
 	}
 }

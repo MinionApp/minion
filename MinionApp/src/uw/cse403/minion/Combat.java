@@ -101,39 +101,39 @@ public class Combat {
 		cursor.close();
 	}
 
-	/**
-	 * Get base hit point value
-	 * @return	an integer representing base HP
-	 */
-	public int getBaseHP() {
-		return baseHP;
-	}
-
-	/**
-	 * Set base hit points to given value
-	 * @param baseHP an integer to set base HP to
-	 */
-	public void setBaseHP(int baseHP) {
-		this.baseHP = baseHP;
-	}
-
-	/**
-	 * Get the numeric value of Damage Reduction. Does not
-	 * include the effect type so in DR x/- this returns the
-	 * x but gives no indication of the -
-	 * @return	an integer representing the value of the Damage Reduction
-	 */
-	public int getDamageReduction() {
-		return damageReduction;
-	}
-
-	/**
-	 * Set the numeric value of Damage Reduction.
-	 * @param damageReduction the integer value of the Damage Reduction
-	 */
-	public void setDamageReduction(int damageReduction) {
-		this.damageReduction = damageReduction;
-	}
+//	/**
+//	 * Get base hit point value
+//	 * @return	an integer representing base HP
+//	 */
+//	public int getBaseHP() {
+//		return baseHP;
+//	}
+//
+//	/**
+//	 * Set base hit points to given value
+//	 * @param baseHP an integer to set base HP to
+//	 */
+//	public void setBaseHP(int baseHP) {
+//		this.baseHP = baseHP;
+//	}
+//
+//	/**
+//	 * Get the numeric value of Damage Reduction. Does not
+//	 * include the effect type so in DR x/- this returns the
+//	 * x but gives no indication of the -
+//	 * @return	an integer representing the value of the Damage Reduction
+//	 */
+//	public int getDamageReduction() {
+//		return damageReduction;
+//	}
+//
+//	/**
+//	 * Set the numeric value of Damage Reduction.
+//	 * @param damageReduction the integer value of the Damage Reduction
+//	 */
+//	public void setDamageReduction(int damageReduction) {
+//		this.damageReduction = damageReduction;
+//	}
 
 
 	/**
@@ -180,39 +180,39 @@ public class Combat {
 		this.speedArmor = speedArmor;
 	}
 
-	/**
-	 * A single number representing all initiative modifiers,
-	 * not including dex modifier.
-	 * @return an integer of all modifiers to initiative added together
-	 */
-	public int getInitModifier() {
-		return initModifier;
-	}
-
-	/**
-	 * Override old initiative modifiers with new modifier representing
-	 * all modifiers to initiative except dexterity
-	 * @param initModifiers	integer modifier to initiative
-	 */
-	public void setInitModifiers(int initModifiers) {
-		this.initModifier = initModifiers;
-	}
-
-	/**
-	 * Return base attack bonus given by character class, user set
-	 * @return	an integer base attack bonus
-	 */
-	public int getbAb() {
-		return bAb;
-	}
-
-	/**
-	 * Set base attack bonus, overriding old base attack bonus
-	 * @param bAb	integer new base attack bonus
-	 */
-	public void setbAb(int bAb) {
-		this.bAb = bAb;
-	}
+//	/**
+//	 * A single number representing all initiative modifiers,
+//	 * not including dex modifier.
+//	 * @return an integer of all modifiers to initiative added together
+//	 */
+//	public int getInitModifier() {
+//		return initModifier;
+//	}
+//
+//	/**
+//	 * Override old initiative modifiers with new modifier representing
+//	 * all modifiers to initiative except dexterity
+//	 * @param initModifiers	integer modifier to initiative
+//	 */
+//	public void setInitModifiers(int initModifiers) {
+//		this.initModifier = initModifiers;
+//	}
+//
+//	/**
+//	 * Return base attack bonus given by character class, user set
+//	 * @return	an integer base attack bonus
+//	 */
+//	public int getbAb() {
+//		return bAb;
+//	}
+//
+//	/**
+//	 * Set base attack bonus, overriding old base attack bonus
+//	 * @param bAb	integer new base attack bonus
+//	 */
+//	public void setbAb(int bAb) {
+//		this.bAb = bAb;
+//	}
 
 	/**
 	 * Return total initiative
@@ -243,7 +243,7 @@ public class Combat {
 	 * @param db database to write into
 	 */
 	public void writeToDB() {
-		int skillID = 0; // get skill ID from ref db
+		//int skillID = 0; // get skill ID from ref db
 
 		// remove old data
 		SQLiteHelperCombat.db.delete(SQLiteHelperCombat.TABLE_NAME, SQLiteHelperCombat.COLUMN_CHAR_ID + " = " + charID, null);

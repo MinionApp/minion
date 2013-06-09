@@ -11,6 +11,9 @@ import android.os.Debug;
  * @author lokiw
  */
 public class SavingThrow {
+	public static final int FORTITUDE_ID = 1;
+	public static final int REFLEX_ID = 2;
+	public static final int WILL_ID = 3;
 
 	/** Class constants for string representations **/
 	public static final String MAGIC_MOD_STRING = "magic";
@@ -52,24 +55,24 @@ public class SavingThrow {
 			Debug.stopMethodTracing();
 	}
 
-	/**
-	 * Return base save
-	 * @return int base save
-	 */
-	public int getBaseSave(){
-		return baseSave;
-	}
-
-	/**
-	 * Set base save to given value
-	 * @param save	new base save
-	 */
-	public void setBaseSave(int save){
-		if (save < 0) {
-			throw new IllegalArgumentException();
-		}
-		baseSave = save;
-	}
+//	/**
+//	 * Return base save
+//	 * @return int base save
+//	 */
+//	public int getBaseSave(){
+//		return baseSave;
+//	}
+//
+//	/**
+//	 * Set base save to given value
+//	 * @param save	new base save
+//	 */
+//	public void setBaseSave(int save){
+//		if (save < 0) {
+//			throw new IllegalArgumentException();
+//		}
+//		baseSave = save;
+//	}
 
 	/**
 	 * Returns the modifier under the given name. Can return both negative

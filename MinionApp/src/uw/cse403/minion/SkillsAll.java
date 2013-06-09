@@ -45,14 +45,66 @@ public class SkillsAll {
 	public static final int USE_MAGIC_DEVICE_ID 		= 35;
 	
 	private long charID;
-	// map from skillID to Skill object
-	private Map<Integer, Skill> allSkills;
+	// map from skillID to Skill object EXCEPT Craft, Perform, Profession
+	private Map<Integer, Skill> mostSkills;
+	// map from skillID to Skill object ONLY Craft, Perform, Profession
+	// keys in this map are defined thus: key = skillID * 10 + #, where # = 1 if craft1, etc.
+	private Map<Integer, Skill> nameSkills;
 	
 	public SkillsAll(long charID){
 		this.charID = charID;
-		this.allSkills = new HashMap<Integer, Skill>();
+		this.mostSkills = new HashMap<Integer, Skill>();
+		this.nameSkills = new HashMap<Integer, Skill>();
 		
 		loadFromDB();
+	}
+	
+	public Skill[] getSkill(int skillID) {
+		//return mostSkills.get(skillID);
+		Skill[] skills = new Skill[3];
+		
+		if (Skill.isTitledSkillID(skillID)) {
+			skills[0] = nameSkills.get(skillID * 10 + 1);
+			skills[1] = nameSkills.get(skillID * 10 + 2);
+			
+			if (skillID == Skill.CRAFT_ID) {
+				skills[2] = nameSkills.get(skillID * 10 + 3);
+			}
+		} else {
+			skills[0] = mostSkills.get(skillID);
+		}
+		return skills;
+	}
+	
+	int crafts = 0; // number of Crafts loaded
+	int performs = 0; // number of Performs loaded
+	int professions = 0; // number of Professions loaded
+	
+	public void addSkill(Skill skill) {
+		int skillID = skill.skillID;
+		if (Skill.isTitledSkillID(skillID)) {
+			switch(skillID) {
+			case Skill.CRAFT_ID:
+				crafts++;
+				nameSkills.put(skillID * 10 + crafts, skill);
+				break;
+			case Skill.PERFORM_ID:
+				performs++;
+				nameSkills.put(skillID * 10 + performs, skill);
+				break;
+			case Skill.PROFESSION_ID:
+				professions++;
+				nameSkills.put(skillID * 10 + professions, skill);
+				break;
+			}
+		} else {
+			mostSkills.put(skillID, skill);
+		}
+	}
+	
+	public void clear() {
+		mostSkills.clear();
+		nameSkills.clear();
 	}
 	
 	private void loadFromDB() {
@@ -96,22 +148,23 @@ public class SkillsAll {
 				int skillID = cursor2.getInt(1);
 				Skill skill = new Skill(charID, skillID);
 				skill.title = cursor2.getString(2);
-				skill.ranks = cursor2.getInt(3);
-				skill.addModifier("mod", cursor2.getInt(4));
+				skill.rank = cursor2.getInt(3);
+				skill.miscMod = cursor2.getInt(4);
+				skill.abMod = skillToAbMod.get(skillID);
 				
-				allSkills.put(skillID, skill);
+				addSkill(skill);
 			}
 		}			
 	}
 	
 	public void writeToDB() {
-		for (int skillID : allSkills.keySet()) {
-			Skill skill = allSkills.get(skillID);
+		for (int skillID : mostSkills.keySet()) {
+			Skill skill = mostSkills.get(skillID);
 			skill.writeToDB();
 		}
-	}
-	
-	public Skill getSkill(int skillID) {
-		return allSkills.get(skillID);
+		for (int skillID : nameSkills.keySet()) {
+			Skill skill = nameSkills.get(skillID);
+			skill.writeToDB();
+		}
 	}
 }

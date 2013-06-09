@@ -260,7 +260,7 @@ public class CharCreateMainActivity extends Activity {
 			try {
 				for(int i = 0; i < 6; i++) {
 					JSONObject ability = new JSONObject();
-					ability.put("score", abilities[i].getScore());
+					ability.put("score", abilities[i].getTotal());
 					ability.put("mod", abilities[i].getMod());
 					abilityScores.put(ability);
 				}
@@ -345,12 +345,12 @@ public class CharCreateMainActivity extends Activity {
 			Combat combat = new Combat(charID);
 			JSONObject combatObject = new JSONObject();
 			try {
-				combatObject.put("hp_total", combat.getBaseHP());
-				combatObject.put("hp_dr", combat.getDamageReduction());
+				combatObject.put("hp_total", combat.baseHP);
+				combatObject.put("hp_dr", combat.damageReduction);
 				combatObject.put("speed_base", combat.speedBase);
 				combatObject.put("speed_armor", combat.speedArmor);
-				combatObject.put("init_misc_mod", combat.getInitModifier());
-				combatObject.put("base_attack_bonus", combat.getbAb());
+				combatObject.put("init_misc_mod", combat.initModifier);
+				combatObject.put("base_attack_bonus", combat.bAb);
 
 				combatObject.put("armor_bonus", combat.getArmorModifier("armorBonus"));
 				combatObject.put("shield_bonus", combat.getArmorModifier("armorShield"));

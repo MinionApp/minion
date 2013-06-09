@@ -36,7 +36,7 @@ public class Ability {
 	public boolean isNew;
 
 	/** The base ability score **/
-	public int base;
+	public int baseScore;
 
 	/** A collection of any temporary modifiers affecting this ability **/
 	public int tempMod;
@@ -51,9 +51,9 @@ public class Ability {
 	 * @param id		character id associated with this ability
 	 * @param abilityID	ability id associated with this ability. A value between 0 and 5.
 	 */
-	public Ability(long id, int abilityID){
-		charID = id;
-		this.base = -1;
+	public Ability(long charID, int abilityID){
+		this.charID = charID;
+		//this.base = -1;
 		this.abilityID = abilityID;
 		
 		this.tempMod = 0;
@@ -89,9 +89,9 @@ public class Ability {
 		if (cursor.moveToFirst()) {
 			isNew = false;
 			// COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_BASE, COLUMN_TEMP
-			base = cursor.getInt(2);
+			baseScore = cursor.getInt(2);
 			tempMod = cursor.getInt(3);
-			System.out.println(BASE + base);
+			System.out.println(BASE + baseScore);
 		}
 		cursor.close();
 		
@@ -99,28 +99,28 @@ public class Ability {
 			Debug.stopMethodTracing();
 	}
 
-	/**
-	 * Get the current base stat for the ability, not including any temporary
-	 * modifiers to the base stat
-	 * 
-	 * @return an int ability score with no temp modifiers
-	 */
-	public int getBase(){
-		return base;
-	}
-
-	/**
-	 * Sets base stat to the given value permanently
-	 * 
-	 * @param newBase	an int whose value set over the old base stat
-	 * @modifies this
-	 */
-	public void setBase(int newBase){
-		base = newBase;
-		if (base < 0) {
-			base = 0;
-		}
-	}
+//	/**
+//	 * Get the current base stat for the ability, not including any temporary
+//	 * modifiers to the base stat
+//	 * 
+//	 * @return an int ability score with no temp modifiers
+//	 */
+//	public int getBase(){
+//		return baseScore;
+//	}
+//
+//	/**
+//	 * Sets base stat to the given value permanently
+//	 * 
+//	 * @param newBase	an int whose value set over the old base stat
+//	 * @modifies this
+//	 */
+//	public void setBase(int newBase){
+//		baseScore = newBase;
+//		if (baseScore < 0) {
+//			baseScore = 0;
+//		}
+//	}
 
 	/**
 	 * Gets the total ability score including the base stat value and all
@@ -133,8 +133,8 @@ public class Ability {
 	 * 
 	 * @return an int score representing the total ability score
 	 */
-	public int getScore(){
-		int score = base;
+	public int getTotal(){
+		int score = baseScore;
 		score += tempMod;
 		if (score < 0) {
 			return 0;
@@ -162,7 +162,7 @@ public class Ability {
 	 */
 	public int getMod(){
 		int mod;
-		int score = getScore();
+		int score = getTotal();
 		if (score >= 10) {
 			mod = (score - 10) / 2;
 		} else {
@@ -184,7 +184,7 @@ public class Ability {
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
-		values.put(SQLiteHelperAbilityScores.COLUMN_BASE, base);
+		values.put(SQLiteHelperAbilityScores.COLUMN_BASE, baseScore);
 		values.put(SQLiteHelperAbilityScores.COLUMN_TEMP, tempMod);
 		if (isNew) {
 			db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
