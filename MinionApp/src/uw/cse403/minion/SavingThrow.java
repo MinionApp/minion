@@ -25,8 +25,8 @@ public class SavingThrow {
 	public boolean isNew;
 
 	/** Various components the make up the saving throw information about a character **/
-	private int baseSave;
-	private Map<String,Integer> modifiers;
+	public int baseSave;
+	public Map<String,Integer> modifiers;
 	public int abMod;
 
 	/**
