@@ -311,5 +311,18 @@
     <string name="invite_user">Invite User</string>
     <string name="finish_editing">Finish</string>
     <string name="title_activity_load_characters">LoadCharactersActivity</string>
+    
+    <string name="add">Add</string>
+    <string name="ein"></string>
+    <string name="send_new_invites_for">Send new invites for </string>
+    <string name="enter_valid_group_name">Enter a valid group name</string>
+    <string name="cannot_add_self">Cannot add yourself to a group</string>
+    <string name="must_input">Must input usernames for all fields</string>
+    <string name="no_network">No network available</string>
+    <string name="no_character">You have no character with which to play with! Please go create a character!</string>
+    <string name="no_char_warning">No Characters Warning</string>
+    <string name="no_username_entered">No username entered</string>
+    <string name="uploading_char">Uploading character&#8230;</string>
+    <string name="pick_char">Pick a character</string>
 
 </resources>

@@ -100,12 +100,14 @@ public class GroupCreateActivity extends Activity {
 				TextView user = new TextView(GroupCreateActivity.this);
 				Resources res = getResources();
 				String enterUser = res.getString(R.string.group_enter_user);
-				user.setText(enterUser + " " + numberOfPlayers);
+				String ending = res.getString(R.string.ein);
+				String userName = res.getString(R.string.group_user_name);
+				user.setText(enterUser + " " + numberOfPlayers + ending);
 				user.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
 				user.setPadding(0, 8, 0, 0);
 				EditText userEditText = new EditText(GroupCreateActivity.this);
 				userEditText.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT, 2f));
-				userEditText.setHint("User Name");
+				userEditText.setHint(userName);
 				editTexts.add(userEditText);
 
 				l1.setOrientation(LinearLayout.HORIZONTAL);
@@ -120,13 +122,15 @@ public class GroupCreateActivity extends Activity {
 		Intent i = getIntent();
 		cameFromEditGroup = i.getBooleanExtra("sentFromEditGroup", false);;
 		if(cameFromEditGroup) {
+			Resources res = getResources();
 			LinearLayout l2 = (LinearLayout) findViewById(R.id.group_name);
 			l2.setVisibility(View.GONE);
 			groupName = i.getExtras().getString(GROUPNAME);
 			gm = i.getExtras().getString(GAME_MASTER);
 			playersList = i.getStringArrayListExtra(PLAYERS);
 			TextView inviteNewPlayers = (TextView) findViewById(R.id.invite_new_players);
-			inviteNewPlayers.setText("Send New Invites For " + groupName);
+			String sendNewInvitesFor = res.getString(R.string.send_new_invites_for);
+			inviteNewPlayers.setText(sendNewInvitesFor + groupName);
 			inviteNewPlayers.setVisibility(View.VISIBLE);
 		}
 		// Show the Up button in the action bar.
@@ -183,6 +187,7 @@ public class GroupCreateActivity extends Activity {
 	 * @param view The current view
 	 */
 	public void sendInvites(View view) {
+		Resources res = getResources();
 		if (ConnectionChecker.hasConnection(this)) {
 			// Get user invites.
 			EditText groupNameEditText = (EditText) findViewById(R.id.group_name_input);
@@ -200,25 +205,30 @@ public class GroupCreateActivity extends Activity {
 
 			//Create a set of all the users entered
 			TextView warning = (TextView) findViewById(R.id.warning);
+			
+			String enterValidGroupName = res.getString(R.string.enter_valid_group_name);
+			String cannotAddSelf = res.getString(R.string.cannot_add_self);
+			String mustInput = res.getString(R.string.must_input);
 
 			// checks that the user input some nonempty group name
 			if(groupName.equals("")) {
-				warning.setText("Enter a valid group name");
+				warning.setText(enterValidGroupName);
 				warning.setVisibility(0);
 				//checks that user isn't adding self to group
 			} else if(users.contains(username) && !cameFromEditGroup) {
-				warning.setText("Cannot add yourself to a group");
+				warning.setText(cannotAddSelf);
 				warning.setVisibility(0);
 				//checks that all fields had been set
 			} else if(users.contains("")) {
-				warning.setText("Must input usernames for all fields");
+				warning.setText(mustInput);
 				warning.setVisibility(0);
 			} else {
 				SendInvitesTask task = new SendInvitesTask(groupName, users, this);
 				task.execute(groupName);
 			}
 		} else {
-			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+			String noNetwork = res.getString(R.string.no_network);
+			Toast.makeText(getApplicationContext(), noNetwork, Toast.LENGTH_LONG).show();
 		}
 	}
 

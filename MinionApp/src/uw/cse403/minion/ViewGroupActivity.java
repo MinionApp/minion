@@ -19,6 +19,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -197,8 +198,11 @@ public class ViewGroupActivity extends Activity {
 
 		if(characterList.size() == 0) {
 			AlertDialog.Builder noCharactersBuilder = new AlertDialog.Builder(this);
-			noCharactersBuilder.setMessage("You have no character with which to play with! Please go create a character!");
-			noCharactersBuilder.setTitle("No Characters Warning");
+			Resources res = getResources();
+			String noCharacter = res.getString(R.string.no_character);
+			String noCharWarning = res.getString(R.string.no_char_warning);
+			noCharactersBuilder.setMessage(noCharacter);
+			noCharactersBuilder.setTitle(noCharWarning);
 			noCharactersBuilder.setPositiveButton("Ok",
 					new DialogInterface.OnClickListener() {
 				@Override
