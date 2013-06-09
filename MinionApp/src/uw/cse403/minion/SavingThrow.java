@@ -55,25 +55,6 @@ public class SavingThrow {
 			Debug.stopMethodTracing();
 	}
 
-//	/**
-//	 * Return base save
-//	 * @return int base save
-//	 */
-//	public int getBaseSave(){
-//		return baseSave;
-//	}
-//
-//	/**
-//	 * Set base save to given value
-//	 * @param save	new base save
-//	 */
-//	public void setBaseSave(int save){
-//		if (save < 0) {
-//			throw new IllegalArgumentException();
-//		}
-//		baseSave = save;
-//	}
-
 	/**
 	 * Returns the modifier under the given name. Can return both negative
 	 * and positive modifiers. These modifiers represent values that will be
