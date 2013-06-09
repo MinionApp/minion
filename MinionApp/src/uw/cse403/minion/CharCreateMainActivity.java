@@ -300,7 +300,6 @@ public class CharCreateMainActivity extends Activity {
 				e1.printStackTrace();
 			}
 			cursor.close();
-			Log.i("skillsOBJECT", skillsObject.toString());
 			
 			try {
 				if (skills.toString().equals("[]")) {
@@ -461,7 +460,6 @@ public class CharCreateMainActivity extends Activity {
 			} catch (Exception e) {   
 				res = e.toString();
 			}
-			Log.i("RESULT", res);
 			return res;
 		}
 

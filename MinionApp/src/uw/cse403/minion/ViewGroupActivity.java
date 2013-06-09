@@ -19,6 +19,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -298,6 +299,10 @@ public class ViewGroupActivity extends Activity {
 					playerListPlaceholder.add(playerName);
 					// creating new HashMap
 					HashMap<String, String> map = new HashMap<String, String>();
+					if(characterName.equals("")) {
+						Resources resource = getResources();
+						characterName = resource.getString(R.string.game_master);
+					}
 					map.put(CHARACTER_NAME, characterName);
 					map.put(PLAYER_NAME, playerName);
 					// adding HashList to ArrayList
