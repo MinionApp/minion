@@ -6,45 +6,10 @@ import java.util.Map;
 import android.database.Cursor;
 
 public class SkillsAll {
-	private static final int CLASS_BONUS = 3;
-
-	public static final int ACROBATICS_ID 				= 1;
-	public static final int APPRAISE_ID 				= 2;
-	public static final int BLUFF_ID 					= 3;
-	public static final int CLIMB_ID 					= 4;
-	public static final int CRAFT_ID 					= 5;
-	public static final int DIPLOMACY_ID 				= 6;
-	public static final int DISABLE_DEVICE_ID 			= 7;
-	public static final int DISGUISE_ID 				= 8;
-	public static final int ESCAPE_ARTIST_ID 			= 9;
-	public static final int FLY_ID 						= 10;
-	public static final int HANDLE_ANIMAL_ID 			= 11;
-	public static final int HEAL_ID 					= 12;
-	public static final int INTIMIDATE_ID 				= 13;
-	public static final int KNOWLEDGE_ARCANA_ID 		= 14;
-	public static final int KNOWLEDGE_DUNGEONEERING_ID 	= 15;
-	public static final int KNOWLEDGE_ENGINEERING_ID 	= 16;
-	public static final int KNOWLEDGE_GEOGRAPHY_ID 		= 17;
-	public static final int KNOWLEDGE_HISTORY_ID 		= 18;
-	public static final int KNOWLEDGE_LOCAL_ID 			= 19;
-	public static final int KNOWLEDGE_NATURE_ID 		= 20;
-	public static final int KNOWLEDGE_NOBILITY_ID 		= 21;
-	public static final int KNOWLEDGE_PLANES_ID 		= 22;
-	public static final int KNOWLEDGE_RELIGION_ID 		= 23;
-	public static final int LINGUISTICS_ID 				= 24;
-	public static final int PERCEPTION_ID 				= 25;
-	public static final int PERFORM_ID 					= 26;
-	public static final int PROFESSION_ID 				= 27;
-	public static final int RIDE_ID 					= 28;
-	public static final int SENSE_MOTIVE_ID 			= 29;
-	public static final int SLEIGHT_OF_HAND_ID 			= 30;
-	public static final int SPELLCRAFT_ID 				= 31;
-	public static final int STEALTH_ID 					= 32;
-	public static final int SURVIVAL_ID 				= 33;
-	public static final int SWIM_ID 					= 34;
-	public static final int USE_MAGIC_DEVICE_ID 		= 35;
-	
 	private long charID;
+	/** Stores whether or not this combat information has been stored previously or not **/
+	public boolean isNew; 
+	
 	// map from skillID to Skill object EXCEPT Craft, Perform, Profession
 	private Map<Integer, Skill> mostSkills;
 	// map from skillID to Skill object ONLY Craft, Perform, Profession
@@ -59,44 +24,30 @@ public class SkillsAll {
 		loadFromDB();
 	}
 	
-	public Skill[] getSkill(int skillID) {
-		//return mostSkills.get(skillID);
-		Skill[] skills = new Skill[3];
-		
-		if (Skill.isTitledSkillID(skillID)) {
-			skills[0] = nameSkills.get(skillID * 10 + 1);
-			skills[1] = nameSkills.get(skillID * 10 + 2);
-			
-			if (skillID == Skill.CRAFT_ID) {
-				skills[2] = nameSkills.get(skillID * 10 + 3);
-			}
-		} else {
-			skills[0] = mostSkills.get(skillID);
-		}
-		return skills;
+	public Skill getSkill(int skillID) {
+		return getSkill(skillID, 0);
 	}
 	
-	int crafts = 0; // number of Crafts loaded
-	int performs = 0; // number of Performs loaded
-	int professions = 0; // number of Professions loaded
+	public Skill getSkill(int skillID, int num) {
+		if (Skill.isTitledSkillID(skillID)) {
+			return nameSkills.get(skillID * 10 + num);
+		} else {
+			return mostSkills.get(skillID);
+		}
+	}
+	
+//	int crafts = 0; // number of Crafts loaded
+//	int performs = 0; // number of Performs loaded
+//	int professions = 0; // number of Professions loaded
 	
 	public void addSkill(Skill skill) {
+		addSkill(skill, 0);
+	}
+	
+	public void addSkill(Skill skill, int num) {
 		int skillID = skill.skillID;
 		if (Skill.isTitledSkillID(skillID)) {
-			switch(skillID) {
-			case Skill.CRAFT_ID:
-				crafts++;
-				nameSkills.put(skillID * 10 + crafts, skill);
-				break;
-			case Skill.PERFORM_ID:
-				performs++;
-				nameSkills.put(skillID * 10 + performs, skill);
-				break;
-			case Skill.PROFESSION_ID:
-				professions++;
-				nameSkills.put(skillID * 10 + professions, skill);
-				break;
-			}
+			nameSkills.put(skillID * 10 + num, skill);
 		} else {
 			mostSkills.put(skillID, skill);
 		}
@@ -108,6 +59,7 @@ public class SkillsAll {
 	}
 	
 	private void loadFromDB() {
+		isNew = true;
 		// get ability scores
 		Ability[] abilities = new Ability[6];
 		// these should auto load from DB
@@ -143,6 +95,7 @@ public class SkillsAll {
 		Cursor cursor2 = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
 				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
 		if (cursor2.moveToFirst()) {
+			isNew = false;
 			while (!cursor2.isAfterLast()) { 
 				// Columns: COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_TITLE, COLUMN_RANKS, COLUMN_MISC_MOD
 				int skillID = cursor2.getInt(1);
@@ -153,8 +106,10 @@ public class SkillsAll {
 				skill.abMod = skillToAbMod.get(skillID);
 				
 				addSkill(skill);
+				cursor2.moveToNext();
 			}
-		}			
+		}		
+		cursor2.close();
 	}
 	
 	public void writeToDB() {

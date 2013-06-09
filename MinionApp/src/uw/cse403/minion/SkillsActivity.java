@@ -147,280 +147,275 @@ public class SkillsActivity extends Activity {
 //				Skill skill = new Skill(skillID, title, ranks);
 //				skill.miscMod = miscMod;
 		allSkills = new SkillsAll(charID);
-		
-		int crafts = 0; // number of Crafts loaded
-		int performs = 0; // number of Performs loaded
-		int professions = 0; // number of Professions loaded
-		
-		for (int i = Skill.ACROBATICS_ID; i <= Skill.USE_MAGIC_DEVICE_ID; i++) {
-			Skill[] skills = allSkills.getSkill(i);
-				// these will store IDs referring to UI elements
-				int titleFieldID = 0;
-				int totalFieldID = 0;
-				int abModFieldID = 0;
-				int ranksFieldID = 0;
-				int modsFieldID = 0;
-				int arrayID = 0;
-				switch (i) {
-				case Skill.ACROBATICS_ID:
-					totalFieldID = R.id.acrobatics_total;
-					abModFieldID = R.id.acrobatics_ab_mod;
-					ranksFieldID = R.id.acrobatics_ranks;
-					modsFieldID = R.id.acrobatics_misc_mod; break;
-				case Skill.APPRAISE_ID:
-					totalFieldID = R.id.appraise_total;
-					abModFieldID = R.id.appraise_ab_mod;
-					ranksFieldID = R.id.appraise_ranks;
-					modsFieldID = R.id.appraise_misc_mod; break;
-				case Skill.BLUFF_ID:
-					totalFieldID = R.id.bluff_total;
-					abModFieldID = R.id.bluff_ab_mod;
-					ranksFieldID = R.id.bluff_ranks;
-					modsFieldID = R.id.bluff_misc_mod; break;
-				case Skill.CLIMB_ID:
-					totalFieldID = R.id.climb_total;
-					abModFieldID = R.id.climb_ab_mod;
-					ranksFieldID = R.id.climb_ranks;
-					modsFieldID = R.id.climb_misc_mod; break;
-				case Skill.CRAFT_ID:
-					crafts++;
-					arrayID = R.array.craft_array;
-					if (crafts == 1) {
-						titleFieldID = R.id.craft1_spinner;
-						totalFieldID = R.id.craft1_total;
-						abModFieldID = R.id.craft1_ab_mod;
-						ranksFieldID = R.id.craft1_ranks;
-						modsFieldID = R.id.craft1_misc_mod;
-					} else if (crafts == 2) {
-						titleFieldID = R.id.craft2_spinner;
-						totalFieldID = R.id.craft2_total;
-						abModFieldID = R.id.craft2_ab_mod;
-						ranksFieldID = R.id.craft2_ranks;
-						modsFieldID = R.id.craft2_misc_mod;
-					} else if (crafts == 3) {
-						titleFieldID = R.id.craft3_spinner;
-						totalFieldID = R.id.craft3_total;
-						abModFieldID = R.id.craft3_ab_mod;
-						ranksFieldID = R.id.craft3_ranks;
-						modsFieldID = R.id.craft3_misc_mod;
-					} break;
-				case Skill.DIPLOMACY_ID:
-					totalFieldID = R.id.diplomacy_total;
-					abModFieldID = R.id.diplomacy_ab_mod;
-					ranksFieldID = R.id.diplomacy_ranks;
-					modsFieldID = R.id.diplomacy_misc_mod; break;
-				case Skill.DISABLE_DEVICE_ID:
-					totalFieldID = R.id.disable_device_total;
-					abModFieldID = R.id.disable_device_ab_mod;
-					ranksFieldID = R.id.disable_device_ranks;
-					modsFieldID = R.id.disable_device_misc_mod; break;
-				case Skill.DISGUISE_ID:
-					totalFieldID = R.id.disguise_total;
-					abModFieldID = R.id.disguise_ab_mod;
-					ranksFieldID = R.id.disguise_ranks;
-					modsFieldID = R.id.disguise_misc_mod; break;
-				case Skill.ESCAPE_ARTIST_ID:
-					totalFieldID = R.id.escape_artist_total;
-					abModFieldID = R.id.escape_artist_ab_mod;
-					ranksFieldID = R.id.escape_artist_ranks;
-					modsFieldID = R.id.escape_artist_misc_mod; break;
-				case Skill.FLY_ID:
-					totalFieldID = R.id.fly_total;
-					abModFieldID = R.id.fly_ab_mod;
-					ranksFieldID = R.id.fly_ranks;
-					modsFieldID = R.id.fly_misc_mod; break;
-				case Skill.HANDLE_ANIMAL_ID:
-					totalFieldID = R.id.handle_animal_total;
-					abModFieldID = R.id.handle_animal_ab_mod;
-					ranksFieldID = R.id.handle_animal_ranks;
-					modsFieldID = R.id.handle_animal_misc_mod; break;
-				case Skill.HEAL_ID:
-					totalFieldID = R.id.heal_total;
-					abModFieldID = R.id.heal_ab_mod;
-					ranksFieldID = R.id.heal_ranks;
-					modsFieldID = R.id.heal_misc_mod; break;
-				case Skill.INTIMIDATE_ID:
-					totalFieldID = R.id.intimidate_total;
-					abModFieldID = R.id.intimidate_ab_mod;
-					ranksFieldID = R.id.intimidate_ranks;
-					modsFieldID = R.id.intimidate_misc_mod; break;
-				case Skill.KNOWLEDGE_ARCANA_ID:
-					totalFieldID = R.id.knowledge_arcana_total;
-					abModFieldID = R.id.knowledge_arcana_ab_mod;
-					ranksFieldID = R.id.knowledge_arcana_ranks;
-					modsFieldID = R.id.knowledge_arcana_misc_mod; break;
-				case Skill.KNOWLEDGE_DUNGEONEERING_ID:
-					totalFieldID = R.id.knowledge_dungeoneering_total;
-					abModFieldID = R.id.knowledge_dungeoneering_ab_mod;
-					ranksFieldID = R.id.knowledge_dungeoneering_ranks;
-					modsFieldID = R.id.knowledge_dungeoneering_misc_mod; break;
-				case Skill.KNOWLEDGE_ENGINEERING_ID:
-					totalFieldID = R.id.knowledge_engineering_total;
-					abModFieldID = R.id.knowledge_engineering_ab_mod;
-					ranksFieldID = R.id.knowledge_engineering_ranks;
-					modsFieldID = R.id.knowledge_engineering_misc_mod; break;
-				case Skill.KNOWLEDGE_GEOGRAPHY_ID:
-					totalFieldID = R.id.knowledge_geography_total;
-					abModFieldID = R.id.knowledge_geography_ab_mod;
-					ranksFieldID = R.id.knowledge_geography_ranks;
-					modsFieldID = R.id.knowledge_geography_misc_mod; break;
-				case Skill.KNOWLEDGE_HISTORY_ID:
-					totalFieldID = R.id.knowledge_history_total;
-					abModFieldID = R.id.knowledge_history_ab_mod;
-					ranksFieldID = R.id.knowledge_history_ranks;
-					modsFieldID = R.id.knowledge_history_misc_mod; break;
-				case Skill.KNOWLEDGE_LOCAL_ID:
-					totalFieldID = R.id.knowledge_local_total;
-					abModFieldID = R.id.knowledge_local_ab_mod;
-					ranksFieldID = R.id.knowledge_local_ranks;
-					modsFieldID = R.id.knowledge_local_misc_mod; break;
-				case Skill.KNOWLEDGE_NATURE_ID:
-					totalFieldID = R.id.knowledge_nature_total;
-					abModFieldID = R.id.knowledge_nature_ab_mod;
-					ranksFieldID = R.id.knowledge_nature_ranks;
-					modsFieldID = R.id.knowledge_nature_misc_mod; break;
-				case Skill.KNOWLEDGE_NOBILITY_ID:
-					totalFieldID = R.id.knowledge_nobility_total;
-					abModFieldID = R.id.knowledge_nobility_ab_mod;
-					ranksFieldID = R.id.knowledge_nobility_ranks;
-					modsFieldID = R.id.knowledge_nobility_misc_mod; break;
-				case Skill.KNOWLEDGE_PLANES_ID:
-					totalFieldID = R.id.knowledge_planes_total;
-					abModFieldID = R.id.knowledge_planes_ab_mod;
-					ranksFieldID = R.id.knowledge_planes_ranks;
-					modsFieldID = R.id.knowledge_planes_misc_mod; break;
-				case Skill.KNOWLEDGE_RELIGION_ID:
-					totalFieldID = R.id.knowledge_religion_total;
-					abModFieldID = R.id.knowledge_religion_ab_mod;
-					ranksFieldID = R.id.knowledge_religion_ranks;
-					modsFieldID = R.id.knowledge_religion_misc_mod; break;
-				case Skill.LINGUISTICS_ID:
-					totalFieldID = R.id.linguistics_total;
-					abModFieldID = R.id.linguistics_ab_mod;
-					ranksFieldID = R.id.linguistics_ranks;
-					modsFieldID = R.id.linguistics_misc_mod; break;
-				case Skill.PERCEPTION_ID:
-					totalFieldID = R.id.perception_total;
-					abModFieldID = R.id.perception_ab_mod;
-					ranksFieldID = R.id.perception_ranks;
-					modsFieldID = R.id.perception_misc_mod; break;
-				case Skill.PERFORM_ID:
-					performs++;
-					arrayID = R.array.perform_array;
-					if (performs == 1) {
-						titleFieldID = R.id.perform1_spinner;
-						totalFieldID = R.id.perform1_total;
-						abModFieldID = R.id.perform1_ab_mod;
-						ranksFieldID = R.id.perform1_ranks;
-						modsFieldID = R.id.perform1_misc_mod;
-					} else if (performs == 2) {
-						titleFieldID = R.id.perform2_spinner;
-						totalFieldID = R.id.perform2_total;
-						abModFieldID = R.id.perform2_ab_mod;
-						ranksFieldID = R.id.perform2_ranks;
-						modsFieldID = R.id.perform2_misc_mod;
-					} break;
-				case Skill.PROFESSION_ID:
-					professions++;
-					arrayID = R.array.profession_array;
-					if (professions == 1) {
-						titleFieldID = R.id.profession1_spinner;
-						totalFieldID = R.id.profession1_total;
-						abModFieldID = R.id.profession1_ab_mod;
-						ranksFieldID = R.id.profession1_ranks;
-						modsFieldID = R.id.profession1_misc_mod;
-					} else if (professions == 2) {
-						titleFieldID = R.id.profession2_spinner;
-						totalFieldID = R.id.profession2_total;
-						abModFieldID = R.id.profession2_ab_mod;
-						ranksFieldID = R.id.profession2_ranks;
-						modsFieldID = R.id.profession2_misc_mod;
-					} break;
-				case Skill.RIDE_ID:
-					totalFieldID = R.id.ride_total;
-					abModFieldID = R.id.ride_ab_mod;
-					ranksFieldID = R.id.ride_ranks;
-					modsFieldID = R.id.ride_misc_mod; break;
-				case Skill.SENSE_MOTIVE_ID:
-					totalFieldID = R.id.sense_motive_total;
-					abModFieldID = R.id.sense_motive_ab_mod;
-					ranksFieldID = R.id.sense_motive_ranks;
-					modsFieldID = R.id.sense_motive_misc_mod; break;
-				case Skill.SLEIGHT_OF_HAND_ID:
-					totalFieldID = R.id.sleight_of_hand_total;
-					abModFieldID = R.id.sleight_of_hand_ab_mod;
-					ranksFieldID = R.id.sleight_of_hand_ranks;
-					modsFieldID = R.id.sleight_of_hand_misc_mod; break;
-				case Skill.SPELLCRAFT_ID:
-					totalFieldID = R.id.spellcraft_total;
-					abModFieldID = R.id.spellcraft_ab_mod;
-					ranksFieldID = R.id.spellcraft_ranks;
-					modsFieldID = R.id.spellcraft_misc_mod; break;
-				case Skill.STEALTH_ID:
-					totalFieldID = R.id.stealth_total;
-					abModFieldID = R.id.stealth_ab_mod;
-					ranksFieldID = R.id.stealth_ranks;
-					modsFieldID = R.id.stealth_misc_mod; break;
-				case Skill.SURVIVAL_ID:
-					totalFieldID = R.id.survival_total;
-					abModFieldID = R.id.survival_ab_mod;
-					ranksFieldID = R.id.survival_ranks;
-					modsFieldID = R.id.survival_misc_mod; break;
-				case Skill.SWIM_ID:
-					totalFieldID = R.id.swim_total;
-					abModFieldID = R.id.swim_ab_mod;
-					ranksFieldID = R.id.swim_ranks;
-					modsFieldID = R.id.swim_misc_mod; break;
-				case Skill.USE_MAGIC_DEVICE_ID:
-					totalFieldID = R.id.use_magic_device_total;
-					abModFieldID = R.id.use_magic_device_ab_mod;
-					ranksFieldID = R.id.use_magic_device_ranks;
-					modsFieldID = R.id.use_magic_device_misc_mod; break;
-				}
-				// put data in UI
-				//int abMod = skillToAbMod.get(skill.getID());
-
-				Skill skill;
-				
-				if (Skill.isTitledSkillID(i)) {
+		if (!allSkills.isNew) {
+			int crafts = 0; // number of Crafts loaded
+			int performs = 0; // number of Performs loaded
+			int professions = 0; // number of Professions loaded
+			
+			for (int i = Skill.ACROBATICS_ID; i <= Skill.USE_MAGIC_DEVICE_ID; i++) {
+				Skill skill = allSkills.getSkill(i);
+					// these will store IDs referring to UI elements
+					int titleFieldID = 0;
+					int totalFieldID = 0;
+					int abModFieldID = 0;
+					int ranksFieldID = 0;
+					int modsFieldID = 0;
+					int arrayID = 0;
 					switch (i) {
+					case Skill.ACROBATICS_ID:
+						totalFieldID = R.id.acrobatics_total;
+						abModFieldID = R.id.acrobatics_ab_mod;
+						ranksFieldID = R.id.acrobatics_ranks;
+						modsFieldID = R.id.acrobatics_misc_mod; break;
+					case Skill.APPRAISE_ID:
+						totalFieldID = R.id.appraise_total;
+						abModFieldID = R.id.appraise_ab_mod;
+						ranksFieldID = R.id.appraise_ranks;
+						modsFieldID = R.id.appraise_misc_mod; break;
+					case Skill.BLUFF_ID:
+						totalFieldID = R.id.bluff_total;
+						abModFieldID = R.id.bluff_ab_mod;
+						ranksFieldID = R.id.bluff_ranks;
+						modsFieldID = R.id.bluff_misc_mod; break;
+					case Skill.CLIMB_ID:
+						totalFieldID = R.id.climb_total;
+						abModFieldID = R.id.climb_ab_mod;
+						ranksFieldID = R.id.climb_ranks;
+						modsFieldID = R.id.climb_misc_mod; break;
 					case Skill.CRAFT_ID:
-						skill = skills[crafts];
-						break;
+						crafts++;
+						arrayID = R.array.craft_array;
+						if (crafts == 1) {
+							skill = allSkills.getSkill(i, 1);
+							titleFieldID = R.id.craft1_spinner;
+							totalFieldID = R.id.craft1_total;
+							abModFieldID = R.id.craft1_ab_mod;
+							ranksFieldID = R.id.craft1_ranks;
+							modsFieldID = R.id.craft1_misc_mod;
+						} else if (crafts == 2) {
+							skill = allSkills.getSkill(i, 2);
+							titleFieldID = R.id.craft2_spinner;
+							totalFieldID = R.id.craft2_total;
+							abModFieldID = R.id.craft2_ab_mod;
+							ranksFieldID = R.id.craft2_ranks;
+							modsFieldID = R.id.craft2_misc_mod;
+						} else if (crafts == 3) {
+							skill = allSkills.getSkill(i, 3);
+							titleFieldID = R.id.craft3_spinner;
+							totalFieldID = R.id.craft3_total;
+							abModFieldID = R.id.craft3_ab_mod;
+							ranksFieldID = R.id.craft3_ranks;
+							modsFieldID = R.id.craft3_misc_mod;
+						} break;
+					case Skill.DIPLOMACY_ID:
+						totalFieldID = R.id.diplomacy_total;
+						abModFieldID = R.id.diplomacy_ab_mod;
+						ranksFieldID = R.id.diplomacy_ranks;
+						modsFieldID = R.id.diplomacy_misc_mod; break;
+					case Skill.DISABLE_DEVICE_ID:
+						totalFieldID = R.id.disable_device_total;
+						abModFieldID = R.id.disable_device_ab_mod;
+						ranksFieldID = R.id.disable_device_ranks;
+						modsFieldID = R.id.disable_device_misc_mod; break;
+					case Skill.DISGUISE_ID:
+						totalFieldID = R.id.disguise_total;
+						abModFieldID = R.id.disguise_ab_mod;
+						ranksFieldID = R.id.disguise_ranks;
+						modsFieldID = R.id.disguise_misc_mod; break;
+					case Skill.ESCAPE_ARTIST_ID:
+						totalFieldID = R.id.escape_artist_total;
+						abModFieldID = R.id.escape_artist_ab_mod;
+						ranksFieldID = R.id.escape_artist_ranks;
+						modsFieldID = R.id.escape_artist_misc_mod; break;
+					case Skill.FLY_ID:
+						totalFieldID = R.id.fly_total;
+						abModFieldID = R.id.fly_ab_mod;
+						ranksFieldID = R.id.fly_ranks;
+						modsFieldID = R.id.fly_misc_mod; break;
+					case Skill.HANDLE_ANIMAL_ID:
+						totalFieldID = R.id.handle_animal_total;
+						abModFieldID = R.id.handle_animal_ab_mod;
+						ranksFieldID = R.id.handle_animal_ranks;
+						modsFieldID = R.id.handle_animal_misc_mod; break;
+					case Skill.HEAL_ID:
+						totalFieldID = R.id.heal_total;
+						abModFieldID = R.id.heal_ab_mod;
+						ranksFieldID = R.id.heal_ranks;
+						modsFieldID = R.id.heal_misc_mod; break;
+					case Skill.INTIMIDATE_ID:
+						totalFieldID = R.id.intimidate_total;
+						abModFieldID = R.id.intimidate_ab_mod;
+						ranksFieldID = R.id.intimidate_ranks;
+						modsFieldID = R.id.intimidate_misc_mod; break;
+					case Skill.KNOWLEDGE_ARCANA_ID:
+						totalFieldID = R.id.knowledge_arcana_total;
+						abModFieldID = R.id.knowledge_arcana_ab_mod;
+						ranksFieldID = R.id.knowledge_arcana_ranks;
+						modsFieldID = R.id.knowledge_arcana_misc_mod; break;
+					case Skill.KNOWLEDGE_DUNGEONEERING_ID:
+						totalFieldID = R.id.knowledge_dungeoneering_total;
+						abModFieldID = R.id.knowledge_dungeoneering_ab_mod;
+						ranksFieldID = R.id.knowledge_dungeoneering_ranks;
+						modsFieldID = R.id.knowledge_dungeoneering_misc_mod; break;
+					case Skill.KNOWLEDGE_ENGINEERING_ID:
+						totalFieldID = R.id.knowledge_engineering_total;
+						abModFieldID = R.id.knowledge_engineering_ab_mod;
+						ranksFieldID = R.id.knowledge_engineering_ranks;
+						modsFieldID = R.id.knowledge_engineering_misc_mod; break;
+					case Skill.KNOWLEDGE_GEOGRAPHY_ID:
+						totalFieldID = R.id.knowledge_geography_total;
+						abModFieldID = R.id.knowledge_geography_ab_mod;
+						ranksFieldID = R.id.knowledge_geography_ranks;
+						modsFieldID = R.id.knowledge_geography_misc_mod; break;
+					case Skill.KNOWLEDGE_HISTORY_ID:
+						totalFieldID = R.id.knowledge_history_total;
+						abModFieldID = R.id.knowledge_history_ab_mod;
+						ranksFieldID = R.id.knowledge_history_ranks;
+						modsFieldID = R.id.knowledge_history_misc_mod; break;
+					case Skill.KNOWLEDGE_LOCAL_ID:
+						totalFieldID = R.id.knowledge_local_total;
+						abModFieldID = R.id.knowledge_local_ab_mod;
+						ranksFieldID = R.id.knowledge_local_ranks;
+						modsFieldID = R.id.knowledge_local_misc_mod; break;
+					case Skill.KNOWLEDGE_NATURE_ID:
+						totalFieldID = R.id.knowledge_nature_total;
+						abModFieldID = R.id.knowledge_nature_ab_mod;
+						ranksFieldID = R.id.knowledge_nature_ranks;
+						modsFieldID = R.id.knowledge_nature_misc_mod; break;
+					case Skill.KNOWLEDGE_NOBILITY_ID:
+						totalFieldID = R.id.knowledge_nobility_total;
+						abModFieldID = R.id.knowledge_nobility_ab_mod;
+						ranksFieldID = R.id.knowledge_nobility_ranks;
+						modsFieldID = R.id.knowledge_nobility_misc_mod; break;
+					case Skill.KNOWLEDGE_PLANES_ID:
+						totalFieldID = R.id.knowledge_planes_total;
+						abModFieldID = R.id.knowledge_planes_ab_mod;
+						ranksFieldID = R.id.knowledge_planes_ranks;
+						modsFieldID = R.id.knowledge_planes_misc_mod; break;
+					case Skill.KNOWLEDGE_RELIGION_ID:
+						totalFieldID = R.id.knowledge_religion_total;
+						abModFieldID = R.id.knowledge_religion_ab_mod;
+						ranksFieldID = R.id.knowledge_religion_ranks;
+						modsFieldID = R.id.knowledge_religion_misc_mod; break;
+					case Skill.LINGUISTICS_ID:
+						totalFieldID = R.id.linguistics_total;
+						abModFieldID = R.id.linguistics_ab_mod;
+						ranksFieldID = R.id.linguistics_ranks;
+						modsFieldID = R.id.linguistics_misc_mod; break;
+					case Skill.PERCEPTION_ID:
+						totalFieldID = R.id.perception_total;
+						abModFieldID = R.id.perception_ab_mod;
+						ranksFieldID = R.id.perception_ranks;
+						modsFieldID = R.id.perception_misc_mod; break;
 					case Skill.PERFORM_ID:
-						skill = skills[performs];
-						break;
+						performs++;
+						arrayID = R.array.perform_array;
+						if (performs == 1) {
+							skill = allSkills.getSkill(i, 1);
+							titleFieldID = R.id.perform1_spinner;
+							totalFieldID = R.id.perform1_total;
+							abModFieldID = R.id.perform1_ab_mod;
+							ranksFieldID = R.id.perform1_ranks;
+							modsFieldID = R.id.perform1_misc_mod;
+						} else if (performs == 2) {
+							skill = allSkills.getSkill(i, 2);
+							titleFieldID = R.id.perform2_spinner;
+							totalFieldID = R.id.perform2_total;
+							abModFieldID = R.id.perform2_ab_mod;
+							ranksFieldID = R.id.perform2_ranks;
+							modsFieldID = R.id.perform2_misc_mod;
+						} break;
 					case Skill.PROFESSION_ID:
-						skill = skills[professions];
-						break;
-					default: // this is just here to make Java happy
-						skill = null;
+						professions++;
+						arrayID = R.array.profession_array;
+						if (professions == 1) {
+							skill = allSkills.getSkill(i, 1);
+							titleFieldID = R.id.profession1_spinner;
+							totalFieldID = R.id.profession1_total;
+							abModFieldID = R.id.profession1_ab_mod;
+							ranksFieldID = R.id.profession1_ranks;
+							modsFieldID = R.id.profession1_misc_mod;
+						} else if (professions == 2) {
+							skill = allSkills.getSkill(i, 2);
+							titleFieldID = R.id.profession2_spinner;
+							totalFieldID = R.id.profession2_total;
+							abModFieldID = R.id.profession2_ab_mod;
+							ranksFieldID = R.id.profession2_ranks;
+							modsFieldID = R.id.profession2_misc_mod;
+						} break;
+					case Skill.RIDE_ID:
+						totalFieldID = R.id.ride_total;
+						abModFieldID = R.id.ride_ab_mod;
+						ranksFieldID = R.id.ride_ranks;
+						modsFieldID = R.id.ride_misc_mod; break;
+					case Skill.SENSE_MOTIVE_ID:
+						totalFieldID = R.id.sense_motive_total;
+						abModFieldID = R.id.sense_motive_ab_mod;
+						ranksFieldID = R.id.sense_motive_ranks;
+						modsFieldID = R.id.sense_motive_misc_mod; break;
+					case Skill.SLEIGHT_OF_HAND_ID:
+						totalFieldID = R.id.sleight_of_hand_total;
+						abModFieldID = R.id.sleight_of_hand_ab_mod;
+						ranksFieldID = R.id.sleight_of_hand_ranks;
+						modsFieldID = R.id.sleight_of_hand_misc_mod; break;
+					case Skill.SPELLCRAFT_ID:
+						totalFieldID = R.id.spellcraft_total;
+						abModFieldID = R.id.spellcraft_ab_mod;
+						ranksFieldID = R.id.spellcraft_ranks;
+						modsFieldID = R.id.spellcraft_misc_mod; break;
+					case Skill.STEALTH_ID:
+						totalFieldID = R.id.stealth_total;
+						abModFieldID = R.id.stealth_ab_mod;
+						ranksFieldID = R.id.stealth_ranks;
+						modsFieldID = R.id.stealth_misc_mod; break;
+					case Skill.SURVIVAL_ID:
+						totalFieldID = R.id.survival_total;
+						abModFieldID = R.id.survival_ab_mod;
+						ranksFieldID = R.id.survival_ranks;
+						modsFieldID = R.id.survival_misc_mod; break;
+					case Skill.SWIM_ID:
+						totalFieldID = R.id.swim_total;
+						abModFieldID = R.id.swim_ab_mod;
+						ranksFieldID = R.id.swim_ranks;
+						modsFieldID = R.id.swim_misc_mod; break;
+					case Skill.USE_MAGIC_DEVICE_ID:
+						totalFieldID = R.id.use_magic_device_total;
+						abModFieldID = R.id.use_magic_device_ab_mod;
+						ranksFieldID = R.id.use_magic_device_ranks;
+						modsFieldID = R.id.use_magic_device_misc_mod; break;
 					}
-					Spinner spinner = (Spinner) findViewById(titleFieldID);
-					ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, arrayID,
-							R.layout.smaller_multiline_spinner_dropdown_item);
-					spinner.setAdapter(myAdap);
-					int spinnerPosition = myAdap.getPosition(skill.title);
-					//set the default according to value
-					spinner.setSelection(spinnerPosition);
-				} else {
-					skill = skills[0];
-				}
-				
-				TextView totalField = (TextView) findViewById(totalFieldID);
-				totalField.setText("" + (skill.getTotal() + skill.abMod));
-				
-				TextView abModField = (TextView) findViewById(abModFieldID);
-				abModField.setText("" + skill.abMod);
-
-				EditText ranksEnterField = (EditText) findViewById(ranksFieldID);
-				ranksEnterField.setText("" + skill.rank);
-				
-				EditText modEnterField = (EditText) findViewById(modsFieldID);
-				modEnterField.setText("" + skill.miscMod);
-
-//				cursor2.moveToNext();
-//			}
+					
+					// put data in UI
+					if (Skill.isTitledSkillID(i)) {
+						Spinner spinner = (Spinner) findViewById(titleFieldID);
+						ArrayAdapter<CharSequence> myAdap = ArrayAdapter.createFromResource(this, arrayID,
+								R.layout.smaller_multiline_spinner_dropdown_item);
+						spinner.setAdapter(myAdap);
+						int spinnerPosition = myAdap.getPosition(skill.title);
+						//set the default according to value
+						spinner.setSelection(spinnerPosition);
+						if (i == Skill.CRAFT_ID && crafts < 3
+								|| i == Skill.PERFORM_ID && performs < 2
+								|| i == Skill.PROFESSION_ID && professions < 2) {
+							//i--;
+						}
+					}
+					
+					TextView totalField = (TextView) findViewById(totalFieldID);
+					totalField.setText("" + (skill.getTotal() + skill.abMod));
+					
+					TextView abModField = (TextView) findViewById(abModFieldID);
+					abModField.setText("" + skill.abMod);
+	
+					EditText ranksEnterField = (EditText) findViewById(ranksFieldID);
+					ranksEnterField.setText("" + skill.rank);
+					
+					EditText modEnterField = (EditText) findViewById(modsFieldID);
+					modEnterField.setText("" + skill.miscMod);
+	
+	//				cursor2.moveToNext();
+	//			}
+			}
 		}
 //		cursor2.close();
 	}
