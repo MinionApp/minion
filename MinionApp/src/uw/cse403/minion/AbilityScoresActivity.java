@@ -127,7 +127,7 @@ public class AbilityScoresActivity extends Activity {
 				baseEnter.setText("" + abilities[i].getBase());
 
 				EditText tempEnter = (EditText) findViewById(tempFields[i]);
-				tempEnter.setText("" + abilities[i].getTempModifier(Ability.SAMPLE_MODIFIER));
+				tempEnter.setText("" + abilities[i].tempMod);
 			}
 		}
 	}
@@ -185,7 +185,7 @@ public class AbilityScoresActivity extends Activity {
 		String strTempRaw = strTempEnter.getText().toString().trim();
 		if (!strTempRaw.matches("")) {
 			Integer strTemp = Integer.parseInt(strTempRaw);
-			str.addTempModifier(Ability.SAMPLE_MODIFIER, strTemp);
+			str.tempMod = strTemp;
 
 		}
 
@@ -212,7 +212,7 @@ public class AbilityScoresActivity extends Activity {
 		String dexTempRaw = dexTempEnter.getText().toString().trim();
 		if (!dexTempRaw.matches("")) {
 			Integer dexTemp = Integer.parseInt(dexTempRaw);
-			dex.addTempModifier(Ability.SAMPLE_MODIFIER, dexTemp);
+			dex.tempMod = dexTemp;
 
 		}
 
@@ -239,7 +239,7 @@ public class AbilityScoresActivity extends Activity {
 		String conTempRaw = conTempEnter.getText().toString().trim();
 		if (!conTempRaw.matches("")) {
 			Integer conTemp = Integer.parseInt(conTempRaw);
-			con.addTempModifier(Ability.SAMPLE_MODIFIER, conTemp);
+			con.tempMod = conTemp;
 
 		}
 
@@ -266,7 +266,7 @@ public class AbilityScoresActivity extends Activity {
 		String intelTempRaw = intelTempEnter.getText().toString().trim();
 		if (!intelTempRaw.matches("")) {
 			Integer intelTemp = Integer.parseInt(intelTempRaw);
-			intel.addTempModifier(Ability.SAMPLE_MODIFIER, intelTemp);
+			intel.tempMod = intelTemp;
 
 		}
 
@@ -293,7 +293,7 @@ public class AbilityScoresActivity extends Activity {
 		String wisTempRaw = wisTempEnter.getText().toString().trim();
 		if (!wisTempRaw.matches("")) {
 			Integer wisTemp = Integer.parseInt(wisTempRaw);
-			wis.addTempModifier(Ability.SAMPLE_MODIFIER, wisTemp);
+			wis.tempMod = wisTemp;
 
 		}
 
@@ -320,7 +320,7 @@ public class AbilityScoresActivity extends Activity {
 		String chaTempRaw = chaTempEnter.getText().toString().trim();
 		if (!chaTempRaw.matches("")) {
 			Integer chaTemp = Integer.parseInt(chaTempRaw);
-			cha.addTempModifier(Ability.SAMPLE_MODIFIER, chaTemp);
+			cha.tempMod = chaTemp;
 
 		}
 

@@ -1,7 +1,5 @@
 package uw.cse403.minion;
 
-import java.util.*;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,19 +19,19 @@ public class Ability {
 	private static final String BASE = "base=";
 
 	/** The unique id for a character **/
-	private long charID;
+	public long charID;
 
 	/** The id used to reference which ability this object represents **/
-	private int abilityID;
+	public int abilityID;
 
 	/** Stores whether or not this ability has been stored previously or not **/
-	boolean isNew;
+	public boolean isNew;
 
 	/** The base ability score **/
-	private int base;
+	public int base;
 
 	/** A collection of any temporary modifiers affecting this ability **/
-	private Map<String,Integer> tempModifiers;
+	public int tempMod;
 
 	/**
 	 * Initializes an ability with the given id and defaults the base stat to
@@ -50,7 +48,7 @@ public class Ability {
 		this.base = -1;
 		this.abilityID = abilityID;
 		
-		tempModifiers = new HashMap<String, Integer>();
+		this.tempMod = 0;
 
 		if (charID >= 0) {
 			loadFromDB();
@@ -84,7 +82,7 @@ public class Ability {
 			isNew = false;
 			// COLUMN_CHAR_ID, COLUMN_REF_AS_ID, COLUMN_BASE, COLUMN_TEMP
 			base = cursor.getInt(2);
-			tempModifiers.put(SAMPLE_MODIFIER, cursor.getInt(3));
+			tempMod = cursor.getInt(3);
 			System.out.println(BASE + base);
 		}
 		cursor.close();
@@ -117,39 +115,6 @@ public class Ability {
 	}
 
 	/**
-	 * Returns the modifier under the given name. Can return both negative
-	 * and positive modifiers. These modifiers represent values that will be
-	 * either added or subtracted from the base stat.
-	 * 
-	 * @param tempName the name of the temporary modifier whose value is retrieved
-	 * @return 	the value associated with the given String, may be either negative
-	 * 			or positive. Returns 0 if no temporary modifier of the given name
-	 * 			was found
-	 */
-	public int getTempModifier(String tempName){
-		Integer retVal = tempModifiers.get(tempName);
-		if (retVal == null) {
-			return 0;
-		}
-		return retVal;
-	}
-
-	/**
-	 * Adds a new Temporary Modifier with the given name and value
-	 * 
-	 * @param tempName	the name of the temporary modifier
-	 * @param tempValue	the value of the modifier
-	 * @modifies this
-	 */
-	public int addTempModifier(String tempName, int tempValue){
-		Integer retVal = tempModifiers.put(tempName, tempValue);
-		if (retVal == null) {
-			return 0;
-		}
-		return retVal;
-	}
-
-	/**
 	 * Gets the total ability score including the base stat value and all
 	 * temporary modifiers currently stored.
 	 * <p>
@@ -162,11 +127,7 @@ public class Ability {
 	 */
 	public int getScore(){
 		int score = base;
-		Collection<Integer> temps = tempModifiers.values();
-		Iterator<Integer> it = temps.iterator();
-		while (it.hasNext()) {
-			score += it.next();
-		}
+		score += tempMod;
 		if (score < 0) {
 			return 0;
 		} else {
@@ -216,7 +177,7 @@ public class Ability {
 		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_BASE, base);
-		values.put(SQLiteHelperAbilityScores.COLUMN_TEMP, tempModifiers.get(SAMPLE_MODIFIER));
+		values.put(SQLiteHelperAbilityScores.COLUMN_TEMP, tempMod);
 		if (isNew) {
 			db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
 		} else {

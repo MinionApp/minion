@@ -61,36 +61,6 @@ public class AbilityTest extends TestCase {
 		assertEquals(newBase, a.getBase());
 	}
 
-	/*
-	 * Get Temporary Modifiers
-	 * Depends on constructor and addTempModifier 
-	 */
-	public void testGetTempModifier() {
-		Ability a = new Ability(-1, 0);
-		int mod = a.getTempModifier("temp");
-		assertEquals(0, mod);
-		
-		a.addTempModifier("temp", 2);
-		mod = a.getTempModifier("temp");
-		assertEquals(2, mod);
-	}
-
-	/*
-	 * Add Temporary Modifier
-	 * Dependent on three parameter constructor and geTempModifier()
-	 */
-	public void testAddTempModifier() {
-		Ability a = new Ability(-1, 0);
-		a.addTempModifier("item", 2);
-		a.addTempModifier("temp", 4);
-		a.addTempModifier("poison", -3);
-		a.addTempModifier("nill", 0);
-		
-		assertEquals(2,a.getTempModifier("item"));
-		assertEquals(4,a.getTempModifier("temp"));
-		assertEquals(-3,a.getTempModifier("poison"));
-		assertEquals(0, a.getTempModifier("nill"));
-	}
 	
 
 	public void testGetScore() {
@@ -98,10 +68,10 @@ public class AbilityTest extends TestCase {
 		a.setBase(10);
 		assertEquals(10, a.getScore());
 		
-		a.addTempModifier("rage", 4);
+		a.tempMod = 4;
 		assertEquals(14, a.getScore());
 		
-		a.addTempModifier("poison", -2);
+		a.tempMod += -2;
 		assertEquals(12, a.getScore());
 	}
 
@@ -134,11 +104,6 @@ public class AbilityTest extends TestCase {
 		assertEquals(17, ab.getMod());
 		ab.setBase(100);
 		assertEquals(45, ab.getMod());
-	}
-
-	public void testWriteToDB() {
-		//fail("Not yet implemented");
-		//TODO: Test database
 	}
 
 }
