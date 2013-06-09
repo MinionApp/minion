@@ -324,5 +324,12 @@
     <string name="no_username_entered">No username entered</string>
     <string name="uploading_char">Uploading character&#8230;</string>
     <string name="pick_char">Pick a character</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+    <string name="remove_player">Remove Player</string>
+    <string name="make_gm">Make GM</string>
+    <string name="edit">Edit</string>
+    <string name="gm_colon">Game Master:</string>
+    <string name="players">Players</string>
 
 </resources>

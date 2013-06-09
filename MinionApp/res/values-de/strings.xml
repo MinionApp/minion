@@ -324,5 +324,12 @@
     <string name="no_username_entered">Kein Benutzername wurde eingegeben</string>
     <string name="uploading_char">Charakter wird eingestellt&#8230;</string>
     <string name="pick_char">Wählen Sie einen Charakter</string>
+    <string name="decline">Ablehnen</string>
+    <string name="accept">Akzeptieren</string>
+    <string name="remove_player">Spieler wegnehmen</string>
+    <string name="make_gm">SM machen</string>
+    <string name="edit">Editieren</string>
+    <string name="gm_colon">Spielmeister:</string>
+    <string name="players">Spieler</string>
 
 </resources>

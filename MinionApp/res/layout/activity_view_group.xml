@@ -24,7 +24,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:onClick="editGroup"
-        android:text="Edit"
+        android:text="@string/edit"
         android:visibility="gone" />
 
     <LinearLayout
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="acceptInvite"
-            android:text="Accept" />
+            android:text="@string/accept" />
 
         <Button
             android:id="@+id/decline_button"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="declineInvite"
-            android:text="Decline" />
+            android:text="@string/decline" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +67,7 @@
             android:id="@+id/game_master_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Game Master:"
+            android:text="@string/gm_colon"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/game_master_info"
         android:layout_marginTop="20dp"
-        android:text="Players"
+        android:text="@string/players"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView

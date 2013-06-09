@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Character Creation"
+        android:text="@string/title_activity_char_create_main"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout

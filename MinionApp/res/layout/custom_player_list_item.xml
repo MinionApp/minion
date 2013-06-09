@@ -32,7 +32,7 @@
         android:layout_alignParentRight="true"
         android:focusable="false"
         android:onClick="removePlayerFromGroup"
-        android:text="Remove Player" />
+        android:text="@string/remove_player" />
 
     <Button
         android:id="@+id/gm_button"
@@ -42,6 +42,6 @@
         android:layout_toLeftOf="@+id/remove_button"
         android:focusable="false"
         android:onClick="makePlayerGM"
-        android:text="Make GM" />
+        android:text="@string/make_gm" />
 
 </RelativeLayout>

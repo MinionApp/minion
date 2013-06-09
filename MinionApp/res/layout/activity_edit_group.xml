@@ -30,7 +30,7 @@
             android:id="@+id/game_master_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Game Master:"
+            android:text="@string/gm_colon"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/game_master_info"
         android:layout_marginTop="20dp"
-        android:text="Players"
+        android:text="@string/players"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView
