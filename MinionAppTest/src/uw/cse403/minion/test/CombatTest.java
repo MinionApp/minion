@@ -12,58 +12,6 @@ import junit.framework.TestCase;
 public class CombatTest extends TestCase {
 
 	/**
-	 * Test get base hp
-	 * Depends on constructor
-	 */
-	public void testGetBaseHP() {
-		Combat c = new Combat(-1);
-		assertEquals(0, c.getBaseHP());
-	}
-
-	/**
-	 * Test set base hp
-	 * Depends on constructor and getBaseHP
-	 */
-	public void testSetBaseHP() {
-		Combat c = new Combat(-1);
-		assertEquals(0, c.getBaseHP());
-		
-		int newBase = 8;
-		c.setBaseHP(newBase);
-		assertEquals(newBase, c.getBaseHP());
-		
-		newBase = 100000;
-		c.setBaseHP(newBase);
-		assertEquals(newBase, c.getBaseHP());
-	}
-
-	/**
-	 * Test get damage reduction
-	 * Depends on constructor
-	 */
-	public void testGetDamageReduction() {
-		Combat c = new Combat(-1);
-		assertEquals(0, c.getDamageReduction());
-	}
-
-	/**
-	 * Test set damage reduction
-	 * Depends on constructor and getDamageReduction
-	 */
-	public void testSetDamageReduction() {
-		Combat c = new Combat(-1);
-		assertEquals(0, c.getDamageReduction());
-		
-		int newDR = 1;
-		c.setDamageReduction(newDR);
-		assertEquals(newDR, c.getDamageReduction());
-		
-		newDR = 13;
-		c.setDamageReduction(newDR);
-		assertEquals(newDR, c.getDamageReduction());
-	}
-
-	/**
 	 * Test getting a single armor modifier
 	 * Depends on constructor
 	 */
@@ -103,48 +51,6 @@ public class CombatTest extends TestCase {
 	
 		c.setSpeed(30,10);
 		assertEquals(20, c.getSpeed());
-	}
-
-	/**
-	 * Test get initiative modifiers
-	 * Depends on constructor
-	 */
-	public void testGetInitModifiers() {
-		Combat c = new Combat(-1);
-		assertEquals(0, c.getInitModifier());
-	}
-
-	/**
-	 * Test set initiative modifiers
-	 * Depends on constructor and setInitModifiers
-	 */
-	public void testSetInitModifiers() {
-		Combat c = new Combat(-1);
-		assertEquals(0, c.getInitModifier());
-	
-		c.setInitModifiers(2);
-		assertEquals(2, c.getInitModifier());
-		
-		c.setInitModifiers(1);
-		assertEquals(1, c.getInitModifier());
-	}
-
-	/**
-	 * Test get base attack bonus
-	 * Depends on constructor
-	 */
-	public void testGetbAb() {
-		Combat c = new Combat(-1);
-		assertEquals(0, c.getbAb());
-	}
-
-	/**
-	 * Test set base attack bonus
-	 * Depends on constructor and getbAb
-	 */
-	public void testSetbAb() {
-		Combat c = new Combat(-1);
-		assertEquals(0, c.getbAb());
 	}
 
 	/**

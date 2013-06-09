@@ -11,27 +11,6 @@ import junit.framework.TestCase;
 
 public class SavingThrowsTest extends TestCase {
 		
-	// white box
-	public void test_setBaseSave_ArgLessThanZero() {
-		try {
-			SavingThrow s = new SavingThrow(-1, 3);
-			s.setBaseSave(-1);
-			fail("setBaseSave did not throw IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			// test passes
-		}
-	}
-	
-	// white box
-	public void test_setBaseSave_ArgIsZero() {
-		try {
-			SavingThrow s = new SavingThrow(-1, 3);
-			s.setBaseSave(0);
-		} catch (IllegalArgumentException e) {
-			fail("setBaseSave threw IllegalArgumentException");
-		}
-	}
-	
 	// black box
 	public void test_getModifier_ArgNotInTable() {
 		SavingThrow s = new SavingThrow(-1, 3);

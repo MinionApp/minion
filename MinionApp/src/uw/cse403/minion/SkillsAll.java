@@ -10,52 +10,26 @@ public class SkillsAll {
 	/** Stores whether or not this combat information has been stored previously or not **/
 	public boolean isNew; 
 	
-	// map from skillID to Skill object EXCEPT Craft, Perform, Profession
-	private Map<Integer, Skill> mostSkills;
-	// map from skillID to Skill object ONLY Craft, Perform, Profession
-	// keys in this map are defined thus: key = skillID * 10 + #, where # = 1 if craft1, etc.
-	private Map<Integer, Skill> nameSkills;
+	// map from skillID to Skill object
+	private Map<Integer, Skill> allSkills;
 	
 	public SkillsAll(long charID){
 		this.charID = charID;
-		this.mostSkills = new HashMap<Integer, Skill>();
-		this.nameSkills = new HashMap<Integer, Skill>();
+		this.allSkills = new HashMap<Integer, Skill>();
 		
 		loadFromDB();
 	}
 	
 	public Skill getSkill(int skillID) {
-		return getSkill(skillID, 0);
+		return allSkills.get(skillID);
 	}
-	
-	public Skill getSkill(int skillID, int num) {
-		if (Skill.isTitledSkillID(skillID)) {
-			return nameSkills.get(skillID * 10 + num);
-		} else {
-			return mostSkills.get(skillID);
-		}
-	}
-	
-//	int crafts = 0; // number of Crafts loaded
-//	int performs = 0; // number of Performs loaded
-//	int professions = 0; // number of Professions loaded
 	
 	public void addSkill(Skill skill) {
-		addSkill(skill, 0);
-	}
-	
-	public void addSkill(Skill skill, int num) {
-		int skillID = skill.skillID;
-		if (Skill.isTitledSkillID(skillID)) {
-			nameSkills.put(skillID * 10 + num, skill);
-		} else {
-			mostSkills.put(skillID, skill);
-		}
+		allSkills.put(skill.skillID, skill);
 	}
 	
 	public void clear() {
-		mostSkills.clear();
-		nameSkills.clear();
+		allSkills.clear();
 	}
 	
 	private void loadFromDB() {
@@ -63,12 +37,6 @@ public class SkillsAll {
 		// get ability scores
 		Ability[] abilities = new Ability[6];
 		// these should auto load from DB
-//		abilities[0] = new Ability(charID, AbilityName.STRENGTH);
-//		abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
-//		abilities[2] = new Ability(charID, AbilityName.CONSTITUTION);
-//		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
-//		abilities[4] = new Ability(charID, AbilityName.WISDOM);
-//		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
 		abilities[0] = new Ability(charID, Ability.STRENGTH_ID);
 		abilities[1] = new Ability(charID, Ability.DEXTERITY_ID);
 		abilities[2] = new Ability(charID, Ability.CONSTITUTION_ID);
@@ -112,13 +80,16 @@ public class SkillsAll {
 		cursor2.close();
 	}
 	
+	/** 
+	 * Writes all Skills to database.
+	 */
 	public void writeToDB() {
-		for (int skillID : mostSkills.keySet()) {
-			Skill skill = mostSkills.get(skillID);
-			skill.writeToDB();
-		}
-		for (int skillID : nameSkills.keySet()) {
-			Skill skill = nameSkills.get(skillID);
+		// clear old data from DB
+		SQLiteHelperSkills.db.delete(SQLiteHelperSkills.TABLE_NAME,
+				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null);
+		// write new data to DB
+		for (int skillID : allSkills.keySet()) {
+			Skill skill = allSkills.get(skillID);
 			skill.writeToDB();
 		}
 	}

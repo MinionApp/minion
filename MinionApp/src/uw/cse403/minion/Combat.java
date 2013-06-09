@@ -238,15 +238,12 @@ public class Combat {
 
 
 	/** 
-	 * Writes Combat to database. SHOULD ONLY BE CALLED BY CHARACTER
-	 * @param id id of character
-	 * @param db database to write into
+	 * Writes Combat to database.
 	 */
 	public void writeToDB() {
-		//int skillID = 0; // get skill ID from ref db
-
 		// remove old data
-		SQLiteHelperCombat.db.delete(SQLiteHelperCombat.TABLE_NAME, SQLiteHelperCombat.COLUMN_CHAR_ID + " = " + charID, null);
+		SQLiteHelperCombat.db.delete(SQLiteHelperCombat.TABLE_NAME, 
+				SQLiteHelperCombat.COLUMN_CHAR_ID + " = " + charID, null);
 		// prepare new insert
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperCombat.COLUMN_CHAR_ID, charID);

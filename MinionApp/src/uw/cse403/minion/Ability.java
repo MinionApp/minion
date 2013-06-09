@@ -179,19 +179,23 @@ public class Ability {
 	 * @param dbTempMods database to write temporary mods into
 	 */
 	public void writeToDB() {
-		SQLiteDatabase db = SQLiteHelperAbilityScores.db;
-
+		// remove old data from DB
+		SQLiteHelperAbilityScores.db.delete(SQLiteHelperAbilityScores.TABLE_NAME, 
+				SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID, null);
+		// write new data to DB
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_BASE, baseScore);
 		values.put(SQLiteHelperAbilityScores.COLUMN_TEMP, tempMod);
-		if (isNew) {
-			db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
-		} else {
-			db.update(SQLiteHelperAbilityScores.TABLE_NAME, values, SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID 
-					+ " AND " + SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = " + abilityID, null);
-		}
+//		if (isNew) {
+//			db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
+//		} else {
+//			db.update(SQLiteHelperAbilityScores.TABLE_NAME, values, SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID 
+//					+ " AND " + SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = " + abilityID, null);
+//		}
+		
+		SQLiteHelperAbilityScores.db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
 
 		// for later implementation
 		@SuppressWarnings("unused")

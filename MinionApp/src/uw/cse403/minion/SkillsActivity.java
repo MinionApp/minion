@@ -105,63 +105,20 @@ public class SkillsActivity extends Activity {
 	 * Loads all of the skills for the current character from the database.
 	 */
 	public void loadData() {
-//		// get ability scores
-//		Ability[] abilities = new Ability[6];
-//		// these should auto load from DB
-//		abilities[0] = new Ability(charID, 0);
-//		abilities[1] = new Ability(charID, 1);
-//		abilities[2] = new Ability(charID, 2);
-//		abilities[3] = new Ability(charID, 3);
-//		abilities[4] = new Ability(charID, 4);
-//		abilities[5] = new Ability(charID, 5);
-//
-//		// map from skillID to ability score
-//		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
-//		// get skillIDs and associated ability score IDs
-//		Cursor cursor1 = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
-//				null, null, null, null, null, null);
-//		// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
-//		if (cursor1.moveToFirst()) {
-//			while (!cursor1.isAfterLast()) {
-//				int abScoreID = cursor1.getInt(2);
-//				skillToAbMod.put(cursor1.getInt(0), abilities[abScoreID].getMod());
-//				cursor1.moveToNext();
-//			}
-//		}
-//		cursor1.close();
-//		
-//		int crafts = 0; // number of Crafts loaded
-//		int performs = 0; // number of Performs loaded
-//		int professions = 0; // number of Professions loaded
-//
-//		// get skills from DB
-//		Cursor cursor2 = SQLiteHelperSkills.db.query(SQLiteHelperSkills.TABLE_NAME, SQLiteHelperSkills.ALL_COLUMNS, 
-//				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null, null, null, null);
-//		if (cursor2.moveToFirst()) {
-//			while (!cursor2.isAfterLast()) { 
-//				// Columns: COLUMN_CHAR_ID, COLUMN_REF_S_ID, COLUMN_TITLE, COLUMN_RANKS, COLUMN_MISC_MOD
-//				int skillID = cursor2.getInt(1);
-//				String title = cursor2.getString(2);
-//				int ranks = cursor2.getInt(3);
-//				int miscMod = cursor2.getInt(4);
-//				Skill skill = new Skill(skillID, title, ranks);
-//				skill.miscMod = miscMod;
 		allSkills = new SkillsAll(charID);
 		if (!allSkills.isNew) {
-			int crafts = 0; // number of Crafts loaded
-			int performs = 0; // number of Performs loaded
-			int professions = 0; // number of Professions loaded
-			
-			for (int i = Skill.ACROBATICS_ID; i <= Skill.USE_MAGIC_DEVICE_ID; i++) {
+			for (int i = 1; i <= Skill.NUM_SKILLS; i++) {
 				Skill skill = allSkills.getSkill(i);
+				if (skill != null) {
 					// these will store IDs referring to UI elements
+					int arrayID = 0; // for titled Skills
 					int titleFieldID = 0;
 					int totalFieldID = 0;
 					int abModFieldID = 0;
 					int ranksFieldID = 0;
 					int modsFieldID = 0;
-					int arrayID = 0;
-					switch (i) {
+					
+					switch (i) { // i is the skillID
 					case Skill.ACROBATICS_ID:
 						totalFieldID = R.id.acrobatics_total;
 						abModFieldID = R.id.acrobatics_ab_mod;
@@ -182,31 +139,27 @@ public class SkillsActivity extends Activity {
 						abModFieldID = R.id.climb_ab_mod;
 						ranksFieldID = R.id.climb_ranks;
 						modsFieldID = R.id.climb_misc_mod; break;
-					case Skill.CRAFT_ID:
-						crafts++;
+					case Skill.CRAFT1_ID:
 						arrayID = R.array.craft_array;
-						if (crafts == 1) {
-							skill = allSkills.getSkill(i, 1);
-							titleFieldID = R.id.craft1_spinner;
-							totalFieldID = R.id.craft1_total;
-							abModFieldID = R.id.craft1_ab_mod;
-							ranksFieldID = R.id.craft1_ranks;
-							modsFieldID = R.id.craft1_misc_mod;
-						} else if (crafts == 2) {
-							skill = allSkills.getSkill(i, 2);
-							titleFieldID = R.id.craft2_spinner;
-							totalFieldID = R.id.craft2_total;
-							abModFieldID = R.id.craft2_ab_mod;
-							ranksFieldID = R.id.craft2_ranks;
-							modsFieldID = R.id.craft2_misc_mod;
-						} else if (crafts == 3) {
-							skill = allSkills.getSkill(i, 3);
-							titleFieldID = R.id.craft3_spinner;
-							totalFieldID = R.id.craft3_total;
-							abModFieldID = R.id.craft3_ab_mod;
-							ranksFieldID = R.id.craft3_ranks;
-							modsFieldID = R.id.craft3_misc_mod;
-						} break;
+						titleFieldID = R.id.craft1_spinner;
+						totalFieldID = R.id.craft1_total;
+						abModFieldID = R.id.craft1_ab_mod;
+						ranksFieldID = R.id.craft1_ranks;
+						modsFieldID = R.id.craft1_misc_mod; break;
+					case Skill.CRAFT2_ID:
+						arrayID = R.array.craft_array;
+						titleFieldID = R.id.craft2_spinner;
+						totalFieldID = R.id.craft2_total;
+						abModFieldID = R.id.craft2_ab_mod;
+						ranksFieldID = R.id.craft2_ranks;
+						modsFieldID = R.id.craft2_misc_mod; break;
+					case Skill.CRAFT3_ID:
+						arrayID = R.array.craft_array;
+						titleFieldID = R.id.craft3_spinner;
+						totalFieldID = R.id.craft3_total;
+						abModFieldID = R.id.craft3_ab_mod;
+						ranksFieldID = R.id.craft3_ranks;
+						modsFieldID = R.id.craft3_misc_mod; break;
 					case Skill.DIPLOMACY_ID:
 						totalFieldID = R.id.diplomacy_total;
 						abModFieldID = R.id.diplomacy_ab_mod;
@@ -307,42 +260,34 @@ public class SkillsActivity extends Activity {
 						abModFieldID = R.id.perception_ab_mod;
 						ranksFieldID = R.id.perception_ranks;
 						modsFieldID = R.id.perception_misc_mod; break;
-					case Skill.PERFORM_ID:
-						performs++;
+					case Skill.PERFORM1_ID:
 						arrayID = R.array.perform_array;
-						if (performs == 1) {
-							skill = allSkills.getSkill(i, 1);
 							titleFieldID = R.id.perform1_spinner;
 							totalFieldID = R.id.perform1_total;
 							abModFieldID = R.id.perform1_ab_mod;
 							ranksFieldID = R.id.perform1_ranks;
-							modsFieldID = R.id.perform1_misc_mod;
-						} else if (performs == 2) {
-							skill = allSkills.getSkill(i, 2);
-							titleFieldID = R.id.perform2_spinner;
-							totalFieldID = R.id.perform2_total;
-							abModFieldID = R.id.perform2_ab_mod;
-							ranksFieldID = R.id.perform2_ranks;
-							modsFieldID = R.id.perform2_misc_mod;
-						} break;
-					case Skill.PROFESSION_ID:
-						professions++;
+							modsFieldID = R.id.perform1_misc_mod; break;
+					case Skill.PERFORM2_ID:
+						arrayID = R.array.perform_array;
+						titleFieldID = R.id.perform2_spinner;
+						totalFieldID = R.id.perform2_total;
+						abModFieldID = R.id.perform2_ab_mod;
+						ranksFieldID = R.id.perform2_ranks;
+						modsFieldID = R.id.perform2_misc_mod; break;
+					case Skill.PROFESSION1_ID:
 						arrayID = R.array.profession_array;
-						if (professions == 1) {
-							skill = allSkills.getSkill(i, 1);
-							titleFieldID = R.id.profession1_spinner;
-							totalFieldID = R.id.profession1_total;
-							abModFieldID = R.id.profession1_ab_mod;
-							ranksFieldID = R.id.profession1_ranks;
-							modsFieldID = R.id.profession1_misc_mod;
-						} else if (professions == 2) {
-							skill = allSkills.getSkill(i, 2);
-							titleFieldID = R.id.profession2_spinner;
-							totalFieldID = R.id.profession2_total;
-							abModFieldID = R.id.profession2_ab_mod;
-							ranksFieldID = R.id.profession2_ranks;
-							modsFieldID = R.id.profession2_misc_mod;
-						} break;
+						titleFieldID = R.id.profession1_spinner;
+						totalFieldID = R.id.profession1_total;
+						abModFieldID = R.id.profession1_ab_mod;
+						ranksFieldID = R.id.profession1_ranks;
+						modsFieldID = R.id.profession1_misc_mod; break;
+					case Skill.PROFESSION2_ID:
+						arrayID = R.array.profession_array;
+						titleFieldID = R.id.profession2_spinner;
+						totalFieldID = R.id.profession2_total;
+						abModFieldID = R.id.profession2_ab_mod;
+						ranksFieldID = R.id.profession2_ranks;
+						modsFieldID = R.id.profession2_misc_mod; break;
 					case Skill.RIDE_ID:
 						totalFieldID = R.id.ride_total;
 						abModFieldID = R.id.ride_ab_mod;
@@ -394,11 +339,6 @@ public class SkillsActivity extends Activity {
 						int spinnerPosition = myAdap.getPosition(skill.title);
 						//set the default according to value
 						spinner.setSelection(spinnerPosition);
-						if (i == Skill.CRAFT_ID && crafts < 3
-								|| i == Skill.PERFORM_ID && performs < 2
-								|| i == Skill.PROFESSION_ID && professions < 2) {
-							//i--;
-						}
 					}
 					
 					TextView totalField = (TextView) findViewById(totalFieldID);
@@ -412,26 +352,10 @@ public class SkillsActivity extends Activity {
 					
 					EditText modEnterField = (EditText) findViewById(modsFieldID);
 					modEnterField.setText("" + skill.miscMod);
-	
-	//				cursor2.moveToNext();
-	//			}
+				}
 			}
 		}
-//		cursor2.close();
 	}
-
-//	/**
-//	 * Helper class for storing a string and int together
-//	 * mostly for making the following code readable
-//	 */
-//	private class StrInt {
-//		int i;
-//		String s;
-//		public StrInt(String s, int i) {
-//			this.i = i;
-//			this.s = s;
-//		}
-//	}
 	
 	/**
 	 * Responds to the Save button click and writes all of the currently
@@ -439,26 +363,6 @@ public class SkillsActivity extends Activity {
 	 * user back to the main character creation screen.
 	 */
 	public void skills(View view) {
-		// TODO write method
-		//Skill sk = new Skill(null, null);
-		//ArrayList<Skill> skills = new ArrayList<Skill>();
-
-		// this segment of code is for factoring the code so that it's not so redundant
-		// however the priority is getting this to work, so we can finish this later
-		//		// load skills from DB
-		//		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
-		//				SQLiteHelperRefTables.ALL_COLUMNS_S, null, null, null, null, null);
-		//		Map<Integer, StrInt> skillsRef = new HashMap<Integer, StrInt>(); 
-		//		// ^ this is essentially a map from skill id to skill name and ability score id
-		//		if (cursor.moveToFirst()) {
-		//			// Columns: COLUMN_S_ID, COLUMN_S_NAME, COLUMN_S_REF_AS_ID
-		//			int id 		= cursor.getInt(0);
-		//			String name = cursor.getString(1);
-		//			int asID 	= cursor.getInt(2);
-		//			skillsRef.put(id, new StrInt(name, asID));
-		//		}
-		//		cursor.close();
-
 		// Acrobatics
 		EditText acrobaticsRanksEnter = (EditText) findViewById(R.id.acrobatics_ranks);
 		EditText acrobaticsMiscEnter = (EditText) findViewById(R.id.acrobatics_misc_mod);
@@ -572,7 +476,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!craft1Ranks.matches("")) {
 			int craft1Rank = Integer.parseInt(craft1Ranks);
-			Skill skill = new Skill(charID, Skill.CRAFT_ID);
+			Skill skill = new Skill(charID, Skill.CRAFT1_ID);
 			skill.title = craft1Title;
 			skill.rank = craft1Rank;
 			if (!craft1Misc.matches("")) {
@@ -600,7 +504,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!craft2Ranks.matches("")) {
 			int craft2Rank = Integer.parseInt(craft2Ranks);
-			Skill skill = new Skill(charID, Skill.CRAFT_ID);
+			Skill skill = new Skill(charID, Skill.CRAFT2_ID);
 			skill.title = craft2Title;
 			skill.rank = craft2Rank;
 			if (!craft2Misc.matches("")) {
@@ -629,7 +533,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!craft3Ranks.matches("")) {
 			int craft3Rank = Integer.parseInt(craft3Ranks);
-			Skill skill = new Skill(charID, Skill.CRAFT_ID); 
+			Skill skill = new Skill(charID, Skill.CRAFT3_ID); 
 			skill.title = craft3Title;
 			skill.rank = craft3Rank;
 			if (!craft3Misc.matches("")) {
@@ -1120,7 +1024,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!perform1Ranks.matches("")) {
 			int perform1Rank = Integer.parseInt(perform1Ranks);
-			Skill skill = new Skill(charID, Skill.PERFORM_ID);
+			Skill skill = new Skill(charID, Skill.PERFORM1_ID);
 			skill.title = perform1Title;
 			skill.rank = perform1Rank;
 			if (!perform1Misc.matches("")) {
@@ -1148,7 +1052,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!perform2Ranks.matches("")) {
 			int perform2Rank = Integer.parseInt(perform2Ranks);
-			Skill skill = new Skill(charID, Skill.PERFORM_ID);
+			Skill skill = new Skill(charID, Skill.PERFORM2_ID);
 			skill.title = perform2Title;
 			skill.rank = perform2Rank;
 			if (!perform2Misc.matches("")) {
@@ -1175,7 +1079,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!profession1Ranks.matches("")) {
 			int profession1Rank = Integer.parseInt(profession1Ranks);
-			Skill skill = new Skill(charID, Skill.PROFESSION_ID); 
+			Skill skill = new Skill(charID, Skill.PROFESSION1_ID); 
 			skill.title = profession1Title;
 			skill.rank = profession1Rank;
 			if (!profession1Misc.matches("")) {
@@ -1202,7 +1106,7 @@ public class SkillsActivity extends Activity {
 		}
 		if (!profession2Ranks.matches("")) {
 			int profession2Rank = Integer.parseInt(profession2Ranks);
-			Skill skill = new Skill(charID, Skill.PROFESSION_ID);
+			Skill skill = new Skill(charID, Skill.PROFESSION2_ID);
 			skill.title = profession2Title;
 			skill.rank = profession2Rank;
 			if (!profession2Misc.matches("")) {
@@ -1396,14 +1300,7 @@ public class SkillsActivity extends Activity {
 			allSkills.addSkill(skill);
 		}
 
-		// clear old data from DB
-		SQLiteHelperSkills.db.delete(SQLiteHelperSkills.TABLE_NAME,
-				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null);
-
 		// write all data to DB
-//		for (Skill s : skills) {
-//			s.writeToDB();
-//		}
 		allSkills.writeToDB();
 
 		// return to character creation main screen
