@@ -12,20 +12,11 @@ import junit.framework.TestCase;
 public class CombatTest extends TestCase {
 
 	/**
-	 * Test constructor
-	 * Only tests for non-crash 
-	 */
-	public void testCombat() {
-		Combat c = new Combat();
-		assertTrue(c != null);
-	}
-
-	/**
 	 * Test get base hp
 	 * Depends on constructor
 	 */
 	public void testGetBaseHP() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getBaseHP());
 	}
 
@@ -34,7 +25,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor and getBaseHP
 	 */
 	public void testSetBaseHP() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getBaseHP());
 		
 		int newBase = 8;
@@ -51,7 +42,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor
 	 */
 	public void testGetDamageReduction() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getDamageReduction());
 	}
 
@@ -60,7 +51,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor and getDamageReduction
 	 */
 	public void testSetDamageReduction() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getDamageReduction());
 		
 		int newDR = 1;
@@ -73,63 +64,11 @@ public class CombatTest extends TestCase {
 	}
 
 	/**
-	 * Test get lethal damage
-	 * Depends on constructor
-	 */
-	public void testGetLethalDamage() {
-		Combat c = new Combat();
-		assertEquals(0, c.getLethalDamage());
-	}
-
-	/**
-	 * Test set lethal damage
-	 * Depends on constructor and get lethal damage
-	 */
-	public void testSetLethalDamage() {
-		Combat c = new Combat();
-		assertEquals(0, c.getLethalDamage());
-		
-		int newDamage = 5;
-		c.setLethalDamage(newDamage);
-		assertEquals(newDamage, c.getLethalDamage());
-		
-		newDamage = 17;
-		c.setLethalDamage(newDamage);
-		assertEquals(newDamage, c.getLethalDamage());
-	}
-
-	/**
-	 * Test get bludgeoning damage
-	 * Depends on constructor
-	 */
-	public void testGetBludgeoningDamage() {
-		Combat c = new Combat();
-		assertEquals(0, c.getBludgeoningDamage());
-	}
-
-	/**
-	 * Test get bludgeoning damage
-	 * Depends on constructor and getBludgeoningDamage
-	 */
-	public void testSetBludgeoningDamage() {
-		Combat c = new Combat();
-		assertEquals(0, c.getBludgeoningDamage());
-		
-		int newDamage = 5;
-		c.setBludgeoningDamage(newDamage);
-		assertEquals(newDamage, c.getBludgeoningDamage());
-		
-		newDamage = 17;
-		c.setBludgeoningDamage(newDamage);
-		assertEquals(newDamage, c.getBludgeoningDamage());
-	}
-
-	/**
 	 * Test getting a single armor modifier
 	 * Depends on constructor
 	 */
 	public void testGetArmorModifier() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getArmorModifier("sheild"));
 	}
 
@@ -138,29 +77,11 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor and getArmorModifier
 	 */
 	public void testAddArmorModifier() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getArmorModifier("sheild"));
 	
 		c.addArmorModifier("sheild", 2);
 		assertEquals(2, c.getArmorModifier("sheild"));
-	}
-	
-	/**
-	 * Test setting a single armor modifier
-	 * Depends on constructor, getArmorModifier and addArmorModifier
-	 */
-	public void testRemoveArmorModifier() {
-		Combat c = new Combat();
-		assertEquals(0, c.getArmorModifier("sheild"));
-		
-		c.removeArmorModifier("sheild");
-		assertEquals(0, c.getArmorModifier("sheild"));
-	
-		c.addArmorModifier("sheild", 2);
-		assertEquals(2, c.getArmorModifier("sheild"));
-		
-		c.removeArmorModifier("sheild");
-		assertEquals(0, c.getArmorModifier("sheild"));
 	}
 
 	/**
@@ -168,7 +89,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor
 	 */
 	public void testGetSpeed() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getSpeed());
 	}
 
@@ -177,7 +98,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor and getSpeed
 	 */
 	public void testSetSpeed() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getSpeed());
 	
 		c.setSpeed(30,10);
@@ -189,7 +110,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor
 	 */
 	public void testGetInitModifiers() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getInitModifier());
 	}
 
@@ -198,7 +119,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor and setInitModifiers
 	 */
 	public void testSetInitModifiers() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getInitModifier());
 	
 		c.setInitModifiers(2);
@@ -213,7 +134,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor
 	 */
 	public void testGetbAb() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getbAb());
 	}
 
@@ -222,7 +143,7 @@ public class CombatTest extends TestCase {
 	 * Depends on constructor and getbAb
 	 */
 	public void testSetbAb() {
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(0, c.getbAb());
 	}
 
@@ -232,7 +153,7 @@ public class CombatTest extends TestCase {
 	 */
 	public void testGetArmorTotal() {
 		//TODO: Consider Dexterity
-		Combat c = new Combat();
+		Combat c = new Combat(-1);
 		assertEquals(10, c.getArmorTotal());
 		
 		c.addArmorModifier("armor", 4);

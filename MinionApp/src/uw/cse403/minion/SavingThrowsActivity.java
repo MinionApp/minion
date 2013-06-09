@@ -44,9 +44,9 @@ public class SavingThrowsActivity extends Activity {
 		setContentView(R.layout.activity_saving_throws);
 		charID = this.getIntent().getExtras().getLong("cid");
 
-		fortitude = new SavingThrow(AbilityName.CONSTITUTION);
-		reflex = new SavingThrow(AbilityName.DEXTERITY);
-		will = new SavingThrow(AbilityName.WISDOM);
+		fortitude = new SavingThrow(charID, 1);
+		reflex = new SavingThrow(charID, 2);
+		will = new SavingThrow(charID, 3);
 
 		loadData();
 		
@@ -177,9 +177,9 @@ public class SavingThrowsActivity extends Activity {
 		setReflex();
 		setWill();
 
-		fortitude.writeToDB(charID);
-		reflex.writeToDB(charID);
-		will.writeToDB(charID);
+		fortitude.writeToDB();
+		reflex.writeToDB();
+		will.writeToDB();
 
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);

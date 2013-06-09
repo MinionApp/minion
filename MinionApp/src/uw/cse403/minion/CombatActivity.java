@@ -206,7 +206,7 @@ public class CombatActivity extends Activity {
 			combat.setbAb(bab);
 		}
 
-		combat.writeToDB(charID);
+		combat.writeToDB();
 
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
@@ -305,6 +305,6 @@ public class CombatActivity extends Activity {
 			combat.addArmorModifier(Combat.ARMOR_MISC_STRING, armorMisc);
 		}
 
-		combat.writeToDB(charID);
+		combat.writeToDB();
 	}
 }
