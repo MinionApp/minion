@@ -59,12 +59,18 @@ public class SkillsAll {
 		// get ability scores
 		Ability[] abilities = new Ability[6];
 		// these should auto load from DB
-		abilities[0] = new Ability(charID, AbilityName.STRENGTH);
-		abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
-		abilities[2] = new Ability(charID, AbilityName.CONSTITUTION);
-		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
-		abilities[4] = new Ability(charID, AbilityName.WISDOM);
-		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
+//		abilities[0] = new Ability(charID, AbilityName.STRENGTH);
+//		abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
+//		abilities[2] = new Ability(charID, AbilityName.CONSTITUTION);
+//		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
+//		abilities[4] = new Ability(charID, AbilityName.WISDOM);
+//		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
+		abilities[0] = new Ability(charID, Ability.STRENGTH_ID);
+		abilities[1] = new Ability(charID, Ability.DEXTERITY_ID);
+		abilities[2] = new Ability(charID, Ability.CONSTITUTION_ID);
+		abilities[3] = new Ability(charID, Ability.INTELLIGENCE_ID);
+		abilities[4] = new Ability(charID, Ability.WISDOM_ID);
+		abilities[5] = new Ability(charID, Ability.CHARISMA);
 		
 		// map from skillID to ability score modifier
 		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
@@ -95,10 +101,7 @@ public class SkillsAll {
 				
 				allSkills.put(skillID, skill);
 			}
-		}
-		
-		
-				
+		}			
 	}
 	
 	public void writeToDB() {
@@ -106,5 +109,9 @@ public class SkillsAll {
 			Skill skill = allSkills.get(skillID);
 			skill.writeToDB();
 		}
+	}
+	
+	public Skill getSkill(int skillID) {
+		return allSkills.get(skillID);
 	}
 }
