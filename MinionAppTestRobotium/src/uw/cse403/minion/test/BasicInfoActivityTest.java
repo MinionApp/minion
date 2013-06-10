@@ -6,6 +6,8 @@ import uw.cse403.minion.CharCreateMainActivity;
 import uw.cse403.minion.CharactersActivity;
 import uw.cse403.minion.SaveSharedPreference;
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
@@ -86,12 +88,13 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		
 		String nameStr = name.getText().toString();
 		boolean alignVal = solo.isSpinnerTextSelected(0, "Neutral Evil");
+		boolean alignValG = solo.isSpinnerTextSelected(0, "Neutral Böse");
 		String levelStr = level.getText().toString();
 		String deityStr = deity.getText().toString();
 		String homelandStr = homeland.getText().toString();
 		
 		assertTrue(FILLER_NUMBER.equals(nameStr));
-		assertTrue(alignVal);
+		assertTrue(alignVal || alignValG);
 		assertTrue(FILLER_NUMBER.equals(levelStr));
 		assertTrue(FILLER_NUMBER.equals(deityStr));
 		assertTrue(FILLER_NUMBER.equals(homelandStr));
@@ -117,6 +120,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		
 		String raceStr = race.getText().toString();
 		boolean sizeVal = solo.isSpinnerTextSelected(1, "Medium");
+		boolean sizeValG = solo.isSpinnerTextSelected(1, "Mittelgroß");
 		String genderStr = gender.getText().toString();
 		String ageStr = age.getText().toString();
 		String heightStr = height.getText().toString();
@@ -125,7 +129,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		String eyesStr = eyes.getText().toString();
 		
 		assertTrue(FILLER_ALPHA.equals(raceStr));
-		assertTrue(sizeVal);
+		assertTrue(sizeVal || sizeValG);
 		assertTrue(FILLER_ALPHA.equals(genderStr));
 		assertTrue(FILLER_ALPHA.equals(ageStr));
 		assertTrue(FILLER_ALPHA.equals(heightStr));
@@ -154,6 +158,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		
 		String raceStr = race.getText().toString();
 		boolean sizeVal = solo.isSpinnerTextSelected(1, "Fine");
+		boolean sizeValG = solo.isSpinnerTextSelected(1, "Fein");
 		String genderStr = gender.getText().toString();
 		String ageStr = age.getText().toString();
 		String heightStr = height.getText().toString();
@@ -162,7 +167,7 @@ public class BasicInfoActivityTest extends ActivityInstrumentationTestCase2<Char
 		String eyesStr = eyes.getText().toString();
 		
 		assertTrue(FILLER_NUMBER.equals(raceStr));
-		assertTrue(sizeVal);
+		assertTrue(sizeVal || sizeValG);
 		assertTrue(FILLER_NUMBER.equals(genderStr));
 		assertTrue(FILLER_NUMBER.equals(ageStr));
 		assertTrue(FILLER_NUMBER.equals(heightStr));
