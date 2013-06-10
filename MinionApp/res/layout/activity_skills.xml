@@ -6,6 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <HorizontalScrollView
+            android:layout_width="fill_parent"          
+            android:layout_height="fill_parent" >
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -2358,5 +2361,5 @@
             android:onClick="skills"
             android:text="@string/save" />
     </GridLayout>
-
+</HorizontalScrollView>
 </ScrollView>
