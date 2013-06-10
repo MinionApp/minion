@@ -6,8 +6,6 @@ import uw.cse403.minion.CharCreateMainActivity;
 import uw.cse403.minion.CharactersActivity;
 import uw.cse403.minion.SaveSharedPreference;
 import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
 
