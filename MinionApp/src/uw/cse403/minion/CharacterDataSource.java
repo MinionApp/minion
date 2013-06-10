@@ -78,6 +78,7 @@ public class CharacterDataSource {
 	/**
 	 * Opens the connection to the local database.
 	 */
+	@SuppressWarnings("static-access")
 	public void open() throws SQLException {
 		dbRef = helperRef.getReadableDatabase();
 
