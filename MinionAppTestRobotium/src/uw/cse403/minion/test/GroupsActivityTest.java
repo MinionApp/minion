@@ -32,8 +32,8 @@ public class GroupsActivityTest extends
 	}
 	
 	public void testProperButtonsDisplayed(){
-		Assert.assertTrue(solo.searchButton("Create New Group"));
-		Assert.assertTrue(solo.searchButton("Pending Invites"));
+		Assert.assertTrue(solo.searchButton(solo.getString(uw.cse403.minion.R.string.create_new_group)));
+		Assert.assertTrue(solo.searchButton(solo.getString(uw.cse403.minion.R.string.pending_invites)));
 		solo.finishOpenedActivities();
 	}
 	
