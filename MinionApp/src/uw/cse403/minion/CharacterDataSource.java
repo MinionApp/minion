@@ -78,7 +78,6 @@ public class CharacterDataSource {
 	/**
 	 * Opens the connection to the local database.
 	 */
-	@SuppressWarnings("static-access")
 	public void open() throws SQLException {
 		dbRef = helperRef.getReadableDatabase();
 
@@ -97,17 +96,17 @@ public class CharacterDataSource {
 			SQLiteHelperInterface helper = helpers[i];
 			try {
 				System.out.println("testing table");
-				System.out.println(helper.TABLE_NAME);
-				String[] columns = helper.ALL_COLUMNS;
+				System.out.println(helper.getTableName());
+				String[] columns = helper.getAllColumns();
 				for (int j = 0; j < columns.length; j ++) {
 					System.out.println(columns[j]);
 				}
 				// attempt to query table to see if it exists
-				helper.db.query(helper.TABLE_NAME,
+				helper.getDB().query(helper.getTableName(),
 						columns, null, null, null, null, null);
 			} catch (Exception e) { // table doesn't exist yet, create
 				System.out.println("no table found, creating...");
-				((SQLiteOpenHelper) helper).onCreate(helper.db);
+				((SQLiteOpenHelper) helper).onCreate(helper.getDB());
 			}
 		}
 	}

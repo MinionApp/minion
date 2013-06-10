@@ -10,8 +10,7 @@ import android.util.Log;
  * @author Kevin Dong (kevinxd3)
  *
  */
-public class SQLiteHelperArmor extends SQLiteOpenHelper 
-implements SQLiteHelperInterface {
+public class SQLiteHelperArmor extends SQLiteHelperInterface {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
 	static SQLiteDatabase db;
@@ -58,7 +57,7 @@ implements SQLiteHelperInterface {
 	@Override
 	public void onCreate(SQLiteDatabase database) {
 		System.out.println("SQLiteHelperArmor onCreate");
-		database.execSQL(CREATE_TABLE_STATEMENT);
+		db.execSQL(CREATE_TABLE_STATEMENT);
 	}
 
 	/**
@@ -83,5 +82,20 @@ implements SQLiteHelperInterface {
 	@Override
 	public void printContents(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public String getTableName() {
+		return TABLE_NAME;
+	}
+
+	@Override
+	public String[] getAllColumns() {
+		return ALL_COLUMNS;
+	}
+
+	@Override
+	public SQLiteDatabase getDB() {
+		return db;
 	}
 }

@@ -11,7 +11,7 @@ import android.util.Log;
  * @author Kevin Dong (kevinxd3)
  *
  */
-public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHelperInterface {
+public class SQLiteHelperBasicInfo extends SQLiteHelperInterface {
 	private static final String DATABASE_NAME = "characters.db";
 	private static final int DATABASE_VERSION = 1;
 	static SQLiteDatabase db;
@@ -72,7 +72,7 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 	public void onCreate(SQLiteDatabase database) {
 		System.out.println("SQLiteHelperBasicInfo onCreate");
 		System.out.println(CREATE_TABLE_STATEMENT);
-		database.execSQL(CREATE_TABLE_STATEMENT);
+		db.execSQL(CREATE_TABLE_STATEMENT);
 	}
 
 	/**
@@ -134,5 +134,20 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 			cursor.moveToNext();
 		}
 		cursor.close();
+	}
+
+	@Override
+	public String getTableName() {
+		return TABLE_NAME;
+	}
+
+	@Override
+	public String[] getAllColumns() {
+		return ALL_COLUMNS;
+	}
+
+	@Override
+	public SQLiteDatabase getDB() {
+		return db;
 	}
 }
