@@ -333,5 +333,7 @@
     <string name="players">Players</string>
     
     <string name="game_master">Game Master</string>
+
+    <string name="loading_text">Loading your characters...</string>
     <string name="meters">m</string>
 </resources>
