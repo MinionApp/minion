@@ -12,7 +12,6 @@ import uw.cse403.minion.SkillsActivity;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -32,19 +31,11 @@ public class CreateCharacterFullTest extends
 	private static final String BASE_LEVEL = "1";
 	
 	private static final String STR = "12";
-	private static final String STR_MOD = "1";
 	private static final String DEX = "8";
-	private static final String DEX_MOD = "-1";
 	private static final String CON = "13";
-	private static final String CON_SCORE = "11";
-	private static final String CON_MOD = "0";
 	private static final String INT = "11";
-	private static final String INT_SCORE = "9";
-	private static final String INT_MOD = "-1";
 	private static final String WIS = "14";
-	private static final String WIS_MOD = "2";
 	private static final String CHA = "16";
-	private static final String CHA_MOD = "3";
 	
 	private static final String POSITIVE_MOD = "2";
 	private static final String NEGATIVE_MOD = "-2";
