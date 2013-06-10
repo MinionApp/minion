@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -13,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Debug;
 
 /**
- * 
+ * A helper class that manages the connection to the local database.
  * @author Thomas Eberlein (uwte)
  * @author Kevin Dong (kevinxd3)
  */
@@ -147,7 +146,7 @@ public class CharacterDataSource {
 
 	public void printTables() {
 		helperRef.printContents();
-		helperBasicInfo.printContents(helperBasicInfo.db);
+		helperBasicInfo.printContents(SQLiteHelperBasicInfo.db);
 	}
 
 	/**

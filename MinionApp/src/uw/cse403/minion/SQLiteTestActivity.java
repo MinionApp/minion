@@ -3,7 +3,6 @@ package uw.cse403.minion;
 import java.util.List;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -106,7 +105,7 @@ public class SQLiteTestActivity extends ListActivity {
 		ArrayAdapter<Character> adapter = (ArrayAdapter<Character>) getListAdapter();
 		if (!getListAdapter().isEmpty()) {
 			Character character = (Character)getListAdapter().getItem(0);
-			datasource.deleteCharacter(character);
+			CharacterDataSource.deleteCharacter(character);
 			adapter.remove(character);
 		}
 	}

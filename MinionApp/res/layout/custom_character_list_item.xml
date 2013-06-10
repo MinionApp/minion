@@ -6,14 +6,6 @@
     android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
     android:paddingTop="2dip" >
 
-    <TextView
-        android:id="@+id/character"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text=""
-        android:textSize="16sp" />
-
     <Button
         android:id="@+id/delete_button"
         style="?android:attr/buttonStyleSmall"
@@ -23,5 +15,13 @@
         android:focusable="false"
         android:onClick="deleteCharacter"
         android:text="Delete" />
+    
+    <TextView
+        android:id="@+id/character"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text=""
+        android:textSize="16sp" />
 
 </RelativeLayout>
