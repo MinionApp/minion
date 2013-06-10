@@ -182,12 +182,18 @@ public class CreateCharacterFullTest extends
 		solo.clearEditText(bluff);
 		solo.clearEditText(bluffMisc);
 		solo.typeText(bluff, SKILL_RANK);
+		solo.scrollToSide(Solo.RIGHT);
 		solo.typeText(bluffMisc, NEGATIVE_MOD);
+		solo.scrollToSide(Solo.LEFT);
+		
 		solo.pressSpinnerItem(0, 1);
 		solo.clearEditText(craftA);
 		solo.clearEditText(craftMisc);
 		solo.typeText(craftA, SKILL_RANK);
+		solo.scrollToSide(Solo.RIGHT);
 		solo.typeText(craftMisc, POSITIVE_MOD);
+		solo.scrollToSide(Solo.LEFT);
+		
 		solo.clearEditText(knowH);
 		solo.typeText(knowH, SKILL_RANK_LARGE);
 		solo.pressSpinnerItem(1, 6);
