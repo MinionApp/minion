@@ -28,7 +28,7 @@ public class GroupsActivityTest extends
 	@Override
 	protected void setUp() throws Exception {
 		solo = new Solo(getInstrumentation(), getActivity());
-		SaveSharedPreference.setUserName(getActivity(), VALID_USERNAME);		
+		SaveSharedPreference.setUserName(getActivity(), VALID_USERNAME);	
 	}
 	
 	public void testProperButtonsDisplayed(){
@@ -49,7 +49,7 @@ public class GroupsActivityTest extends
 		solo.finishOpenedActivities();
 	}
 	
-	public void testRightNubmerOfGroupsDisplayed(){
+	public void testRightNumberOfGroupsDisplayed(){
 		ListView groups = solo.getView(ListView.class, 0);
 		Assert.assertEquals(1, groups.getAdapter().getCount());
 		solo.finishOpenedActivities();
