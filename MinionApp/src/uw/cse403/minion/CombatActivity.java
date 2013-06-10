@@ -100,7 +100,7 @@ public class CombatActivity extends Activity {
 	 */
 	private void loadData() {
 		// get dexterity modifier
-		Ability dexterity = new Ability(charID, AbilityName.DEXTERITY);
+		Ability dexterity = new Ability(charID, 1);
 		combat.dexMod = dexterity.getMod();
 
 		String size = "";
@@ -135,10 +135,10 @@ public class CombatActivity extends Activity {
 		// load user data
 		if (!combat.isNew) {
 			EditText hitPointsTotalEnter = (EditText) findViewById(R.id.hit_point_total_enter);
-			hitPointsTotalEnter.setText("" + combat.getBaseHP());
+			hitPointsTotalEnter.setText("" + combat.baseHP);
 			
 			EditText hitPointsDrEnter = (EditText) findViewById(R.id.hit_point_dr_enter);
-			hitPointsDrEnter.setText("" + combat.getDamageReduction());
+			hitPointsDrEnter.setText("" + combat.damageReduction);
 
 			EditText speedBaseEnter = (EditText) findViewById(R.id.speed_base_enter);
 			speedBaseEnter.setText("" + combat.speedBase);
@@ -154,7 +154,7 @@ public class CombatActivity extends Activity {
 			initiativeDexModField.setText("" + combat.dexMod);
 
 			EditText initiativeMiscModEnter = (EditText) findViewById(R.id.initiative_misc_modifier_enter);
-			initiativeMiscModEnter.setText("" + combat.getInitModifier());
+			initiativeMiscModEnter.setText("" + combat.initModifier);
 
 			// armor stuff
 			TextView armorTotalField = (TextView) findViewById(R.id.armor_total);
@@ -183,7 +183,7 @@ public class CombatActivity extends Activity {
 			
 			// base attack bonus
 			EditText babEnter = (EditText) findViewById(R.id.attack_bonus_enter);
-			babEnter.setText("" + combat.getbAb());
+			babEnter.setText("" + combat.bAb);
 		}
 	}
 
@@ -203,10 +203,10 @@ public class CombatActivity extends Activity {
 		String babRaw = babEnter.getText().toString().trim();
 		if (!babRaw.matches("")) {
 			int bab = Integer.parseInt(babRaw);
-			combat.setbAb(bab);
+			combat.bAb = bab;
 		}
 
-		combat.writeToDB(charID);
+		combat.writeToDB();
 
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
@@ -222,14 +222,14 @@ public class CombatActivity extends Activity {
 		String hitPointsTotalRaw = hitPointsTotalEnter.getText().toString().trim();
 		if (!hitPointsTotalRaw.matches("")) {
 			int hitPointsTotal = Integer.parseInt(hitPointsTotalRaw);
-			combat.setBaseHP(hitPointsTotal);
+			combat.baseHP = hitPointsTotal;
 		}
 
 		EditText hitPointsDrEnter = (EditText) findViewById(R.id.hit_point_dr_enter);
 		String hitPointsDrRaw = hitPointsDrEnter.getText().toString().trim();
 		if (!hitPointsDrRaw.matches("")) {
 			int hitPointsDr = Integer.parseInt(hitPointsDrRaw);
-			combat.setDamageReduction(hitPointsDr);
+			combat.damageReduction = hitPointsDr;
 		}
 	}
 
@@ -262,7 +262,7 @@ public class CombatActivity extends Activity {
 		String initiativeMiscModRaw = initiativeMiscModEnter.getText().toString().trim();
 		if (!initiativeMiscModRaw.matches("")) {
 			int initiativeMiscMod = Integer.parseInt(initiativeMiscModRaw);
-			combat.setInitModifiers(initiativeMiscMod);
+			combat.initModifier = initiativeMiscMod;
 		}
 	}
 
@@ -305,6 +305,6 @@ public class CombatActivity extends Activity {
 			combat.addArmorModifier(Combat.ARMOR_MISC_STRING, armorMisc);
 		}
 
-		combat.writeToDB(charID);
+		combat.writeToDB();
 	}
 }

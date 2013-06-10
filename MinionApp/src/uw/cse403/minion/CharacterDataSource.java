@@ -96,17 +96,17 @@ public class CharacterDataSource {
 			SQLiteHelperInterface helper = helpers[i];
 			try {
 				System.out.println("testing table");
-				System.out.println(helper.getTableName());
-				String[] columns = helper.getColumns();
+				System.out.println(helper.TABLE_NAME);
+				String[] columns = helper.ALL_COLUMNS;
 				for (int j = 0; j < columns.length; j ++) {
 					System.out.println(columns[j]);
 				}
 				// attempt to query table to see if it exists
-				helper.getDB().query(helper.getTableName(),
+				helper.db.query(helper.TABLE_NAME,
 						columns, null, null, null, null, null);
 			} catch (Exception e) { // table doesn't exist yet, create
 				System.out.println("no table found, creating...");
-				((SQLiteOpenHelper) helper).onCreate(helper.getDB());
+				((SQLiteOpenHelper) helper).onCreate(helper.db);
 			}
 		}
 	}
@@ -123,25 +123,6 @@ public class CharacterDataSource {
 		helperArmor.close();
 		helperSavingThrows.close();
 		helperWeapons.close();
-	}
-
-	/**
-	 * Gets a list of all characters in local database
-	 * @return list of all characters
-	 */
-	public List<Character> getAllCharacters() {
-		List<Character> characters = new ArrayList<Character>();
-		// TODO actually get the characters
-		return characters;
-	}
-
-	// helper method for building Character from current cursor
-	private Character cursorToCharacter(Cursor cursor) {
-		//Character character = new Character();
-		//character.setId(cursor.getLong(0));
-		//character.setName(cursor.getString(1));
-		//return character;
-		return null;
 	}
 
 	public void printTables() {

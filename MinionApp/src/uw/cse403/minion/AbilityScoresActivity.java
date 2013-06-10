@@ -50,12 +50,12 @@ public class AbilityScoresActivity extends Activity {
 
 		charID = this.getIntent().getExtras().getLong(CHARACTER_ID);
 		abilities = new Ability[6];
-		abilities[0] = new Ability(charID, AbilityName.STRENGTH);
-		abilities[1] = new Ability(charID, AbilityName.DEXTERITY);
-		abilities[2] = new Ability(charID, AbilityName.CONSTITUTION);
-		abilities[3] = new Ability(charID, AbilityName.INTELLIGENCE);
-		abilities[4] = new Ability(charID, AbilityName.WISDOM);
-		abilities[5] = new Ability(charID, AbilityName.CHARISMA);
+		abilities[0] = new Ability(charID, Ability.STRENGTH_ID);
+		abilities[1] = new Ability(charID, Ability.DEXTERITY_ID);
+		abilities[2] = new Ability(charID, Ability.CONSTITUTION_ID);
+		abilities[3] = new Ability(charID, Ability.INTELLIGENCE_ID);
+		abilities[4] = new Ability(charID, Ability.WISDOM_ID);
+		abilities[5] = new Ability(charID, Ability.CHARISMA_ID);
 		loadData();
 		if (TraceControl.TRACE)
 			Debug.stopMethodTracing();
@@ -115,19 +115,19 @@ public class AbilityScoresActivity extends Activity {
 				R.id.int_temp, R.id.wis_temp, R.id.cha_temp };
 		for (int i = 0; i < abilities.length; i++) {
 			if (!abilities[i].isNew) {
-				System.out.println(i + "  " + abilities[i].getBase());
+				System.out.println(i + "  " + abilities[i].baseScore);
 
 				TextView abScoreView = (TextView) findViewById(abScoreFields[i]);
-				abScoreView.setText("" + abilities[i].getScore());
+				abScoreView.setText("" + abilities[i].getTotal());
 
 				TextView abModView = (TextView) findViewById(abModFields[i]);
 				abModView.setText("" + abilities[i].getMod());
 
 				EditText baseEnter = (EditText) findViewById(baseFields[i]);
-				baseEnter.setText("" + abilities[i].getBase());
+				baseEnter.setText("" + abilities[i].baseScore);
 
 				EditText tempEnter = (EditText) findViewById(tempFields[i]);
-				tempEnter.setText("" + abilities[i].getTempModifier(Ability.SAMPLE_MODIFIER));
+				tempEnter.setText("" + abilities[i].tempMod);
 			}
 		}
 	}
@@ -156,7 +156,7 @@ public class AbilityScoresActivity extends Activity {
 		// write to DB
 		for (int i = 0; i < abilities.length; i++) {
 			abilities[i].writeToDB();
-			System.out.println("Writing charID=" + charID + " abilityID=" + i + " base=" + abilities[i].getBase());
+			System.out.println("Writing charID=" + charID + " abilityID=" + i + " base=" + abilities[i].baseScore);
 		}
 
 		// return to character creation main screen
@@ -179,13 +179,13 @@ public class AbilityScoresActivity extends Activity {
 			strBase = defaultValue;
 		}
 		Ability str = abilities[0];
-		str.setBase(strBase);
+		str.baseScore = strBase;
 
 		EditText strTempEnter = (EditText) findViewById(R.id.str_temp);
 		String strTempRaw = strTempEnter.getText().toString().trim();
 		if (!strTempRaw.matches("")) {
 			Integer strTemp = Integer.parseInt(strTempRaw);
-			str.addTempModifier(Ability.SAMPLE_MODIFIER, strTemp);
+			str.tempMod = strTemp;
 
 		}
 
@@ -206,13 +206,13 @@ public class AbilityScoresActivity extends Activity {
 			dexBase = defaultValue;
 		}
 		Ability dex = abilities[1];
-		dex.setBase(dexBase);
+		dex.baseScore = dexBase;
 
 		EditText dexTempEnter = (EditText) findViewById(R.id.dex_temp);
 		String dexTempRaw = dexTempEnter.getText().toString().trim();
 		if (!dexTempRaw.matches("")) {
 			Integer dexTemp = Integer.parseInt(dexTempRaw);
-			dex.addTempModifier(Ability.SAMPLE_MODIFIER, dexTemp);
+			dex.tempMod = dexTemp;
 
 		}
 
@@ -233,13 +233,13 @@ public class AbilityScoresActivity extends Activity {
 			conBase = defaultValue;
 		}
 		Ability con = abilities[2];
-		con.setBase(conBase);
+		con.baseScore = conBase;
 
 		EditText conTempEnter = (EditText) findViewById(R.id.con_temp);
 		String conTempRaw = conTempEnter.getText().toString().trim();
 		if (!conTempRaw.matches("")) {
 			Integer conTemp = Integer.parseInt(conTempRaw);
-			con.addTempModifier(Ability.SAMPLE_MODIFIER, conTemp);
+			con.tempMod = conTemp;
 
 		}
 
@@ -260,13 +260,13 @@ public class AbilityScoresActivity extends Activity {
 			intelBase = defaultValue;
 		}
 		Ability intel = abilities[3];
-		intel.setBase(intelBase);
+		intel.baseScore = intelBase;
 
 		EditText intelTempEnter = (EditText) findViewById(R.id.int_temp);
 		String intelTempRaw = intelTempEnter.getText().toString().trim();
 		if (!intelTempRaw.matches("")) {
 			Integer intelTemp = Integer.parseInt(intelTempRaw);
-			intel.addTempModifier(Ability.SAMPLE_MODIFIER, intelTemp);
+			intel.tempMod = intelTemp;
 
 		}
 
@@ -287,13 +287,13 @@ public class AbilityScoresActivity extends Activity {
 			wisBase = defaultValue;
 		}
 		Ability wis = abilities[4];
-		wis.setBase(wisBase);
+		wis.baseScore = wisBase;
 
 		EditText wisTempEnter = (EditText) findViewById(R.id.wis_temp);
 		String wisTempRaw = wisTempEnter.getText().toString().trim();
 		if (!wisTempRaw.matches("")) {
 			Integer wisTemp = Integer.parseInt(wisTempRaw);
-			wis.addTempModifier(Ability.SAMPLE_MODIFIER, wisTemp);
+			wis.tempMod = wisTemp;
 
 		}
 
@@ -314,17 +314,15 @@ public class AbilityScoresActivity extends Activity {
 			chaBase = defaultValue;
 		}
 		Ability cha = abilities[5];
-		cha.setBase(chaBase);
+		cha.baseScore = chaBase;
 
 		EditText chaTempEnter = (EditText) findViewById(R.id.cha_temp);
 		String chaTempRaw = chaTempEnter.getText().toString().trim();
 		if (!chaTempRaw.matches("")) {
 			Integer chaTemp = Integer.parseInt(chaTempRaw);
-			cha.addTempModifier(Ability.SAMPLE_MODIFIER, chaTemp);
-
+			cha.tempMod = chaTemp;
 		}
 
 		return cha;
 	}
-
 }

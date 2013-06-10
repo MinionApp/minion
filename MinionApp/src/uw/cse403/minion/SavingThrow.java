@@ -11,6 +11,9 @@ import android.os.Debug;
  * @author lokiw
  */
 public class SavingThrow {
+	public static final int FORTITUDE_ID = 1;
+	public static final int REFLEX_ID = 2;
+	public static final int WILL_ID = 3;
 
 	/** Class constants for string representations **/
 	public static final String MAGIC_MOD_STRING = "magic";
@@ -19,57 +22,39 @@ public class SavingThrow {
 
 	/** The unique id for a character **/
 	public long charID;
+	public int saveID;
 
 	/** Used to determine whether to populate UI with stored values **/
 	public boolean isNew;
 
 	/** Various components the make up the saving throw information about a character **/
-	private AbilityName assocAbility;
-	private int baseSave;
-	private Map<String,Integer> modifiers;
+	public int baseSave;
+	public Map<String,Integer> modifiers;
 	public int abMod;
 
 	/**
 	 * Initialize a saving throw.
-	 * @param attribute	the associated attribute for the saving throw,
-	 * 			throws IllegalArgumentException if not WISDOM, DEXTERITY or
-	 * 			CONSTITUTION
+	 * @param charID	ID of character associated with object
+	 * @param saveID	ID of specific saving throw where
+	 * 							1 is Fortitude
+	 * 							2 is Reflex
+	 * 							3 is Will
 	 */
-	public SavingThrow(AbilityName attribute){
-		if (attribute != AbilityName.WISDOM && attribute != AbilityName.DEXTERITY
-				&& attribute != AbilityName.CONSTITUTION) {
-			throw new IllegalArgumentException();
-		}
-		assocAbility = attribute;
+	public SavingThrow(long charID, int saveID){
 		baseSave = 0;
 		modifiers = new HashMap<String,Integer>();
+		this.charID = charID;
+		this.saveID = saveID;
 		
 		if (TraceControl.TRACE)
 			Debug.startMethodTracing("SavingThrow_database");
 		
-		loadFromDB();
+		if (charID >= 0) {
+			loadFromDB();
+		}
 		
 		if (TraceControl.TRACE)
 			Debug.stopMethodTracing();
-	}
-
-	/**
-	 * Return base save
-	 * @return int base save
-	 */
-	public int getBaseSave(){
-		return baseSave;
-	}
-
-	/**
-	 * Set base save to given value
-	 * @param save	new base save
-	 */
-	public void setBaseSave(int save){
-		if (save < 0) {
-			throw new IllegalArgumentException();
-		}
-		baseSave = save;
 	}
 
 	/**
@@ -145,18 +130,11 @@ public class SavingThrow {
 	private void loadFromDB() {
 		isNew = true;
 		// attempt to load from DB
-		int stID = 0;
-		if (assocAbility == AbilityName.CONSTITUTION)
-			stID = 1;
-		if (assocAbility == AbilityName.DEXTERITY)
-			stID = 2;
-		if (assocAbility == AbilityName.WISDOM)
-			stID = 3;
 
 		Cursor cursor = SQLiteHelperSavingThrows.db.query(SQLiteHelperSavingThrows.TABLE_NAME, 
 				SQLiteHelperSavingThrows.ALL_COLUMNS, SQLiteHelperSavingThrows.COLUMN_CHAR_ID 
 				+ " = " + charID + " AND " + SQLiteHelperSavingThrows.COLUMN_REF_ST_ID
-				+ " = " + stID, null, null, null, null);
+				+ " = " + saveID, null, null, null, null);
 
 		if (cursor.moveToFirst()) {
 			isNew = false;
@@ -175,22 +153,15 @@ public class SavingThrow {
 	 * @param id id of character
 	 * @param db database to write into
 	 */
-	public void writeToDB(long charID) {
-		int stID = 0; //saving throw ID 
-		if (assocAbility == AbilityName.CONSTITUTION)
-			stID = 1;
-		if (assocAbility == AbilityName.DEXTERITY)
-			stID = 2;
-		if (assocAbility == AbilityName.WISDOM)
-			stID = 3;
+	public void writeToDB() {
 		// remove old data
 		SQLiteHelperSavingThrows.db.delete(SQLiteHelperSavingThrows.TABLE_NAME, 
 				SQLiteHelperSavingThrows.COLUMN_CHAR_ID + " = " + charID + " AND " 
-						+ SQLiteHelperSavingThrows.COLUMN_REF_ST_ID + " = " + stID, null);
+						+ SQLiteHelperSavingThrows.COLUMN_REF_ST_ID + " = " + saveID, null);
 		// prepare new insert
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperSavingThrows.COLUMN_CHAR_ID, charID);
-		values.put(SQLiteHelperSavingThrows.COLUMN_REF_ST_ID, stID);
+		values.put(SQLiteHelperSavingThrows.COLUMN_REF_ST_ID, saveID);
 		values.put(SQLiteHelperSavingThrows.COLUMN_BASE_SAVE, baseSave);
 		values.put(SQLiteHelperSavingThrows.COLUMN_MAGIC_MOD, modifiers.get(MAGIC_MOD_STRING));
 		values.put(SQLiteHelperSavingThrows.COLUMN_MISC_MOD, modifiers.get(MISC_MOD_STRING));

@@ -162,6 +162,8 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 		list.add(new IntStr(CHA, "Bluff"));
 		list.add(new IntStr(STR, "Climb"));
 		list.add(new IntStr(INT, "Craft"));
+		list.add(new IntStr(INT, "Craft"));
+		list.add(new IntStr(INT, "Craft"));
 		list.add(new IntStr(CHA, "Diplomacy"));
 		list.add(new IntStr(DEX, "Disable Device"));
 		list.add(new IntStr(CHA, "Disguise"));
@@ -183,6 +185,8 @@ public class SQLiteHelperRefTables extends SQLiteOpenHelper {
 		list.add(new IntStr(INT, "Linguistics"));
 		list.add(new IntStr(WIS, "Perception"));
 		list.add(new IntStr(CHA, "Perform"));
+		list.add(new IntStr(CHA, "Perform"));
+		list.add(new IntStr(WIS, "Profession"));
 		list.add(new IntStr(WIS, "Profession"));
 		list.add(new IntStr(DEX, "Ride"));
 		list.add(new IntStr(WIS, "Sense Motive"));

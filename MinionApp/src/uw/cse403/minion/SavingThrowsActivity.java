@@ -44,9 +44,9 @@ public class SavingThrowsActivity extends Activity {
 		setContentView(R.layout.activity_saving_throws);
 		charID = this.getIntent().getExtras().getLong("cid");
 
-		fortitude = new SavingThrow(AbilityName.CONSTITUTION);
-		reflex = new SavingThrow(AbilityName.DEXTERITY);
-		will = new SavingThrow(AbilityName.WISDOM);
+		fortitude = new SavingThrow(charID, 1);
+		reflex = new SavingThrow(charID, 2);
+		will = new SavingThrow(charID, 3);
 
 		loadData();
 		
@@ -99,9 +99,9 @@ public class SavingThrowsActivity extends Activity {
 	 */
 	private void loadData() {
 		// get relevant ability scores
-		Ability constitution = new Ability(charID, AbilityName.CONSTITUTION);
-		Ability dexterity = new Ability(charID, AbilityName.DEXTERITY);
-		Ability wisdom = new Ability(charID, AbilityName.WISDOM);
+		Ability constitution = new Ability(charID, 2);
+		Ability dexterity = new Ability(charID, 1);
+		Ability wisdom = new Ability(charID, 4);
 		fortitude.abMod = constitution.getMod();
 		reflex.abMod = dexterity.getMod();
 		will.abMod = wisdom.getMod();
@@ -111,7 +111,7 @@ public class SavingThrowsActivity extends Activity {
 			fortTotalField.setText("" + fortitude.getTotal());
 			
 			EditText fortBaseEnter = (EditText) findViewById(R.id.fortitude_base);
-			fortBaseEnter.setText("" + fortitude.getBaseSave());
+			fortBaseEnter.setText("" + fortitude.baseSave);
 			
 			TextView fortAbModField = (TextView) findViewById(R.id.fortitude_ability);
 			fortAbModField.setText("" + fortitude.abMod);
@@ -131,7 +131,7 @@ public class SavingThrowsActivity extends Activity {
 			reflexTotalField.setText("" + reflex.getTotal());
 
 			EditText reflexBaseEnter = (EditText) findViewById(R.id.reflex_base);
-			reflexBaseEnter.setText("" + reflex.getBaseSave());
+			reflexBaseEnter.setText("" + reflex.baseSave);
 			
 			TextView reflexAbModField = (TextView) findViewById(R.id.reflex_ability);
 			reflexAbModField.setText("" + reflex.abMod);
@@ -151,7 +151,7 @@ public class SavingThrowsActivity extends Activity {
 			willTotalField.setText("" + will.getTotal());
 
 			EditText willBaseEnter = (EditText) findViewById(R.id.will_base);
-			willBaseEnter.setText("" + will.getBaseSave());
+			willBaseEnter.setText("" + will.baseSave);
 			
 			TextView willAbModField = (TextView) findViewById(R.id.will_ability);
 			willAbModField.setText("" + will.abMod);
@@ -177,9 +177,9 @@ public class SavingThrowsActivity extends Activity {
 		setReflex();
 		setWill();
 
-		fortitude.writeToDB(charID);
-		reflex.writeToDB(charID);
-		will.writeToDB(charID);
+		fortitude.writeToDB();
+		reflex.writeToDB();
+		will.writeToDB();
 
 		// return to character creation main screen
 		Intent intent = new Intent(this, CharCreateMainActivity.class);
@@ -198,7 +198,7 @@ public class SavingThrowsActivity extends Activity {
 		}
 		if (!fortBaseRaw.matches("")) {
 			int fortBase = Integer.parseInt(fortBaseRaw);
-			fortitude.setBaseSave(fortBase);
+			fortitude.baseSave = fortBase;
 		}
 
 		EditText fortMagicEnter = (EditText) findViewById(R.id.fortitude_magic);
@@ -243,7 +243,7 @@ public class SavingThrowsActivity extends Activity {
 		}
 		if (!reflexBaseRaw.matches("")) {
 			int reflexBase = Integer.parseInt(reflexBaseRaw);
-			reflex.setBaseSave(reflexBase);
+			reflex.baseSave = reflexBase;
 		}
 
 		EditText reflexMagicEnter = (EditText) findViewById(R.id.reflex_magic);
@@ -288,7 +288,7 @@ public class SavingThrowsActivity extends Activity {
 		}
 		if (!willBaseRaw.matches("")) {
 			int willBase = Integer.parseInt(willBaseRaw);
-			will.setBaseSave(willBase);
+			will.baseSave = willBase;
 		}
 
 		EditText willMagicEnter = (EditText) findViewById(R.id.will_magic);
