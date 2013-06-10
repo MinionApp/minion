@@ -29,7 +29,7 @@ public class ViewGroupActivityTest extends
 	ActivityInstrumentationTestCase2<ViewGroupActivity> {
 	
 	private Solo solo;
-	private static final String VALID_USERNAME = "test";
+	private static final String VALID_USERNAME = "UseForTestingOnly";
 	
 	public ViewGroupActivityTest() {
 		super(ViewGroupActivity.class);
@@ -46,8 +46,8 @@ public class ViewGroupActivityTest extends
 		
 		Log.i("user name", "set user name");
 		Intent i = new Intent();
-		i.putExtra("groupname", "testGroup");
-		i.putExtra("gm", "test");
+		i.putExtra("groupname", "GroupForTestingOnly");
+		i.putExtra("gm", "UseForTestingOnly");
 		setActivityIntent(i);
 		solo = new Solo(getInstrumentation(), getActivity());
 		SaveSharedPreference.setPersistentUserName(getActivity(), VALID_USERNAME);
@@ -60,7 +60,7 @@ public class ViewGroupActivityTest extends
 	 */
 	public void testListOfUsersDisplayed(){
 		ListView chars = solo.getView(ListView.class, 0);
-		Assert.assertEquals(5, chars.getAdapter().getCount());
+		Assert.assertEquals(3, chars.getAdapter().getCount());
 		solo.finishOpenedActivities();
 	}
 	
@@ -69,11 +69,8 @@ public class ViewGroupActivityTest extends
 	 * the group, based on username.
 	 */
 	public void testDisplaysUsersInGroup(){
-		Assert.assertTrue(solo.searchText("user_1"));
-		Assert.assertTrue(solo.searchText("user_2"));
-		Assert.assertTrue(solo.searchText("user_3"));
-		Assert.assertTrue(solo.searchText("user_4"));
-		Assert.assertTrue(solo.searchText("user_5"));
+		Assert.assertTrue(solo.searchText("GroupTestUser1"));
+		Assert.assertTrue(solo.searchText("GroupTestUser2"));
 		solo.finishOpenedActivities();
 	}
 	
@@ -82,22 +79,9 @@ public class ViewGroupActivityTest extends
 	 * for each user is displayed.  	
 	 */
 	public void testDisplaysUsersCharactersNames(){
-		Assert.assertTrue(solo.searchText("user_1_character"));
-		Assert.assertTrue(solo.searchText("user_2_character"));
-		Assert.assertTrue(solo.searchText("user_3_character"));
-		Assert.assertTrue(solo.searchText("user_4_character"));
-		Assert.assertTrue(solo.searchText("user_5_character"));		
+		Assert.assertTrue(solo.searchText("GroupTestChar1"));
+		Assert.assertTrue(solo.searchText("GroupTestChar2"));		
 		solo.finishOpenedActivities();
 	}
-	
-	/**
-	 * testGoToCharactersStats() tests that when a user in the group is clicked,
-	 * the client is taken to the CharCreateMainActivity to be able to view that
-	 * user's character's stats. 
-	 */
-	public void testGoToCharacterStats(){
-		solo.clickOnText("user_1");
-		solo.assertCurrentActivity("Character Info", CharCreateMainActivity.class);
-		solo.finishOpenedActivities();
-	}
+
 }
