@@ -3,7 +3,6 @@ package uw.cse403.minion;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 /**
  * SQLiteHelperBasicInfo manages creating, accessing and deleting

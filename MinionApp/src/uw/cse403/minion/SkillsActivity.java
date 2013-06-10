@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
@@ -99,6 +100,7 @@ public class SkillsActivity extends Activity {
 	/**
 	 * Loads all of the skills for the current character from the database.
 	 */
+	@SuppressLint("UseSparseArrays")
 	public void loadData() {
 		allSkills = new SkillsAll(charID);
 		if (!allSkills.isNew) {
