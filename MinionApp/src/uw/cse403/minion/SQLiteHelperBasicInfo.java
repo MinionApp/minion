@@ -41,7 +41,7 @@ public class SQLiteHelperBasicInfo extends SQLiteHelperInterface {
 	private static final String CREATE_TABLE_STATEMENT = "CREATE TABLE "
 			+ TABLE_NAME 	+ "(" 
 			+ COLUMN_ID 		+ " integer primary key autoincrement, " 
-			+ COLUMN_NAME 		+ " text unique not null, "
+			+ COLUMN_NAME 		+ " text, "
 			+ COLUMN_ALIGNMENT 	+ " text, "
 			+ COLUMN_LEVEL 		+ " text, "
 			+ COLUMN_DEITY 		+ " text, "
