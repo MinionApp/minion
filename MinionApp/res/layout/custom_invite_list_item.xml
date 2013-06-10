@@ -28,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:focusable="false"
         android:onClick="declineInvite"
-        android:text="Decline" />
+        android:text="@string/decline" />
 
     <Button
         android:id="@+id/accept_button"
@@ -38,6 +38,6 @@
         android:layout_toLeftOf="@+id/decline_button"
         android:focusable="false"
         android:onClick="acceptInvite"
-        android:text="Accept" />
+        android:text="@string/accept" />
 
 </RelativeLayout>

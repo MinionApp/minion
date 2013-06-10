@@ -38,7 +38,7 @@
     <string name="return_to_login_clickable_text">(Gehen zu Login zurück)</string>
     <string name="invalid_password_message">Dein Passwort muss mindestens 8 Buchstaben lang sind und muss mindestens ein Zahl, ein Kleinbuchstabe, 
 	    ein Großbuchstabe, ein Sonderzeichen (@#$%^&#038;+=), und kein Wortzwischenraum haben.</string>
-    <string name="password_confirmation">Confirm Passwort rückmelden</string>
+    <string name="password_confirmation">Passwort rückmelden</string>
     <string name="non_matching_passwords_message">Die angebotene Passwörter passen nicht zusammen.</string>
     <string name="keep_logged_in">Erinner mich</string>
     <string name="button_logout">Abmeldung</string>
@@ -82,7 +82,7 @@
     <string-array name="size_array">
         <item>Fein</item>
         <item>Diminutiv</item>
-        <item>Tiny</item>
+        <item>Winzig</item>
         <item>Klein</item>
         <item>Mittelgroß</item>
         <item>Groß</item>
@@ -111,7 +111,7 @@
     <string name="initiative">Initiative (Modifikatoren)</string>
     <string name="initiative_total">Gesamt</string>
     <string name="initiative_dex">Geschicklichkeit (Modifikatoren)</string>
-    <string name="initiative_misc">Sonst (Modifikatoren)</string>
+    <string name="initiative_misc">Sonst (Mod.)</string>
     <string name="armor_class">RK (Rüstungklasse)</string>  
     <string name="armor_total">Gesamt</string>
     <string name="armor_constant">10 +</string>
@@ -311,5 +311,28 @@
     <string name="remove_user">Benutzer wegnehmen</string>
     <string name="invite_user">Benutzer einladen</string>
     <string name="finish_editing">Fertig</string>
+    
+    <string name="add">Addieren</string>
+    <string name="ein"> ein</string>
+    <string name="send_new_invites_for">Schick neue Einladungen für </string>
+    <string name="enter_valid_group_name">Geben Sie eine berechtige Gruppename ein.</string>
+    <string name="cannot_add_self">Sie können sich nicht in der Gruppe aufnehmen.</string>
+    <string name="must_input">Sie müssen Benutzernamen für alle Felder eingeben.</string>
+    <string name="no_network">Kein Netzwerk verfügbar</string>
+    <string name="no_character">Sie haben kein Charakter, mit dem Sie spielen können! Bitte schaffen Sie einen Charakter!</string>
+    <string name="no_char_warning">Keine Charaktern Warnung</string>
+    <string name="no_username_entered">Kein Benutzername wurde eingegeben</string>
+    <string name="uploading_char">Charakter wird eingestellt&#8230;</string>
+    <string name="pick_char">Wählen Sie einen Charakter</string>
+    <string name="decline">Ablehnen</string>
+    <string name="accept">Akzeptieren</string>
+    <string name="remove_player">Spieler wegnehmen</string>
+    <string name="make_gm">SM machen</string>
+    <string name="edit">Editieren</string>
+    <string name="gm_colon">Spielmeister:</string>
+    <string name="players">Spieler</string>
+    
+    <string name="game_master">Spielmeister</string>
+    <string name="meters">m</string>
 
 </resources>

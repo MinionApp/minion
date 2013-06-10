@@ -3,6 +3,7 @@ package uw.cse403.minion;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
@@ -85,7 +86,9 @@ public class SignupActivity extends Activity{
 				EditText usernameEditText = (EditText)findViewById(R.id.username_input);
 				usernameEditText.requestFocus();
 				TextView error = (TextView) findViewById(R.id.username_error);
-				error.setText("No username entered");
+				Resources res = getResources();
+				String noUsernameEntered = res.getString(R.string.no_username_entered);
+				error.setText(noUsernameEntered);
 				error.setVisibility(View.VISIBLE);
 				EditText passwordEditText = (EditText)findViewById(R.id.password_input);
 				passwordEditText.setText(receivedIntent.getStringExtra(PASSWORD), EditText.BufferType.EDITABLE);

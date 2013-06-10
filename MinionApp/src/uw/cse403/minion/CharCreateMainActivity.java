@@ -21,6 +21,7 @@ import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
 
@@ -182,7 +183,9 @@ public class CharCreateMainActivity extends Activity {
 			UploadCharacterTask task = new UploadCharacterTask(this);
 			task.execute(username);
 		} else {
-			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+			Resources res = getResources();
+			String noNetwork = res.getString(R.string.no_network);
+			Toast.makeText(getApplicationContext(), noNetwork, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -210,7 +213,9 @@ public class CharCreateMainActivity extends Activity {
 		 */
 		@Override
 		protected void onPreExecute() {
-			this.dialog.setMessage("Uploading character...");
+			Resources res = getResources();
+			String uploadingChar = res.getString(R.string.uploading_char);
+			this.dialog.setMessage(uploadingChar);
 			this.dialog.show();
 		}
 

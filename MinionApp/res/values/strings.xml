@@ -63,7 +63,7 @@
     <string name="new_password_input">Input new password</string>
     <string name="answer_button">Answer</string>
     <string name="title_activity_new_password_validator">NewPasswordValidatorActivity</string>
-    <string name="title_activity_recovery_question">RecoveryQuestionActivity</string>
+    <string name="title_activity_recovery_question">Password Recovery</string>
     <string name="title_activity_basic_info">Basic Info</string>
     <string name="alignment_prompt">Choose an alignment</string>
 
@@ -300,9 +300,9 @@
     <string name="group_enter_user_3">Enter User 3</string>
     <string name="group_enter_user_4">Enter User 4</string>
     <string name="group_enter_user_5">Enter User 5</string>
-    <string name="title_activity_group_create">GroupCreate</string>
-    <string name="title_activity_view_group">ViewGroupActivity</string>
-    <string name="title_activity_edit_group">EditGroupActivity</string>
+    <string name="title_activity_group_create">Group Creation</string>
+    <string name="title_activity_view_group">View Group</string>
+    <string name="title_activity_edit_group">Edit Group</string>
     <string name="save">Save</string>
     <string name="zero">0</string>
     <string name="button_test">Test GUI</string>
@@ -310,7 +310,30 @@
     <string name="remove_user">Remove User</string>
     <string name="invite_user">Invite User</string>
     <string name="finish_editing">Finish</string>
-    <string name="title_activity_load_characters">LoadCharactersActivity</string>
+    <string name="title_activity_load_characters">Load Characters</string>
+    
+    <string name="add">Add</string>
+    <string name="ein"></string>
+    <string name="send_new_invites_for">Send new invites for </string>
+    <string name="enter_valid_group_name">Enter a valid group name</string>
+    <string name="cannot_add_self">Cannot add yourself to a group</string>
+    <string name="must_input">Must input usernames for all fields</string>
+    <string name="no_network">No network available</string>
+    <string name="no_character">You have no character with which to play with! Please go create a character!</string>
+    <string name="no_char_warning">No Characters Warning</string>
+    <string name="no_username_entered">No username entered</string>
+    <string name="uploading_char">Uploading character&#8230;</string>
+    <string name="pick_char">Pick a character</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+    <string name="remove_player">Remove Player</string>
+    <string name="make_gm">Make GM</string>
+    <string name="edit">Edit</string>
+    <string name="gm_colon">Game Master:</string>
+    <string name="players">Players</string>
+    
+    <string name="game_master">Game Master</string>
+    <string name="meters">m</string>
 
     <string name="game_master">"Game Master</string>
 </resources>

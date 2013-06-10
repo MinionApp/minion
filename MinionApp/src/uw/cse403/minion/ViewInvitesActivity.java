@@ -19,6 +19,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -176,8 +177,11 @@ public class ViewInvitesActivity extends ListActivity {
 
 		if(characterList.size() == 0) {
 			AlertDialog.Builder noCharactersBuilder = new AlertDialog.Builder(this);
-			noCharactersBuilder.setMessage("You have no character with which to play with! Please go create a character!");
-			noCharactersBuilder.setTitle("No Characters Warning");
+			Resources res = getResources();
+			String noCharacter = res.getString(R.string.no_character);
+			String noCharWarning = res.getString(R.string.no_char_warning);
+			noCharactersBuilder.setMessage(noCharacter);
+			noCharactersBuilder.setTitle(noCharWarning);
 			noCharactersBuilder.setPositiveButton("Ok",
 					new DialogInterface.OnClickListener() {
 				@Override
@@ -190,7 +194,9 @@ public class ViewInvitesActivity extends ListActivity {
 			noCharactersAlert.show();
 		} else {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Pick a Character");
+			Resources res = getResources();
+			String pickChar = res.getString(R.string.pick_char);
+			builder.setTitle(pickChar);
 
 			ListView modeList = new ListView(this);
 			ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, characterList);

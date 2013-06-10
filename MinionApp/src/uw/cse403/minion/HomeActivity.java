@@ -8,6 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,7 +56,9 @@ public class HomeActivity extends Activity {
 			GetNumberOfInvitesTask task = new GetNumberOfInvitesTask();
 			task.execute(username);
 		} else {
-			Toast.makeText(getApplicationContext(), "No network available", Toast.LENGTH_LONG).show();
+			Resources res = getResources();
+			String noNetwork = res.getString(R.string.no_network);
+			Toast.makeText(getApplicationContext(), noNetwork, Toast.LENGTH_LONG).show();
 		}
 		// Show the Up button in the action bar.
 		//setupActionBar();
@@ -111,7 +114,9 @@ public class HomeActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 		Button goToGroupsButton = (Button) findViewById(R.id.button2);
-		goToGroupsButton.setText("Manage Groups");
+		Resources res = getResources();
+		String manageGroups = res.getString(R.string.button_manage_groups);
+		goToGroupsButton.setText(manageGroups);
 		username = SaveSharedPreference.getPersistentUserName(HomeActivity.this);
 		GetNumberOfInvitesTask task = new GetNumberOfInvitesTask();
 		task.execute(username);
@@ -197,7 +202,9 @@ public class HomeActivity extends Activity {
 				int resultAsNumber = Integer.parseInt(result);
 				if(resultAsNumber > 0) {
 					Button goToGroupsButton = (Button) findViewById(R.id.button2);
-					goToGroupsButton.setText("Manage Groups (" + result + ")");
+					Resources res = getResources();
+					String manageGroups = res.getString(R.string.button_manage_groups);
+					goToGroupsButton.setText(manageGroups + " (" + result + ")");
 				}
 			} catch (Exception e) {
 
