@@ -72,7 +72,7 @@ public class SkillsAll {
 		
 		// map from skillID to ability score modifier
 //		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
-		int[] skillToAbMods = new int[Skill.NUM_SKILLS];
+		int[] skillToAbMods = new int[Skill.NUM_SKILLS + 1];
 		// get skillIDs and associated ability score IDs
 		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
 				null, null, null, null, null, null);
@@ -121,8 +121,8 @@ public class SkillsAll {
 //			Skill skill = allSkills.get(skillID);
 //			skill.writeToDB();
 //		}
-		for (Skill s : skills) {
-			s.writeToDB();
+		for (int i = 1; i < skills.length; i++) {
+			skills[i].writeToDB();
 		}
 	}
 }
