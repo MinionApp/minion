@@ -228,28 +228,20 @@ public class LoadCharactersActivity extends Activity {
 					for(int j = 0; j < abilitiesJSONArray.length(); j++) {
 						JSONObject singleAbility = abilitiesJSONArray.getJSONObject(j);
 						String abilityName = singleAbility.getString("name");
-						AbilityName name;
 						int abilityID = -1;
 						if(abilityName.equals("STRENGTH")) {
-							name = AbilityName.STRENGTH;
 							abilityID = Ability.STRENGTH_ID;
 						} else if (abilityName.equals("DEXTERITY")) {
-							name = AbilityName.DEXTERITY;
 							abilityID = Ability.DEXTERITY_ID;
 						} else if (abilityName.equals("CONSTITUTION")) {
-							name = AbilityName.CONSTITUTION;
 							abilityID = Ability.CONSTITUTION_ID;
 						} else if (abilityName.equals("INTELLIGENCE")) {
-							name = AbilityName.INTELLIGENCE;
 							abilityID = Ability.INTELLIGENCE_ID;
 						} else if (abilityName.equals("WISDOM")) {
-							name = AbilityName.WISDOM;
 							abilityID = Ability.WISDOM_ID;
 						} else {
-							name = AbilityName.CHARISMA;
 							abilityID = Ability.CHARISMA_ID;
 						}
-						//Ability ability = new Ability(i, name, singleAbility.getInt("score"));
 						Ability ability = new Ability(i, abilityID);
 						ability.baseScore = singleAbility.getInt("score");
 						ability.writeToDB();
@@ -290,15 +282,6 @@ public class LoadCharactersActivity extends Activity {
 					for(int l = 0; l < savingThrowsJSONArray.length(); l++) {
 						JSONObject singleSavingThrow = savingThrowsJSONArray.getJSONObject(l);
 						int throwID = singleSavingThrow.getInt("ref_id");
-//						AbilityName name;
-//						int abilityID;
-//						if(throwID == 1) {
-//							name = AbilityName.CONSTITUTION;
-//						} else if (throwID == 2) {
-//							name = AbilityName.DEXTERITY;
-//						} else {
-//							name = AbilityName.WISDOM;
-//						}
 						SavingThrow savingThrow = new SavingThrow(i, throwID);
 						savingThrow.baseSave = singleSavingThrow.getInt("base_save");
 						savingThrow.addModifier("magic", singleSavingThrow.getInt("magic_mod"));

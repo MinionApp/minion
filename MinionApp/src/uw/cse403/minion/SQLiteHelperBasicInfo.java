@@ -135,34 +135,4 @@ public class SQLiteHelperBasicInfo extends SQLiteOpenHelper implements SQLiteHel
 		}
 		cursor.close();
 	}
-
-	/**
-	 * Get the name of all columns in the basic info table
-	 * @return an array of column names
-	 */
-	@Override
-	public String[] getColumns() {
-		return ALL_COLUMNS;
-	}
-
-	/**
-	 * Get the table name for the basic info table
-	 * @return the table name
-	 */
-	@Override
-	public String getTableName() {
-		return TABLE_NAME;
-	}
-
-
-	/**
-	 * Get the database in use
-	 * @return db the database in use
-	 */
-	@Override
-	public SQLiteDatabase getDB() {
-		return db;
-	}
-
-
 }

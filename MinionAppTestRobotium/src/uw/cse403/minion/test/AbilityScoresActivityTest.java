@@ -3,7 +3,6 @@ package uw.cse403.minion.test;
 import com.jayway.android.robotium.solo.Solo;
 
 import uw.cse403.minion.AbilityScoresActivity;
-import uw.cse403.minion.BasicInfoActivity;
 import uw.cse403.minion.CharCreateMainActivity;
 import uw.cse403.minion.CharactersActivity;
 import uw.cse403.minion.SaveSharedPreference;

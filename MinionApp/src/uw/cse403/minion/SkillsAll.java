@@ -1,8 +1,5 @@
 package uw.cse403.minion;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.database.Cursor;
 
 public class SkillsAll {
@@ -11,29 +8,56 @@ public class SkillsAll {
 	public boolean isNew; 
 	
 	// map from skillID to Skill object
-	private Map<Integer, Skill> allSkills;
+//	private Map<Integer, Skill> allSkills;
+	private Skill[] skills;
 	
+	/**
+	 * Constructs new SKillsAll object which contains all Skills
+	 * @param charID id of character
+	 */
 	public SkillsAll(long charID){
 		this.charID = charID;
-		this.allSkills = new HashMap<Integer, Skill>();
+//		this.allSkills = new HashMap<Integer, Skill>();
+		skills = new Skill[Skill.NUM_SKILLS + 1];
+		// skills are 1-indexed
 		
 		if (charID >= 0) {
 			loadFromDB();
 		}
 	}
 	
+	/**
+	 * Returns Skill object corresponding to the skill ID number
+	 * @param skillID id of skill
+	 * @return Skill object with skillID
+	 */
 	public Skill getSkill(int skillID) {
-		return allSkills.get(skillID);
+//		return allSkills.get(skillID);
+		return skills[skillID];
 	}
 	
+	/**
+	 * Adds Skill to this object. Will replace any Skill with the same skillID
+	 * @param skill Skill object to add
+	 */
 	public void addSkill(Skill skill) {
-		allSkills.put(skill.skillID, skill);
+//		allSkills.put(skill.skillID, skill);
+		skills[skill.skillID] = skill; 
 	}
 	
+	/** 
+	 * Clears this SkillsAll object
+	 */
 	public void clear() {
-		allSkills.clear();
+//		allSkills.clear();
+		for (int i = 0; i < skills.length; i++) {
+			skills[i] = null;
+		}
 	}
 	
+	/**
+	 * Loads Skills from local database
+	 */
 	private void loadFromDB() {
 		isNew = true;
 		// get ability scores
@@ -47,7 +71,8 @@ public class SkillsAll {
 		abilities[5] = new Ability(charID, Ability.CHARISMA_ID);
 		
 		// map from skillID to ability score modifier
-		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
+//		Map<Integer, Integer> skillToAbMod = new HashMap<Integer, Integer>();
+		int[] skillToAbMods = new int[Skill.NUM_SKILLS];
 		// get skillIDs and associated ability score IDs
 		Cursor cursor = SQLiteHelperRefTables.db.query(SQLiteHelperRefTables.TABLE_REF_SKILLS, 
 				null, null, null, null, null, null);
@@ -55,7 +80,8 @@ public class SkillsAll {
 		if (cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) {
 				int abScoreID = cursor.getInt(2);
-				skillToAbMod.put(cursor.getInt(0), abilities[abScoreID].getMod());
+//				skillToAbMod.put(cursor.getInt(0), abilities[abScoreID].getMod());
+				skillToAbMods[cursor.getInt(0)] = abilities[abScoreID].getMod();
 				cursor.moveToNext();
 			}
 		}
@@ -73,7 +99,8 @@ public class SkillsAll {
 				skill.title = cursor2.getString(2);
 				skill.rank = cursor2.getInt(3);
 				skill.miscMod = cursor2.getInt(4);
-				skill.abMod = skillToAbMod.get(skillID);
+//				skill.abMod = skillToAbMod.get(skillID);
+				skill.abMod = skillToAbMods[skillID];
 				
 				addSkill(skill);
 				cursor2.moveToNext();
@@ -90,9 +117,12 @@ public class SkillsAll {
 		SQLiteHelperSkills.db.delete(SQLiteHelperSkills.TABLE_NAME,
 				SQLiteHelperSkills.COLUMN_CHAR_ID + " = " + charID, null);
 		// write new data to DB
-		for (int skillID : allSkills.keySet()) {
-			Skill skill = allSkills.get(skillID);
-			skill.writeToDB();
+//		for (int skillID : allSkills.keySet()) {
+//			Skill skill = allSkills.get(skillID);
+//			skill.writeToDB();
+//		}
+		for (Skill s : skills) {
+			s.writeToDB();
 		}
 	}
 }

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;

@@ -2,7 +2,6 @@ package uw.cse403.minion;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Debug;
 
 /**
@@ -43,21 +42,6 @@ public class CharacterDescription {
 	 */
 	public CharacterDescription(long id) {
 		charID = id;
-		// set defaults
-		name = "";
-		player = "";
-		alignment = "";
-		size = "";
-		level = 0;
-		deity = "";
-		homeLand = "";
-		gender = "";
-		race = "";
-		age = 0;
-		height = 0;
-		weight = 0;
-		hair = "";
-		eyes = "";
 
 		if (TraceControl.TRACE)
 			Debug.startMethodTracing("CharacterDescription_constructor");
@@ -111,7 +95,9 @@ public class CharacterDescription {
 	 * @param db database to write into
 	 */
 	public void writeToDB() {
-		SQLiteDatabase db = SQLiteHelperBasicInfo.db;
+		// remove old data
+		SQLiteHelperBasicInfo.db.delete(SQLiteHelperBasicInfo.TABLE_NAME,
+				SQLiteHelperBasicInfo.COLUMN_ID + " = " + charID, null);
 
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperBasicInfo.COLUMN_NAME, name);
@@ -129,10 +115,12 @@ public class CharacterDescription {
 		values.put(SQLiteHelperBasicInfo.COLUMN_HAIR, hair);
 		values.put(SQLiteHelperBasicInfo.COLUMN_EYES, eyes);
 
-		if (isNew) {
-			db.insert(SQLiteHelperBasicInfo.TABLE_NAME, null, values);
-		} else {
-			db.update(SQLiteHelperBasicInfo.TABLE_NAME, values, SQLiteHelperBasicInfo.COLUMN_ID + " = " + charID, null);
-		}
+//		if (isNew) {
+//			db.insert(SQLiteHelperBasicInfo.TABLE_NAME, null, values);
+//		} else {
+//			db.update(SQLiteHelperBasicInfo.TABLE_NAME, values, SQLiteHelperBasicInfo.COLUMN_ID + " = " + charID, null);
+//		}
+		
+		SQLiteHelperBasicInfo.db.insert(SQLiteHelperBasicInfo.TABLE_NAME, null, values);
 	}
 }

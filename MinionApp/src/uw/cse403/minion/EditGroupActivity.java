@@ -63,8 +63,6 @@ public class EditGroupActivity extends ListActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_group);
-		// Show the Up button in the action bar.
-		setupActionBar();
 		Intent i = getIntent();
 		username = SaveSharedPreference.getPersistentUserName(EditGroupActivity.this);
 		groupName = i.getExtras().getString(GROUPNAME);

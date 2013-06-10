@@ -35,11 +35,7 @@
         </activity>
         <activity
             android:name="uw.cse403.minion.HomeActivity"
-            android:label="@string/title_activity_home"
-            android:parentActivityName="uw.cse403.minion.LoginActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.myfirstapp.LoginActivity" />
+            android:label="@string/title_activity_home" >
         </activity>
         <activity
             android:name="uw.cse403.minion.SQLiteTestActivity"
@@ -142,11 +138,19 @@
         </activity>
         <activity
             android:name="uw.cse403.minion.ViewInvitesActivity"
-            android:label="@string/title_activity_view_invites" >
+            android:label="@string/title_activity_view_invites"
+            android:parentActivityName="uw.cse403.minion.GroupsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.GroupsActivity" />
         </activity>
         <activity
             android:name="uw.cse403.minion.ViewGroupActivity"
-            android:label="@string/title_activity_view_group" >
+            android:label="@string/title_activity_view_group"
+            android:parentActivityName="uw.cse403.minion.GroupsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.myfirstapp.GroupsActivity" />
         </activity>
         <activity
             android:name="uw.cse403.minion.EditGroupActivity"

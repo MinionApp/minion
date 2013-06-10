@@ -94,6 +94,8 @@ public class ViewInvitesActivity extends ListActivity {
 		GetInvitesTask task = new GetInvitesTask(this);
 		task.execute(username);
 		
+		setupActionBar();
+		
 		if (TraceControl.TRACE)
 			Debug.stopMethodTracing();
 	}

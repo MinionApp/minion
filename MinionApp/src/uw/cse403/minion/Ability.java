@@ -81,10 +81,10 @@ public class Ability {
 		
 		isNew = true;
 		// attempt to load from DB
-		Cursor cursor = SQLiteHelperAbilityScores.db.query(SQLiteHelperAbilityScores.TABLE_NAME, 
-				SQLiteHelperAbilityScores.ALL_COLUMNS, SQLiteHelperAbilityScores.COLUMN_CHAR_ID 
-				+ " = " + charID + " AND " + SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = "
-				+ abilityID, null, null, null, null);
+		Cursor cursor = SQLiteHelperAbilityScores.db.query(SQLiteHelperAbilityScores.TABLE_NAME, null, 
+				SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID + " AND " 
+				+ SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = " + abilityID, 
+				null, null, null, null);
 		System.out.println("Querying charID=" + charID + " abilityID=" + abilityID);
 		if (cursor.moveToFirst()) {
 			isNew = false;
@@ -98,29 +98,6 @@ public class Ability {
 		if (TraceControl.TRACE)
 			Debug.stopMethodTracing();
 	}
-
-//	/**
-//	 * Get the current base stat for the ability, not including any temporary
-//	 * modifiers to the base stat
-//	 * 
-//	 * @return an int ability score with no temp modifiers
-//	 */
-//	public int getBase(){
-//		return baseScore;
-//	}
-//
-//	/**
-//	 * Sets base stat to the given value permanently
-//	 * 
-//	 * @param newBase	an int whose value set over the old base stat
-//	 * @modifies this
-//	 */
-//	public void setBase(int newBase){
-//		baseScore = newBase;
-//		if (baseScore < 0) {
-//			baseScore = 0;
-//		}
-//	}
 
 	/**
 	 * Gets the total ability score including the base stat value and all
@@ -181,19 +158,14 @@ public class Ability {
 	public void writeToDB() {
 		// remove old data from DB
 		SQLiteHelperAbilityScores.db.delete(SQLiteHelperAbilityScores.TABLE_NAME, 
-				SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID, null);
+				SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID + " AND " 
+				+ SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = " + abilityID, null);
 		// write new data to DB
 		ContentValues values = new ContentValues();
 		values.put(SQLiteHelperAbilityScores.COLUMN_CHAR_ID, charID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_REF_AS_ID, abilityID);
 		values.put(SQLiteHelperAbilityScores.COLUMN_BASE, baseScore);
 		values.put(SQLiteHelperAbilityScores.COLUMN_TEMP, tempMod);
-//		if (isNew) {
-//			db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
-//		} else {
-//			db.update(SQLiteHelperAbilityScores.TABLE_NAME, values, SQLiteHelperAbilityScores.COLUMN_CHAR_ID + " = " + charID 
-//					+ " AND " + SQLiteHelperAbilityScores.COLUMN_REF_AS_ID + " = " + abilityID, null);
-//		}
 		
 		SQLiteHelperAbilityScores.db.insert(SQLiteHelperAbilityScores.TABLE_NAME, null, values);
 

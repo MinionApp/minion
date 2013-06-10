@@ -321,10 +321,8 @@ public class AbilityScoresActivity extends Activity {
 		if (!chaTempRaw.matches("")) {
 			Integer chaTemp = Integer.parseInt(chaTempRaw);
 			cha.tempMod = chaTemp;
-
 		}
 
 		return cha;
 	}
-
 }
