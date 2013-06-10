@@ -28,7 +28,7 @@ public class GroupsActivityTest extends
 	@Override
 	protected void setUp() throws Exception {
 		solo = new Solo(getInstrumentation(), getActivity());
-		SaveSharedPreference.setUserName(getActivity(), VALID_USERNAME);		
+		SaveSharedPreference.setPersistentUserName(getActivity(), VALID_USERNAME);		
 	}
 	
 	public void testProperButtonsDisplayed(){
