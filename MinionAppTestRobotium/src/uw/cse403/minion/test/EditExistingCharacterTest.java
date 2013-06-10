@@ -2,6 +2,7 @@ package uw.cse403.minion.test;
 import com.jayway.android.robotium.solo.Solo;
 
 import uw.cse403.minion.AbilityScoresActivity;
+import uw.cse403.minion.BasicInfoActivity;
 import uw.cse403.minion.CharCreateMainActivity;
 import uw.cse403.minion.CharacterDataSource;
 import uw.cse403.minion.CharactersActivity;
@@ -71,7 +72,6 @@ public class EditExistingCharacterTest extends
 		//Edit Character
 		solo.clickOnText(CHAR_NAME);
 		
-		/*
 		//Edit some Basic Info
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_basic_info));
 		solo.assertCurrentActivity("basic info", BasicInfoActivity.class);
@@ -82,7 +82,6 @@ public class EditExistingCharacterTest extends
 	
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.save));
 		solo.assertCurrentActivity("save basic info", CharCreateMainActivity.class);
-		*/
 		
 		//Assert Ability Score stuff has been saved properly
 		solo.clickOnButton(solo.getString(uw.cse403.minion.R.string.button_ability_scores));

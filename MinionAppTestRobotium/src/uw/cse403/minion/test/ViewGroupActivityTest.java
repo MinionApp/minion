@@ -1,7 +1,6 @@
 package uw.cse403.minion.test;
 
 import junit.framework.Assert;
-import uw.cse403.minion.CharCreateMainActivity;
 import uw.cse403.minion.SaveSharedPreference;
 import uw.cse403.minion.ViewGroupActivity;
 import android.content.Intent;

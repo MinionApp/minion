@@ -18,7 +18,7 @@ import com.jayway.android.robotium.solo.Solo;
  */
 public class SignupActivityTest extends ActivityInstrumentationTestCase2<SignupActivity> {
 	private static final int SPINNER_INDEX = 0;
-	private static final String SPINNER_QUESTION_1 = "What is your favorite color?";
+	private static String SPINNER_QUESTION_1;
 	private static final String USED_USERNAME = "test";
 	private static final String UNUSED_USERNAME = "marysignuptest";
 	private static final String VALID_PASSWORD = "abcDEF123@";

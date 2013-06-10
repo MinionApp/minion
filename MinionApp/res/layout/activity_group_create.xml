@@ -55,7 +55,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
 	        android:layout_below="@id/users"
-	        android:text="Add" />
+	        android:text="@string/add" />
 	
 	    <Button
 	        android:id="@+id/create_group_button"
