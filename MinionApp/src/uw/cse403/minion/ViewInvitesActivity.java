@@ -212,7 +212,8 @@ public class ViewInvitesActivity extends ListActivity {
 					// When clicked, show a toast with the TextView text
 					character = ((TextView) view).getText().toString();
 					dialog.dismiss();
-					group = (String) getListView().getItemAtPosition(position);
+					TextView groupTextView = (TextView) getListView().findViewById(R.id.invite);
+					group = groupTextView.getText().toString();
 					acceptInviteTask task = new acceptInviteTask(view.getContext());
 					task.execute(username);
 				}
